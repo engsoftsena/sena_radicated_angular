@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
+import { IntDoctypeComponent } from './int-doctype.component';
 
-describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe('IntDoctypeComponent', () => {
+  let component: IntDoctypeComponent;
+  let fixture: ComponentFixture<IntDoctypeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      declarations: [ IntDoctypeComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(IntDoctypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

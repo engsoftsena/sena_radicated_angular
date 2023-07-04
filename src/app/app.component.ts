@@ -12,6 +12,6 @@ export class AppComponent {
   title = 'App Web';
 
   ngOnInit() {
-    this.router.navigate(['login']);
+    //this.router.navigate(['login']);
   }
 }

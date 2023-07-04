@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScriptsComponent } from './scripts.component';
+import { ExtScriptsComponent } from './ext-scripts.component';
 
-describe('ScriptsComponent', () => {
-  let component: ScriptsComponent;
-  let fixture: ComponentFixture<ScriptsComponent>;
+describe('ExtScriptsComponent', () => {
+  let component: ExtScriptsComponent;
+  let fixture: ComponentFixture<ExtScriptsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScriptsComponent ]
+      declarations: [ ExtScriptsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ScriptsComponent);
+    fixture = TestBed.createComponent(ExtScriptsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

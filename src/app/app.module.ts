@@ -6,26 +6,33 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { DoctypeComponent } from './structure/external/initial/doctype/doctype.component';
-import { HeaderComponent } from './structure/external/initial/header/header.component';
-import { FooterComponent } from './structure/external/terminal/footer/footer.component';
-import { ScriptsComponent } from './structure/external/terminal/scripts/scripts.component';
+import { ExtDoctypeComponent } from './structure/external/initial/ext-doctype/ext-doctype.component';
+import { ExtHeaderComponent } from './structure/external/initial/ext-header/ext-header.component';
+import { ExtFooterComponent } from './structure/external/terminal/ext-footer/ext-footer.component';
+import { ExtScriptsComponent } from './structure/external/terminal/ext-scripts/ext-scripts.component';
 
 import { LoginComponent } from './modules/external/login/login.component';
+
+import { IntDoctypeComponent } from './structure/internal/initial/int-doctype/int-doctype.component';
+
 import { UserDataComponent } from './modules/internal/user-data/user-data.component';
+import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
-    DoctypeComponent,
-    HeaderComponent,
-    FooterComponent,
-    ScriptsComponent,
+    ExtDoctypeComponent,
+    ExtHeaderComponent,
+    ExtFooterComponent,
+    ExtScriptsComponent,
 
     LoginComponent,
 
+    IntDoctypeComponent,
+
     UserDataComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

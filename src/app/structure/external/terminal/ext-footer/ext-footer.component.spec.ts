@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DoctypeComponent } from './doctype.component';
+import { ExtFooterComponent } from './ext-footer.component';
 
-describe('DoctypeComponent', () => {
-  let component: DoctypeComponent;
-  let fixture: ComponentFixture<DoctypeComponent>;
+describe('ExtFooterComponent', () => {
+  let component: ExtFooterComponent;
+  let fixture: ComponentFixture<ExtFooterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DoctypeComponent ]
+      declarations: [ ExtFooterComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DoctypeComponent);
+    fixture = TestBed.createComponent(ExtFooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
