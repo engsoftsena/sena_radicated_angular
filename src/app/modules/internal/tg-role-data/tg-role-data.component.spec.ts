@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserDataComponent } from './user-data.component';
+import { TgRoleDataComponent } from './tg-role-data.component';
 
-describe('UserDataComponent', () => {
-  let component: UserDataComponent;
-  let fixture: ComponentFixture<UserDataComponent>;
+describe('TgRoleDataComponent', () => {
+  let component: TgRoleDataComponent;
+  let fixture: ComponentFixture<TgRoleDataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserDataComponent ]
+      declarations: [ TgRoleDataComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UserDataComponent);
+    fixture = TestBed.createComponent(TgRoleDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -28,8 +28,9 @@ import { IntProfileComponent } from './structure/internal/terminal/int-modal/int
 import { IntLogoutComponent } from './structure/internal/terminal/int-modal/int-logout/int-logout.component';
 import { IntSettingComponent } from './structure/internal/terminal/int-modal/int-setting/int-setting.component';
 
-import { UserDataComponent } from './modules/internal/user-data/user-data.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
+import { TgRoleDataComponent } from './modules/internal/tg-role-data/tg-role-data.component';
+import { TgUserDataComponent } from './modules/internal/tg-user-data/tg-user-data.component';
 
 @NgModule({
   declarations: [
@@ -57,8 +58,9 @@ import { DashboardComponent } from './modules/internal/dashboard/dashboard.compo
     IntLogoutComponent,
     IntSettingComponent,
 
-    UserDataComponent,
     DashboardComponent,
+    TgRoleDataComponent,
+    TgUserDataComponent,
   ],
   imports: [
     BrowserModule,
