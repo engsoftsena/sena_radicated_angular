@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   constructor(private router: Router) {}
 
-  title = 'App Web';
+  title = 'APP PQRS';
 
   ngOnInit() {
     //this.router.navigate(['login']);
