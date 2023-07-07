@@ -5,10 +5,10 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require('../settings/configuration.php');
 
 $query = "SELECT * FROM tg_user_data";
-$response = mysqli_query($connect, $query) or die('Error en la consulta query');
+$sql = mysqli_query($connect, $query) or die('Error: Query Consulta Fallida');
 
 $data = [];
-while ($register = mysqli_fetch_array($response)) {
+while ($register = mysqli_fetch_array($sql)) {
   $data[] = $register;
 }
 
