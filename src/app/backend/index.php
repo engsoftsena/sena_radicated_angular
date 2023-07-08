@@ -31,6 +31,7 @@ $exQueryMySQLiController->store([
 $exQueryPDOController = new ExQueryPDOController();
 //$exQueryPDOController->index();
 $exQueryPDOController->column();
+//$exQueryPDOController->show(1);
 /*$exQueryPDOController->store([
   //'aa_identifier' => '',
   'ab_by_created' => '1',

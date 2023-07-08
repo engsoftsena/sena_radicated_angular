@@ -21,12 +21,20 @@ class ExQueryPDOController
   {
     $stmt = $this->connection->prepare("SELECT * FROM tg_role_data");
     $stmt->execute();
+    echo '<pre>';
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      var_dump($row);
+    }
+    echo '</pre>';
 
+    /*
     $results = $stmt->fetchAll();
-
+    echo '<pre>';
     foreach ($results as $result) {
       var_dump($result);
     }
+    echo '</pre>';
+    */
   }
 
   /**
@@ -37,13 +45,20 @@ class ExQueryPDOController
     $stmt = $this->connection->prepare("SELECT aa_identifier, ac_name FROM tg_role_data");
     $stmt->execute();
 
-    $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 1);
 
+    echo '<pre>';
     var_dump($results);
+    echo '</pre>';
 
+    echo '<br>';
+    echo '<br>';
+
+    echo '<pre>';
     foreach ($results as $result) {
       var_dump($result);
     }
+    echo '</pre>';
   }
 
   /**
@@ -108,8 +123,14 @@ class ExQueryPDOController
   /**
    * Visualizar un unico recurso especificado
    */
-  public function show()
+  public function show($id)
   {
+    $stmt = $this->connection->prepare("SELECT * FROM tg_role_data WHERE aa_identifier = :id");
+    $stmt->execute([':id' => $id]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    echo '<pre>';
+    var_dump($result);
+    echo '</pre>';
   }
 
   /**

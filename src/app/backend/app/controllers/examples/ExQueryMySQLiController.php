@@ -6,6 +6,13 @@ use Database\MySQLi\Connection;
 
 class ExQueryMySQLiController
 {
+  private $connection;
+
+  public function __construct()
+  {
+    $this->connection = Connection::getInstance()->getDatabaseInstance();;
+  }
+
   /**
    * Visualizar una lista del recurso
    */
@@ -25,9 +32,7 @@ class ExQueryMySQLiController
    */
   public function store($data)
   {
-    $connection = Connection::getInstance()->getDatabaseInstance();
-
-    $stmt = $connection->prepare(
+    $stmt = $this->connection->prepare(
       "INSERT INTO tg_role_data (
         ab_by_created,
         ab_by_modified,
