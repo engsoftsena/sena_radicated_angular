@@ -19,7 +19,9 @@ class ExQueryPDOController
    */
   public function index()
   {
-    $stmt = $this->connection->prepare("SELECT * FROM tg_role_data");
+    $stmt = $this->connection->prepare("
+      SELECT * FROM tg_role_data
+    ");
     $stmt->execute();
 
     echo '<b>HTML: while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {}</b>';
@@ -59,7 +61,10 @@ class ExQueryPDOController
    */
   public function column()
   {
-    $stmt = $this->connection->prepare("SELECT aa_identifier, ac_name FROM tg_role_data");
+    $stmt = $this->connection->prepare("
+      SELECT aa_identifier, ac_name
+      FROM tg_role_data
+    ");
     $stmt->execute();
 
     $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 1);
@@ -93,36 +98,35 @@ class ExQueryPDOController
    */
   public function store($data)
   {
-    $stmt = $this->connection->prepare(
-      "INSERT INTO tg_role_data (
-          ab_by_created,
-          ab_by_modified,
-          ab_date_created,
-          ab_date_modified,
-          ab_deleted,
-          ab_description,
-          ab_import,
-          ab_level,
-          ab_record,
-          ab_status,
-          ab_temp,
-          ac_name
-        ) VALUES (
-          :ab_by_created,
-          :ab_by_modified,
-          :ab_date_created,
-          :ab_date_modified,
-          :ab_deleted,
-          :ab_description,
-          :ab_import,
-          :ab_level,
-          :ab_record,
-          :ab_status,
-          :ab_temp,
-          :ac_name
-        );
-      "
-    );
+    $stmt = $this->connection->prepare("
+      INSERT INTO tg_role_data (
+        ab_by_created,
+        ab_by_modified,
+        ab_date_created,
+        ab_date_modified,
+        ab_deleted,
+        ab_description,
+        ab_import,
+        ab_level,
+        ab_record,
+        ab_status,
+        ab_temp,
+        ac_name
+      ) VALUES (
+        :ab_by_created,
+        :ab_by_modified,
+        :ab_date_created,
+        :ab_date_modified,
+        :ab_deleted,
+        :ab_description,
+        :ab_import,
+        :ab_level,
+        :ab_record,
+        :ab_status,
+        :ab_temp,
+        :ac_name
+      );
+    ");
 
     $stmt->bindValue(':ab_by_created', $data['ab_by_created']);
     $stmt->bindValue(':ab_by_modified', $data['ab_by_modified']);
@@ -145,8 +149,13 @@ class ExQueryPDOController
    */
   public function show($id)
   {
-    $stmt = $this->connection->prepare("SELECT * FROM tg_role_data WHERE aa_identifier = :id");
-    $stmt->execute([':id' => $id]);
+    $stmt = $this->connection->prepare("
+      SELECT * FROM tg_role_data
+      WHERE aa_identifier = :id
+    ");
+    $stmt->execute([
+      ':id' => $id
+    ]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     echo '<b>HTML: $result = $stmt->fetch(PDO::FETCH_ASSOC);</b>';
@@ -174,8 +183,26 @@ class ExQueryPDOController
   /**
    * Eliminar un recurso especifico de la base de datos
    */
-  public function destroy()
+  public function destroy($id)
   {
+    $this->connection->beginTransaction();
+    $stmt = $this->connection->prepare("
+      DELETE FROM tg_role_data
+      WHERE aa_identifier = :id
+    ");
+    $stmt->execute([
+      ':id' => $id
+    ]);
+    $sure = readLine('Confirmar Eliminacion del Registro: [no,si]');
+    if ($sure == 'no') {
+      // Revertir Transaccion
+      $this->connection->rollBack();
+    }
+
+    if ($sure == 'si') {
+      // Completar Transaccion
+      $this->connection->commit();
+    }
   }
 }
 

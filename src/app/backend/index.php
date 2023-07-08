@@ -30,7 +30,7 @@ $exQueryMySQLiController->store([
 
 $exQueryPDOController = new ExQueryPDOController();
 
-echo '<h2>HTML: $exQueryPDOController->index();</h2>';
+/*echo '<h2>HTML: $exQueryPDOController->index();</h2>';
 $exQueryPDOController->index();
 echo '<hr>';
 
@@ -40,7 +40,11 @@ echo '<hr>';
 
 echo '<h2>HTML: $exQueryPDOController->show();</h2>';
 $exQueryPDOController->show(1);
-echo '<hr>';
+echo '<hr>';*/
+
+//echo '<h2>HTML: $exQueryPDOController->destroy();</h2>';
+$exQueryPDOController->destroy(2);
+//echo '<hr>';
 
 /*$exQueryPDOController->store([
   //'aa_identifier' => '',
