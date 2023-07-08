@@ -26,7 +26,7 @@ class ExQueryPDOController
   public function store($data)
   {
     $connection = Connection::getInstance()->getDatabaseInstance();
-    $affectedRows = $connection->exec(
+    $stmt = $connection->prepare(
       "INSERT INTO tg_role_data (
           ab_by_created,
           ab_by_modified,
@@ -41,23 +41,25 @@ class ExQueryPDOController
           ab_temp,
           ac_name
         ) VALUES (
-        '{$data['ab_by_created']}',
-        '{$data['ab_by_modified']}',
-        '{$data['ab_date_created']}',
-        '{$data['ab_date_modified']}',
-        '{$data['ab_deleted']}',
-        '{$data['ab_description']}',
-        '{$data['ab_import']}',
-        '{$data['ab_level']}',
-        '{$data['ab_record']}',
-        '{$data['ab_status']}',
-        '{$data['ab_temp']}',
-        '{$data['ac_name']}'
+          :ab_by_created,
+          :ab_by_modified,
+          :ab_date_created,
+          :ab_date_modified,
+          :ab_deleted,
+          :ab_description,
+          :ab_import,
+          :ab_level,
+          :ab_record,
+          :ab_status,
+          :ab_temp,
+          :ac_name
         );
       "
     );
 
-    echo 'PDO: Filas ' . $affectedRows . ' insertadas en la base de datos';
+    $stmt->execute($data);
+
+    //echo 'PDO: Filas ' . $stmt->affected_rows . ' insertadas en la base de datos';
   }
 
   /**
