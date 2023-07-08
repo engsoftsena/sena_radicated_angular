@@ -21,20 +21,37 @@ class ExQueryPDOController
   {
     $stmt = $this->connection->prepare("SELECT * FROM tg_role_data");
     $stmt->execute();
+
+    echo '<b>HTML: while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {}</b>';
+    echo '<br>';
+
     echo '<pre>';
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       var_dump($row);
     }
     echo '</pre>';
 
-    /*
+    /*echo '<b>HTML: while ($stmt->fetch(PDO::FETCH_ASSOC)) {}</b>';
+    echo '<br>';
+
+    $stmt->bindColumn('aa_identifier', $aa_identifier);
+    $stmt->bindColumn('ac_name', $ac_name);
+
+    echo '<pre>';
+    while ($stmt->fetch(PDO::FETCH_ASSOC)) {
+      echo $aa_identifier . ':' . $ac_name . '<br>';
+    }
+    echo '</pre>';*/
+
+    echo '<b>HTML: foreach ($results as $result) {}</b>';
+    echo '<br>';
+
     $results = $stmt->fetchAll();
     echo '<pre>';
     foreach ($results as $result) {
       var_dump($result);
     }
     echo '</pre>';
-    */
   }
 
   /**
@@ -47,11 +64,14 @@ class ExQueryPDOController
 
     $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 1);
 
+    echo '<b>HTML: $results = $stmt->fetchAll(PDO::FETCH_COLUMN, number);</b>';
+    echo '<br>';
+
     echo '<pre>';
     var_dump($results);
     echo '</pre>';
 
-    echo '<br>';
+    echo '<b>HTML: foreach ($results as $result) {}</b>';
     echo '<br>';
 
     echo '<pre>';
@@ -128,6 +148,10 @@ class ExQueryPDOController
     $stmt = $this->connection->prepare("SELECT * FROM tg_role_data WHERE aa_identifier = :id");
     $stmt->execute([':id' => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    echo '<b>HTML: $result = $stmt->fetch(PDO::FETCH_ASSOC);</b>';
+    echo '<br>';
+
     echo '<pre>';
     var_dump($result);
     echo '</pre>';

@@ -29,9 +29,19 @@ $exQueryMySQLiController->store([
 ]);*/
 
 $exQueryPDOController = new ExQueryPDOController();
-//$exQueryPDOController->index();
+
+echo '<h2>HTML: $exQueryPDOController->index();</h2>';
+$exQueryPDOController->index();
+echo '<hr>';
+
+echo '<h2>HTML: $exQueryPDOController->column();</h2>';
 $exQueryPDOController->column();
-//$exQueryPDOController->show(1);
+echo '<hr>';
+
+echo '<h2>HTML: $exQueryPDOController->show();</h2>';
+$exQueryPDOController->show(1);
+echo '<hr>';
+
 /*$exQueryPDOController->store([
   //'aa_identifier' => '',
   'ab_by_created' => '1',
