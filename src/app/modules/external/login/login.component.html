@@ -1,155 +1,134 @@
-<div class="container py-3">
-  <header>
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href="login.html" class="d-flex align-items-center link-body-emphasis text-decoration-none">
-        <img src="../../../../assets/integration/smart/dist/img/logo.svg" alt="" width="40" height="32" class="d-block my-1">
-        <span class="fs-4">APP PQRS</span>
-      </a>
-      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="external/login">
-          <span>Ingresar</span>
-        </a>
-        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="external/register">
-          <span>Registro</span>
-        </a>
-      </nav>
-    </div>
-  </header>
-</div>
-
-<div class="container py-3">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
-      <div aria-live="polite" aria-atomic="true" class="position-relative">
-        <div class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x">
-          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast">
-            <div class="toast-header">
-              <svg class="bd-placeholder-img rounded-0 me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <rect width="100%" height="100%" fill="#007aff"></rect>
-              </svg>
-              <strong class="me-auto">Bienvenido Usuario</strong>
-              <small class="text-muted">Justo Ahora</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-              Ingresa tus credenciales para tener acceso.
-            </div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+      <div class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x">
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast">
+          <div class="toast-header">
+            <svg class="bd-placeholder-img rounded-0 me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100%" height="100%" fill="#007aff"></rect>
+            </svg>
+            <strong class="me-auto">Bienvenido Usuario</strong>
+            <small class="text-muted">Justo Ahora</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
           </div>
-          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="liveToastTwo">
-            <div class="toast-header">
-              <svg class="bd-placeholder-img rounded-0 me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <rect width="100%" height="100%" fill="#007aff"></rect>
-              </svg>
-              <strong class="me-auto">Bienvenido Usuario</strong>
-              <small class="text-muted">Justo Ahora</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-              Otro Mensaje
-            </div>
+          <div class="toast-body">
+            Ingresa tus credenciales para tener acceso.
+          </div>
+        </div>
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="liveToastTwo">
+          <div class="toast-header">
+            <svg class="bd-placeholder-img rounded-0 me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100%" height="100%" fill="#007aff"></rect>
+            </svg>
+            <strong class="me-auto">Bienvenido Usuario</strong>
+            <small class="text-muted">Justo Ahora</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            Otro Mensaje
           </div>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
-      <div class="d-flex justify-content-center">
-        <form class="form-horizontal" role="form" enctype="application/x-www-form-urlencoded" id="form_zz_login">
-          <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog"
-            id="modalSignin">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content rounded-0 shadow">
-                <div class="modal-header pb-4 border-bottom-0"></div>
-                <div class="modal-body p-5 pt-0 text-center">
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
-                      <h1 class="fw-bold mb-0 fs-2 text-center">Ingreso Sistema</h1>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+    <div class="d-flex justify-content-center">
+      <form class="form-horizontal" role="form" enctype="application/x-www-form-urlencoded" id="form_zz_login">
+        <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog"
+          id="modalSignin">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-0 shadow">
+              <div class="modal-header pb-4 border-bottom-0"></div>
+              <div class="modal-body p-5 pt-0 text-center">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+                    <h1 class="fw-bold mb-0 fs-2 text-center">Ingreso Sistema</h1>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+                    <div class="hide" id="form_ajax_login"></div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-none">
+                    <div class="alert alert-danger alert-dismissable p-2 rounded-0">
+                      <strong>Error:</strong>
+                      <span>Haz ingresado incorrectamente al enlace proporcionado.</span>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
-                      <div class="hide" id="form_ajax_login"></div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3 d-none">
-                      <div class="alert alert-danger alert-dismissable p-2 rounded-0">
-                        <strong>Error:</strong>
-                        <span>Haz ingresado incorrectamente al enlace proporcionado.</span>
-                      </div>
 
-                      <div class="alert alert-success alert-dismissable p-2 rounded-0">
-                        <strong>Exito:</strong>
-                        <span>Tu contraseña fue restaurada correctamente.</span>
-                      </div>
+                    <div class="alert alert-success alert-dismissable p-2 rounded-0">
+                      <strong>Exito:</strong>
+                      <span>Tu contraseña fue restaurada correctamente.</span>
+                    </div>
 
-                      <div class="alert alert-danger alert-dismissable p-2 rounded-0">
-                        <strong>Error:</strong>
-                        <span>No se puedo realizar la accion del registro, vuleve a iniciar sesión nuevamente.</span>
-                      </div>
+                    <div class="alert alert-danger alert-dismissable p-2 rounded-0">
+                      <strong>Error:</strong>
+                      <span>No se puedo realizar la accion del registro, vuleve a iniciar sesión nuevamente.</span>
+                    </div>
 
-                      <div class="alert alert-danger alert-dismissable p-2 rounded-0">
-                        <strong>Error:</strong>
-                        <span>El enlace cargado no es el correcto, corrobora el enlace.</span>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
-                      <div class="form-group form-floating mb-3">
-                        <input type="text" name="field_login" id="field_login" class="form-control rounded-0"
-                          placeholder="Digita el texto ..." required="" autocomplete="off" />
-                        <label for="field_login">
-                          <span>Usuario:</span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
-                      <div class="form-group form-floating mb-3">
-                        <input type="password" name="field_password" id="field_password" class="form-control rounded-0"
-                          placeholder="Digita el texto ..." required="" autocomplete="off" />
-                        <label for="field_password">
-                          <span>Contraseña:</span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
-                      <div class="row mt-3">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
-                          <div class="form-group">
-                            <!--<button type="button" id="btn_zz_login"
-                              class="btn btn-md btn-block btn-primary btn-custom w-md w-100 rounded-0 waves-effect waves-light">
-                              <span>Loguearme</span>
-                            </button>-->
-                            <a href="#" [routerLink]="['../../internal/dashboard']"
-                              class="btn btn-md btn-block btn-primary btn-custom w-md w-100 rounded-0 waves-effect waves-light">
-                              <span>Loguearme</span>
-                            </a>
-                          </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
-                          <div class="form-group">
-                            <a href="recover"
-                              class="btn btn-md btn-block btn-warning btn-custom w-md w-100 rounded-0 waves-effect waves-light">
-                              <span>Recordarme</span>
-                            </a>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group">
-                              <a href="register" class="btn btn-md btn-block btn-success btn-custom w-md w-100 rounded-0 waves-effect waves-light">
-                                <span>Registrarme</span>
-                              </a>
-                            </div>
-                          </div>
-                      </div>
+                    <div class="alert alert-danger alert-dismissable p-2 rounded-0">
+                      <strong>Error:</strong>
+                      <span>El enlace cargado no es el correcto, corrobora el enlace.</span>
                     </div>
                   </div>
-                  <small class="text-body-dark">
-                    <span>Ingreso Permitido: Usuarios Registrados</span>
-                  </small>
-                  <hr class="my-4">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
+                    <div class="form-group form-floating mb-3">
+                      <input type="text" name="field_login" id="field_login" class="form-control rounded-0"
+                        placeholder="Digita el texto ..." required="" autocomplete="off" />
+                      <label for="field_login">
+                        <span>Usuario:</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
+                    <div class="form-group form-floating mb-3">
+                      <input type="password" name="field_password" id="field_password" class="form-control rounded-0"
+                        placeholder="Digita el texto ..." required="" autocomplete="off" />
+                      <label for="field_password">
+                        <span>Contraseña:</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
+                    <div class="row mt-3">
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+                        <div class="form-group">
+                          <!--<button type="button" id="btn_zz_login"
+                            class="btn btn-md btn-block btn-primary btn-custom w-md w-100 rounded-0 waves-effect waves-light">
+                            <span>Loguearme</span>
+                          </button>-->
+                          <a href="#" [routerLink]="['../../internal/dashboard']"
+                            class="btn btn-md btn-block btn-primary btn-custom w-md w-100 rounded-0 waves-effect waves-light">
+                            <span>Loguearme</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+                        <div class="form-group">
+                          <a href="recover"
+                            class="btn btn-md btn-block btn-warning btn-custom w-md w-100 rounded-0 waves-effect waves-light">
+                            <span>Recordarme</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                          <div class="form-group">
+                            <a href="register" class="btn btn-md btn-block btn-success btn-custom w-md w-100 rounded-0 waves-effect waves-light">
+                              <span>Registrarme</span>
+                            </a>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
+                <span>
+                  Ingreso Permitido: Usuarios Registrados
+                </span>
+                <hr class="my-4">
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

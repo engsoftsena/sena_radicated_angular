@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./external.component.scss']
 })
 export class ExternalComponent {
-
+  AppCompTitle = 'APP PQRS';
 }
