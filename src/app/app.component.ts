@@ -11,7 +11,8 @@ export class AppComponent {
 
   title = 'APP PQRS';
 
-  ngOnInit() {
+  /*ngOnInit() {
     //this.router.navigate(['login']);
-  }
+    //window.location.href = '/login';
+  }*/
 }
