@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Examples;
 
-class TgUserDataController
+use Database\PDO\Connection;
+
+class ExQueryPDOController
 {
   /**
    * Visualizar una lista del recurso
@@ -23,8 +25,39 @@ class TgUserDataController
    */
   public function store($data)
   {
-    //$connection = Connection::getInstance()->getDatabaseInstance();
-    //$connection->query("INSERT INTO tg_user_data")
+    $connection = Connection::getInstance()->getDatabaseInstance();
+    $affectedRows = $connection->exec(
+      "INSERT INTO tg_role_data (
+          ab_by_created,
+          ab_by_modified,
+          ab_date_created,
+          ab_date_modified,
+          ab_deleted,
+          ab_description,
+          ab_import,
+          ab_level,
+          ab_record,
+          ab_status,
+          ab_temp,
+          ac_name
+        ) VALUES (
+        '{$data['ab_by_created']}',
+        '{$data['ab_by_modified']}',
+        '{$data['ab_date_created']}',
+        '{$data['ab_date_modified']}',
+        '{$data['ab_deleted']}',
+        '{$data['ab_description']}',
+        '{$data['ab_import']}',
+        '{$data['ab_level']}',
+        '{$data['ab_record']}',
+        '{$data['ab_status']}',
+        '{$data['ab_temp']}',
+        '{$data['ac_name']}'
+        );
+      "
+    );
+
+    echo 'PDO: Filas ' . $affectedRows . ' insertadas en la base de datos';
   }
 
   /**

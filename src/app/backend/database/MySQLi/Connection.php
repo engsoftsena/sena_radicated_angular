@@ -45,11 +45,8 @@ class Connection
   {
     try {
       $mysqli = $this->createMySQLiConnection();
-
       $this->checkConnectionError($mysqli);
-
       $this->setConnectionCharset($mysqli);
-
       $this->connection = $mysqli;
     } catch (ConnectionException $e) {
       echo "Error de Conexión: " . $e->getMessage();

@@ -57,12 +57,11 @@ class Connection
     try {
       $connection = $this->createPDOConnection();
       $this->setConnectionCharset($connection);
+      $this->connection = $connection;
     } catch (PDOException $e) {
       echo "Error de Conexión: " . $e->getMessage();
     } catch (Exception $e) {
       echo "Error General: " . $e->getMessage();
-    } finally {
-      $connection = null;
     }
   }
 }

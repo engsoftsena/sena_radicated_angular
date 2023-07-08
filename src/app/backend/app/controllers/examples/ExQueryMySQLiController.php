@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Examples;
 
 use Database\MySQLi\Connection;
 
-class TgRoleDataController
+class ExQueryMySQLiController
 {
   /**
    * Visualizar una lista del recurso
@@ -26,9 +26,9 @@ class TgRoleDataController
   public function store($data)
   {
     $connection = Connection::getInstance()->getDatabaseInstance();
-    $connection->query(
-      "
-      INSERT INTO tg_role_data (
+
+    $stmt = $connection->prepare(
+      "INSERT INTO tg_role_data (
         ab_by_created,
         ab_by_modified,
         ab_date_created,
@@ -42,21 +42,54 @@ class TgRoleDataController
         ab_temp,
         ac_name
       ) VALUES (
-       '{$data['ab_by_created']}',
-       '{$data['ab_by_modified']}',
-       '{$data['ab_date_created']}',
-       '{$data['ab_date_modified']}',
-       '{$data['ab_deleted']}',
-       '{$data['ab_description']}',
-       '{$data['ab_import']}',
-       '{$data['ab_level']}',
-       '{$data['ab_record']}',
-       '{$data['ab_status']}',
-       '{$data['ab_temp']}',
-       '{$data['ac_name']}'
+       ?,
+       ?,
+       ?,
+       ?,
+       ?,
+       ?,
+       ?,
+       ?,
+       ?,
+       ?,
+       ?,
+       ?
       );
     "
     );
+
+    $ab_by_created = $data['ab_by_created'];
+    $ab_by_modified = $data['ab_by_modified'];
+    $ab_date_created = $data['ab_date_created'];
+    $ab_date_modified = $data['ab_date_modified'];
+    $ab_deleted = $data['ab_deleted'];
+    $ab_description = $data['ab_description'];
+    $ab_import = $data['ab_import'];
+    $ab_level = $data['ab_level'];
+    $ab_record = $data['ab_record'];
+    $ab_status = $data['ab_status'];
+    $ab_temp = $data['ab_temp'];
+    $ac_name = $data['ac_name'];
+
+    $stmt->bind_param(
+      "ssssssssssss",
+      $ab_by_created,
+      $ab_by_modified,
+      $ab_date_created,
+      $ab_date_modified,
+      $ab_deleted,
+      $ab_description,
+      $ab_import,
+      $ab_level,
+      $ab_record,
+      $ab_status,
+      $ab_temp,
+      $ac_name,
+    );
+
+    $stmt->execute();
+
+    echo 'MySQLi: Filas ' . $stmt->affected_rows . ' insertadas en la base de datos';
   }
 
   /**
