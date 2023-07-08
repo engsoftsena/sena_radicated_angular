@@ -1,13 +1,18 @@
 {
-    "name": "adiso/backend",
-    "description": "Proyecto Sena + PHP + Base de Datos (MySQL)",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "adisonzenemij",
-            "email": "adisonzenemij@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "adiso/backend",
+  "description": "Proyecto Sena + PHP + Base de Datos (MySQL)",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "adisonzenemij",
+          "email": "adisonzenemij@gmail.com"
+      }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Database\\": "database/"
+    }
+  }
 }

@@ -1,28 +1,68 @@
 <?php
-//require('../../setting/Credential.php');
 
-try {
-  $host = CREDENTIAL['host'];
-  $port = CREDENTIAL['port'];
-  $database = CREDENTIAL['base'];
+namespace Database\PDO;
 
-  $dsn = "mysql:host=$host;port=$port;dbname=$database";
-  $connection = new PDO($dsn, CREDENTIAL['user'], CREDENTIAL['pass']);
+use Exception;
+use PDO;
+use PDOException;
 
-  $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $connection->exec("SET NAMES 'utf8'");
+class Connection
+{
+  private static $instance;
+  private $connection;
 
-  $setnames = $connection->prepare("SET NAMES 'utf8'");
-  $setnames->execute();
+  private function __construct()
+  {
+    $this->makeConnection();
+  }
 
-  var_dump($setnames);
-} catch (PDOException $e) {
-  echo "Error de Conexión: " . $e->getMessage();
-} catch (Exception $e) {
-  echo "Error General: " . $e->getMessage();
-} finally {
-  // Acciones a realizar después del bloque try-catch, se ejecutarán siempre
-  // Independientemente de si se lanzó una excepción o no.
-  // Esto podría incluir cierre de conexiones, liberación de recursos, etc.
-  $connection = null;
+  public static function getInstance()
+  {
+    if (!self::$instance instanceof self) {
+      self::$instance = new self();
+    }
+    return self::$instance;
+  }
+
+  public function getDatabaseInstance()
+  {
+    return $this->connection;
+  }
+
+  private function createPDOConnection()
+  {
+    $host = CREDENTIAL['host'];
+    $port = CREDENTIAL['port'];
+    $base = CREDENTIAL['base'];
+    $user = CREDENTIAL['user'];
+    $pass = CREDENTIAL['pass'];
+
+    $dsn = "mysql:host=$host;port=$port;dbname=$base";
+    $options = [
+      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+      PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
+    ];
+
+    return new PDO($dsn, $user, $pass, $options);
+  }
+
+  private function setConnectionCharset(PDO $connection): void
+  {
+    $setnames = $connection->prepare("SET NAMES 'utf8'");
+    $setnames->execute();
+  }
+
+  private function makeConnection(): void
+  {
+    try {
+      $connection = $this->createPDOConnection();
+      $this->setConnectionCharset($connection);
+    } catch (PDOException $e) {
+      echo "Error de Conexión: " . $e->getMessage();
+    } catch (Exception $e) {
+      echo "Error General: " . $e->getMessage();
+    } finally {
+      $connection = null;
+    }
+  }
 }
