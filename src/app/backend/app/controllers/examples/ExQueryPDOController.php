@@ -49,6 +49,7 @@ class ExQueryPDOController
    */
   public function create()
   {
+    require('../resources/views/exquerypdo/create.php');
   }
 
   /**
@@ -93,14 +94,14 @@ class ExQueryPDOController
     ");
     $stmt->execute();
 
-    echo '<b>HTML: while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {}</b>';
+    /*echo '<b>HTML: while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {}</b>';
     echo '<br>';
 
     echo '<pre>';
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       var_dump($row);
     }
-    echo '</pre>';
+    echo '</pre>';*/
 
     /*echo '<b>HTML: while ($stmt->fetch(PDO::FETCH_ASSOC)) {}</b>';
     echo '<br>';
@@ -114,15 +115,18 @@ class ExQueryPDOController
     }
     echo '</pre>';*/
 
-    echo '<b>HTML: foreach ($results as $result) {}</b>';
-    echo '<br>';
+    /*echo '<b>HTML: foreach ($results as $result) {}</b>';
+    echo '<br>';*/
 
     $results = $stmt->fetchAll();
-    echo '<pre>';
+
+    require('../resources/views/exquerypdo/index.php');
+
+    /*echo '<pre>';
     foreach ($results as $result) {
       var_dump($result);
     }
-    echo '</pre>';
+    echo '</pre>';*/
   }
 
   /**
@@ -195,7 +199,8 @@ class ExQueryPDOController
     $stmt->bindValue(':ab_temp', $data['ab_temp']);
     $stmt->bindValue(':ac_name', $data['ac_name']);
 
-    $stmt->execute($data);
+    $stmt->execute();
+    header('location: ' . URL . 'exquerypdo');
   }
 
   /**

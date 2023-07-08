@@ -1,7 +1,6 @@
 <?php
 
-require_once('../setting/TimeZone.php');
-require_once('../setting/Credential.php');
+require_once('../setting/Configuration.php');
 require('../vendor/autoload.php');
 
 use App\Controllers\Examples\ExQueryMySQLiController;

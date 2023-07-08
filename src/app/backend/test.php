@@ -6,10 +6,10 @@ require_once('setting/Credential.php');
 //use App\Controllers\TgRoleDataController;
 //use App\Controllers\TgUserDataController;
 
+require('vendor/autoload.php');
+
 use App\Controllers\Examples\ExQueryMySQLiController;
 use App\Controllers\Examples\ExQueryPDOController;
-
-require('vendor/autoload.php');
 
 /*$exQueryMySQLiController = new ExQueryMySQLiController();
 $exQueryMySQLiController->store([
