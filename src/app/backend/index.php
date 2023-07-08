@@ -30,7 +30,7 @@ $exQueryMySQLiController->store([
 
 $exQueryPDOController = new ExQueryPDOController();
 
-/*echo '<h2>HTML: $exQueryPDOController->index();</h2>';
+echo '<h2>HTML: $exQueryPDOController->index();</h2>';
 $exQueryPDOController->index();
 echo '<hr>';
 
@@ -38,13 +38,7 @@ echo '<h2>HTML: $exQueryPDOController->column();</h2>';
 $exQueryPDOController->column();
 echo '<hr>';
 
-echo '<h2>HTML: $exQueryPDOController->show();</h2>';
-$exQueryPDOController->show(1);
-echo '<hr>';*/
 
-//echo '<h2>HTML: $exQueryPDOController->destroy();</h2>';
-$exQueryPDOController->destroy(2);
-//echo '<hr>';
 
 /*$exQueryPDOController->store([
   //'aa_identifier' => '',
@@ -61,6 +55,39 @@ $exQueryPDOController->destroy(2);
   'ab_temp' => '1',
   'ac_name' => 'Desarrollador',
 ]);*/
+
+echo '<h2>HTML: $exQueryPDOController->show();</h2>';
+$exQueryPDOController->show(1);
+echo '<hr>';
+
+echo '<h2>HTML: $exQueryPDOController->destroy();</h2>';
+$exQueryPDOController->destroy(1);
+echo '<hr>';
+
+echo '<h2>HTML: $exQueryPDOController->update();</h2>';
+$exQueryPDOController->update([
+  'aa_identifier' => '4',
+  'ab_by_modified' => '1',
+  'ab_date_modified' => DATE_HOUR,
+  'ab_description' => '',
+  'ab_status' => '1',
+  'ac_name' => 'Programador',
+]);
+echo '<hr>';
+
+echo '<h2>HTML: $exQueryPDOController->updateId();</h2>';
+$exQueryPDOController->updateId([
+  'ab_by_modified' => '1',
+  'ab_date_modified' => DATE_HOUR,
+  'ab_description' => '',
+  'ab_status' => '1',
+  'ac_name' => 'Programador',
+], 3);
+echo '<hr>';
+
+
+
+
 
 /*$tgRoleDataController = new TgRoleDataController();
 $tgRoleDataController->store([
