@@ -12,7 +12,9 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "Database\\": "database/"
+      "App\\": "app/",
+      "Database\\": "database/",
+      "Setting\\": "setting/"
     }
   }
 }
