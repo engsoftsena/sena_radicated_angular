@@ -2,15 +2,48 @@
 
 namespace App\Controllers\Examples;
 
+use PDO;
 use Database\PDO\Connection;
 
 class ExQueryPDOController
 {
+  private $connection;
+
+  public function __construct()
+  {
+    $this->connection = Connection::getInstance()->getDatabaseInstance();;
+  }
+
   /**
    * Visualizar una lista del recurso
    */
   public function index()
   {
+    $stmt = $this->connection->prepare("SELECT * FROM tg_role_data");
+    $stmt->execute();
+
+    $results = $stmt->fetchAll();
+
+    foreach ($results as $result) {
+      var_dump($result);
+    }
+  }
+
+  /**
+   * Visualizar una lista del recurso
+   */
+  public function column()
+  {
+    $stmt = $this->connection->prepare("SELECT aa_identifier, ac_name FROM tg_role_data");
+    $stmt->execute();
+
+    $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+    var_dump($results);
+
+    foreach ($results as $result) {
+      var_dump($result);
+    }
   }
 
   /**
@@ -25,8 +58,7 @@ class ExQueryPDOController
    */
   public function store($data)
   {
-    $connection = Connection::getInstance()->getDatabaseInstance();
-    $stmt = $connection->prepare(
+    $stmt = $this->connection->prepare(
       "INSERT INTO tg_role_data (
           ab_by_created,
           ab_by_modified,

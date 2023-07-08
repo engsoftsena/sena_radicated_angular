@@ -29,7 +29,9 @@ $exQueryMySQLiController->store([
 ]);*/
 
 $exQueryPDOController = new ExQueryPDOController();
-$exQueryPDOController->store([
+//$exQueryPDOController->index();
+$exQueryPDOController->column();
+/*$exQueryPDOController->store([
   //'aa_identifier' => '',
   'ab_by_created' => '1',
   'ab_by_modified' => '1',
@@ -43,7 +45,7 @@ $exQueryPDOController->store([
   'ab_status' => '1',
   'ab_temp' => '1',
   'ac_name' => 'Desarrollador',
-]);
+]);*/
 
 /*$tgRoleDataController = new TgRoleDataController();
 $tgRoleDataController->store([
