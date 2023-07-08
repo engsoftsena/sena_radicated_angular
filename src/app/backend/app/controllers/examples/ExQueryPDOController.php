@@ -57,6 +57,21 @@ class ExQueryPDOController
       "
     );
 
+
+
+    $stmt->bindParam(':ab_by_created', $data['ab_by_created']);
+    $stmt->bindParam(':ab_by_modified', $data['ab_by_modified']);
+    $stmt->bindParam(':ab_date_created', $data['ab_date_created']);
+    $stmt->bindParam(':ab_date_modified', $data['ab_date_modified']);
+    $stmt->bindParam(':ab_deleted', $data['ab_deleted']);
+    $stmt->bindParam(':ab_description', $data['ab_description']);
+    $stmt->bindParam(':ab_import', $data['ab_import']);
+    $stmt->bindParam(':ab_level', $data['ab_level']);
+    $stmt->bindParam(':ab_record', $data['ab_record']);
+    $stmt->bindParam(':ab_status', $data['ab_status']);
+    $stmt->bindParam(':ab_temp', $data['ab_temp']);
+    $stmt->bindParam(':ac_name', $data['ac_name']);
+
     $stmt->execute($data);
 
     //echo 'PDO: Filas ' . $stmt->affected_rows . ' insertadas en la base de datos';

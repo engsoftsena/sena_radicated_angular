@@ -31,18 +31,18 @@ $exQueryMySQLiController->store([
 $exQueryPDOController = new ExQueryPDOController();
 $exQueryPDOController->store([
   //'aa_identifier' => '',
-  ':ab_by_created' => '1',
-  ':ab_by_modified' => '1',
-  ':ab_date_created' => DATE_HOUR,
-  ':ab_date_modified' => DATE_HOUR,
-  ':ab_deleted' => '1',
-  ':ab_description' => '',
-  ':ab_import' => '1',
-  ':ab_level' => '1',
-  ':ab_record' => '1',
-  ':ab_status' => '1',
-  ':ab_temp' => '1',
-  ':ac_name' => 'Desarrollador',
+  'ab_by_created' => '1',
+  'ab_by_modified' => '1',
+  'ab_date_created' => DATE_HOUR,
+  'ab_date_modified' => DATE_HOUR,
+  'ab_deleted' => '1',
+  'ab_description' => '',
+  'ab_import' => '1',
+  'ab_level' => '1',
+  'ab_record' => '1',
+  'ab_status' => '1',
+  'ab_temp' => '1',
+  'ac_name' => 'Desarrollador',
 ]);
 
 /*$tgRoleDataController = new TgRoleDataController();
