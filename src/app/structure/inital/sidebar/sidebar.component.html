@@ -1,0 +1,167 @@
+<aside class="page-sidebar">
+  <div class="page-logo">
+    <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal"
+      data-target="#modal-shortcut">
+      <img src="../../../../../assets/integration/smart/dist/img/logo.png" alt="SmartAdmin WebApp"
+        aria-roledescription="logo">
+      <span class="page-logo-text mr-1">
+        APP PQRS
+      </span>
+      <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+      <em class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></em>
+    </a>
+  </div>
+  <nav id="js-primary-nav" class="primary-nav" role="navigation">
+    <div class="nav-filter">
+      <div class="position-relative">
+        <input type="text" id="nav_filter_input" placeholder="Filtrar Menu" class="form-control" tabindex="0">
+        <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off" data-action="toggle"
+          data-class="list-filter-active" data-target=".page-sidebar">
+          <em class="fal fa-chevron-up"></em>
+        </a>
+      </div>
+    </div>
+    <div class="info-card">
+      <a href="profile">
+        <img src="https://cdn-icons-png.flaticon.com/512/2133/2133152.png" class="profile-image rounded-circle"
+          alt="Desarrollador Programado">
+      </a>
+      <div class="info-card-text">
+        <span class="d-inline-block text-truncate text-truncate-sm">
+          Bienvenido Usuario!
+        </span>
+        <span class="d-inline-block text-truncate text-truncate-sm">
+          User: root
+        </span>
+        <span class="d-inline-block text-truncate text-truncate-sm">
+          Rol: Desarrollador
+        </span>
+      </div>
+      <img src="../../../../../assets/integration/smart/dist/img/card-backgrounds/cover-2-lg.png" class="cover"
+        alt="cover">
+      <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active"
+        data-target=".page-sidebar" data-focus="nav_filter_input">
+        <em class="fal fa-angle-down"></em>
+      </a>
+    </div>
+    <ul id="js-nav-menu" class="nav-menu">
+
+      <li class="mb-2">
+        <a href="#" [routerLink]="['tgroledata']" data-filter-tags="Roles" title="Roles" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Roles">
+            Roles
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" [routerLink]="['tguserdata']" data-filter-tags="Usuarios" title="Usuarios" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Usuarios">
+            Usuarios
+          </span>
+        </a>
+      </li>
+
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Causales" title="Causales" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Causales">
+            Causales
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Estados" title="Estados" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Estados">
+            Estados
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Medios Comunicaciones" title="Medios Comunicaciones"
+          class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Medios Comunicaciones">
+            Medios Comunicaciones
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Objetos Solicitudes" title="Objetos Solicitudes"
+          class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Objetos Solicitudes">
+            Objetos Solicitudes
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Pacientes" title="Pacientes" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Pacientes">
+            Pacientes
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Radicaciones" title="Radicaciones" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Radicaciones">
+            Radicaciones
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Recursos" title="Recursos" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Recursos">
+            Recursos
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Tipos Documentos" title="Tipos Documentos" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Tipos Documentos">
+            Tipos Documentos
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" data-filter-tags="Trazabilidades" title="Trazabilidades" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Trazabilidades">
+            Trazabilidades
+          </span>
+        </a>
+      </li>
+
+    </ul>
+    <div class="filter-message js-filter-message bg-success-600"></div>
+  </nav>
+  <div class="nav-footer shadow-top">
+    <a href="#" onclick="return false;" data-action="toggle" data-class="nav-function-minify" class="hidden-md-down">
+      <em class="ni ni-chevron-right"></em>
+      <em class="ni ni-chevron-right"></em>
+    </a>
+    <ul class="list-table m-auto nav-footer-buttons">
+      <li>
+        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Chat logs">
+          <em class="fal fa-comments"></em>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Support Chat">
+          <em class="fal fa-life-ring"></em>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Make a call">
+          <em class="fal fa-phone"></em>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
