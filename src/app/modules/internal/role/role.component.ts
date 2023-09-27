@@ -34,240 +34,191 @@ export class RoleComponent implements OnInit {
           name: item.name,
         }));
         console.log(this.roleData);
-        this.getTable();
+        const columnSet = [
+          {
+            title: "Id",
+            id: "idRole",
+            data: "idRole",
+            type: "text",
+            className: "text-dark",
+            visible: true,
+          },
+          {
+            title: "Nombre",
+            id: "name",
+            data: "name",
+            type: "text",
+            className: "text-dark",
+            visible: true,
+          },
+        ];
+        this.getTable('tbRole', this.roleData, columnSet, []);
       },
       error: (err: any) => console.error(err),
       complete: () => (false),
     });
   }
 
-  getTable() {
-    const columnSet = [
-      {
-        title: "Id",
-        id: "idRole",
-        data: "idRole",
-        type: "text",
-        className: "text-dark",
-        visible: true,
-      },
-      {
-        title: "Nombre",
-        id: "name",
-        data: "name",
-        type: "text",
-        className: "text-dark",
-        visible: true,
-      },
-    ];
-
-    $('#tbRole').DataTable({
-      destroy: true,
-      dom: "<'row mb-2'<'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex align-items-center'B>>" +
-        "<'row mb-2'<'col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-4'i><'col-xs-12 col-sm-12 col-md-7 col-lg-8 col-xl-8'p>>" +
-        "<'row mb-2'<'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'tr>>",
-      data: this.roleData,
-      columns: columnSet,
+  getTable(
+    reference: any,
+    dataApi: any,
+    columnSet: any,
+    buttons: { [s: string]: unknown; } | ArrayLike<unknown>
+  ) {
+    // Inicializar tabla de datos
+    let tableLoad = $(`#${reference}`).DataTable({
+      // Opciones para crear, editar, borrar y sincronizar
       altEditor: true,
+      // Combinar valores en las demas celdas
+      autoFill: false,
+      // Control de funciones Manejo inteligente del ancho de columna
       autoWidth: true,
+      // Botones que usan clases de bootstrap
+      buttons: Object.values(buttons),
+      // Movilizar columnas en la tabla
       colReorder: true,
+      // Establecer propiedades de inicialización de definición de columna.
       columnDefs: [],
+      // Cargar columnas del encabezado
+      columns: columnSet,
+      // Setear la data recibida de la api
+      data: dataApi,
+      // Creará todos los elementos HTML necesarios por adelantado
       deferRender: true,
+      // Reinicialiar los datos de la tabla
+      destroy: true,
+      // Estructura de las columnas para el DOOM
+      dom:
+        `
+          <'row mb-1'
+            <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center'
+              <'panel rounded-0 mb-1'
+                <'panel-container show'
+                  <'panel-content p-0'
+                    <'panel-tag p-1 bg-white'
+                      B
+                    >
+                  >
+                >
+              >
+            >
+          >
+          <'row mb-1'
+            <'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 align-items-center text-center'
+              <'panel rounded-0 mb-1'
+                <'panel-container show'
+                  <'panel-content p-0'
+                    <'panel-tag p-1 bg-white'
+                      <'span color-fusion-900'
+                        i
+                      >
+                    >
+                  >
+                >
+              >
+            >
+            <'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-7 align-items-center'
+              <'panel rounded-0 mb-1'
+                <'panel-container show'
+                  <'panel-content p-0'
+                    <'panel-tag p-1 bg-white'
+                      p
+                    >
+                  >
+                >
+              >
+            >
+          >
+          <'row mb-1'
+            <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'
+              tr
+            >
+          >
+        `,
+      // Fijar columnas en la tabla
+      fixedColumns: false,
+      // Fijar columnas en la parte superior de la tabla
       fixedHeader: true,
+      // Mostrar entradas de los registros
       info: true,
-      lengthChange: true,
+      // Focalizar una celda de la tabla
+      keys: false,
+      // Lenguaje de la tabla
+      language: {
+        aria: {
+          sortAscending: ': activate to sort column ascending',
+          sortDescending: ': activate to sort column descending',
+        },
+        decimal: '',
+        emptyTable: 'Sin Datos',
+        info: 'Registros (Del _START_ Al _END_) Total De _TOTAL_ Registros',
+        infoEmpty: 'Registros (Del 0 Al 0) Total De 0 Registros',
+        infoFiltered: '(Filtrados del Total de _MAX_ Registros)',
+        infoPostFix: '',
+        lengthMenu: 'Mostrar _MENU_ Registros Por Página',
+        loadingRecords: 'Cargando...',
+        paginate: {
+          first: 'Primera',
+          last: 'Última',
+          next: 'Siguiente',
+          previous: 'Anterior',
+        },
+        processing: 'Procesando...',
+        search: 'Filtrar:',
+        thousands: ',',
+        zeroRecords: 'No se encontrados registros segun el filtrado.',
+      },
+      // Cambiar numero de registros por pagina
+      lengthChange: false,
+      // Definir cantidad de registros por paginacion
       lengthMenu: [
-        [10, 20, 30, 40, 50, -1],
-        [10, 20, 30, 40, 50, 'Todo'],
+        [100, 200, 300, 400, 500, -1,],
+        [100, 200, 300, 400, 500, 'Todo',],
       ],
+      // Ordenar columnas en ascendente o descendente
       order: [
-        [0, 'desc']
+        [0, 'desc',]
       ],
+      // Controlar si las tablas de datos deben usar celda única superior
       orderCellsTop: true,
+      // Ordenar segun columna los registros
       ordering: true,
+      // Paginar registros limitadamente
       paging: true,
-      pagingType: 'full_numbers',
+      // Habilitar botones extras en el paginado
+      //DataTables has six built-in paging button arrangements:
+      //numbers - Page number buttons only (1.10.8)
+      //simple - 'Previous' and 'Next' buttons only
+      //simple_numbers - 'Previous' and 'Next' buttons, plus page numbers
+      //full - 'First', 'Previous', 'Next' and 'Last' buttons
+      //full_numbers - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
+      //first_last_numbers - 'First' and 'Last' buttons, plus page numbers
+      pagingType: 'full',
+      // Procesando informacion de registros
       processing: true,
+      // Control para el tamaño de la tabla de datos
       responsive: false,
+      // Agrupar las filas de los registros
+      rowGroup: false,
+      // Control de busqueda de registros
+      searching: true,
+      // Selccionar varias filas de registro
+      select: 'single',
+      // Procesamiento del lado del servidor
+      serverSide: false,
+      // Control para el desplazamiento medido de arriba abajo
       scrollCollapse: true,
+      // Permite dibujar grandes conjuntos de datos en la pantalla muy rápidamente
+      scroller: false,
+      // Control para el desplazamiento de derecha a izquiera
       scrollX: true,
+      // Control para el desplazamiento medido de arriba abajo
       scrollY: 425,
+      // Guardar el estado de una tabla (su posición de paginación, estado de pedido, etc.)
       stateSave: false,
-      buttons: [
-        {
-          text: '<em class="far fa-plus"></em> <span>Nuevo</span>',
-          titleAttr: 'Nuevo',
-          className: 'rounded-0 btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_create',
-            'name': 'table_btn_create',
-            'data-toggle': 'modal',
-            'data-target': '.modal-div-create',
-          },
-        },
-        {
-          text: '<em class="far fa-edit"></em> <span>Actualizar</span>',
-          titleAttr: 'Actualizar',
-          className: 'rounded-0 btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_update',
-            'name': 'table_btn_update',
-            'onclick': 'modal_update();',
-          },
-        },
-        {
-          text: '<em class="far fa-redo-alt"></em> <span>Restaurar</span>',
-          titleAttr: 'Restaurar',
-          className: 'rounded-0 btn-sm btn-outline-warning',
-          attr: {
-            'id': 'table_btn_restore',
-            'name': 'table_btn_restore',
-            'onclick': 'modal_restore();',
-          },
-        },
-        {
-          text: '<em class="far fa-trash"></em> <span>Remover</span>',
-          titleAttr: 'Remover',
-          className: 'rounded-0 btn-sm btn-outline-warning',
-          attr: {
-            'id': 'table_btn_remove',
-            'name': 'table_btn_remove',
-            'onclick': 'modal_remove();',
-          },
-        },
-        {
-          text: '<em class="far fa-trash-alt"></em> <span>Eliminar</span>',
-          titleAttr: 'Eliminar',
-          className: 'rounded-0 btn-sm btn-outline-danger',
-          attr: {
-            'id': 'table_btn_delete',
-            'name': 'table_btn_delete',
-            'onclick': 'modal_delete();',
-          },
-        },
-        {
-          text: '<em class="far fa-exchange-alt"></em> <span>Cambios</span>',
-          titleAttr: 'Cambios',
-          className: 'rounded-0 btn-sm btn-outline-dark',
-          attr: {
-            'id': 'table_btn_change',
-            'name': 'table_btn_change',
-            'onclick': 'modal_change();',
-          },
-        },
-        {
-          text: '<em class="far fa-align-center"></em> <span>Detalles</span>',
-          titleAttr: 'Detalles',
-          className: 'rounded-0 btn-sm btn-outline-dark',
-          attr: {
-            'id': 'table_btn_detail',
-            'name': 'table_btn_detail',
-            'onclick': 'modal_detail();',
-          },
-        },
-        /*{
-          text: '<em class="far fa-sync"></em> <span>Sincronizar</span>',
-          titleAttr: 'Sincronizar',
-          name: 'rounded-0 refresh',
-          className: 'btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_sync',
-            'name': 'table_btn_sync',
-          },
-        },*/
-        /*{
-          extend: 'copyHtml5',
-          text: '<em class="far fa-copy"></em> <span>Copiar</span>',
-          titleAttr: 'Copiar',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_copy',
-            'name': 'table_btn_copy',
-          },
-        },
-        {
-          extend: 'pdfHtml5',
-          text: '<em class="far fa-file-pdf"></em> <span>PDF</span>',
-          titleAttr: 'PDF',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_pdf',
-            'name': 'table_btn_pdf',
-          },
-        },
-        {
-          extend: 'excelHtml5',
-          text: '<em class="far fa-file-excel"></em> <span>Excel</span>',
-          titleAttr: 'Excel',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_excel',
-            'name': 'table_btn_excel',
-          },
-        },
-        {
-          extend: 'csvHtml5',
-          text: '<em class="far fa-file-csv"></em> <span>CSV</span>',
-          titleAttr: 'CSV',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_csv',
-            'name': 'table_btn_csv',
-          },
-        },
-        {
-          autoPrint: true,
-          extend: 'print',
-          text: '<em class="far fa-print"></em> <span>Imprimir</span>',
-          titleAttr: 'Imprimir',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_print',
-            'name': 'table_btn_print',
-          },
-        },
-        {
-          columns: [1, 2, 3, 4, 5],
-          extend: 'columnToggle',
-          text: '<em class="far fa-low-vision"></em> <span>Extender</span>',
-          titleAttr: 'Extender',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_column_toggle',
-            'name': 'table_btn_column_toggle',
-          },
-        },
-        {
-          extend: 'colvisRestore',
-          text: '<em class="far fa-low-vision"></em> <span>Restaurar</span>',
-          titleAttr: 'Restaurar',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_colvis_restore',
-            'name': 'table_btn_colvis_restore',
-          },
-        },
-        {
-          extend: 'colvis',
-          text: '<em class="far fa-low-vision"></em> <span>Visible</span>',
-          titleAttr: 'Visible',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_colvis_column',
-            'name': 'table_btn_colvis_column',
-          },
-        },
-        {
-          extend: 'pageLength',
-          text: '<em class="far fa-database"></em> <span>Mostrar</span>',
-          titleAttr: 'Mostrar',
-          className: 'rounded-0 d-none btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_page_length',
-            'name': 'table_btn_page_length',
-          },
-        },*/
-      ],
     });
-  }
+  
+    // Agregar un oyente de eventos para el evento 'draw.dt'
+    tableLoad.on('draw.dt', function() {});
+  };
 }
