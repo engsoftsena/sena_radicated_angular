@@ -27,16 +27,13 @@ export class RequestComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.requestData = response.result.map((item: any) => ({
-          id_role: parseInt(item.id_role, 10),
-          name: item.name,
-        }));
+        this.requestData = response.result;
         console.log(this.requestData);
         const columnSet = [
           {
             title: "Id",
-            id: "id_role",
-            data: "id_role",
+            id: "id_request",
+            data: "id_request",
             type: "text",
             className: "text-dark",
             visible: true,

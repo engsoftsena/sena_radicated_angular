@@ -1,5 +1,5 @@
 export interface TraceabilityModule {
-    idRole: number | null;
+    id: number | null;
     name: string;
   }
   

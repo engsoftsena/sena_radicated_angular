@@ -1,4 +1,4 @@
 export interface ComunicationModule {
-  idRole: number | null;
+  id: number | null;
   name: string;
 }

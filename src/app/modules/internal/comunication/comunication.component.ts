@@ -27,16 +27,13 @@ export class ComunicationComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.comunicationData = response.result.map((item: any) => ({
-          id_role: parseInt(item.id_role, 10),
-          name: item.name,
-        }));
+        this.comunicationData = response.result;
         console.log(this.comunicationData);
         const columnSet = [
           {
             title: "Id",
-            id: "id_role",
-            data: "id_role",
+            id: "id_communication",
+            data: "id_communication",
             type: "text",
             className: "text-dark",
             visible: true,

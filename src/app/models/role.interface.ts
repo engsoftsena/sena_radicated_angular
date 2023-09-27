@@ -1,4 +1,4 @@
 export interface RoleModule {
-  idRole: number | null;
+  id: number | null;
   name: string;
 }

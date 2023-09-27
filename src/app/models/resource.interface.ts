@@ -1,4 +1,4 @@
 export interface ResourceModule {
-  idRole: number | null;
+  id: number | null;
   name: string;
 }

@@ -27,16 +27,13 @@ export class StateComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.stateData = response.result.map((item: any) => ({
-          id_role: parseInt(item.id_role, 10),
-          name: item.name,
-        }));
+        this.stateData = response.result;
         console.log(this.stateData);
         const columnSet = [
           {
             title: "Id",
-            id: "id_role",
-            data: "id_role",
+            id: "id_state",
+            data: "id_state",
             type: "text",
             className: "text-dark",
             visible: true,

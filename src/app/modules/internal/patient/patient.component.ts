@@ -27,16 +27,13 @@ export class PatientComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.patientData = response.result.map((item: any) => ({
-          id_role: parseInt(item.id_role, 10),
-          name: item.name,
-        }));
+        this.patientData = response.result;
         console.log(this.patientData);
         const columnSet = [
           {
             title: "Id",
-            id: "id_role",
-            data: "id_role",
+            id: "id_patient",
+            data: "id_patient",
             type: "text",
             className: "text-dark",
             visible: true,

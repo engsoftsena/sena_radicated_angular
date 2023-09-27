@@ -29,10 +29,7 @@ export class RoleComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.roleData = response.result.map((item: any) => ({
-          id_role: parseInt(item.id_role, 10),
-          name: item.name,
-        }));
+        this.roleData = response.result;
         console.log(this.roleData);
         const columnSet = [
           {

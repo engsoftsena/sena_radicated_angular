@@ -1,4 +1,4 @@
 export interface DocumentModule {
-  idRole: number | null;
+  id: number | null;
   name: string;
 }

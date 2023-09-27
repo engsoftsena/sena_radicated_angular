@@ -1,4 +1,4 @@
 export interface PatientModule {
-  idRole: number | null;
+  id: number | null;
   name: string;
 }

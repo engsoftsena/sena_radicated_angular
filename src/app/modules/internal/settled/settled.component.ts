@@ -27,16 +27,13 @@ export class SettledComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.settledData = response.result.map((item: any) => ({
-          id_role: parseInt(item.id_role, 10),
-          name: item.name,
-        }));
+        this.settledData = response.result;
         console.log(this.settledData);
         const columnSet = [
           {
             title: "Id",
-            id: "id_role",
-            data: "id_role",
+            id: "id_settled",
+            data: "id_settled",
             type: "text",
             className: "text-dark",
             visible: true,

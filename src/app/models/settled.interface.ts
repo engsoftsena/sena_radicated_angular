@@ -1,4 +1,4 @@
 export interface SettledModule {
-  idRole: number | null;
+  id: number | null;
   name: string;
 }

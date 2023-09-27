@@ -27,16 +27,13 @@ export class TraceabilityComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.traceabilityData = response.result.map((item: any) => ({
-          id_role: parseInt(item.id_role, 10),
-          name: item.name,
-        }));
+        this.traceabilityData = response.result;
         console.log(this.traceabilityData);
         const columnSet = [
           {
             title: "Id",
-            id: "id_role",
-            data: "id_role",
+            id: "id_traceability",
+            data: "id_traceability",
             type: "text",
             className: "text-dark",
             visible: true,

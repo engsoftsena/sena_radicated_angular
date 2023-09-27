@@ -27,16 +27,13 @@ export class ResourceComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.resourceData = response.result.map((item: any) => ({
-          id_role: parseInt(item.id_role, 10),
-          name: item.name,
-        }));
+        this.resourceData = response.result;
         console.log(this.resourceData);
         const columnSet = [
           {
             title: "Id",
-            id: "id_role",
-            data: "id_role",
+            id: "id_resource",
+            data: "id_resource",
             type: "text",
             className: "text-dark",
             visible: true,

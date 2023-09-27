@@ -1,4 +1,4 @@
 export interface RequestModule {
-  idRole: number | null;
+  id: number | null;
   name: string;
 }
