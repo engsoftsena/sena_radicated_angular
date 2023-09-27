@@ -8,30 +8,16 @@ import { LoginComponent } from './modules/external/login/login.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
 
 import { CausalComponent } from './modules/internal/causal/causal.component';
-import { DocumenttypeComponent } from './modules/internal/documenttype/documenttype.component';
-import { MediacomunicationComponent } from './modules/internal/mediacomunication/mediacomunication.component';
+import { DocumentComponent } from './modules/internal/document/document.component';
+import { ComunicationComponent } from './modules/internal/comunication/comunication.component';
 import { PatientComponent } from './modules/internal/patient/patient.component';
-import { RequestobjectComponent } from './modules/internal/requestobject/requestobject.component';
+import { RequestComponent } from './modules/internal/request/request.component';
 import { ResourceComponent } from './modules/internal/resource/resource.component';
 import { SettledComponent } from './modules/internal/settled/settled.component';
 import { StateComponent } from './modules/internal/state/state.component';
 import { RoleComponent } from './modules/internal/role/role.component';
 import { TraceabilityComponent } from './modules/internal/traceability/traceability.component';
 import { UserComponent } from './modules/internal/user/user.component';
-
-/*const routes: Routes = [
-  {
-    path: '',
-    component: InternalComponent,
-    children: [
-      { path: 'dashboard', component: DashboardComponent, },
-      { path: 'tgroledata', component: TgRoleDataComponent, },
-      { path: 'tguserdata', component: TgUserDataComponent, },
-      //{ path: '', redirectTo: '/dashboard', pathMatch: 'full', },
-    ]
-  },
-  { path: 'login', component: LoginComponent, },
-];*/
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'external/login' },
@@ -48,10 +34,10 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent, },
       { path: 'causal', component: CausalComponent, },
-      { path: 'documenttype', component: DocumenttypeComponent, },
-      { path: 'mediacomunication', component: MediacomunicationComponent, },
+      { path: 'document', component: DocumentComponent, },
+      { path: 'comunication', component: ComunicationComponent, },
       { path: 'patient', component: PatientComponent, },
-      { path: 'requestobject', component: RequestobjectComponent, },
+      { path: 'request', component: RequestComponent, },
       { path: 'resource', component: ResourceComponent, },
       { path: 'role', component: RoleComponent, },
       { path: 'settled', component: SettledComponent, },

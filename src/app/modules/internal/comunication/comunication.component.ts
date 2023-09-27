@@ -1,35 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { SettledModule } from 'src/app/models/settled.interface';
+import { ComunicationModule } from 'src/app/models/comunication.interface';
 import { ApiService } from 'src/app/services/api/api.service';
-import { SettledService } from 'src/app/services/settled/settled.service';
+import { ComunicationService } from 'src/app/services/comunication/comunication.service';
 
 @Component({
-  selector: 'app-settled',
-  templateUrl: './settled.component.html',
-  styleUrls: ['./settled.component.scss']
+  selector: 'app-comunication',
+  templateUrl: './comunication.component.html',
+  styleUrls: ['./comunication.component.scss']
 })
-export class SettledComponent implements OnInit {
+export class ComunicationComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
-    private serviceSettled: SettledService,
+    private serviceComunication: ComunicationService,
   ) {}
 
-  settledData: SettledModule[] = [];
+  comunicationData: ComunicationModule[] = [];
 
   ngOnInit(): void {
     this.getSelect();
   }
 
   getSelect() {
-    this.serviceSettled.getSelect().subscribe({
+    this.serviceComunication.getSelect().subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.settledData = response.result.map((item: any) => ({
+        this.comunicationData = response.result.map((item: any) => ({
           idRole: parseInt(item.id_role, 10),
           name: item.name,
         }));
-        console.log(this.settledData);
+        console.log(this.comunicationData);
         this.getTable();
       },
       error: (err: any) => console.error(err),

@@ -7,6 +7,6 @@ export interface UserModule {
   names: string;
   password: string;
   surnames: string;
-  foDocumentType: string;
+  foDocument: string;
   foRole: string;
 }

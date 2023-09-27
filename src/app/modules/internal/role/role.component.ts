@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleModule } from 'src/app/models/role.interface';
-import { RoleService } from 'src/app/services/role/role.service';
 import { ApiService } from 'src/app/services/api/api.service';
+import { RoleService } from 'src/app/services/role/role.service';
 
 import { forkJoin } from 'rxjs';
 
@@ -18,22 +18,22 @@ export class RoleComponent implements OnInit {
     private serviceRole: RoleService,
   ) {}
 
-  roles: RoleModule[] = [];
+  roleData: RoleModule[] = [];
 
   ngOnInit(): void {
     this.getSelect();
   }
 
   getSelect() {
-    this.serviceApi.getSelect('roles').subscribe({
+    this.serviceRole.getSelect().subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.roles = response.result.map((item: any) => ({
+        this.roleData = response.result.map((item: any) => ({
           idRole: parseInt(item.id_role, 10),
           name: item.name,
         }));
-        console.log(this.roles);
+        console.log(this.roleData);
         this.getTable();
       },
       error: (err: any) => console.error(err),
@@ -66,7 +66,7 @@ export class RoleComponent implements OnInit {
       dom: "<'row mb-2'<'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex align-items-center'B>>" +
         "<'row mb-2'<'col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-4'i><'col-xs-12 col-sm-12 col-md-7 col-lg-8 col-xl-8'p>>" +
         "<'row mb-2'<'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'tr>>",
-      data: this.roles,
+      data: this.roleData,
       columns: columnSet,
       altEditor: true,
       autoWidth: true,
@@ -95,31 +95,9 @@ export class RoleComponent implements OnInit {
       stateSave: false,
       buttons: [
         {
-          text: '<em class="far fa-layer-group"></em>',
-          titleAttr: 'Sub Menu',
-          className: 'btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_sub_menu',
-            'name': 'table_btn_sub_menu',
-            'data-toggle': 'modal',
-            'data-target': '.modal-div-sub-menu',
-          },
-        },
-        {
-          text: '<em class="far fa-chart-bar"></em>',
-          titleAttr: 'Reportes',
-          className: 'btn-sm btn-outline-success',
-          attr: {
-            'id': 'table_btn_report',
-            'name': 'table_btn_report',
-            'data-toggle': 'modal',
-            'data-target': '.modal-div-report',
-          },
-        },
-        {
-          text: '<em class="far fa-plus"></em>',
+          text: '<em class="far fa-plus"></em> <span>Nuevo</span>',
           titleAttr: 'Nuevo',
-          className: 'btn-sm btn-outline-success',
+          className: 'rounded-0 btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_create',
             'name': 'table_btn_create',
@@ -128,9 +106,9 @@ export class RoleComponent implements OnInit {
           },
         },
         {
-          text: '<em class="far fa-edit"></em>',
+          text: '<em class="far fa-edit"></em> <span>Actualizar</span>',
           titleAttr: 'Actualizar',
-          className: 'btn-sm btn-outline-success',
+          className: 'rounded-0 btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_update',
             'name': 'table_btn_update',
@@ -138,9 +116,9 @@ export class RoleComponent implements OnInit {
           },
         },
         {
-          text: '<em class="far fa-redo-alt"></em>',
+          text: '<em class="far fa-redo-alt"></em> <span>Restaurar</span>',
           titleAttr: 'Restaurar',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 btn-sm btn-outline-warning',
           attr: {
             'id': 'table_btn_restore',
             'name': 'table_btn_restore',
@@ -148,9 +126,9 @@ export class RoleComponent implements OnInit {
           },
         },
         {
-          text: '<em class="far fa-trash"></em>',
+          text: '<em class="far fa-trash"></em> <span>Remover</span>',
           titleAttr: 'Remover',
-          className: 'btn-sm btn-outline-success',
+          className: 'rounded-0 btn-sm btn-outline-warning',
           attr: {
             'id': 'table_btn_remove',
             'name': 'table_btn_remove',
@@ -158,9 +136,9 @@ export class RoleComponent implements OnInit {
           },
         },
         {
-          text: '<em class="far fa-trash-alt"></em>',
+          text: '<em class="far fa-trash-alt"></em> <span>Eliminar</span>',
           titleAttr: 'Eliminar',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 btn-sm btn-outline-danger',
           attr: {
             'id': 'table_btn_delete',
             'name': 'table_btn_delete',
@@ -168,9 +146,9 @@ export class RoleComponent implements OnInit {
           },
         },
         {
-          text: '<em class="far fa-exchange-alt"></em>',
+          text: '<em class="far fa-exchange-alt"></em> <span>Cambios</span>',
           titleAttr: 'Cambios',
-          className: 'btn-sm btn-outline-success',
+          className: 'rounded-0 btn-sm btn-outline-dark',
           attr: {
             'id': 'table_btn_change',
             'name': 'table_btn_change',
@@ -178,30 +156,30 @@ export class RoleComponent implements OnInit {
           },
         },
         {
-          text: '<em class="far fa-align-center"></em>',
+          text: '<em class="far fa-align-center"></em> <span>Detalles</span>',
           titleAttr: 'Detalles',
-          className: 'btn-sm btn-outline-success',
+          className: 'rounded-0 btn-sm btn-outline-dark',
           attr: {
             'id': 'table_btn_detail',
             'name': 'table_btn_detail',
             'onclick': 'modal_detail();',
           },
         },
-        {
-          text: '<em class="far fa-sync"></em>',
+        /*{
+          text: '<em class="far fa-sync"></em> <span>Sincronizar</span>',
           titleAttr: 'Sincronizar',
-          name: 'refresh',
+          name: 'rounded-0 refresh',
           className: 'btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_sync',
             'name': 'table_btn_sync',
           },
-        },
-        {
+        },*/
+        /*{
           extend: 'copyHtml5',
-          text: '<em class="far fa-copy"></em>',
+          text: '<em class="far fa-copy"></em> <span>Copiar</span>',
           titleAttr: 'Copiar',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_copy',
             'name': 'table_btn_copy',
@@ -209,9 +187,9 @@ export class RoleComponent implements OnInit {
         },
         {
           extend: 'pdfHtml5',
-          text: '<em class="far fa-file-pdf"></em>',
+          text: '<em class="far fa-file-pdf"></em> <span>PDF</span>',
           titleAttr: 'PDF',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_pdf',
             'name': 'table_btn_pdf',
@@ -219,9 +197,9 @@ export class RoleComponent implements OnInit {
         },
         {
           extend: 'excelHtml5',
-          text: '<em class="far fa-file-excel"></em>',
+          text: '<em class="far fa-file-excel"></em> <span>Excel</span>',
           titleAttr: 'Excel',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_excel',
             'name': 'table_btn_excel',
@@ -229,9 +207,9 @@ export class RoleComponent implements OnInit {
         },
         {
           extend: 'csvHtml5',
-          text: '<em class="far fa-file-csv"></em>',
+          text: '<em class="far fa-file-csv"></em> <span>CSV</span>',
           titleAttr: 'CSV',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_csv',
             'name': 'table_btn_csv',
@@ -240,9 +218,9 @@ export class RoleComponent implements OnInit {
         {
           autoPrint: true,
           extend: 'print',
-          text: '<em class="far fa-print"></em>',
+          text: '<em class="far fa-print"></em> <span>Imprimir</span>',
           titleAttr: 'Imprimir',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_print',
             'name': 'table_btn_print',
@@ -251,9 +229,9 @@ export class RoleComponent implements OnInit {
         {
           columns: [1, 2, 3, 4, 5],
           extend: 'columnToggle',
-          text: '<em class="far fa-low-vision"></em>',
+          text: '<em class="far fa-low-vision"></em> <span>Extender</span>',
           titleAttr: 'Extender',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_column_toggle',
             'name': 'table_btn_column_toggle',
@@ -261,9 +239,9 @@ export class RoleComponent implements OnInit {
         },
         {
           extend: 'colvisRestore',
-          text: '<em class="far fa-low-vision"></em>',
+          text: '<em class="far fa-low-vision"></em> <span>Restaurar</span>',
           titleAttr: 'Restaurar',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_colvis_restore',
             'name': 'table_btn_colvis_restore',
@@ -271,9 +249,9 @@ export class RoleComponent implements OnInit {
         },
         {
           extend: 'colvis',
-          text: '<em class="far fa-low-vision"></em>',
+          text: '<em class="far fa-low-vision"></em> <span>Visible</span>',
           titleAttr: 'Visible',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_colvis_column',
             'name': 'table_btn_colvis_column',
@@ -281,14 +259,14 @@ export class RoleComponent implements OnInit {
         },
         {
           extend: 'pageLength',
-          text: '<em class="far fa-database"></em>',
+          text: '<em class="far fa-database"></em> <span>Mostrar</span>',
           titleAttr: 'Mostrar',
-          className: 'd-none btn-sm btn-outline-success',
+          className: 'rounded-0 d-none btn-sm btn-outline-success',
           attr: {
             'id': 'table_btn_page_length',
             'name': 'table_btn_page_length',
           },
-        },
+        },*/
       ],
     });
   }

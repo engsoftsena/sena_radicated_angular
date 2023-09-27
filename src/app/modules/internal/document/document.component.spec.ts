@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestobjectComponent } from './requestobject.component';
+import { DocumentComponent } from './document.component';
 
-describe('RequestobjectComponent', () => {
-  let component: RequestobjectComponent;
-  let fixture: ComponentFixture<RequestobjectComponent>;
+describe('DocumentComponent', () => {
+  let component: DocumentComponent;
+  let fixture: ComponentFixture<DocumentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RequestobjectComponent ]
+      declarations: [ DocumentComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RequestobjectComponent);
+    fixture = TestBed.createComponent(DocumentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

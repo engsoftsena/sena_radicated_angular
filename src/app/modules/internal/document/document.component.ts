@@ -1,35 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { SettledModule } from 'src/app/models/settled.interface';
+import { DocumentModule } from 'src/app/models/document.interface';
 import { ApiService } from 'src/app/services/api/api.service';
-import { SettledService } from 'src/app/services/settled/settled.service';
+import { DocumentService } from 'src/app/services/document/document.service';
 
 @Component({
-  selector: 'app-settled',
-  templateUrl: './settled.component.html',
-  styleUrls: ['./settled.component.scss']
+  selector: 'app-document',
+  templateUrl: './document.component.html',
+  styleUrls: ['./document.component.scss']
 })
-export class SettledComponent implements OnInit {
+export class DocumentComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
-    private serviceSettled: SettledService,
+    private serviceDocument: DocumentService,
   ) {}
 
-  settledData: SettledModule[] = [];
+  documentData: DocumentModule[] = [];
 
   ngOnInit(): void {
     this.getSelect();
   }
 
   getSelect() {
-    this.serviceSettled.getSelect().subscribe({
+    this.serviceDocument.getSelect().subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.settledData = response.result.map((item: any) => ({
+        this.documentData = response.result.map((item: any) => ({
           idRole: parseInt(item.id_role, 10),
           name: item.name,
         }));
-        console.log(this.settledData);
+        console.log(this.documentData);
         this.getTable();
       },
       error: (err: any) => console.error(err),

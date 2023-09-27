@@ -30,11 +30,12 @@ import { LoginComponent } from './modules/external/login/login.component';
 import { InternalComponent } from './modules/internal/internal.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
 
+/* Componentes: Modulos Internos */
 import { CausalComponent } from './modules/internal/causal/causal.component';
-import { DocumenttypeComponent } from './modules/internal/documenttype/documenttype.component';
-import { MediacomunicationComponent } from './modules/internal/mediacomunication/mediacomunication.component';
+import { DocumentComponent } from './modules/internal/document/document.component';
+import { ComunicationComponent } from './modules/internal/comunication/comunication.component';
 import { PatientComponent } from './modules/internal/patient/patient.component';
-import { RequestobjectComponent } from './modules/internal/requestobject/requestobject.component';
+import { RequestComponent } from './modules/internal/request/request.component';
 import { ResourceComponent } from './modules/internal/resource/resource.component';
 import { SettledComponent } from './modules/internal/settled/settled.component';
 import { StateComponent } from './modules/internal/state/state.component';
@@ -68,10 +69,10 @@ import { UserComponent } from './modules/internal/user/user.component';
     DashboardComponent,
 
     CausalComponent,
-    DocumenttypeComponent,
-    MediacomunicationComponent,
+    DocumentComponent,
+    ComunicationComponent,
     PatientComponent,
-    RequestobjectComponent,
+    RequestComponent,
     ResourceComponent,
     SettledComponent,
     StateComponent,
