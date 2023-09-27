@@ -6,8 +6,18 @@ import { InternalComponent } from './modules/internal/internal.component';
 
 import { LoginComponent } from './modules/external/login/login.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
-import { TgRoleDataComponent } from './modules/internal/technology/tg-role-data/tg-role-data.component';
-import { TgUserDataComponent } from './modules/internal/technology/tg-user-data/tg-user-data.component';
+
+import { CausalComponent } from './modules/internal/causal/causal.component';
+import { DocumenttypeComponent } from './modules/internal/documenttype/documenttype.component';
+import { MediacomunicationComponent } from './modules/internal/mediacomunication/mediacomunication.component';
+import { PatientComponent } from './modules/internal/patient/patient.component';
+import { RequestobjectComponent } from './modules/internal/requestobject/requestobject.component';
+import { ResourceComponent } from './modules/internal/resource/resource.component';
+import { SettledComponent } from './modules/internal/settled/settled.component';
+import { StateComponent } from './modules/internal/state/state.component';
+import { RoleComponent } from './modules/internal/role/role.component';
+import { TraceabilityComponent } from './modules/internal/traceability/traceability.component';
+import { UserComponent } from './modules/internal/user/user.component';
 
 /*const routes: Routes = [
   {
@@ -37,8 +47,17 @@ const routes: Routes = [
     component: InternalComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent, },
-      { path: 'tgroledata', component: TgRoleDataComponent, },
-      { path: 'tguserdata', component: TgUserDataComponent, },
+      { path: 'causal', component: CausalComponent, },
+      { path: 'documenttype', component: DocumenttypeComponent, },
+      { path: 'mediacomunication', component: MediacomunicationComponent, },
+      { path: 'patient', component: PatientComponent, },
+      { path: 'requestobject', component: RequestobjectComponent, },
+      { path: 'resource', component: ResourceComponent, },
+      { path: 'role', component: RoleComponent, },
+      { path: 'settled', component: SettledComponent, },
+      { path: 'state', component: StateComponent, },
+      { path: 'traceability', component: TraceabilityComponent, },
+      { path: 'user', component: UserComponent, },
       { path: '', redirectTo: 'internal/dashboard', pathMatch: 'full', },
     ]
   },

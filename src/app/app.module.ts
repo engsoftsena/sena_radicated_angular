@@ -29,8 +29,18 @@ import { LoginComponent } from './modules/external/login/login.component';
 /* Componentes: Modulos Internos */
 import { InternalComponent } from './modules/internal/internal.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
-import { TgRoleDataComponent } from './modules/internal/technology/tg-role-data/tg-role-data.component';
-import { TgUserDataComponent } from './modules/internal/technology/tg-user-data/tg-user-data.component';
+
+import { CausalComponent } from './modules/internal/causal/causal.component';
+import { DocumenttypeComponent } from './modules/internal/documenttype/documenttype.component';
+import { MediacomunicationComponent } from './modules/internal/mediacomunication/mediacomunication.component';
+import { PatientComponent } from './modules/internal/patient/patient.component';
+import { RequestobjectComponent } from './modules/internal/requestobject/requestobject.component';
+import { ResourceComponent } from './modules/internal/resource/resource.component';
+import { SettledComponent } from './modules/internal/settled/settled.component';
+import { StateComponent } from './modules/internal/state/state.component';
+import { RoleComponent } from './modules/internal/role/role.component';
+import { TraceabilityComponent } from './modules/internal/traceability/traceability.component';
+import { UserComponent } from './modules/internal/user/user.component';
 
 @NgModule({
   declarations: [
@@ -56,8 +66,18 @@ import { TgUserDataComponent } from './modules/internal/technology/tg-user-data/
 
     InternalComponent,
     DashboardComponent,
-    TgRoleDataComponent,
-    TgUserDataComponent,
+
+    CausalComponent,
+    DocumenttypeComponent,
+    MediacomunicationComponent,
+    PatientComponent,
+    RequestobjectComponent,
+    ResourceComponent,
+    SettledComponent,
+    StateComponent,
+    RoleComponent,
+    TraceabilityComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
