@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CausalModule } from 'src/app/models/causal.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 import { CausalService } from 'src/app/services/causal/causal.service';
+import { TableService } from 'src/app/services/table/table.service';
 
 @Component({
   selector: 'app-causal',
@@ -12,6 +13,7 @@ export class CausalComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
     private serviceCausal: CausalService,
+    private serviceTable: TableService,
   ) {}
 
   causalData: CausalModule[] = [];
@@ -26,18 +28,32 @@ export class CausalComponent implements OnInit {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
         this.causalData = response.result.map((item: any) => ({
-          idRole: parseInt(item.id_role, 10),
+          id_role: parseInt(item.id_role, 10),
           name: item.name,
         }));
         console.log(this.causalData);
-        this.getTable();
+        const columnSet = [
+          {
+            title: "Id",
+            id: "id_role",
+            data: "id_role",
+            type: "text",
+            className: "text-dark",
+            visible: true,
+          },
+          {
+            title: "Nombre",
+            id: "name",
+            data: "name",
+            type: "text",
+            className: "text-dark",
+            visible: true,
+          },
+        ];
+        this.serviceTable.getTable('tbCausal', this.causalData, columnSet, []);
       },
       error: (err: any) => console.error(err),
       complete: () => (false),
     });
-  }
-
-  getTable() {
-    
   }
 }

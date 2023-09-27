@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResourceModule } from 'src/app/models/resource.interface';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ResourceService } from 'src/app/services/resource/resource.service';
+import { TableService } from 'src/app/services/table/table.service';
 
 @Component({
   selector: 'app-resource',
@@ -12,6 +13,7 @@ export class ResourceComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
     private serviceResource: ResourceService,
+    private serviceTable: TableService,
   ) {}
 
   resourceData: ResourceModule[] = [];
@@ -26,18 +28,32 @@ export class ResourceComponent implements OnInit {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
         this.resourceData = response.result.map((item: any) => ({
-          idRole: parseInt(item.id_role, 10),
+          id_role: parseInt(item.id_role, 10),
           name: item.name,
         }));
         console.log(this.resourceData);
-        this.getTable();
+        const columnSet = [
+          {
+            title: "Id",
+            id: "id_role",
+            data: "id_role",
+            type: "text",
+            className: "text-dark",
+            visible: true,
+          },
+          {
+            title: "Nombre",
+            id: "name",
+            data: "name",
+            type: "text",
+            className: "text-dark",
+            visible: true,
+          },
+        ];
+        this.serviceTable.getTable('tbResource', this.resourceData, columnSet, []);
       },
       error: (err: any) => console.error(err),
       complete: () => (false),
     });
-  }
-
-  getTable() {
-    
   }
 }

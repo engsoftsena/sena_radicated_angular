@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TraceabilityModule } from 'src/app/models/traceability.interface';
 import { ApiService } from 'src/app/services/api/api.service';
+import { TableService } from 'src/app/services/table/table.service';
 import { TraceabilityService } from 'src/app/services/traceability/traceability.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { TraceabilityService } from 'src/app/services/traceability/traceability.
 export class TraceabilityComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
+    private serviceTable: TableService,
     private serviceTraceability: TraceabilityService,
   ) {}
 
@@ -26,18 +28,32 @@ export class TraceabilityComponent implements OnInit {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
         this.traceabilityData = response.result.map((item: any) => ({
-          idRole: parseInt(item.id_role, 10),
+          id_role: parseInt(item.id_role, 10),
           name: item.name,
         }));
         console.log(this.traceabilityData);
-        this.getTable();
+        const columnSet = [
+          {
+            title: "Id",
+            id: "id_role",
+            data: "id_role",
+            type: "text",
+            className: "text-dark",
+            visible: true,
+          },
+          {
+            title: "Nombre",
+            id: "name",
+            data: "name",
+            type: "text",
+            className: "text-dark",
+            visible: true,
+          },
+        ];
+        this.serviceTable.getTable('tbTraceability', this.traceabilityData, columnSet, []);
       },
       error: (err: any) => console.error(err),
       complete: () => (false),
     });
-  }
-
-  getTable() {
-    
   }
 }
