@@ -1,1 +1,132 @@
-<p>request works!</p>
+<div class="row dev-row" id="row_dashboard">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div id="panel_dashboard" class="panel rounded-0 mb-2">
+      <div class="panel-container show">
+        <div class="panel-content p-0">
+          <div class="panel-tag p-2 bg-white">
+            <ol class="breadcrumb page-breadcrumb">
+              <li class="breadcrumb-item text-danger">
+                <a href="internal/dashboard" class="text-contrast">
+                  <em class="far fa-tachometer-alt-average text-primary"></em>
+                  <span class="text-dark">
+                    Dashboard
+                  </span>
+                </a>
+              </li>
+              <li class="breadcrumb-item text-danger">
+                <a href="internal/request">
+                  <em class="far fa-tachometer-alt-average text-primary"></em>
+                  <span class="text-dark">
+                    Solicitudes
+                  </span>
+                </a>
+              </li>
+              <li class="position-absolute pos-top pos-right d-none d-sm-block text-dark">
+                <span class="js-get-date"></span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2">
+    <div class="alert alert-info alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
+      <div class="d-flex align-items-center">
+        <div class="alert-icon width-1">
+          <span class="icon-stack" style="font-size: 20px;">
+            <em class="base-2 icon-stack-3x color-primary-400"></em>
+            <em class="base-10 text-white icon-stack-1x"></em>
+            <em class="ni md-profile color-primary-800 icon-stack-2x"></em>
+          </span>
+        </div>
+        <div class="flex-1">
+          <strong>Acerca De:</strong>
+          <span>
+            Aplicativo para el control de datos e información y resumen de tu cuenta registrada en la base de datos.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row dev-row" id="row_content">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <ul class="nav nav-tabs p-0" role="tablist">
+      <li class="nav-item border border-success p-0 mr-1">
+        <a class="nav-link p-1 active" data-toggle="tab" href="#tab_section_infodat" role="tab" aria-selected="true">
+          <em class="fal fa-table text-success"></em>
+          <span class="ml-1">Informacion</span>
+        </a>
+      </li>
+      <li class="nav-item border border-success p-0 mr-1">
+        <a class="nav-link p-1" data-toggle="tab" href="#tab_section_import" role="tab" aria-selected="false">
+          <em class="fal fa-cog text-info"></em>
+          <span class="ml-1">Importaciones</span>
+        </a>
+      </li>
+      <li class="nav-item border border-success p-0 mr-1">
+        <a class="nav-link p-1" data-toggle="tab" href="#tab_section_inform" role="tab" aria-selected="false">
+          <em class="fal fa-table text-info"></em>
+          <span class="ml-1">Informes</span>
+        </a>
+      </li>
+    </ul>
+
+		<div class="tab-content pt-2">
+			<div class="tab-pane fade active show" id="tab_section_infodat" role="tabpanel">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<div id="panel_infodat" class="panel rounded-0">
+							<div class="panel-hdr bg-dark text-white rounded-0 p-0">
+								<h2 class="text-white">
+									<span class="icon-stack fs-xxl mr-2">
+										<em class="base base-7 icon-stack-3x opacity-100 color-primary-500"></em>
+										<em class="base base-7 icon-stack-2x opacity-100 color-primary-300"></em>
+										<em class="far fa-user icon-stack-1x opacity-100 fa-spin"></em>
+									</span>
+									<span>Solicitudes</span>
+								</h2>
+								<div class="panel-toolbar">
+									<button class="btn btn-panel btn-primary" title="Informacion" data-toggle="modal" data-target=".modal-div-info" data-offset="0,10" data-original-title="Informacion"></button>
+								</div>
+							</div>
+							<div class="panel-container show">
+								<div class="panel-content dev-panel-content p-2">
+
+                  <div class="table-responsive">
+                    <table id="tbRequest" cellspacing="0" width="100%"
+                      class="text-center table table-bordered table-sm table-hover table-striped w-100 nowrap">
+                      <caption class="alert alert-success alert-dismissible fade show p-1 rounded-0 mb-2 text-dark"
+                        style="caption-side: top;">
+                        <div class="d-flex align-items-center">
+                          <div class="alert-icon width-1">
+                            <span class="icon-stack" style="font-size: 20px;">
+                              <em class="base-2 icon-stack-3x color-primary-400"></em>
+                              <em class="base-10 text-white icon-stack-1x"></em>
+                              <em class="ni md-profile color-primary-800 icon-stack-2x"></em>
+                            </span>
+                          </div>
+                          <div class="flex-1">
+                            <strong>Acerca De:</strong>
+                            <span>Informacion y datos procesados extraidos de la base de datos.</span>
+                          </div>
+                        </div>
+                      </caption>
+                      <thead name="field_ft_thead" id="field_ft_thead" class="table-success"></thead>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+
+  </div>
+</div>
