@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TraceabilityModule } from 'src/app/interfaces/modules/traceability.interface';
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
-import { TraceabilityService } from 'src/app/services/traceability/traceability.service';
+import { TraceabilityService } from 'src/app/services/modules/traceability/traceability.service';
 
 @Component({
   selector: 'app-traceability',
@@ -16,38 +16,38 @@ export class TraceabilityComponent implements OnInit {
     private serviceTraceability: TraceabilityService,
   ) {}
 
+  columnSet: [] | undefined;
   traceabilityData: TraceabilityModule[] = [];
 
   ngOnInit(): void {
-    this.getSelect();
+    this.getColumn();
+  }
+
+  getColumn() {
+    this.serviceApi.getColumn('traceabilities').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getSelect();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
   }
 
   getSelect() {
-    this.serviceTraceability.getSelect().subscribe({
+    this.serviceApi.getSelect('traceabilities').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.traceabilityData = response.result;
+        this.traceabilityData = response.data;
         console.log(this.traceabilityData);
-        const columnSet = [
-          {
-            title: "Id",
-            id: "id_traceability",
-            data: "id_traceability",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-          {
-            title: "Nombre",
-            id: "name",
-            data: "name",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-        ];
-        this.serviceTable.getTable('tbTraceability', this.traceabilityData, columnSet, []);
+        this.serviceTable.getTable(
+          'tbTraceability',
+          this.traceabilityData,
+          this.columnSet,
+          []
+        );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),

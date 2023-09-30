@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserModule } from 'src/app/interfaces/modules/user.interface';
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/modules/user/user.service';
 
 @Component({
   selector: 'app-user',
@@ -16,38 +16,38 @@ export class UserComponent implements OnInit {
     private serviceUser: UserService,
   ) {}
 
+  columnSet: [] | undefined;
   userData: UserModule[] = [];
 
   ngOnInit(): void {
-    this.getSelect();
+    this.getColumn();
+  }
+
+  getColumn() {
+    this.serviceApi.getColumn('users').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getSelect();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
   }
 
   getSelect() {
-    this.serviceUser.getSelect().subscribe({
+    this.serviceApi.getSelect('users').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.userData = response.result;
+        this.userData = response.data;
         console.log(this.userData);
-        const columnSet = [
-          {
-            title: "Id",
-            id: "id_user",
-            data: "id_user",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-          {
-            title: "Nombre",
-            id: "name",
-            data: "name",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-        ];
-        this.serviceTable.getTable('tbUser', this.userData, columnSet, []);
+        this.serviceTable.getTable(
+          'tbUser',
+          this.userData,
+          this.columnSet,
+          []
+        );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),

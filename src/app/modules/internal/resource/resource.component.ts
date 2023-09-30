@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceModule } from 'src/app/interfaces/modules/resource.interface';
 import { ApiService } from 'src/app/services/functions/api/api.service';
-import { ResourceService } from 'src/app/services/resource/resource.service';
+import { ResourceService } from 'src/app/services/modules/resource/resource.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
@@ -16,38 +16,38 @@ export class ResourceComponent implements OnInit {
     private serviceTable: TableService,
   ) {}
 
+  columnSet: [] | undefined;
   resourceData: ResourceModule[] = [];
 
   ngOnInit(): void {
-    this.getSelect();
+    this.getColumn();
+  }
+
+  getColumn() {
+    this.serviceApi.getColumn('resources').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getSelect();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
   }
 
   getSelect() {
-    this.serviceResource.getSelect().subscribe({
+    this.serviceApi.getSelect('resources').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.resourceData = response.result;
+        this.resourceData = response.data;
         console.log(this.resourceData);
-        const columnSet = [
-          {
-            title: "Id",
-            id: "id_resource",
-            data: "id_resource",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-          {
-            title: "Nombre",
-            id: "name",
-            data: "name",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-        ];
-        this.serviceTable.getTable('tbResource', this.resourceData, columnSet, []);
+        this.serviceTable.getTable(
+          'tbResource',
+          this.resourceData,
+          this.columnSet,
+          []
+        );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),

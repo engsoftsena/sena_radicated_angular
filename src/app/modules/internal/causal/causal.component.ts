@@ -16,38 +16,38 @@ export class CausalComponent implements OnInit {
     private serviceTable: TableService,
   ) {}
 
+  columnSet: [] | undefined;
   causalData: CausalModule[] = [];
 
   ngOnInit(): void {
-    this.getSelect();
+    this.getColumn();
+  }
+
+  getColumn() {
+    this.serviceApi.getColumn('causals').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getSelect();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
   }
 
   getSelect() {
-    this.serviceCausal.getSelect().subscribe({
+    this.serviceApi.getSelect('causals').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.causalData = response.result;
+        this.causalData = response.data;
         console.log(this.causalData);
-        const columnSet = [
-          {
-            title: "Id",
-            id: "id_causal",
-            data: "id_causal",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-          {
-            title: "Nombre",
-            id: "name",
-            data: "name",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-        ];
-        this.serviceTable.getTable('tbCausal', this.causalData, columnSet, []);
+        this.serviceTable.getTable(
+          'tbCausal',
+          this.causalData,
+          this.columnSet,
+          []
+        );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),

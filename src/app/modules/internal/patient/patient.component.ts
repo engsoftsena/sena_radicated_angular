@@ -16,38 +16,38 @@ export class PatientComponent implements OnInit {
     private serviceTable: TableService,
   ) {}
 
+  columnSet: [] | undefined;
   patientData: PatientModule[] = [];
 
   ngOnInit(): void {
-    this.getSelect();
+    this.getColumn();
+  }
+
+  getColumn() {
+    this.serviceApi.getColumn('patients').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getSelect();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
   }
 
   getSelect() {
-    this.servicePatient.getSelect().subscribe({
+    this.serviceApi.getSelect('patients').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.patientData = response.result;
+        this.patientData = response.data;
         console.log(this.patientData);
-        const columnSet = [
-          {
-            title: "Id",
-            id: "id_patient",
-            data: "id_patient",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-          {
-            title: "Nombre",
-            id: "name",
-            data: "name",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-        ];
-        this.serviceTable.getTable('tbPatient', this.patientData, columnSet, []);
+        this.serviceTable.getTable(
+          'tbPatient',
+          this.patientData,
+          this.columnSet,
+          []
+        );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),

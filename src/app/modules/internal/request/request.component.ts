@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestModule } from 'src/app/interfaces/modules/request.interface';
 import { ApiService } from 'src/app/services/functions/api/api.service';
-import { RequestService } from 'src/app/services/request/request.service';
+import { RequestService } from 'src/app/services/modules/request/request.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
@@ -16,38 +16,38 @@ export class RequestComponent implements OnInit {
     private serviceTable: TableService,
   ) {}
 
+  columnSet: [] | undefined;
   requestData: RequestModule[] = [];
 
   ngOnInit(): void {
-    this.getSelect();
+    this.getColumn();
+  }
+
+  getColumn() {
+    this.serviceApi.getColumn('requests').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getSelect();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
   }
 
   getSelect() {
-    this.serviceRequest.getSelect().subscribe({
+    this.serviceApi.getSelect('requests').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.requestData = response.result;
+        this.requestData = response.data;
         console.log(this.requestData);
-        const columnSet = [
-          {
-            title: "Id",
-            id: "id_request",
-            data: "id_request",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-          {
-            title: "Nombre",
-            id: "name",
-            data: "name",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-        ];
-        this.serviceTable.getTable('tbRequest', this.requestData, columnSet, []);
+        this.serviceTable.getTable(
+          'tbRequest',
+          this.requestData,
+          this.columnSet,
+          []
+        );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),

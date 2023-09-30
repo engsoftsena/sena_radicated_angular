@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleModule } from 'src/app/interfaces/modules/role.interface';
 import { ApiService } from 'src/app/services/functions/api/api.service';
-import { RoleService } from 'src/app/services/role/role.service';
+import { RoleService } from 'src/app/services/modules/role/role.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
 declare let $: any;
@@ -23,7 +23,6 @@ export class RoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getColumn();
-    this.getSelect();
   }
 
   getColumn() {
@@ -31,6 +30,7 @@ export class RoleComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
+        this.getSelect();
       },
       error: (err: any) => console.error(err),
       complete: () => (false),
