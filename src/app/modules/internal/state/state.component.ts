@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { StateModule } from 'src/app/models/state.interface';
-import { ApiService } from 'src/app/services/api/api.service';
+import { StateModule } from 'src/app/interfaces/modules/state.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
 import { StateService } from 'src/app/services/state/state.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
   selector: 'app-state',

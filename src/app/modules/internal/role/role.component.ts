@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleModule } from 'src/app/models/role.interface';
-import { ApiService } from 'src/app/services/api/api.service';
+import { RoleModule } from 'src/app/interfaces/modules/role.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
 import { RoleService } from 'src/app/services/role/role.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 declare let $: any;
 
@@ -18,38 +18,38 @@ export class RoleComponent implements OnInit {
     private serviceTable: TableService,
   ) {}
 
+  columnSet: [] | undefined;
   roleData: RoleModule[] = [];
 
   ngOnInit(): void {
+    this.getColumn();
     this.getSelect();
   }
 
+  getColumn() {
+    this.serviceApi.getColumn('roles').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
   getSelect() {
-    this.serviceRole.getSelect().subscribe({
+    this.serviceApi.getSelect('roles').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.roleData = response.result;
+        this.roleData = response.data;
         console.log(this.roleData);
-        const columnSet = [
-          {
-            title: "Id",
-            id: "id_role",
-            data: "id_role",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-          {
-            title: "Nombre",
-            id: "name",
-            data: "name",
-            type: "text",
-            className: "text-dark",
-            visible: true,
-          },
-        ];
-        this.serviceTable.getTable('tbRole', this.roleData, columnSet, []);
+        this.serviceTable.getTable(
+          'tbRole',
+          this.roleData,
+          this.columnSet,
+          []
+        );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),

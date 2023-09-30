@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CausalModule } from 'src/app/models/causal.interface';
-import { ApiService } from 'src/app/services/api/api.service';
-import { CausalService } from 'src/app/services/causal/causal.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { CausalModule } from 'src/app/interfaces/modules/causal.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
+import { CausalService } from 'src/app/services/modules/causal/causal.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
   selector: 'app-causal',

@@ -5,7 +5,7 @@ import { Environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class RoleService {
   private urlEndPoint:string = Environment.API_URL;
 
   constructor(
@@ -13,10 +13,8 @@ export class ApiService {
   ) { }
 
   getSelect(table: any) {
-    const select = `select=*`;
-    const orderby = `orderBy=id_role`;
-    const ordermode = `&orderMode=DESC`;
-    const urlApi = `${this.urlEndPoint}/${table}?${select}&${orderby}&${ordermode}`;
+    const service = `/mysql/info/alias?table=${table}`;
+    const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get(`${urlApi}`);
   }

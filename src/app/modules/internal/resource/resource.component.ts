@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ResourceModule } from 'src/app/models/resource.interface';
-import { ApiService } from 'src/app/services/api/api.service';
+import { ResourceModule } from 'src/app/interfaces/modules/resource.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ResourceService } from 'src/app/services/resource/resource.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
   selector: 'app-resource',

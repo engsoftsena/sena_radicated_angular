@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PatientModule } from 'src/app/models/patient.interface';
-import { ApiService } from 'src/app/services/api/api.service';
-import { PatientService } from 'src/app/services/patient/patient.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { PatientModule } from 'src/app/interfaces/modules/patient.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
+import { PatientService } from 'src/app/services/modules/patient/patient.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
   selector: 'app-patient',

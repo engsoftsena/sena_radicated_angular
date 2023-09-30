@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DocumentModule } from 'src/app/models/document.interface';
-import { ApiService } from 'src/app/services/api/api.service';
+import { DocumentModule } from 'src/app/interfaces/modules/document.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
 import { DocumentService } from 'src/app/services/document/document.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
   selector: 'app-document',

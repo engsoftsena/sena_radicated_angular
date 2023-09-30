@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestModule } from 'src/app/models/request.interface';
-import { ApiService } from 'src/app/services/api/api.service';
+import { RequestModule } from 'src/app/interfaces/modules/request.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
 import { RequestService } from 'src/app/services/request/request.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
   selector: 'app-request',

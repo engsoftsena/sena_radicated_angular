@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModule } from 'src/app/models/user.interface';
-import { ApiService } from 'src/app/services/api/api.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { UserModule } from 'src/app/interfaces/modules/user.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({

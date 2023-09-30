@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SettledModule } from 'src/app/models/settled.interface';
-import { ApiService } from 'src/app/services/api/api.service';
+import { SettledModule } from 'src/app/interfaces/modules/settled.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
 import { SettledService } from 'src/app/services/settled/settled.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
   selector: 'app-settled',

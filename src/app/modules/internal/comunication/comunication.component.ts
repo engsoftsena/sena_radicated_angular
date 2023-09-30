@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ComunicationModule } from 'src/app/models/comunication.interface';
-import { ApiService } from 'src/app/services/api/api.service';
+import { ComunicationModule } from 'src/app/interfaces/modules/comunication.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ComunicationService } from 'src/app/services/comunication/comunication.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
   selector: 'app-comunication',

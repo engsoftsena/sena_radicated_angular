@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TraceabilityModule } from 'src/app/models/traceability.interface';
-import { ApiService } from 'src/app/services/api/api.service';
-import { TableService } from 'src/app/services/table/table.service';
+import { TraceabilityModule } from 'src/app/interfaces/modules/traceability.interface';
+import { ApiService } from 'src/app/services/functions/api/api.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 import { TraceabilityService } from 'src/app/services/traceability/traceability.service';
 
 @Component({
