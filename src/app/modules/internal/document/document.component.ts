@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+// Importacion de Modulos
 import { DocumentModule } from 'src/app/interfaces/modules/document.interface';
+// Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
+import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { DocumentService } from 'src/app/services/modules/document/document.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
@@ -12,8 +15,9 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 export class DocumentComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
-    private serviceDocument: DocumentService,
+    private serviceButton: ButtonService,
     private serviceTable: TableService,
+    private serviceDocument: DocumentService,
   ) {}
 
   columnSet: [] | undefined;
@@ -42,11 +46,18 @@ export class DocumentComponent implements OnInit {
         // Mapea los datos del servicio al formato esperado
         this.documentData = response.data;
         console.log(this.documentData);
+        // Concatenar los botones en un solo arreglo
+        const btnGroups = [
+          ...this.serviceButton.buttonDataAction(),
+          ...this.serviceButton.buttonDataExport(),
+          ...this.serviceButton.buttonFielAction(),
+        ];
+        // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbDocument',
           this.documentData,
           this.columnSet,
-          []
+          btnGroups
         );
       },
       error: (err: any) => console.error(err),

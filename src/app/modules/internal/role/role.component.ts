@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+// Importacion de Modulos
 import { RoleModule } from 'src/app/interfaces/modules/role.interface';
+// Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
+import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { RoleService } from 'src/app/services/modules/role/role.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
-
-declare let $: any;
 
 @Component({
   selector: 'app-role',
@@ -14,8 +15,9 @@ declare let $: any;
 export class RoleComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
-    private serviceRole: RoleService,
+    private serviceButton: ButtonService,
     private serviceTable: TableService,
+    private serviceRole: RoleService,
   ) {}
 
   columnSet: [] | undefined;
@@ -44,11 +46,18 @@ export class RoleComponent implements OnInit {
         // Mapea los datos del servicio al formato esperado
         this.roleData = response.data;
         console.log(this.roleData);
+        // Concatenar los botones en un solo arreglo
+        const btnGroups = [
+          ...this.serviceButton.buttonDataAction(),
+          ...this.serviceButton.buttonDataExport(),
+          ...this.serviceButton.buttonFielAction(),
+        ];
+        // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbRole',
           this.roleData,
           this.columnSet,
-          []
+          btnGroups
         );
       },
       error: (err: any) => console.error(err),

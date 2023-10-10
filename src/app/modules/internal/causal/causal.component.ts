@@ -46,20 +46,13 @@ export class CausalComponent implements OnInit {
         // Mapea los datos del servicio al formato esperado
         this.causalData = response.data;
         console.log(this.causalData);
-
-
-        // Definir los botones usando las funciones
-        const btnPermitData = this.serviceButton.buttonDataAction();
-        const buttonDataExport = this.serviceButton.buttonDataExport();
-        const buttonFielAction = this.serviceButton.buttonFielAction();
-
-        // Concatenar los arreglos de botones en un solo arreglo
+        // Concatenar los botones en un solo arreglo
         const btnGroups = [
           ...this.serviceButton.buttonDataAction(),
           ...this.serviceButton.buttonDataExport(),
           ...this.serviceButton.buttonFielAction(),
         ];
-
+        // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbCausal',
           this.causalData,

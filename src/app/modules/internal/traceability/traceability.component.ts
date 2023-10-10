@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+// Importacion de Modulos
 import { TraceabilityModule } from 'src/app/interfaces/modules/traceability.interface';
+// Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
+import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 import { TraceabilityService } from 'src/app/services/modules/traceability/traceability.service';
 
@@ -12,6 +15,7 @@ import { TraceabilityService } from 'src/app/services/modules/traceability/trace
 export class TraceabilityComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
+    private serviceButton: ButtonService,
     private serviceTable: TableService,
     private serviceTraceability: TraceabilityService,
   ) {}
@@ -42,11 +46,18 @@ export class TraceabilityComponent implements OnInit {
         // Mapea los datos del servicio al formato esperado
         this.traceabilityData = response.data;
         console.log(this.traceabilityData);
+        // Concatenar los botones en un solo arreglo
+        const btnGroups = [
+          ...this.serviceButton.buttonDataAction(),
+          ...this.serviceButton.buttonDataExport(),
+          ...this.serviceButton.buttonFielAction(),
+        ];
+        // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbTraceability',
           this.traceabilityData,
           this.columnSet,
-          []
+          btnGroups
         );
       },
       error: (err: any) => console.error(err),

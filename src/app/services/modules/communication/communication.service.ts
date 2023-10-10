@@ -9,7 +9,7 @@ import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DocumentService {
+export class CommunicationService {
   private urlEndPoint:string = Environment.API_URL;
   constructor(
     private http: HttpClient

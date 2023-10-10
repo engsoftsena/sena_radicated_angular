@@ -9,7 +9,7 @@ import { DashboardComponent } from './modules/internal/dashboard/dashboard.compo
 
 import { CausalComponent } from './modules/internal/causal/causal.component';
 import { DocumentComponent } from './modules/internal/document/document.component';
-import { ComunicationComponent } from './modules/internal/comunication/comunication.component';
+import { CommunicationComponent } from './modules/internal/communication/communication.component';
 import { PatientComponent } from './modules/internal/patient/patient.component';
 import { RequestComponent } from './modules/internal/request/request.component';
 import { ResourceComponent } from './modules/internal/resource/resource.component';
@@ -35,7 +35,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent, },
       { path: 'causal', component: CausalComponent, },
       { path: 'document', component: DocumentComponent, },
-      { path: 'comunication', component: ComunicationComponent, },
+      { path: 'communication', component: CommunicationComponent, },
       { path: 'patient', component: PatientComponent, },
       { path: 'request', component: RequestComponent, },
       { path: 'resource', component: ResourceComponent, },

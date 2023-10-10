@@ -34,7 +34,7 @@ import { DashboardComponent } from './modules/internal/dashboard/dashboard.compo
 /* Componentes: Modulos: Internos */
 import { CausalComponent } from './modules/internal/causal/causal.component';
 import { DocumentComponent } from './modules/internal/document/document.component';
-import { ComunicationComponent } from './modules/internal/comunication/comunication.component';
+import { CommunicationComponent } from './modules/internal/communication/communication.component';
 import { PatientComponent } from './modules/internal/patient/patient.component';
 import { RequestComponent } from './modules/internal/request/request.component';
 import { ResourceComponent } from './modules/internal/resource/resource.component';
@@ -72,7 +72,7 @@ import { UserComponent } from './modules/internal/user/user.component';
     /* Componentes: Modulos: Internos */
     CausalComponent,
     DocumentComponent,
-    ComunicationComponent,
+    CommunicationComponent,
     PatientComponent,
     RequestComponent,
     ResourceComponent,

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TgRoleDataComponent } from './tg-role-data.component';
+import { CommunicationComponent } from './communication.component';
 
-describe('TgRoleDataComponent', () => {
-  let component: TgRoleDataComponent;
-  let fixture: ComponentFixture<TgRoleDataComponent>;
+describe('CommunicationComponent', () => {
+  let component: CommunicationComponent;
+  let fixture: ComponentFixture<CommunicationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TgRoleDataComponent ]
+      declarations: [ CommunicationComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TgRoleDataComponent);
+    fixture = TestBed.createComponent(CommunicationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

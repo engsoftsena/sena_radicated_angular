@@ -1,34 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 // Importacion de Modulos
-import { RequestModule } from 'src/app/interfaces/modules/request.interface';
+import { CommunicationModule } from 'src/app/interfaces/modules/communication.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
-import { RequestService } from 'src/app/services/modules/request/request.service';
+import { CommunicationService } from 'src/app/services/modules/communication/communication.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
 @Component({
-  selector: 'app-request',
-  templateUrl: './request.component.html',
-  styleUrls: ['./request.component.scss']
+  selector: 'app-communication',
+  templateUrl: './communication.component.html',
+  styleUrls: ['./communication.component.scss']
 })
-export class RequestComponent implements OnInit {
+export class CommunicationComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
     private serviceButton: ButtonService,
     private serviceTable: TableService,
-    private serviceRequest: RequestService,
+    private serviceCommunication: CommunicationService,
   ) {}
 
   columnSet: [] | undefined;
-  requestData: RequestModule[] = [];
+  communicationData: CommunicationModule[] = [];
 
   ngOnInit(): void {
     this.getColumn();
   }
 
   getColumn() {
-    this.serviceApi.getColumn('requests').subscribe({
+    this.serviceApi.getColumn('communications').subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -40,12 +40,12 @@ export class RequestComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('requests').subscribe({
+    this.serviceApi.getSelect('communications').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.requestData = response.data;
-        console.log(this.requestData);
+        this.communicationData = response.data;
+        console.log(this.communicationData);
         // Concatenar los botones en un solo arreglo
         const btnGroups = [
           ...this.serviceButton.buttonDataAction(),
@@ -54,8 +54,8 @@ export class RequestComponent implements OnInit {
         ];
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
-          'tbRequest',
-          this.requestData,
+          'tbCommunication',
+          this.communicationData,
           this.columnSet,
           btnGroups
         );

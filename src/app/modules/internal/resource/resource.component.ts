@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+// Importacion de Modulos
 import { ResourceModule } from 'src/app/interfaces/modules/resource.interface';
+// Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
+import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { ResourceService } from 'src/app/services/modules/resource/resource.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
@@ -12,8 +15,9 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 export class ResourceComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
-    private serviceResource: ResourceService,
+    private serviceButton: ButtonService,
     private serviceTable: TableService,
+    private serviceResource: ResourceService,
   ) {}
 
   columnSet: [] | undefined;
@@ -42,11 +46,18 @@ export class ResourceComponent implements OnInit {
         // Mapea los datos del servicio al formato esperado
         this.resourceData = response.data;
         console.log(this.resourceData);
+        // Concatenar los botones en un solo arreglo
+        const btnGroups = [
+          ...this.serviceButton.buttonDataAction(),
+          ...this.serviceButton.buttonDataExport(),
+          ...this.serviceButton.buttonFielAction(),
+        ];
+        // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbResource',
           this.resourceData,
           this.columnSet,
-          []
+          btnGroups
         );
       },
       error: (err: any) => console.error(err),

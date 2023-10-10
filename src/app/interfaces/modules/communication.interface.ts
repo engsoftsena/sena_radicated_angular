@@ -1,4 +1,4 @@
-export interface ComunicationModule {
+export interface CommunicationModule {
   id: number | null;
   name: string;
 }
