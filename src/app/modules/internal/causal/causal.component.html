@@ -131,3 +131,32 @@
 
   </div>
 </div>
+
+<!-- Vertically centered scrollable modal -->
+<form aria-label="" class="form-horizontal needs-validation was-validated"
+enctype="application/x-www-form-urlencoded" id="form_delete" novalidate="" role="form">
+  <div aria-hidden="true" aria-labelledby="myCenterModalLabel" data-backdrop="static" data-keyboard="false"
+  id="modalInsertCausal" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-Insert">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalCenteredScrollableTitle">Nuevo Registro</h1>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" id="insert_name" name="insert_name">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">
+            <em class="far fa-plus"></em>
+            <span>Guardar</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">
+            <em class="far fa-close"></em>
+            <span>Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

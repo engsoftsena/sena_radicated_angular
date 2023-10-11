@@ -1,0 +1,8 @@
+Instalacion Librerias
+
+npm install jquery --save
+npm install @types/jquery --save-dev
+npm install --save @types/jquery
+
+npm install bootstrap
+npm install --save @types/bootstrap

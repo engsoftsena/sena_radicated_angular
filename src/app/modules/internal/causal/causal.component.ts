@@ -7,6 +7,9 @@ import { ButtonService } from 'src/app/services/functions/button/button.service'
 import { CausalService } from 'src/app/services/modules/causal/causal.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
+import * as $ from 'jquery';
+import 'bootstrap';
+
 @Component({
   selector: 'app-causal',
   templateUrl: './causal.component.html',
@@ -25,6 +28,11 @@ export class CausalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getColumn();
+
+    // Suscribirse al evento para abrir el modal
+    this.serviceButton.openModalEvent.subscribe(() => {
+      this.openModalInsert();
+    });
   }
 
   getColumn() {
@@ -63,5 +71,13 @@ export class CausalComponent implements OnInit {
       error: (err: any) => console.error(err),
       complete: () => (false),
     });
+  }
+
+  openModalInsert() {
+    console.log('test');
+    const insertNameInput = document.getElementById('insert_name') as HTMLInputElement;
+    if (insertNameInput) {
+      insertNameInput.value = '1';
+    }
   }
 }

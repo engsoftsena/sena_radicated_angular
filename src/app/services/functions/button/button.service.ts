@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ButtonService {
+  // Crear un EventEmitter para abrir el modal
+  openModalEvent: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }
 
@@ -43,7 +45,11 @@ export class ButtonService {
           'id': 'tblBtnActionCreate',
           'name': 'tblBtnActionCreate',
           'data-toggle': 'modal',
-          'data-target': '.modal-div-create',
+          'data-target': '.modal-Insert',
+          'onclick': () => {
+            // Emitir el evento para abrir el modal
+            this.openModalEvent.emit();
+          },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-success',
         text: '<em class="far fa-plus"></em> <span class="hidden-sm-down">Nuevo</span>',
