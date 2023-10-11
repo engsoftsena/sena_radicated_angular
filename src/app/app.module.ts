@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -92,8 +92,8 @@ import { ErrorComponent } from './modules/general/error/error.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
+    //BrowserAnimationsModule,
+    //MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
