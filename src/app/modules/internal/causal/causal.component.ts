@@ -74,9 +74,9 @@ export class CausalComponent implements OnInit {
   }
 
   openModalInsert() {
-    const insertNameInput = document.getElementById('insert_name') as HTMLInputElement;
+    /*const insertNameInput = document.getElementById('insert_name') as HTMLInputElement;
     if (insertNameInput) {
       insertNameInput.value = '1';
-    }
+    }*/
   }
 }
