@@ -7,8 +7,8 @@ import { ButtonService } from 'src/app/services/functions/button/button.service'
 import { CausalService } from 'src/app/services/modules/causal/causal.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
-import * as $ from 'jquery';
-import 'bootstrap';
+//import * as $ from 'jquery';
+//import 'bootstrap';
 
 @Component({
   selector: 'app-causal',
@@ -74,7 +74,6 @@ export class CausalComponent implements OnInit {
   }
 
   openModalInsert() {
-    console.log('test');
     const insertNameInput = document.getElementById('insert_name') as HTMLInputElement;
     if (insertNameInput) {
       insertNameInput.value = '1';

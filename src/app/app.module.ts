@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -44,6 +46,8 @@ import { RoleComponent } from './modules/internal/role/role.component';
 import { TraceabilityComponent } from './modules/internal/traceability/traceability.component';
 import { UserComponent } from './modules/internal/user/user.component';
 
+import { ErrorComponent } from './modules/general/error/error.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,12 +85,15 @@ import { UserComponent } from './modules/internal/user/user.component';
     RoleComponent,
     TraceabilityComponent,
     UserComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

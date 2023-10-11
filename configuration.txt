@@ -6,3 +6,15 @@ npm install --save @types/jquery
 
 npm install bootstrap
 npm install --save @types/bootstrap
+
+ng add @angular/material
+
+-----------------------------------------
+
+npm uninstall jquery
+
+npm uninstall @types/jquery --save-dev
+npm uninstall @types/jquery --save
+
+npm uninstall bootstrap
+npm uninstall @types/bootstrap --save-dev
