@@ -45,9 +45,8 @@ export class ButtonService {
           'id': 'tblBtnActionCreate',
           'name': 'tblBtnActionCreate',
           'data-toggle': 'modal',
-          'data-target': '.modal-Insert',
+          'data-target': '.modal-insert',
           'onclick': () => {
-            // Emitir el evento para abrir el modal
             this.openModalEvent.emit();
           },
         },
@@ -66,11 +65,15 @@ export class ButtonService {
         attr: {
           'id': 'tblBtnActionUpdate',
           'name': 'tblBtnActionUpdate',
-          'onclick': 'modal_update();',
+          'data-toggle': 'modal',
+          'data-target': '.modal-update',
+          'onclick': () => {
+            this.openModalEvent.emit();
+          },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-success',
-        text: '<em class="far fa-edit"></em> <span class="hidden-sm-down">Actualizar</span>',
-        titleAttr: 'Actualizar',
+        text: '<em class="far fa-edit"></em> <span class="hidden-sm-down">Editar</span>',
+        titleAttr: 'Editar',
       },);
     //}
     return buttons;

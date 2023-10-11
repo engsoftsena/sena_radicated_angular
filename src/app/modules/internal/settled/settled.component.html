@@ -134,9 +134,9 @@
 
 <!-- Ventana Modal: Nuevo Registro -->
 <form aria-label="" class="form-horizontal needs-validation was-validated"
-enctype="application/x-www-form-urlencoded" id="formInsert" novalidate="" role="form">
+enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" role="form">
   <div aria-hidden="true" aria-labelledby="myCenterModalLabel" data-backdrop="static" data-keyboard="false"
-  id="modalInsertCausal" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-Insert">
+  id="modalInsert" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-insert">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-dark text-white">
@@ -153,7 +153,7 @@ enctype="application/x-www-form-urlencoded" id="formInsert" novalidate="" role="
 
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
-              <div class="hide" id="form_ajax_create"></div>
+              <div class="hide" id="formInsertAjax"></div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
               <div class="alert alert-info alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
@@ -338,6 +338,240 @@ enctype="application/x-www-form-urlencoded" id="formInsert" novalidate="" role="
           id="form_btn_create" type="button">
             <em class="far fa-save mr-1"></em>
             <span class="">Guardar</span>
+          </button>
+          <button class="btn btn-sm waves-effect waves-light btn btn-outline-primary"
+          data-dismiss="modal" type="button">
+            <em class="far fa-times-circle mr-1"></em>
+            <span class="">Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Ventana Modal: Actualizar Registro -->
+<form aria-label="" class="form-horizontal needs-validation was-validated"
+enctype="application/x-www-form-urlencoded" id="formUpdateData" novalidate="" role="form">
+  <div aria-hidden="true" aria-labelledby="myCenterModalLabel" data-backdrop="static" data-keyboard="false"
+  id="modalUpdate" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-update">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title text-white">
+            <span>Actualizar Registro</span>
+          </h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <em class="far fa-times"></em>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
+              <div class="hide" id="formUpdateAjax"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="alert alert-info alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
+                <div class="d-flex align-items-center">
+                  <div class="alert-icon width-1">
+                    <span class="icon-stack" style="font-size: 20px;">
+                      <em class="base-15 icon-stack-3x color-primary-400"></em>
+                      <em class="base-10 text-white icon-stack-1x"></em>
+                      <em class="far fa-info-square color-primary-800 icon-stack-2x"></em>
+                    </span>
+                  </div>
+                  <div class="flex-1">
+                    <strong>Importante:</strong>
+                    <span>Los campos que se encuentran marcados con <b class="text-danger">(*)</b> o
+                      resaltados con una etiqueta de advertencia son obligatorios.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="form-group">
+                <label for="update_id_settled"
+                  class="form-label">
+                  <span>Id:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="text" name="update_id_settled" id="update_id_settled" class="form-control"
+                    placeholder="Digita el texto ..." required="" autocomplete="off" readonly="true">
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_date"
+                  class="form-label">
+                  <span>Fecha:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="date" name="update_date" id="update_date" class="form-control"
+                    placeholder="Digita el texto ..." required="" autocomplete="off">
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_exhibit"
+                  class="form-label">
+                  <span>Anexo:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="file" name="update_exhibit" id="update_exhibit" class="form-control"
+                    placeholder="Digita el texto ..." required="" autocomplete="off">
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_foundation"
+                  class="form-label">
+                  <span>Fundamento:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <textarea class="form-control" id="update_foundation" name="update_foundation"
+                    placeholder="Digita el texto ..." required="" autocomplete="off" rows="5"></textarea>
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_number"
+                  class="form-label">
+                  <span>Numero:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="number" name="update_number" id="update_number" class="form-control"
+                    placeholder="Digita el texto ..." required="" autocomplete="off">
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_fo_communication"
+                  class="form-label">
+                  <span>Comunicacion:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <select name="update_fo_communication" id="update_fo_communication" class="custom-select form-control" required="" autocomplete="off">
+                    <option value="">Seleccionar</option>
+                    <option value="">Sin Resultados</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    <span>Selecciona un valor para el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_fo_patient"
+                  class="form-label">
+                  <span>Paciente:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <select name="update_fo_patient" id="update_fo_patient" class="custom-select form-control" required="" autocomplete="off">
+                    <option value="">Seleccionar</option>
+                    <option value="">Sin Resultados</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    <span>Selecciona un valor para el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_fo_request"
+                  class="form-label">
+                  <span>Solicitud:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <select name="update_fo_request" id="update_fo_request" class="custom-select form-control" required="" autocomplete="off">
+                    <option value="">Seleccionar</option>
+                    <option value="">Sin Resultados</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    <span>Selecciona un valor para el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_fo_resource"
+                  class="form-label">
+                  <span>Recurso:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <select name="update_fo_resource" id="update_fo_resource" class="custom-select form-control" required="" autocomplete="off">
+                    <option value="">Seleccionar</option>
+                    <option value="">Sin Resultados</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    <span>Selecciona un valor para el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+              <div class="form-group">
+                <label for="update_fo_state"
+                  class="form-label">
+                  <span>Estado:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <select name="update_fo_state" id="update_fo_state" class="custom-select form-control" required="" autocomplete="off">
+                    <option value="">Seleccionar</option>
+                    <option value="">Sin Resultados</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    <span>Selecciona un valor para el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-sm waves-effect waves-light btn btn-outline-success"
+          id="form_btn_create" type="button">
+            <em class="far fa-save mr-1"></em>
+            <span class="">Actualizar</span>
           </button>
           <button class="btn btn-sm waves-effect waves-light btn btn-outline-primary"
           data-dismiss="modal" type="button">
