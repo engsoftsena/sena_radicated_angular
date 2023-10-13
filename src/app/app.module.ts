@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-//import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -46,7 +44,7 @@ import { RoleComponent } from './modules/internal/role/role.component';
 import { TraceabilityComponent } from './modules/internal/traceability/traceability.component';
 import { UserComponent } from './modules/internal/user/user.component';
 
-import { ErrorComponent } from './modules/general/error/error.component';
+import { GenErrorComponent } from './modules/general/gen-error/gen-error.component';
 import { OpeDeleteComponent } from './modules/operation/ope-delete/ope-delete.component';
 import { OpeRemoveComponent } from './modules/operation/ope-remove/ope-remove.component';
 import { OpeRestoreComponent } from './modules/operation/ope-restore/ope-restore.component';
@@ -70,6 +68,12 @@ import { OpeRestoreComponent } from './modules/operation/ope-restore/ope-restore
     IntModuleComponent,
     IntProfileComponent,
     IntSettingComponent,
+    /* Componentes: Modulos: Generales */
+    GenErrorComponent,
+    /* Componentes: Modulos: Operaciones */
+    OpeDeleteComponent,
+    OpeRemoveComponent,
+    OpeRestoreComponent,
     /* Componentes: Modulos: Externos */
     ExternalComponent,
     LoginComponent,
@@ -88,18 +92,12 @@ import { OpeRestoreComponent } from './modules/operation/ope-restore/ope-restore
     RoleComponent,
     TraceabilityComponent,
     UserComponent,
-    ErrorComponent,
-    OpeDeleteComponent,
-    OpeRemoveComponent,
-    OpeRestoreComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    //BrowserAnimationsModule,
-    //MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
