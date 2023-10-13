@@ -86,7 +86,11 @@ export class ButtonService {
         attr: {
           'id': 'tblBtnActionRestore',
           'name': 'tblBtnActionRestore',
-          'onclick': 'restoreModal();',
+          'data-toggle': 'modal',
+          'data-target': '.modal-restore',
+          'onclick': () => {
+            this.openModalEvent.emit();
+          },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-warning',
         text: '<em class="far fa-redo-alt"></em> <span class="hidden-sm-down">Restaurar</span>',
@@ -103,7 +107,11 @@ export class ButtonService {
         attr: {
           'id': 'tblBtnActionRemove',
           'name': 'tblBtnActionRemove',
-          'onclick': 'removeModal();',
+          'data-toggle': 'modal',
+          'data-target': '.modal-remove',
+          'onclick': () => {
+            this.openModalEvent.emit();
+          },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-warning',
         text: '<em class="far fa-trash"></em> <span class="hidden-sm-down">Remover</span>',
@@ -120,7 +128,11 @@ export class ButtonService {
         attr: {
           'id': 'tblBtnActionDelete',
           'name': 'tblBtnActionDelete',
-          'onclick': 'deleteModal();',
+          'data-toggle': 'modal',
+          'data-target': '.modal-delete',
+          'onclick': () => {
+            this.openModalEvent.emit();
+          },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-danger',
         text: '<em class="far fa-trash-alt"></em> <span class="hidden-sm-down">Eliminar</span>',

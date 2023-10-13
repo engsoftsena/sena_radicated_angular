@@ -1,0 +1,77 @@
+<!-- Ventana Modal: Restaurar Registro -->
+<form aria-label="" class="form-horizontal needs-validation was-validated"
+enctype="application/x-www-form-urlencoded" id="formRestoreData" novalidate="" role="form">
+  <div aria-hidden="true" aria-labelledby="myCenterModalLabel" data-backdrop="static" data-keyboard="false"
+  id="modalRestore" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-restore">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+      <div class="rounded-0 modal-content">
+        <div class="rounded-0 modal-header bg-warning text-white">
+          <h5 class="modal-title text-white">
+            <span>Restaurar Registro</span>
+          </h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <em class="far fa-times"></em>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
+              <div class="hide" id="formRestoreAjax"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="alert alert-info alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
+                <div class="d-flex align-items-center">
+                  <div class="alert-icon width-1">
+                    <span class="icon-stack" style="font-size: 20px;">
+                      <em class="base-15 icon-stack-3x color-primary-400"></em>
+                      <em class="base-10 text-white icon-stack-1x"></em>
+                      <em class="far fa-info-square color-primary-800 icon-stack-2x"></em>
+                    </span>
+                  </div>
+                  <div class="flex-1">
+                    <span>¿Estas seguro de restaurar el registro?</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="form-group">
+                <label for="restore_id_causal"
+                  class="form-label">
+                  <span>Id:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="text" name="restore_id_causal" id="restore_id_causal" class="form-control"
+                    placeholder="Digita el texto ..." required="" autocomplete="off" readonly="true">
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-warning"
+          id="formRestoreBtn" type="button">
+            <em class="far fa-redo-alt mr-1"></em>
+            <span class="">Restaurar</span>
+          </button>
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
+          data-dismiss="modal" type="button">
+            <em class="far fa-times-circle mr-1"></em>
+            <span class="">Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

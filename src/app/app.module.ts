@@ -47,6 +47,9 @@ import { TraceabilityComponent } from './modules/internal/traceability/traceabil
 import { UserComponent } from './modules/internal/user/user.component';
 
 import { ErrorComponent } from './modules/general/error/error.component';
+import { OpeDeleteComponent } from './modules/operation/ope-delete/ope-delete.component';
+import { OpeRemoveComponent } from './modules/operation/ope-remove/ope-remove.component';
+import { OpeRestoreComponent } from './modules/operation/ope-restore/ope-restore.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +89,9 @@ import { ErrorComponent } from './modules/general/error/error.component';
     TraceabilityComponent,
     UserComponent,
     ErrorComponent,
+    OpeDeleteComponent,
+    OpeRemoveComponent,
+    OpeRestoreComponent,
   ],
   imports: [
     BrowserModule,

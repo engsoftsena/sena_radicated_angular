@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-error',
@@ -6,11 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent {
-  @Input() error: any;
 
-  constructor() { }
-
-  closeModal() {
-    //this.activeModal.close('Close click');
-  }
 }
