@@ -30,7 +30,7 @@ export class CausalComponent implements OnInit {
     this.getColumn();
 
     // Suscribirse al evento para abrir el modal
-    this.serviceButton.openModalEvent.subscribe(() => {
+    this.serviceButton.openModalInsert.subscribe(() => {
       this.modalInsert();
     });
   }
