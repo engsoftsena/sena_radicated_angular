@@ -49,4 +49,11 @@ export class ApiService {
     console.log(urlApi);
     return this.http.get(`${urlApi}`);
   }
+
+  getDelete(table: any, column: string, id: number) {
+    const service = `/mysql/info/alias?table=${table}`;
+    const urlApi = `${this.urlEndPoint}${service}`;
+    console.log(urlApi);
+    return this.http.delete(`${urlApi}`);
+  }
 }

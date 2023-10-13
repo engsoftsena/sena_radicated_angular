@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./ope-delete.component.scss']
 })
 export class OpeDeleteComponent {
-
+  deleteAction() {
+    console.log('deleteAction');
+  }
 }

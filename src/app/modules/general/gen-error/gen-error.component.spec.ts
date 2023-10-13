@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorComponent } from './gen-error.component';
+import { GenErrorComponent } from './gen-error.component';
 
-describe('ErrorComponent', () => {
-  let component: ErrorComponent;
-  let fixture: ComponentFixture<ErrorComponent>;
+describe('GenErrorComponent', () => {
+  let component: GenErrorComponent;
+  let fixture: ComponentFixture<GenErrorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ErrorComponent ]
+      declarations: [ GenErrorComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ErrorComponent);
+    fixture = TestBed.createComponent(GenErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
