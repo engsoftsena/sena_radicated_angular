@@ -5,7 +5,11 @@ import { EventEmitter, Injectable } from '@angular/core';
 })
 export class ButtonService {
   // Crear un EventEmitter para abrir el modal
-  openModalEvent: EventEmitter<void> = new EventEmitter<void>();
+  openModalDelete: EventEmitter<void> = new EventEmitter<void>();
+  openModalInsert: EventEmitter<void> = new EventEmitter<void>();
+  openModalRemove: EventEmitter<void> = new EventEmitter<void>();
+  openModalRestore: EventEmitter<void> = new EventEmitter<void>();
+  openModalUpdate: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }
 
@@ -47,7 +51,7 @@ export class ButtonService {
           'data-toggle': 'modal',
           'data-target': '.modal-insert',
           'onclick': () => {
-            this.openModalEvent.emit();
+            this.openModalInsert.emit();
           },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-success',
@@ -68,7 +72,7 @@ export class ButtonService {
           'data-toggle': 'modal',
           'data-target': '.modal-update',
           'onclick': () => {
-            this.openModalEvent.emit();
+            this.openModalUpdate.emit();
           },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-success',
@@ -89,7 +93,7 @@ export class ButtonService {
           'data-toggle': 'modal',
           'data-target': '.modal-restore',
           'onclick': () => {
-            this.openModalEvent.emit();
+            this.openModalRestore.emit();
           },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-warning',
@@ -110,7 +114,7 @@ export class ButtonService {
           'data-toggle': 'modal',
           'data-target': '.modal-remove',
           'onclick': () => {
-            this.openModalEvent.emit();
+            this.openModalRemove.emit();
           },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-warning',
@@ -131,7 +135,7 @@ export class ButtonService {
           'data-toggle': 'modal',
           'data-target': '.modal-delete',
           'onclick': () => {
-            this.openModalEvent.emit();
+            this.openModalDelete.emit();
           },
         },
         className: 'btnsActions rounded-0 mb-1 btn-sm btn-outline-danger',

@@ -31,7 +31,7 @@ export class CausalComponent implements OnInit {
 
     // Suscribirse al evento para abrir el modal
     this.serviceButton.openModalEvent.subscribe(() => {
-      this.openModalInsert();
+      this.modalInsert();
     });
   }
 
@@ -73,10 +73,7 @@ export class CausalComponent implements OnInit {
     });
   }
 
-  openModalInsert() {
-    /*const insertNameInput = document.getElementById('insert_name') as HTMLInputElement;
-    if (insertNameInput) {
-      insertNameInput.value = '1';
-    }*/
+  modalInsert() {
+    console.log('modalInsert');
   }
 }

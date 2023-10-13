@@ -8,6 +8,7 @@ npm install bootstrap
 npm install --save @types/bootstrap
 
 ng add @angular/material
+ng add @angular/material --style=none
 
 -----------------------------------------
 
