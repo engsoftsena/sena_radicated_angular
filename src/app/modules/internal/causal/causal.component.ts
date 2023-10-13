@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
 import { CausalModule } from 'src/app/interfaces/modules/causal.interface';
 // Importacion de Servicios
@@ -7,8 +7,9 @@ import { ButtonService } from 'src/app/services/functions/button/button.service'
 import { CausalService } from 'src/app/services/modules/causal/causal.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
-//import * as $ from 'jquery';
-//import 'bootstrap';
+import * as $ from 'jquery';
+import 'bootstrap';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-causal',
@@ -73,7 +74,55 @@ export class CausalComponent implements OnInit {
     });
   }
 
+  modalOpen(modalData: string) {
+    const modalElement = document.getElementById(modalData);
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  modalRecord(modalData: string) {
+    const modalElement = document.getElementById(modalData);
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
   modalInsert() {
-    console.log('modalInsert');
+
+  }
+
+  modalRemove() {
+
+  }
+
+  modalRestore() {
+
+  }
+
+  modalUpdate() {
+
+  }
+
+  actionDelete() {
+
+  }
+
+  actionInsert() {
+
+  }
+
+  actionRemove() {
+
+  }
+
+  actionRestore() {
+
+  }
+
+  actionUpdate() {
+
   }
 }

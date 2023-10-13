@@ -50,20 +50,6 @@ const routes: Routes = [
   { path: '**', redirectTo: 'external/login' },
 ];
 
-/*const routes: Routes = [
-  {
-    path: '',
-    component: InternalComponent,
-    children: [
-      { path: 'dashboard', component: DashboardComponent, },
-      { path: 'tgroledata', component: TgRoleDataComponent, },
-      { path: 'tguserdata', component: TgUserDataComponent, },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full', },
-    ]
-  },
-  { path: 'login', component: LoginComponent, },
-];*/
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

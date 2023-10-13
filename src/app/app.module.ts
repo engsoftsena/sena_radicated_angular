@@ -45,9 +45,6 @@ import { TraceabilityComponent } from './modules/internal/traceability/traceabil
 import { UserComponent } from './modules/internal/user/user.component';
 
 import { GenErrorComponent } from './modules/general/gen-error/gen-error.component';
-import { OpeDeleteComponent } from './modules/operation/ope-delete/ope-delete.component';
-import { OpeRemoveComponent } from './modules/operation/ope-remove/ope-remove.component';
-import { OpeRestoreComponent } from './modules/operation/ope-restore/ope-restore.component';
 
 @NgModule({
   declarations: [
@@ -70,10 +67,6 @@ import { OpeRestoreComponent } from './modules/operation/ope-restore/ope-restore
     IntSettingComponent,
     /* Componentes: Modulos: Generales */
     GenErrorComponent,
-    /* Componentes: Modulos: Operaciones */
-    OpeDeleteComponent,
-    OpeRemoveComponent,
-    OpeRestoreComponent,
     /* Componentes: Modulos: Externos */
     ExternalComponent,
     LoginComponent,

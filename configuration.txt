@@ -8,6 +8,14 @@ npm install bootstrap
 npm install --save @types/bootstrap
 
 ng add @angular/material
+
+-----------------------------------------
+
+npm install --save-dev @types/jquery
+npm install jquery
+npm install bootstrap
+npm install --save @types/bootstrap
+
 ng add @angular/material --style=none
 
 -----------------------------------------
