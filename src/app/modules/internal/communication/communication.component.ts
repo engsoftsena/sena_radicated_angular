@@ -28,11 +28,12 @@ export class CommunicationComponent implements OnInit {
   communicationData: CommunicationModule[] = [];
 
   ngOnInit(): void {
-    this.getColumn();
+    //this.getColumn();
+    this.getLabel();
   }
 
   getColumn() {
-    this.serviceApi.getColumn('communications').subscribe({
+    this.serviceApi.getColumn('communications', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -44,24 +45,49 @@ export class CommunicationComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('communications').subscribe({
+    this.serviceApi.getSelect('communications', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
         this.communicationData = response.data;
         console.log(this.communicationData);
-        // Concatenar los botones en un solo arreglo
-        const btnGroups = [
-          ...this.serviceButton.buttonDataAction(),
-          ...this.serviceButton.buttonDataExport(),
-          ...this.serviceButton.buttonFielAction(),
-        ];
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
-          'tbCommunication',
+          'tbInfo',
           this.communicationData,
           this.columnSet,
-          //btnGroups
+          []
+        );
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getLabel() {
+    this.serviceApi.getLabel('communications', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getAlias();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getAlias() {
+    this.serviceApi.getAlias('communications', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.communicationData = response.data;
+        console.log(this.communicationData);
+        // Construir tabla con datos y botones
+        this.serviceTable.getTable(
+          'tbInfo',
+          this.communicationData,
+          this.columnSet,
           []
         );
       },
@@ -79,11 +105,31 @@ export class CommunicationComponent implements OnInit {
   }
 
   modalRecord(modalData: string) {
-    const modalElement = document.getElementById(modalData);
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
+    let message;
+    // Obtener el primer valor seleccionado de la tabla
+    let idtbl = $('#tbInfo tr.selected td:first').html();
+    console.log(idtbl);
+    // Validar si el id es mayor a cero
+    if (Number(idtbl) > 0) {
+      //  $('#modal-id-delete').modal('show');
+      //  document.querySelector('#field_id_delete').value = idtbl;
+      const modalElement = document.getElementById(modalData);
+      if (modalElement) {
+        const modal = new Modal(modalElement);
+        modal.show();
+      }
+    } else {
+      message = 'No has seleccionado ningun registro.';
+      alert(message);
+      /*messageBootboxAlert(
+        message,
+        'small',
+        'Advertencia',
+        'far fa-times-circle',
+        'warning'
+      );*/
     }
+    
   }
 
   modalInsert() {
@@ -99,7 +145,31 @@ export class CommunicationComponent implements OnInit {
   }
 
   modalUpdate() {
-
+    let message;
+    // Obtener el primer valor seleccionado de la tabla
+    let idtbl = $('#tbInfo tr.selected td:first').html();
+    console.log(idtbl);
+    // Validar si el id es mayor a cero
+    if (Number(idtbl) > 0) {
+      const modalElement = document.getElementById('modalUpdate');
+      if (modalElement) {
+        const modal = new Modal(modalElement);
+        modal.show();
+        // Obtener el elemento de formulario por su ID
+        const updateId = document.querySelector('#update_id_communication') as HTMLInputElement;
+        if (updateId) { updateId.value = idtbl; }
+      }
+    } else {
+      message = 'No has seleccionado ningun registro.';
+      alert(message);
+      /*messageBootboxAlert(
+        message,
+        'small',
+        'Advertencia',
+        'far fa-times-circle',
+        'warning'
+      );*/
+    }
   }
 
   actionDelete() {

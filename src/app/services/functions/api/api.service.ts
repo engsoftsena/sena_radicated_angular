@@ -16,8 +16,55 @@ export class ApiService {
     private http: HttpClient
   ) { }
 
-  getColumn(table: any) {
-    const service = `/mysql/info/label?table=${table}`;
+  buildApiUrl(endpoint: string, params: Record<string, any>): string {
+    const queryParams = new URLSearchParams(params).toString();
+    return `${endpoint}${queryParams ? '?' + queryParams : ''}`;
+  }
+
+  getColumn(table: any, column: any) {
+    const service = this.buildApiUrl(
+      `/mysql/info/column`, {
+      table,
+      column
+    });
+    const urlApi = `${this.urlEndPoint}${service}`;
+    console.log(urlApi);
+    return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
+      map((response: any) => {
+        if (Array.isArray(response.data)) {
+          const columnSet = response.data.map((data: InterfaceDataTableColumn) => ({
+            title: data.Comment,
+            id: data.Field,
+            data: data.Field,
+            type: 'text',
+            className: 'text-dark',
+            visible: true,
+          }));
+          return columnSet;
+        } else {
+          return [];
+        }
+      })
+    );
+  }
+
+  getSelect(table: any, column: any) {
+    const service = this.buildApiUrl(
+      `/mysql/info/select`, {
+      table,
+      column
+    });
+    const urlApi = `${this.urlEndPoint}${service}`;
+    console.log(urlApi);
+    return this.http.get(urlApi);
+  }
+
+  getLabel(table: any, column: any) {
+    const service = this.buildApiUrl(
+      `/mysql/info/label`, {
+      table,
+      column
+    });
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
@@ -39,15 +86,15 @@ export class ApiService {
     );
   }
 
-  getSelect(table: any) {
-    const select = `select=*`;
-    const orderby = `orderBy=id_role`;
-    const ordermode = `&orderMode=DESC`;
-    //const urlApi = `${this.urlEndPoint}/${table}?${select}&${orderby}&${ordermode}`;
-    const service = `/mysql/info/alias?table=${table}`;
+  getAlias(table: any, column: any) {
+    const service = this.buildApiUrl(
+      `/mysql/info/alias`, {
+      table,
+      column
+    });
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
-    return this.http.get(`${urlApi}`);
+    return this.http.get(urlApi);
   }
 
   getDelete(table: any, column: string, id: number) {

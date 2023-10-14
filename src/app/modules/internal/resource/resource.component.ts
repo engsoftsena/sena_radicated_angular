@@ -28,11 +28,12 @@ export class ResourceComponent implements OnInit {
   resourceData: ResourceModule[] = [];
 
   ngOnInit(): void {
-    this.getColumn();
+    //this.getColumn();
+    this.getLabel();
   }
 
   getColumn() {
-    this.serviceApi.getColumn('resources').subscribe({
+    this.serviceApi.getColumn('resources', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -44,24 +45,50 @@ export class ResourceComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('resources').subscribe({
+    this.serviceApi.getSelect('resources', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
         this.resourceData = response.data;
         console.log(this.resourceData);
-        // Concatenar los botones en un solo arreglo
-        const btnGroups = [
-          ...this.serviceButton.buttonDataAction(),
-          ...this.serviceButton.buttonDataExport(),
-          ...this.serviceButton.buttonFielAction(),
-        ];
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
-          'tbResource',
+          'tbInfo',
           this.resourceData,
           this.columnSet,
-          btnGroups
+          []
+        );
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getLabel() {
+    this.serviceApi.getLabel('resources', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getAlias();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getAlias() {
+    this.serviceApi.getAlias('resources', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.resourceData = response.data;
+        console.log(this.resourceData);
+        // Construir tabla con datos y botones
+        this.serviceTable.getTable(
+          'tbInfo',
+          this.resourceData,
+          this.columnSet,
+          []
         );
       },
       error: (err: any) => console.error(err),

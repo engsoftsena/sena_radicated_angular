@@ -28,11 +28,12 @@ export class SettledComponent implements OnInit {
   settledData: SettledModule[] = [];
 
   ngOnInit(): void {
-    this.getColumn();
+    //this.getColumn();
+    this.getLabel();
   }
 
   getColumn() {
-    this.serviceApi.getColumn('settleds').subscribe({
+    this.serviceApi.getColumn('settleds', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -44,24 +45,49 @@ export class SettledComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('settleds').subscribe({
+    this.serviceApi.getSelect('settleds', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
         this.settledData = response.data;
         console.log(this.settledData);
-        // Concatenar los botones en un solo arreglo
-        const btnGroups = [
-          ...this.serviceButton.buttonDataAction(),
-          ...this.serviceButton.buttonDataExport(),
-          ...this.serviceButton.buttonFielAction(),
-        ];
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
-          'tbSettled',
+          'tbInfo',
           this.settledData,
           this.columnSet,
-          //btnGroups
+          []
+        );
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getLabel() {
+    this.serviceApi.getLabel('settleds', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getAlias();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getAlias() {
+    this.serviceApi.getAlias('settleds', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.settledData = response.data;
+        console.log(this.settledData);
+        // Construir tabla con datos y botones
+        this.serviceTable.getTable(
+          'tbInfo',
+          this.settledData,
+          this.columnSet,
           []
         );
       },

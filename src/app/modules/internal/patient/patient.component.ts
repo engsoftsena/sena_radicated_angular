@@ -28,11 +28,12 @@ export class PatientComponent implements OnInit {
   patientData: PatientModule[] = [];
 
   ngOnInit(): void {
-    this.getColumn();
+    //this.getColumn();
+    this.getLabel();
   }
 
   getColumn() {
-    this.serviceApi.getColumn('patients').subscribe({
+    this.serviceApi.getColumn('patients', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -44,24 +45,49 @@ export class PatientComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('patients').subscribe({
+    this.serviceApi.getSelect('patients', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
         this.patientData = response.data;
         console.log(this.patientData);
-        // Concatenar los botones en un solo arreglo
-        const btnGroups = [
-          ...this.serviceButton.buttonDataAction(),
-          ...this.serviceButton.buttonDataExport(),
-          ...this.serviceButton.buttonFielAction(),
-        ];
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
-          'tbPatient',
+          'tbInfo',
           this.patientData,
           this.columnSet,
-          //btnGroups
+          []
+        );
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getLabel() {
+    this.serviceApi.getLabel('patients', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getAlias();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getAlias() {
+    this.serviceApi.getAlias('patients', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.patientData = response.data;
+        console.log(this.patientData);
+        // Construir tabla con datos y botones
+        this.serviceTable.getTable(
+          'tbInfo',
+          this.patientData,
+          this.columnSet,
           []
         );
       },

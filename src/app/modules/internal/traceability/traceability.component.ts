@@ -28,11 +28,12 @@ export class TraceabilityComponent implements OnInit {
   traceabilityData: TraceabilityModule[] = [];
 
   ngOnInit(): void {
-    this.getColumn();
+    //this.getColumn();
+    this.getLabel();
   }
 
   getColumn() {
-    this.serviceApi.getColumn('traceabilities').subscribe({
+    this.serviceApi.getColumn('traceabilities', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -44,24 +45,49 @@ export class TraceabilityComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('traceabilities').subscribe({
+    this.serviceApi.getSelect('traceabilities', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
         this.traceabilityData = response.data;
         console.log(this.traceabilityData);
-        // Concatenar los botones en un solo arreglo
-        const btnGroups = [
-          ...this.serviceButton.buttonDataAction(),
-          ...this.serviceButton.buttonDataExport(),
-          ...this.serviceButton.buttonFielAction(),
-        ];
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
-          'tbTraceability',
+          'tbInfo',
           this.traceabilityData,
           this.columnSet,
-          //btnGroups
+          []
+        );
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getLabel() {
+    this.serviceApi.getLabel('traceabilities', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getAlias();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getAlias() {
+    this.serviceApi.getAlias('traceabilities', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.traceabilityData = response.data;
+        console.log(this.traceabilityData);
+        // Construir tabla con datos y botones
+        this.serviceTable.getTable(
+          'tbInfo',
+          this.traceabilityData,
+          this.columnSet,
           []
         );
       },

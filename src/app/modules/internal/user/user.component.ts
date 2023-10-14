@@ -28,11 +28,12 @@ export class UserComponent implements OnInit {
   userData: UserModule[] = [];
 
   ngOnInit(): void {
-    this.getColumn();
+    //this.getColumn();
+    this.getLabel();
   }
 
   getColumn() {
-    this.serviceApi.getColumn('users').subscribe({
+    this.serviceApi.getColumn('users', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -44,7 +45,7 @@ export class UserComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('users').subscribe({
+    this.serviceApi.getSelect('users', '*').subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -58,7 +59,46 @@ export class UserComponent implements OnInit {
         // Construir tabla con datos y botones
         console.log(this.userData);
         this.serviceTable.getTable(
-          'tbUser',
+          'tbInfo',
+          this.userData,
+          this.columnSet,
+          //btnGroups
+          []
+        );
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getLabel() {
+    this.serviceApi.getLabel('users', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.getAlias();
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  getAlias() {
+    this.serviceApi.getAlias('users', '*').subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.userData = response.data;
+        // Concatenar los botones en un solo arreglo
+        const btnGroups = [
+          ...this.serviceButton.buttonDataAction(),
+          ...this.serviceButton.buttonDataExport(),
+          ...this.serviceButton.buttonFielAction(),
+        ];
+        // Construir tabla con datos y botones
+        console.log(this.userData);
+        this.serviceTable.getTable(
+          'tbInfo',
           this.userData,
           this.columnSet,
           //btnGroups
