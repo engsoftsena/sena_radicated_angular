@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // Importacion de Modulos
 import { CausalModule } from 'src/app/interfaces/modules/causal.interface';
 // Importacion de Servicios
@@ -29,11 +29,6 @@ export class CausalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getColumn();
-
-    // Suscribirse al evento para abrir el modal
-    this.serviceButton.openModalInsert.subscribe(() => {
-      this.modalInsert();
-    });
   }
 
   getColumn() {
@@ -66,7 +61,8 @@ export class CausalComponent implements OnInit {
           'tbCausal',
           this.causalData,
           this.columnSet,
-          btnGroups
+          //btnGroups
+          []
         );
       },
       error: (err: any) => console.error(err),

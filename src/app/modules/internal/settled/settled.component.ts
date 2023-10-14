@@ -7,6 +7,10 @@ import { ButtonService } from 'src/app/services/functions/button/button.service'
 import { SettledService } from 'src/app/services/modules/settled/settled.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 
+import * as $ from 'jquery';
+import 'bootstrap';
+import { Modal } from 'bootstrap';
+
 @Component({
   selector: 'app-settled',
   templateUrl: './settled.component.html',
@@ -57,11 +61,64 @@ export class SettledComponent implements OnInit {
           'tbSettled',
           this.settledData,
           this.columnSet,
-          btnGroups
+          //btnGroups
+          []
         );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),
     });
+  }
+
+  modalOpen(modalData: string) {
+    const modalElement = document.getElementById(modalData);
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  modalRecord(modalData: string) {
+    const modalElement = document.getElementById(modalData);
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  modalInsert() {
+
+  }
+
+  modalRemove() {
+
+  }
+
+  modalRestore() {
+
+  }
+
+  modalUpdate() {
+
+  }
+
+  actionDelete() {
+
+  }
+
+  actionInsert() {
+
+  }
+
+  actionRemove() {
+
+  }
+
+  actionRestore() {
+
+  }
+
+  actionUpdate() {
+
   }
 }

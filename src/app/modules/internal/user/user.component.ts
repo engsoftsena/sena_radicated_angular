@@ -7,6 +7,10 @@ import { ButtonService } from 'src/app/services/functions/button/button.service'
 import { TableService } from 'src/app/services/functions/table/table.service';
 import { UserService } from 'src/app/services/modules/user/user.service';
 
+import * as $ from 'jquery';
+import 'bootstrap';
+import { Modal } from 'bootstrap';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -57,11 +61,64 @@ export class UserComponent implements OnInit {
           'tbUser',
           this.userData,
           this.columnSet,
-          btnGroups
+          //btnGroups
+          []
         );
       },
       error: (err: any) => console.error(err),
       complete: () => (false),
     });
+  }
+
+  modalOpen(modalData: string) {
+    const modalElement = document.getElementById(modalData);
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  modalRecord(modalData: string) {
+    const modalElement = document.getElementById(modalData);
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  modalInsert() {
+
+  }
+
+  modalRemove() {
+
+  }
+
+  modalRestore() {
+
+  }
+
+  modalUpdate() {
+
+  }
+
+  actionDelete() {
+
+  }
+
+  actionInsert() {
+
+  }
+
+  actionRemove() {
+
+  }
+
+  actionRestore() {
+
+  }
+
+  actionUpdate() {
+
   }
 }

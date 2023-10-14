@@ -95,6 +95,50 @@
 							</div>
 							<div class="panel-container show">
 								<div class="panel-content dev-panel-content p-2">
+                  
+                  <div class="panel rounded-0 mb-1">
+                    <div class="panel-container show">
+                      <div class="panel-content p-0">
+                        <div class="panel-tag p-1 bg-white">
+                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-success"
+                          id="modalInsertBtn" type="button" (click)="modalOpen('modalInsert');">
+                            <em class="far fa-plus mr-1"></em>
+                            <span class="hidden-sm-down">Nuevo</span>
+                          </button>
+                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-success"
+                          id="modalUpdateBtn" type="button" (click)="modalRecord('modalUpdate');">
+                            <em class="far fa-edit mr-1"></em>
+                            <span class="hidden-sm-down">Editar</span>
+                          </button>
+                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-warning"
+                          id="modalRestoreBtn" type="button" (click)="modalRecord('modalRestore');">
+                            <em class="far fa-redo-alt mr-1"></em>
+                            <span class="hidden-sm-down">Restaurar</span>
+                          </button>
+                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-warning"
+                          id="modalRemoveBtn" type="button" (click)="modalRecord('modalRemove');">
+                            <em class="far fa-trash mr-1"></em>
+                            <span class="hidden-sm-down">Remover</span>
+                          </button>
+                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-danger"
+                          id="modalDeleteBtn" type="button" (click)="modalRecord('modalDelete');">
+                            <em class="far fa-trash-alt mr-1"></em>
+                            <span class="hidden-sm-down">Eliminar</span>
+                          </button>
+                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-primary"
+                          id="modalChangeBtn" type="button" (click)="modalRecord('modalChange');">
+                            <em class="far fa-exchange-alt mr-1"></em>
+                            <span class="hidden-sm-down">Cambios</span>
+                          </button>
+                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-dark"
+                          id="modalDetailBtn" type="button" (click)="modalRecord('modalDetail');">
+                            <em class="far fa-align-center mr-1"></em>
+                            <span class="hidden-sm-down">Detalles</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                   <div class="table-responsive">
                     <table id="tbRequest" cellspacing="0" width="100%"
@@ -197,7 +241,7 @@ enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" ro
         </div>
         <div class="modal-footer">
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-success"
-          id="form_btn_create" type="button">
+          id="formInsertBtn" type="button">
             <em class="far fa-save mr-1"></em>
             <span class="">Guardar</span>
           </button>
@@ -293,7 +337,7 @@ enctype="application/x-www-form-urlencoded" id="formUpdateData" novalidate="" ro
         </div>
         <div class="modal-footer">
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-success"
-          id="form_btn_create" type="button">
+          id="formUpdateBtn" type="button">
             <em class="far fa-save mr-1"></em>
             <span class="">Actualizar</span>
           </button>
@@ -308,5 +352,238 @@ enctype="application/x-www-form-urlencoded" id="formUpdateData" novalidate="" ro
   </div>
 </form>
 
-<app-gen-error></app-gen-error>
+<!-- Ventana Modal: Eliminar Registro -->
+<form aria-label="" class="form-horizontal needs-validation was-validated"
+enctype="application/x-www-form-urlencoded" id="formDeleteData" novalidate="" role="form">
+  <div aria-hidden="true" aria-labelledby="myCenterModalLabel" data-backdrop="static" data-keyboard="false"
+  id="modalDelete" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-delete">
+    <div class="rounded-0 modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+      <div class="rounded-0 modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title text-white">
+            <span>Eliminar Registro</span>
+          </h5>
+          <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <em class="far fa-times"></em>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
 
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
+              <div class="hide" id="formDeleteAjax"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="alert alert-info alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
+                <div class="d-flex align-items-center">
+                  <div class="alert-icon width-1">
+                    <span class="icon-stack" style="font-size: 20px;">
+                      <em class="base-15 icon-stack-3x color-primary-400"></em>
+                      <em class="base-10 text-white icon-stack-1x"></em>
+                      <em class="far fa-info-square color-primary-800 icon-stack-2x"></em>
+                    </span>
+                  </div>
+                  <div class="flex-1">
+                    <span>¿Estas seguro de eliminar el registro?</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="form-group">
+                <label for="delete_id_causal"
+                  class="form-label">
+                  <span>Id:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="text" name="delete_id_causal" id="delete_id_causal" class="form-control"
+                    placeholder="Digita el texto ..." required="" autocomplete="off" readonly="true">
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-danger"
+          id="formDeleteBtn" type="button" (click)="actionDelete();">
+            <em class="far fa-trash-alt mr-1"></em>
+            <span class="">Eliminar</span>
+          </button>
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
+          data-bs-dismiss="modal" type="button">
+          <em class="far fa-times-circle mr-1"></em>
+            <span class="">Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Ventana Modal: Remover Registro -->
+<form aria-label="" class="form-horizontal needs-validation was-validated"
+enctype="application/x-www-form-urlencoded" id="formRemoveData" novalidate="" role="form">
+  <div aria-hidden="true" aria-labelledby="myCenterModalLabel" data-backdrop="static" data-keyboard="false"
+  id="modalRemove" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-remove">
+    <div class="rounded-0 modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+      <div class="rounded-0 modal-content">
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title text-white">
+            <span>Remover Registro</span>
+          </h5>
+          <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <em class="far fa-times"></em>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
+              <div class="hide" id="formRemoveAjax"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="alert alert-info alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
+                <div class="d-flex align-items-center">
+                  <div class="alert-icon width-1">
+                    <span class="icon-stack" style="font-size: 20px;">
+                      <em class="base-15 icon-stack-3x color-primary-400"></em>
+                      <em class="base-10 text-white icon-stack-1x"></em>
+                      <em class="far fa-info-square color-primary-800 icon-stack-2x"></em>
+                    </span>
+                  </div>
+                  <div class="flex-1">
+                    <span>¿Estas seguro de remover el registro?</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="form-group">
+                <label for="remove_id_causal"
+                  class="form-label">
+                  <span>Id:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="text" name="remove_id_causal" id="remove_id_causal" class="form-control"
+                    placeholder="Digita el texto ..." required="" autocomplete="off" readonly="true">
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-warning"
+          id="formRemoveBtn" type="button">
+            <em class="far fa-trash mr-1"></em>
+            <span class="">Remover</span>
+          </button>
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
+          data-bs-dismiss="modal" type="button">
+            <em class="far fa-times-circle mr-1"></em>
+            <span class="">Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Ventana Modal: Restaurar Registro -->
+<form aria-label="" class="form-horizontal needs-validation was-validated"
+enctype="application/x-www-form-urlencoded" id="formRestoreData" novalidate="" role="form">
+  <div aria-hidden="true" aria-labelledby="myCenterModalLabel" data-backdrop="static" data-keyboard="false"
+  id="modalRestore" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-restore">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+      <div class="rounded-0 modal-content">
+        <div class="rounded-0 modal-header bg-warning text-white">
+          <h5 class="modal-title text-white">
+            <span>Restaurar Registro</span>
+          </h5>
+          <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <em class="far fa-times"></em>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-0">
+              <div class="hide" id="formRestoreAjax"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="alert alert-info alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
+                <div class="d-flex align-items-center">
+                  <div class="alert-icon width-1">
+                    <span class="icon-stack" style="font-size: 20px;">
+                      <em class="base-15 icon-stack-3x color-primary-400"></em>
+                      <em class="base-10 text-white icon-stack-1x"></em>
+                      <em class="far fa-info-square color-primary-800 icon-stack-2x"></em>
+                    </span>
+                  </div>
+                  <div class="flex-1">
+                    <span>¿Estas seguro de restaurar el registro?</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+              <div class="form-group">
+                <label for="restore_id_causal"
+                  class="form-label">
+                  <span>Id:</span>
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-sm">
+                  <input type="text" name="restore_id_causal" id="restore_id_causal" class="form-control"
+                    placeholder="Digita el texto ..." required="" autocomplete="off" readonly="true">
+                  <div class="invalid-feedback">
+                    <span>Digita un valor en el campo.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-warning"
+          id="formRestoreBtn" type="button">
+            <em class="far fa-redo-alt mr-1"></em>
+            <span class="">Restaurar</span>
+          </button>
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
+          data-bs-dismiss="modal" type="button">
+            <em class="far fa-times-circle mr-1"></em>
+            <span class="">Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<app-gen-error></app-gen-error>
