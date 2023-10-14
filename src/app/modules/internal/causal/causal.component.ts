@@ -33,7 +33,11 @@ export class CausalComponent implements OnInit {
   }
 
   getColumn() {
-    this.serviceApi.getColumn('causals', '*').subscribe({
+    const params = {
+      table: 'causals',
+      column: '*',
+    };
+    this.serviceApi.getColumn(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -45,7 +49,11 @@ export class CausalComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('causals', '*').subscribe({
+    const params = {
+      table: 'causals',
+      column: '*',
+    };
+    this.serviceApi.getSelect(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -65,7 +73,11 @@ export class CausalComponent implements OnInit {
   }
 
   getLabel() {
-    this.serviceApi.getLabel('causals', '*').subscribe({
+    const params = {
+      table: 'causals',
+      column: '*',
+    };
+    this.serviceApi.getLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -77,7 +89,11 @@ export class CausalComponent implements OnInit {
   }
 
   getAlias() {
-    this.serviceApi.getAlias('causals', '*').subscribe({
+    const params = {
+      table: 'causals',
+      column: '*',
+    };
+    this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado

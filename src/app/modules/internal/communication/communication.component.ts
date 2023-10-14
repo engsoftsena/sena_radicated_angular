@@ -33,7 +33,11 @@ export class CommunicationComponent implements OnInit {
   }
 
   getColumn() {
-    this.serviceApi.getColumn('communications', '*').subscribe({
+    const params = {
+      table: 'communications',
+      column: '*',
+    };
+    this.serviceApi.getColumn(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -45,7 +49,11 @@ export class CommunicationComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('communications', '*').subscribe({
+    const params = {
+      table: 'communications',
+      column: '*',
+    };
+    this.serviceApi.getSelect(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -65,7 +73,11 @@ export class CommunicationComponent implements OnInit {
   }
 
   getLabel() {
-    this.serviceApi.getLabel('communications', '*').subscribe({
+    const params = {
+      table: 'communications',
+      column: '*',
+    };
+    this.serviceApi.getLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -77,7 +89,11 @@ export class CommunicationComponent implements OnInit {
   }
 
   getAlias() {
-    this.serviceApi.getAlias('communications', '*').subscribe({
+    const params = {
+      table: 'communications',
+      column: '*',
+    };
+    this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -108,7 +124,6 @@ export class CommunicationComponent implements OnInit {
     let message;
     // Obtener el primer valor seleccionado de la tabla
     let idtbl = $('#tbInfo tr.selected td:first').html();
-    console.log(idtbl);
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       //  $('#modal-id-delete').modal('show');
@@ -148,7 +163,6 @@ export class CommunicationComponent implements OnInit {
     let message;
     // Obtener el primer valor seleccionado de la tabla
     let idtbl = $('#tbInfo tr.selected td:first').html();
-    console.log(idtbl);
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const modalElement = document.getElementById('modalUpdate');

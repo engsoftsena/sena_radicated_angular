@@ -33,7 +33,11 @@ export class UserComponent implements OnInit {
   }
 
   getColumn() {
-    this.serviceApi.getColumn('users', '*').subscribe({
+    const params = {
+      table: 'users',
+      column: '*',
+    };
+    this.serviceApi.getColumn(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -45,7 +49,11 @@ export class UserComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('users', '*').subscribe({
+    const params = {
+      table: 'users',
+      column: '*',
+    };
+    this.serviceApi.getSelect(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -72,7 +80,11 @@ export class UserComponent implements OnInit {
   }
 
   getLabel() {
-    this.serviceApi.getLabel('users', '*').subscribe({
+    const params = {
+      table: 'users',
+      column: '*',
+    };
+    this.serviceApi.getLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -84,7 +96,11 @@ export class UserComponent implements OnInit {
   }
 
   getAlias() {
-    this.serviceApi.getAlias('users', '*').subscribe({
+    const params = {
+      table: 'users',
+      column: '*',
+    };
+    this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado

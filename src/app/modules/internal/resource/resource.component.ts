@@ -33,7 +33,11 @@ export class ResourceComponent implements OnInit {
   }
 
   getColumn() {
-    this.serviceApi.getColumn('resources', '*').subscribe({
+    const params = {
+      table: 'resources',
+      column: '*',
+    };
+    this.serviceApi.getColumn(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -45,7 +49,11 @@ export class ResourceComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('resources', '*').subscribe({
+    const params = {
+      table: 'resources',
+      column: '*',
+    };
+    this.serviceApi.getSelect(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -65,7 +73,11 @@ export class ResourceComponent implements OnInit {
   }
 
   getLabel() {
-    this.serviceApi.getLabel('resources', '*').subscribe({
+    const params = {
+      table: 'resources',
+      column: '*',
+    };
+    this.serviceApi.getLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -77,7 +89,11 @@ export class ResourceComponent implements OnInit {
   }
 
   getAlias() {
-    this.serviceApi.getAlias('resources', '*').subscribe({
+    const params = {
+      table: 'resources',
+      column: '*',
+    };
+    this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado

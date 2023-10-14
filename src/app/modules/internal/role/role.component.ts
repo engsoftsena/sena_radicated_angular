@@ -33,7 +33,11 @@ export class RoleComponent implements OnInit {
   }
 
   getColumn() {
-    this.serviceApi.getColumn('roles', '*').subscribe({
+    const params = {
+      table: 'roles',
+      column: '*',
+    };
+    this.serviceApi.getColumn(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -45,7 +49,11 @@ export class RoleComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('roles', '*').subscribe({
+    const params = {
+      table: 'roles',
+      column: '*',
+    };
+    this.serviceApi.getSelect(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -65,7 +73,11 @@ export class RoleComponent implements OnInit {
   }
 
   getLabel() {
-    this.serviceApi.getLabel('roles', '*').subscribe({
+    const params = {
+      table: 'roles',
+      column: '*',
+    };
+    this.serviceApi.getLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -77,7 +89,11 @@ export class RoleComponent implements OnInit {
   }
 
   getAlias() {
-    this.serviceApi.getAlias('roles', '*').subscribe({
+    const params = {
+      table: 'roles',
+      column: '*',
+    };
+    this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado

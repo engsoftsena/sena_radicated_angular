@@ -33,7 +33,11 @@ export class DocumentComponent implements OnInit {
   }
 
   getColumn() {
-    this.serviceApi.getColumn('documents', '*').subscribe({
+    const params = {
+      table: 'documents',
+      column: '*',
+    };
+    this.serviceApi.getColumn(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -45,7 +49,11 @@ export class DocumentComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('documents', '*').subscribe({
+    const params = {
+      table: 'documents',
+      column: '*',
+    };
+    this.serviceApi.getSelect(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -65,7 +73,11 @@ export class DocumentComponent implements OnInit {
   }
 
   getLabel() {
-    this.serviceApi.getLabel('documents', '*').subscribe({
+    const params = {
+      table: 'documents',
+      column: '*',
+    };
+    this.serviceApi.getLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -77,7 +89,11 @@ export class DocumentComponent implements OnInit {
   }
 
   getAlias() {
-    this.serviceApi.getAlias('documents', '*').subscribe({
+    const params = {
+      table: 'documents',
+      column: '*',
+    };
+    this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado

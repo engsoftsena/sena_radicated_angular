@@ -33,7 +33,11 @@ export class StateComponent implements OnInit {
   }
 
   getColumn() {
-    this.serviceApi.getColumn('states', '*').subscribe({
+    const params = {
+      table: 'states',
+      column: '*',
+    };
+    this.serviceApi.getColumn(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -45,7 +49,11 @@ export class StateComponent implements OnInit {
   }
 
   getSelect() {
-    this.serviceApi.getSelect('states', '*').subscribe({
+    const params = {
+      table: 'states',
+      column: '*',
+    };
+    this.serviceApi.getSelect(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -65,7 +73,11 @@ export class StateComponent implements OnInit {
   }
 
   getLabel() {
-    this.serviceApi.getLabel('states', '*').subscribe({
+    const params = {
+      table: 'states',
+      column: '*',
+    };
+    this.serviceApi.getLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -77,7 +89,11 @@ export class StateComponent implements OnInit {
   }
 
   getAlias() {
-    this.serviceApi.getAlias('states', '*').subscribe({
+    const params = {
+      table: 'states',
+      column: '*',
+    };
+    this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
