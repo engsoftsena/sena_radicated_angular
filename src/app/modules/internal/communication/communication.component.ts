@@ -112,77 +112,62 @@ export class CommunicationComponent implements OnInit {
     });
   }
 
-  modalOpen(modalData: string) {
-    const modalElement = document.getElementById(modalData);
+  modalOpen(modalForm: string) {
+    const modalElement = document.getElementById(modalForm);
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
     }
   }
 
-  modalRecord(modalData: string) {
+  async modalRecord(modalForm: string, modalOption: string) {
     let message;
     // Obtener el primer valor seleccionado de la tabla
     let idtbl = $('#tbInfo tr.selected td:first').html();
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
-      //  $('#modal-id-delete').modal('show');
-      //  document.querySelector('#field_id_delete').value = idtbl;
-      const modalElement = document.getElementById(modalData);
-      if (modalElement) {
-        const modal = new Modal(modalElement);
-        modal.show();
+      const params = {
+        table: 'communications',
+        column: '*',
+        whereField: `id_communication`,
+        whereOperator: `=`,
+        whereEqual: `${idtbl}`,
+      };
+      const serviceRecord = await this.serviceApi.getRecord(params);
+      if (serviceRecord.data && Array.isArray(serviceRecord.data)) {
+        const hasErrors = serviceRecord.data.some((item: any) => 'error' in item);
+        if (hasErrors) {
+          // Mostrar alerta con los errores
+          const errorMessages = serviceRecord.data
+            .filter((item: any) => 'error' in item)
+            .map((item: { error: any; }) => item.error)
+            .join(', ');
+          alert(`Se encontraron errores: ${errorMessages}`);
+        } else {
+          // Continuar con el proceso porque no hay errores
+          const modalElement = document.getElementById(modalForm);
+          if (modalElement) {
+            const modal = new Modal(modalElement);
+            modal.show();
+            this.modalMapData(modalOption, serviceRecord);
+          }
+        }
+      } else {
+        message = 'No has seleccionado ningún registro.';
+        alert(message);
       }
-    } else {
-      message = 'No has seleccionado ningun registro.';
-      alert(message);
-      /*messageBootboxAlert(
-        message,
-        'small',
-        'Advertencia',
-        'far fa-times-circle',
-        'warning'
-      );*/
     }
-    
   }
-
-  modalInsert() {
-
-  }
-
-  modalRemove() {
-
-  }
-
-  modalRestore() {
-
-  }
-
-  modalUpdate() {
-    let message;
-    // Obtener el primer valor seleccionado de la tabla
-    let idtbl = $('#tbInfo tr.selected td:first').html();
-    // Validar si el id es mayor a cero
-    if (Number(idtbl) > 0) {
-      const modalElement = document.getElementById('modalUpdate');
-      if (modalElement) {
-        const modal = new Modal(modalElement);
-        modal.show();
-        // Obtener el elemento de formulario por su ID
-        const updateId = document.querySelector('#update_id_communication') as HTMLInputElement;
-        if (updateId) { updateId.value = idtbl; }
+  
+  modalMapData(modal: any, service: any) {
+    const data = service.data[0];
+    if (data) {
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          const inputField = document.querySelector(`#${modal}_${key}`) as HTMLInputElement;
+          if (inputField) { inputField.value = data[key] || ''; }
+        }
       }
-    } else {
-      message = 'No has seleccionado ningun registro.';
-      alert(message);
-      /*messageBootboxAlert(
-        message,
-        'small',
-        'Advertencia',
-        'far fa-times-circle',
-        'warning'
-      );*/
     }
   }
 

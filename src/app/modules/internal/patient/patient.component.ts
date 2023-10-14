@@ -112,36 +112,63 @@ export class PatientComponent implements OnInit {
     });
   }
 
-  modalOpen(modalData: string) {
-    const modalElement = document.getElementById(modalData);
+  modalOpen(modalForm: string) {
+    const modalElement = document.getElementById(modalForm);
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
     }
   }
 
-  modalRecord(modalData: string) {
-    const modalElement = document.getElementById(modalData);
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
+  async modalRecord(modalForm: string, modalOption: string) {
+    let message;
+    // Obtener el primer valor seleccionado de la tabla
+    let idtbl = $('#tbInfo tr.selected td:first').html();
+    // Validar si el id es mayor a cero
+    if (Number(idtbl) > 0) {
+      const params = {
+        table: 'patients',
+        column: '*',
+        whereField: `id_patient`,
+        whereOperator: `=`,
+        whereEqual: `${idtbl}`,
+      };
+      const serviceRecord = await this.serviceApi.getRecord(params);
+      if (serviceRecord.data && Array.isArray(serviceRecord.data)) {
+        const hasErrors = serviceRecord.data.some((item: any) => 'error' in item);
+        if (hasErrors) {
+          // Mostrar alerta con los errores
+          const errorMessages = serviceRecord.data
+            .filter((item: any) => 'error' in item)
+            .map((item: { error: any; }) => item.error)
+            .join(', ');
+          alert(`Se encontraron errores: ${errorMessages}`);
+        } else {
+          // Continuar con el proceso porque no hay errores
+          const modalElement = document.getElementById(modalForm);
+          if (modalElement) {
+            const modal = new Modal(modalElement);
+            modal.show();
+            this.modalMapData(modalOption, serviceRecord);
+          }
+        }
+      } else {
+        message = 'No has seleccionado ningún registro.';
+        alert(message);
+      }
     }
   }
-
-  modalInsert() {
-
-  }
-
-  modalRemove() {
-
-  }
-
-  modalRestore() {
-
-  }
-
-  modalUpdate() {
-
+  
+  modalMapData(modal: any, service: any) {
+    const data = service.data[0];
+    if (data) {
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          const inputField = document.querySelector(`#${modal}_${key}`) as HTMLInputElement;
+          if (inputField) { inputField.value = data[key] || ''; }
+        }
+      }
+    }
   }
 
   actionDelete() {

@@ -111,6 +111,34 @@ export class ApiService {
     return this.http.get(urlApi);
   }
 
+  async getRecord(data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const params = {
+        table: data['table'],
+        column: data['column'],
+        whereField: data['whereField'],
+        whereOperator: data['whereOperator'],
+        whereEqual: data['whereEqual'],
+      };
+      this.getRegister(params).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          // Resuelve la promesa con los datos obtenidos
+          resolve(response);
+        },
+        error: (err: any) => {
+          // Rechaza la promesa en caso de error
+          console.error(err);
+          reject(err);
+        },
+        complete: () => {
+          // Resuelve la promesa cuando se completa, si es necesario
+          resolve(null);
+        },
+      });
+    });
+  }
+
   getDelete(table: any, column: string, id: number) {
     const service = `/mysql/info/alias?table=${table}`;
     const urlApi = `${this.urlEndPoint}${service}`;

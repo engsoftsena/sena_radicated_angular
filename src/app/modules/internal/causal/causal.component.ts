@@ -112,36 +112,90 @@ export class CausalComponent implements OnInit {
     });
   }
 
-  modalOpen(modalData: string) {
-    const modalElement = document.getElementById(modalData);
+  getRegister(data: any) {
+    const params = {
+      table: 'causals',
+      column: '*',
+      whereField: data['whereField'],
+      whereOperator: data['whereOperator'],
+      whereEqual: data['whereEqual'],
+    };
+    this.serviceApi.getRegister(params).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.causalData = response.data;
+        console.log(this.causalData);
+        // Construir tabla con datos y botones
+        this.serviceTable.getTable(
+          'tbInfo',
+          this.causalData,
+          this.columnSet,
+          []
+        );
+      },
+      error: (err: any) => console.error(err),
+      complete: () => (false),
+    });
+  }
+
+  modalOpen(modalForm: string) {
+    const modalElement = document.getElementById(modalForm);
     if (modalElement) {
       const modal = new Modal(modalElement);
       modal.show();
     }
   }
 
-  modalRecord(modalData: string) {
-    const modalElement = document.getElementById(modalData);
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
+  async modalRecord(modalForm: string, modalOption: string) {
+    let message;
+    // Obtener el primer valor seleccionado de la tabla
+    let idtbl = $('#tbInfo tr.selected td:first').html();
+    // Validar si el id es mayor a cero
+    if (Number(idtbl) > 0) {
+      const params = {
+        table: 'causals',
+        column: '*',
+        whereField: `id_causal`,
+        whereOperator: `=`,
+        whereEqual: `${idtbl}`,
+      };
+      const serviceRecord = await this.serviceApi.getRecord(params);
+      if (serviceRecord.data && Array.isArray(serviceRecord.data)) {
+        const hasErrors = serviceRecord.data.some((item: any) => 'error' in item);
+        if (hasErrors) {
+          // Mostrar alerta con los errores
+          const errorMessages = serviceRecord.data
+            .filter((item: any) => 'error' in item)
+            .map((item: { error: any; }) => item.error)
+            .join(', ');
+          alert(`Se encontraron errores: ${errorMessages}`);
+        } else {
+          // Continuar con el proceso porque no hay errores
+          const modalElement = document.getElementById(modalForm);
+          if (modalElement) {
+            const modal = new Modal(modalElement);
+            modal.show();
+            this.modalMapData(modalOption, serviceRecord);
+          }
+        }
+      } else {
+        message = 'No has seleccionado ningún registro.';
+        alert(message);
+      }
     }
   }
-
-  modalInsert() {
-
-  }
-
-  modalRemove() {
-
-  }
-
-  modalRestore() {
-
-  }
-
-  modalUpdate() {
-
+  
+  modalMapData(modal: any, service: any) {
+    const data = service.data[0];
+    if (data) {
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          const inputField = document.querySelector(`#${modal}_${key}`) as HTMLInputElement;
+          if (inputField) { inputField.value = data[key] || ''; }
+        }
+      }
+    }
   }
 
   actionDelete() {
