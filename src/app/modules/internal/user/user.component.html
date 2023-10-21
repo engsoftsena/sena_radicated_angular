@@ -1,3 +1,7 @@
+<div *ngIf="isLoading" class="loading-init">
+  <div class="loading-spinner"></div>
+</div>
+
 <div class="row dev-row" id="row_dashboard">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <div id="panel_dashboard" class="panel rounded-0 mb-2">
@@ -95,7 +99,7 @@
 							</div>
 							<div class="panel-container show">
 								<div class="panel-content dev-panel-content p-2">
-                  
+
                   <div class="panel rounded-0 mb-1">
                     <div class="panel-container show">
                       <div class="panel-content p-0">
@@ -363,7 +367,7 @@ enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" ro
             <span class="">Guardar</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -576,7 +580,7 @@ enctype="application/x-www-form-urlencoded" id="formUpdateData" novalidate="" ro
             <span class="">Actualizar</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -655,7 +659,7 @@ enctype="application/x-www-form-urlencoded" id="formDeleteData" novalidate="" ro
             <span class="">Eliminar</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button">
           <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -734,7 +738,7 @@ enctype="application/x-www-form-urlencoded" id="formRemoveData" novalidate="" ro
             <span class="">Remover</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -813,7 +817,7 @@ enctype="application/x-www-form-urlencoded" id="formRestoreData" novalidate="" r
             <span class="">Restaurar</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -823,4 +827,61 @@ enctype="application/x-www-form-urlencoded" id="formRestoreData" novalidate="" r
   </div>
 </form>
 
-<app-gen-error></app-gen-error>
+<!-- Ventana Modal: Restaurar Registro -->
+<form aria-label="" class="form-horizontal needs-validation was-validated"
+enctype="application/x-www-form-urlencoded" id="formSystemData" novalidate="" role="form">
+  <div aria-hidden="true" aria-labelledby="myCenterModalLabel"
+  data-backdrop="static" data-keyboard="false" data-bs-backdrop="static" data-bs-keyboard="false"
+  id="modalSystem" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-system">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="rounded-0 modal-content">
+        <div class="rounded-0 modal-header bg-danger text-white">
+          <h5 class="modal-title text-white">
+            <span>Error</span>
+          </h5>
+          <button type="button" class="close text-white d-none" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <em class="far fa-times"></em>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2">
+              <div class="alert alert-primary alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
+                <div class="d-flex align-items-center">
+                  <div class="alert-icon width-1">
+                    <span class="icon-stack" style="font-size: 20px;">
+                      <em class="base-15 icon-stack-3x color-primary-400"></em>
+                      <em class="base-10 text-white icon-stack-1x"></em>
+                      <em class="far fa-info-square color-primary-800 icon-stack-2x"></em>
+                    </span>
+                  </div>
+                  <div class="flex-1">
+                    <span id="formSystemMssg"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2">
+              <div class="alert alert-info alert-dismissible fade show p-1 rounded-0 mb-0" role="alert">
+                <div class="d-flex align-items-center">
+                  <div class="flex-1" style="max-height: 100vh; overflow-y: auto;">
+                    <pre style="white-space: pre-wrap;" id="formSystemAjax"></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary d-none"
+          data-dismiss="modal" data-bs-dismiss="modal" type="button">
+            <em class="far fa-times-circle mr-1"></em>
+            <span class="">Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

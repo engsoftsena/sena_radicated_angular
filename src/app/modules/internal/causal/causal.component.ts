@@ -4,8 +4,10 @@ import { CausalModule } from 'src/app/interfaces/modules/causal.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
-import { CausalService } from 'src/app/services/modules/causal/causal.service';
+import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
+// Importacion de Servicios
+import { CausalService } from 'src/app/services/modules/causal/causal.service';
 
 import * as $ from 'jquery';
 import 'bootstrap';
@@ -20,16 +22,49 @@ export class CausalComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
     private serviceButton: ButtonService,
-    private serviceCausal: CausalService,
+    private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
-  ) {}
 
+    private serviceCausal: CausalService,
+  ) {}
+  
+  isLoading: boolean = false;
   columnSet: [] | undefined;
   causalData: CausalModule[] = [];
 
   ngOnInit(): void {
-    //this.getColumn();
-    this.getLabel();
+    this.isLoading = true;
+    this.checkEndpoint();
+  }
+
+  checkEndpoint() {
+    if (this.serviceEndpoint.getCheckUrl()) {
+      this.checkAvailability();
+    } else {
+      console.error('URL no válida');
+    }
+  }
+
+  checkAvailability() {
+    let message = '';
+    this.serviceEndpoint.getAvailability().subscribe({
+      next: (response) => {
+        if (response.status === 200) {
+          message = 'URL API Disponible.';
+          console.log(message);
+          //this.getColumn();
+          this.getLabel();
+        } else {
+          message = 'URL API no está disponible';
+          this.modalOpen('modalSystem');
+          this.modalSystemJson(message, response);
+        }
+      },
+      error: (error) => {
+        message = 'Imposible acceder a la URL';
+        this.modalSystemJson(message, error);
+      }
+    });
   }
 
   getColumn() {
@@ -43,7 +78,10 @@ export class CausalComponent implements OnInit {
         this.columnSet = response;
         this.getSelect();
       },
-      error: (err: any) => console.error(err),
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
       complete: () => (false),
     });
   }
@@ -56,18 +94,25 @@ export class CausalComponent implements OnInit {
     this.serviceApi.getSelect(params).subscribe({
       next: (response: any) => {
         console.log(response);
-        // Mapea los datos del servicio al formato esperado
-        this.causalData = response.data;
-        console.log(this.causalData);
-        // Construir tabla con datos y botones
-        this.serviceTable.getTable(
-          'tbInfo',
-          this.causalData,
-          this.columnSet,
-          []
-        );
+        const checkDataError = this.getDataError(response);
+        if (checkDataError) {
+          // Mapea los datos del servicio al formato esperado
+          this.causalData = response.data;
+          console.log(this.causalData);
+          // Construir tabla con datos y botones
+          this.serviceTable.getTable(
+            'tbInfo',
+            this.causalData,
+            this.columnSet,
+            []
+          );
+          this.isLoading = false;
+        }
       },
-      error: (err: any) => console.error(err),
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
       complete: () => (false),
     });
   }
@@ -83,7 +128,10 @@ export class CausalComponent implements OnInit {
         this.columnSet = response;
         this.getAlias();
       },
-      error: (err: any) => console.error(err),
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
       complete: () => (false),
     });
   }
@@ -96,18 +144,25 @@ export class CausalComponent implements OnInit {
     this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
+        const checkDataError = this.getDataError(response);
+        if (checkDataError) {
         // Mapea los datos del servicio al formato esperado
-        this.causalData = response.data;
-        console.log(this.causalData);
-        // Construir tabla con datos y botones
-        this.serviceTable.getTable(
-          'tbInfo',
-          this.causalData,
-          this.columnSet,
-          []
-        );
+          this.causalData = response.data;
+          console.log(this.causalData);
+          // Construir tabla con datos y botones
+          this.serviceTable.getTable(
+            'tbInfo',
+            this.causalData,
+            this.columnSet,
+            []
+          );
+          this.isLoading = false;
+        }
       },
-      error: (err: any) => console.error(err),
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
       complete: () => (false),
     });
   }
@@ -134,9 +189,29 @@ export class CausalComponent implements OnInit {
           []
         );
       },
-      error: (err: any) => console.error(err),
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
       complete: () => (false),
     });
+  }
+
+  getDataError(response: any): true | undefined {
+    console.log(response);
+    let message;
+    if (response.data && Array.isArray(response.data)) {
+      const hasErrors = response.data.some((item: any) => 'error' in item);
+      if (!hasErrors) { return true; }
+      if (hasErrors) {
+        message = 'Identificamos los siguientes errores en la consulta';
+        this.modalSystemData(message, response);
+      }
+    } else {
+      message = 'Identificamos que la solicitud no tiene un formato correcto';
+      this.modalSystemData(message, response);
+    }
+    return undefined;
   }
 
   modalOpen(modalForm: string) {
@@ -145,6 +220,36 @@ export class CausalComponent implements OnInit {
       const modal = new Modal(modalElement);
       modal.show();
     }
+  }
+
+  modalSystemData(message: any, response: any) {
+    console.error(message, response);
+    // Mostrar alerta con los errores
+    const errorMessages = response.data
+      .filter((item: any) => 'error' in item)
+      .map((item: { error: any; }) => item.error)
+      .join('\n');
+    const formMssg = document.getElementById('formSystemMssg');
+    if (formMssg) { formMssg.innerHTML = ''; }
+    if (formMssg) { formMssg.innerHTML = `${message}`; }
+    const formAjax = document.getElementById('formSystemAjax');
+    if (formAjax) { formAjax.innerHTML = ''; }
+    if (formAjax) { formAjax.innerHTML = `${errorMessages}`; }
+    this.modalOpen('modalSystem');
+    this.isLoading = false;
+  }
+
+  modalSystemJson(message: any, response: any) {
+    console.error(message, response);
+    const jStringify = JSON.stringify(response, null, 2);
+    const formMssg = document.getElementById('formSystemMssg');
+    if (formMssg) { formMssg.innerHTML = ''; }
+    if (formMssg) { formMssg.innerHTML = `${message}`; }
+    const formAjax = document.getElementById('formSystemAjax');
+    if (formAjax) { formAjax.innerHTML = ''; }
+    if (formAjax) { formAjax.innerHTML = `${jStringify}`; }
+    this.modalOpen('modalSystem');
+    this.isLoading = false;
   }
 
   async modalRecord(modalForm: string, modalOption: string) {
@@ -180,12 +285,15 @@ export class CausalComponent implements OnInit {
           }
         }
       } else {
-        message = 'No has seleccionado ningún registro.';
+        message = 'No tiene un formato en array.';
         alert(message);
       }
+    } else {
+      message = 'No has seleccionado ningún registro.';
+      alert(message);
     }
   }
-  
+
   modalMapData(modal: any, service: any) {
     const data = service.data[0];
     if (data) {

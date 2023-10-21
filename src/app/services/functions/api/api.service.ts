@@ -16,7 +16,7 @@ export class ApiService {
     private http: HttpClient
   ) { }
 
-  buildApiUrl(endpoint: string, params: Record<string, any>): string {
+  private buildApiUrl(endpoint: string, params: Record<string, any>): string {
     const queryParams = new URLSearchParams(params).toString();
     return `${endpoint}${queryParams ? '?' + queryParams : ''}`;
   }
@@ -26,7 +26,7 @@ export class ApiService {
       table: data['table'],
       column: data['column'],
     };
-    const service = this.buildApiUrl(`/mysql/info/column`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/column`, queryParams);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
@@ -53,7 +53,7 @@ export class ApiService {
       table: data['table'],
       column: data['column'],
     };
-    const service = this.buildApiUrl(`/mysql/info/select`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/select`, queryParams);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get(urlApi);
@@ -64,7 +64,7 @@ export class ApiService {
       table: data['table'],
       column: data['column'],
     };
-    const service = this.buildApiUrl(`/mysql/info/label`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/label`, queryParams);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
@@ -91,7 +91,7 @@ export class ApiService {
       table: data['table'],
       column: data['column'],
     };
-    const service = this.buildApiUrl(`/mysql/info/alias`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/alias`, queryParams);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get(urlApi);
@@ -105,7 +105,7 @@ export class ApiService {
       whereOperator: data['whereOperator'],
       whereEqual: data['whereEqual'],
     };
-    const service = this.buildApiUrl(`/mysql/info/register`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/register`, queryParams);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get(urlApi);
