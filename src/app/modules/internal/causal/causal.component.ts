@@ -27,7 +27,7 @@ export class CausalComponent implements OnInit {
 
     private serviceCausal: CausalService,
   ) {}
-  
+
   isLoading: boolean = false;
   columnSet: [] | undefined;
   causalData: CausalModule[] = [];
@@ -311,7 +311,69 @@ export class CausalComponent implements OnInit {
   }
 
   actionInsert() {
+    let message = '';
+    const form = <HTMLFormElement>document.getElementById('formInsertData');
+    const formData: { [key: string]: string } = {};
+    const formElementsArray = Array.from(form.elements);
+    for (const element of formElementsArray) {
+      if (element instanceof HTMLInputElement) {
+        const fieldName = element.name.replace('insert_', '');
+        formData[fieldName] = element.value;
+      }
+    }
+    // Convierte los datos a JSON usando JSON.stringify
+    const jsonData = JSON.stringify(formData);
+    const dataColumn = Object.keys(formData).join(',');
+    const params = {
+      table: 'causals',
+      column: dataColumn,
+    };
+    console.log(formData);
+    console.log(jsonData);
+    // Llama al servicio para enviar los datos al servidor
+    this.serviceApi.getInsert(params, jsonData).subscribe({
+      next: (response) => {
+        // Maneja la respuesta del servidor aquí
+        console.log('Respuesta del servidor:', response);
+        this.responseSuccess(response);
+      },
+      error: (error) => {
+        // Maneja los errores aquí
+        //console.error('Error al enviar datos:', error);
+        message = 'URL API no está disponible';
+        this.modalOpen('modalSystem');
+        this.modalSystemJson(message, error);
+      },
+      complete: () => (false),
+    });
+  }
 
+  responseSuccess(response: any) {
+    let message;
+    if (response.data && Array.isArray(response.data)) {
+      const hasVal = response.data.some((item: any) => 'success' in item);
+      if (hasVal) {
+        console.log('correcto');
+        // Mostrar alerta con los errores
+        const answer = response.data
+          .filter((item: any) => 'success' in item)
+          .map((item: { success: any; }) => item.success)
+          .join(', ');
+        alert(`${answer}`);
+      } else {
+        console.log('error');
+        // Continuar con el proceso porque no hay errores
+        /*const modalElement = document.getElementById(modalForm);
+        if (modalElement) {
+          const modal = new Modal(modalElement);
+          modal.show();
+          this.modalMapData(modalOption, response);
+        }*/
+      }
+    } else {
+      message = 'No tiene un formato en array.';
+      alert(message);
+    }
   }
 
   actionRemove() {

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Environment } from 'src/environments/environment';
 // Importacion de Modulos
@@ -21,12 +21,12 @@ export class ApiService {
     return `${endpoint}${queryParams ? '?' + queryParams : ''}`;
   }
 
-  getColumn(data: any) {
-    const queryParams = {
-      table: data['table'],
-      column: data['column'],
+  getColumn(params: any) {
+    const query = {
+      table: params['table'],
+      column: params['column'],
     };
-    const service = this.buildApiUrl(`mysql/info/column`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/column`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
@@ -48,23 +48,23 @@ export class ApiService {
     );
   }
 
-  getSelect(data: any) {
-    const queryParams = {
-      table: data['table'],
-      column: data['column'],
+  getSelect(params: any) {
+    const query = {
+      table: params['table'],
+      column: params['column'],
     };
-    const service = this.buildApiUrl(`mysql/info/select`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/select`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
-  getLabel(data: any) {
-    const queryParams = {
-      table: data['table'],
-      column: data['column'],
+  getLabel(params: any) {
+    const query = {
+      table: params['table'],
+      column: params['column'],
     };
-    const service = this.buildApiUrl(`mysql/info/label`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/label`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
@@ -86,41 +86,41 @@ export class ApiService {
     );
   }
 
-  getAlias(data: any) {
-    const queryParams = {
-      table: data['table'],
-      column: data['column'],
+  getAlias(params: any) {
+    const query = {
+      table: params['table'],
+      column: params['column'],
     };
-    const service = this.buildApiUrl(`mysql/info/alias`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/alias`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
-  getRegister(data: any) {
-    const queryParams = {
-      table: data['table'],
-      column: data['column'],
-      whereField: data['whereField'],
-      whereOperator: data['whereOperator'],
-      whereEqual: data['whereEqual'],
+  getRegister(params: any) {
+    const query = {
+      table: params['table'],
+      column: params['column'],
+      whereField: params['whereField'],
+      whereOperator: params['whereOperator'],
+      whereEqual: params['whereEqual'],
     };
-    const service = this.buildApiUrl(`mysql/info/register`, queryParams);
+    const service = this.buildApiUrl(`mysql/info/register`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
-  async getRecord(data: any): Promise<any> {
+  async getRecord(params: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      const params = {
-        table: data['table'],
-        column: data['column'],
-        whereField: data['whereField'],
-        whereOperator: data['whereOperator'],
-        whereEqual: data['whereEqual'],
+      const query = {
+        table: params['table'],
+        column: params['column'],
+        whereField: params['whereField'],
+        whereOperator: params['whereOperator'],
+        whereEqual: params['whereEqual'],
       };
-      this.getRegister(params).subscribe({
+      this.getRegister(query).subscribe({
         next: (response: any) => {
           console.log(response);
           // Resuelve la promesa con los datos obtenidos
@@ -136,6 +136,28 @@ export class ApiService {
           resolve(null);
         },
       });
+    });
+  }
+
+  getInsert(params: any, data: any) {
+    const query = {
+      table: params['table'],
+      column: params['column'],
+    };
+    const service = this.buildApiUrl(`mysql/insert`, query);
+    const urlApi = `${this.urlEndPoint}${service}`;
+    console.log(urlApi);
+
+    // Configura las cabeceras para indicar que se envía JSON
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      //'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    // Asegúrate de que estés haciendo una solicitud POST aquí
+    return this.http.post(urlApi, data, {
+      headers,
+      withCredentials: false,
     });
   }
 
