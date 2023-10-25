@@ -260,7 +260,7 @@ export class CommunicationComponent implements OnInit {
       }
     }
   }
-  
+
   modalMapData(modal: any, service: any) {
     const data = service.data[0];
     if (data) {

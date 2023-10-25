@@ -10,8 +10,10 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 import { CausalService } from 'src/app/services/modules/causal/causal.service';
 
 import * as $ from 'jquery';
-import 'bootstrap';
+import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-causal',
@@ -216,9 +218,24 @@ export class CausalComponent implements OnInit {
 
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
+    if (modalElement) { new Modal(modalElement).show(); }
+  }
+
+  modalClose(modalForm: string) {
+    const modalElement = document.getElementById(modalForm);
     if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
+      modalElement.setAttribute('data-dismiss', 'modal');
+      const closeButton = modalElement.querySelector('.close[data-dismiss="modal"]');
+      if (closeButton) {
+        closeButton.dispatchEvent(new Event('click'));
+      }
+    }
+    if (modalElement) {
+      modalElement.setAttribute('data-bs-dismiss', 'modal');
+      const closeBsButton = modalElement.querySelector('.close[data-bs-dismiss="modal"]');
+      if (closeBsButton) {
+        closeBsButton.dispatchEvent(new Event('click'));
+      }
     }
   }
 
@@ -277,12 +294,8 @@ export class CausalComponent implements OnInit {
           alert(`Se encontraron errores: ${errorMessages}`);
         } else {
           // Continuar con el proceso porque no hay errores
-          const modalElement = document.getElementById(modalForm);
-          if (modalElement) {
-            const modal = new Modal(modalElement);
-            modal.show();
-            this.modalMapData(modalOption, serviceRecord);
-          }
+          this.modalOpen(modalForm);
+          this.modalMapData(modalOption, serviceRecord);
         }
       } else {
         message = 'No tiene un formato en array.';
@@ -334,8 +347,8 @@ export class CausalComponent implements OnInit {
     this.serviceApi.getInsert(params, jsonData).subscribe({
       next: (response) => {
         // Maneja la respuesta del servidor aquí
-        console.log('Respuesta del servidor:', response);
-        this.responseSuccess(response);
+        //console.log('Respuesta del servidor:', response);
+        this.responseSuccess('modalInsert', response);
       },
       error: (error) => {
         // Maneja los errores aquí
@@ -348,32 +361,79 @@ export class CausalComponent implements OnInit {
     });
   }
 
-  responseSuccess(response: any) {
+  responseSuccess(modalForm: string, response: any) {
     let message;
     if (response.data && Array.isArray(response.data)) {
       const hasVal = response.data.some((item: any) => 'success' in item);
       if (hasVal) {
-        console.log('correcto');
-        // Mostrar alerta con los errores
+        this.modalClose(modalForm);
         const answer = response.data
           .filter((item: any) => 'success' in item)
           .map((item: { success: any; }) => item.success)
           .join(', ');
-        alert(`${answer}`);
+        Swal.fire(
+          'Completado!',
+          `${answer}`,
+          'success',
+        ).then(() => {
+          this.refreshData();
+        });
       } else {
         console.log('error');
-        // Continuar con el proceso porque no hay errores
-        /*const modalElement = document.getElementById(modalForm);
-        if (modalElement) {
-          const modal = new Modal(modalElement);
-          modal.show();
-          this.modalMapData(modalOption, response);
-        }*/
       }
     } else {
       message = 'No tiene un formato en array.';
-      alert(message);
+      Swal.fire(
+        'Error!',
+        `${message}`,
+        'error',
+      );
     }
+  }
+
+  refreshData() {
+    let timerInterval: any;
+
+    Swal.fire({
+      title: 'Procesando',
+      html: 'Espere un momento...',
+      timer: 2000, // Cambia este valor al tiempo que desees
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer()?.querySelector('b'); // Comprobación de nulidad
+
+        if (b) {
+          const timerLeft = Swal.getTimerLeft();
+          if (timerLeft !== undefined) {
+            b.textContent = timerLeft.toString();
+          }
+        }
+
+        const alertBox = Swal.getPopup();
+        if (alertBox) {
+          alertBox.style.textAlign = 'center';
+        }
+
+        timerInterval = setInterval(() => {
+          const timerLeft = Swal.getTimerLeft();
+          if (timerLeft !== undefined && b) {
+            b.textContent = timerLeft.toString();
+          }
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+      /* Puedes agregar un manejo adicional aquí si lo deseas */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('La alerta se cerró automáticamente por el temporizador');
+        this.getLabel();
+      }
+    });
+
+
   }
 
   actionRemove() {

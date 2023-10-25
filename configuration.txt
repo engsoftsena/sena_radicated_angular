@@ -15,6 +15,9 @@ npm install --save-dev @types/jquery
 npm install jquery
 npm install bootstrap
 npm install --save @types/bootstrap
+npm install --save sweetalert2
+npm install jquery@latest
+npm install bootstrap jquery @popperjs/core
 
 ng add @angular/material --style=none
 
