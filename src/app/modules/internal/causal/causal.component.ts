@@ -316,30 +316,33 @@ export class CausalComponent implements OnInit {
     }
   }
 
+  // Función para recopilar los datos de un formulario
+  collectFormData(formId: string, fieldNamePrefix: string): { [key: string]: string } {
+    const form = <HTMLFormElement>document.getElementById(formId);
+    const formData: { [key: string]: string } = {};
+    const formElementsArray = Array.from(form.elements);
+    for (const element of formElementsArray) {
+      if (element instanceof HTMLInputElement) {
+        const fieldName = element.name.replace(fieldNamePrefix, '');
+        formData[fieldName] = element.value;
+      }
+    }
+    return formData;
+  }
+
   actionDelete() {
 
   }
 
   actionInsert() {
     let message = '';
-    const form = <HTMLFormElement>document.getElementById('formInsertData');
-    const formData: { [key: string]: string } = {};
-    const formElementsArray = Array.from(form.elements);
-    for (const element of formElementsArray) {
-      if (element instanceof HTMLInputElement) {
-        const fieldName = element.name.replace('insert_', '');
-        formData[fieldName] = element.value;
-      }
-    }
-    // Convierte los datos a JSON usando JSON.stringify
+    const formData = this.collectFormData('formInsertData', 'insert_');
     const jsonData = JSON.stringify(formData);
     const dataColumn = Object.keys(formData).join(',');
     const params = {
       table: 'causals',
       column: dataColumn,
     };
-    console.log(formData);
-    console.log(jsonData);
     // Llama al servicio para enviar los datos al servidor
     this.serviceApi.getInsert(params, jsonData).subscribe({
       next: (response) => {
@@ -358,6 +361,18 @@ export class CausalComponent implements OnInit {
     });
   }
 
+  actionRemove() {
+
+  }
+
+  actionRestore() {
+
+  }
+
+  actionUpdate() {
+
+  }
+
   responseSuccess(modalForm: string, response: any) {
     let message;
     if (response.data && Array.isArray(response.data)) {
@@ -374,7 +389,7 @@ export class CausalComponent implements OnInit {
           `${answer}`,
           'success',
         ).then(() => {
-          this.refreshData();
+          this.dataProccess();
         });
       } else {
         console.log('error');
@@ -389,17 +404,16 @@ export class CausalComponent implements OnInit {
     }
   }
 
-  refreshData() {
+  dataProccess() {
     let timerInterval: any;
-
     Swal.fire({
       title: 'Procesando',
       html: 'Espere un momento...',
-      timer: 2000, // Cambia este valor al tiempo que desees
+      timer: 1000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();
-        const b = Swal.getHtmlContainer()?.querySelector('b'); // Comprobación de nulidad
+        const b = Swal.getHtmlContainer()?.querySelector('b');
 
         if (b) {
           const timerLeft = Swal.getTimerLeft();
@@ -430,19 +444,5 @@ export class CausalComponent implements OnInit {
         this.getLabel();
       }
     });
-
-
-  }
-
-  actionRemove() {
-
-  }
-
-  actionRestore() {
-
-  }
-
-  actionUpdate() {
-
   }
 }
