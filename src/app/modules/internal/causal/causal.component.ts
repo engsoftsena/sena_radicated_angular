@@ -222,21 +222,18 @@ export class CausalComponent implements OnInit {
   }
 
   modalClose(modalForm: string) {
-    const modalElement = document.getElementById(modalForm);
-    if (modalElement) {
-      modalElement.setAttribute('data-dismiss', 'modal');
-      const closeButton = modalElement.querySelector('.close[data-dismiss="modal"]');
-      if (closeButton) {
-        closeButton.dispatchEvent(new Event('click'));
-      }
-    }
-    if (modalElement) {
-      modalElement.setAttribute('data-bs-dismiss', 'modal');
-      const closeBsButton = modalElement.querySelector('.close[data-bs-dismiss="modal"]');
-      if (closeBsButton) {
-        closeBsButton.dispatchEvent(new Event('click'));
-      }
-    }
+    // JavaScript para cerrar la ventana modal
+    const miModal = document.getElementById(modalForm);
+    if (miModal) { miModal.style.display = 'none'; }
+    // Busca el elemento con las clases "modal-backdrop fade show"
+    const modalBackdrop = document.querySelector('.modal-backdrop.fade.show');
+    if (modalBackdrop) { modalBackdrop.classList.remove('modal-backdrop', 'fade', 'show'); }
+  }
+
+  modalReset(modalForm: string) {
+    const formulario = document.getElementById(modalForm) as HTMLFormElement;
+    // Verificar si el formulario existe y es un elemento de formulario antes de resetearlo
+    if (formulario && formulario instanceof HTMLFormElement) { formulario.reset(); }
   }
 
   modalSystemData(message: any, response: any) {
@@ -367,6 +364,7 @@ export class CausalComponent implements OnInit {
       const hasVal = response.data.some((item: any) => 'success' in item);
       if (hasVal) {
         this.modalClose(modalForm);
+        this.modalReset('formInsertData');
         const answer = response.data
           .filter((item: any) => 'success' in item)
           .map((item: { success: any; }) => item.success)
