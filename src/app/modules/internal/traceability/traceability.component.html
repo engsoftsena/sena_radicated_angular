@@ -296,12 +296,12 @@ enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" ro
         </div>
         <div class="modal-footer">
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-success"
-          id="formInsertBtn" type="button">
+          id="formInsertBtn" type="button" (click)="actionInsert();">
             <em class="far fa-save mr-1"></em>
             <span class="">Guardar</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-dismiss="modal" data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button" (click)="modalClass();">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -443,12 +443,12 @@ enctype="application/x-www-form-urlencoded" id="formUpdateData" novalidate="" ro
         </div>
         <div class="modal-footer">
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-success"
-          id="formUpdateBtn" type="button">
+          id="formUpdateBtn" type="button" (click)="actionUpdate();">
             <em class="far fa-save mr-1"></em>
             <span class="">Actualizar</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-dismiss="modal" data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button" (click)="modalClass();">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -601,12 +601,12 @@ enctype="application/x-www-form-urlencoded" id="formRemoveData" novalidate="" ro
         </div>
         <div class="modal-footer">
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-warning"
-          id="formRemoveBtn" type="button">
+          id="formRemoveBtn" type="button" (click)="actionRemove();">
             <em class="far fa-trash mr-1"></em>
             <span class="">Remover</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-dismiss="modal" data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button" (click)="modalClass();">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -680,12 +680,12 @@ enctype="application/x-www-form-urlencoded" id="formRestoreData" novalidate="" r
         </div>
         <div class="modal-footer">
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-warning"
-          id="formRestoreBtn" type="button">
+          id="formRestoreBtn" type="button" (click)="actionRestore();">
             <em class="far fa-redo-alt mr-1"></em>
             <span class="">Restaurar</span>
           </button>
           <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
-          data-dismiss="modal" data-bs-dismiss="modal" type="button">
+          data-dismiss="modal" data-bs-dismiss="modal" type="button" (click)="modalClass();">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>
@@ -743,8 +743,8 @@ enctype="application/x-www-form-urlencoded" id="formSystemData" novalidate="" ro
           </div>
         </div>
         <div class="modal-footer">
-          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary d-none"
-          data-dismiss="modal" data-bs-dismiss="modal" type="button">
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
+          data-dismiss="modal" data-bs-dismiss="modal" type="button" (click)="modalClass();">
             <em class="far fa-times-circle mr-1"></em>
             <span class="">Cerrar</span>
           </button>

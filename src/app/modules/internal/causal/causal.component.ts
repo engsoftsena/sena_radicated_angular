@@ -216,18 +216,21 @@ export class CausalComponent implements OnInit {
     return undefined;
   }
 
-  modalOpen(modalForm: string) {
-    const modalElement = document.getElementById(modalForm);
-    if (modalElement) { new Modal(modalElement).show(); }
+  modalClass() {
+    // Buscar el elemento con las clases
+    const modalBackdrop = document.querySelector('.modal-backdrop.fade.show');
+    if (modalBackdrop) { modalBackdrop.remove(); }
   }
 
   modalClose(modalForm: string) {
     // JavaScript para cerrar la ventana modal
     const miModal = document.getElementById(modalForm);
     if (miModal) { miModal.style.display = 'none'; }
-    // Busca el elemento con las clases "modal-backdrop fade show"
-    const modalBackdrop = document.querySelector('.modal-backdrop.fade.show');
-    if (modalBackdrop) { modalBackdrop.classList.remove('modal-backdrop', 'fade', 'show'); }
+  }
+
+  modalOpen(modalForm: string) {
+    const modalElement = document.getElementById(modalForm);
+    if (modalElement) { new Modal(modalElement).show(); }
   }
 
   modalReset(modalForm: string) {
@@ -317,13 +320,14 @@ export class CausalComponent implements OnInit {
   }
 
   // Función para recopilar los datos de un formulario
-  collectFormData(formId: string, fieldNamePrefix: string): { [key: string]: string } {
-    const form = <HTMLFormElement>document.getElementById(formId);
+  collectFormData(modalForm: any) {
+    const { formId, formPrefix } = modalForm;
+    const formHtml = <HTMLFormElement>document.getElementById(formId);
     const formData: { [key: string]: string } = {};
-    const formElementsArray = Array.from(form.elements);
+    const formElementsArray = Array.from(formHtml.elements);
     for (const element of formElementsArray) {
       if (element instanceof HTMLInputElement) {
-        const fieldName = element.name.replace(fieldNamePrefix, '');
+        const fieldName = element.name.replace(formPrefix, '');
         formData[fieldName] = element.value;
       }
     }
@@ -331,12 +335,43 @@ export class CausalComponent implements OnInit {
   }
 
   actionDelete() {
-
+    let message = '';
+    const modalForm = {
+      'modalId': 'modalDelete',
+      'formId': 'formDeleteData',
+      'formAjax': 'formDeleteAjax',
+      'formPrefix': 'delete_',
+    };
+    const formData = this.collectFormData(modalForm);
+    const jsonData = JSON.stringify(formData);
+    const dataColumn = Object.keys(formData).join(',');
+    const params = {
+      table: 'causals',
+      column: dataColumn,
+    };
+    // Llama al servicio para enviar los datos al servidor
+    this.serviceApi.getDelete(params, jsonData).subscribe({
+      next: (response) => {
+        this.responseMessage(modalForm, response);
+      },
+      error: (error) => {
+        message = 'URL API no está disponible';
+        this.modalOpen('modalSystem');
+        this.modalSystemJson(message, error);
+      },
+      complete: () => (false),
+    });
   }
 
   actionInsert() {
     let message = '';
-    const formData = this.collectFormData('formInsertData', 'insert_');
+    const modalForm = {
+      'modalId': 'modalInsert',
+      'formId': 'formInsertData',
+      'formAjax': 'formInsertAjax',
+      'formPrefix': 'insert_',
+    };
+    const formData = this.collectFormData(modalForm);
     const jsonData = JSON.stringify(formData);
     const dataColumn = Object.keys(formData).join(',');
     const params = {
@@ -346,13 +381,9 @@ export class CausalComponent implements OnInit {
     // Llama al servicio para enviar los datos al servidor
     this.serviceApi.getInsert(params, jsonData).subscribe({
       next: (response) => {
-        // Maneja la respuesta del servidor aquí
-        //console.log('Respuesta del servidor:', response);
-        this.responseSuccess('modalInsert', response);
+        this.responseMessage(modalForm, response);
       },
       error: (error) => {
-        // Maneja los errores aquí
-        //console.error('Error al enviar datos:', error);
         message = 'URL API no está disponible';
         this.modalOpen('modalSystem');
         this.modalSystemJson(message, error);
@@ -370,30 +401,41 @@ export class CausalComponent implements OnInit {
   }
 
   actionUpdate() {
-
+    let message = '';
+    const modalForm = {
+      'modalId': 'modalUpdate',
+      'formId': 'formUpdateData',
+      'formAjax': 'formUpdateAjax',
+      'formPrefix': 'update_',
+    };
+    const formData = this.collectFormData(modalForm);
+    const jsonData = JSON.stringify(formData);
+    const dataColumn = Object.keys(formData).join(',');
+    const params = {
+      table: 'causals',
+      column: dataColumn,
+    };
+    // Llama al servicio para enviar los datos al servidor
+    this.serviceApi.getUpdate(params, jsonData).subscribe({
+      next: (response) => {
+        this.responseMessage(modalForm, response);
+      },
+      error: (error) => {
+        message = 'URL API no está disponible';
+        this.modalOpen('modalSystem');
+        this.modalSystemJson(message, error);
+      },
+      complete: () => (false),
+    });
   }
 
-  responseSuccess(modalForm: string, response: any) {
+  responseMessage(modalForm: any, response: any) {
     let message;
     if (response.data && Array.isArray(response.data)) {
-      const hasVal = response.data.some((item: any) => 'success' in item);
-      if (hasVal) {
-        this.modalClose(modalForm);
-        this.modalReset('formInsertData');
-        const answer = response.data
-          .filter((item: any) => 'success' in item)
-          .map((item: { success: any; }) => item.success)
-          .join(', ');
-        Swal.fire(
-          'Completado!',
-          `${answer}`,
-          'success',
-        ).then(() => {
-          this.dataProccess();
-        });
-      } else {
-        console.log('error');
-      }
+      const respSuccess = response.data.some((item: any) => 'success' in item);
+      if (respSuccess) { this.responseSuccess(modalForm, response); }
+      const respWarnign = response.data.some((item: any) => 'warning' in item);
+      if (respWarnign) { this.responseWarning(modalForm, response); }
     } else {
       message = 'No tiene un formato en array.';
       Swal.fire(
@@ -402,6 +444,32 @@ export class CausalComponent implements OnInit {
         'error',
       );
     }
+  }
+
+  responseSuccess(modalForm: any, response: any) {
+    const { modalId, formId } = modalForm;
+    this.modalClose(modalId);
+    this.modalReset(formId);
+    const answer = response.data
+      .filter((item: any) => 'success' in item)
+      .map((item: { success: any; }) => item.success)
+      .join(', ');
+    Swal.fire(
+      'Completado!',
+      `${answer}`,
+      'success',
+    ).then(() => {
+      this.dataProccess();
+    });
+  }
+
+  responseWarning(modalForm: any, response: any) {
+    const { modalId, formId } = modalForm;
+    const answer = response.data
+      .filter((item: any) => 'warning' in item)
+      .map((item: { warning: any; }) => item.warning)
+      .join(', ');
+    console.log(answer);
   }
 
   dataProccess() {
@@ -423,9 +491,7 @@ export class CausalComponent implements OnInit {
         }
 
         const alertBox = Swal.getPopup();
-        if (alertBox) {
-          alertBox.style.textAlign = 'center';
-        }
+        if (alertBox) { alertBox.style.textAlign = 'center'; }
 
         timerInterval = setInterval(() => {
           const timerLeft = Swal.getTimerLeft();
@@ -440,7 +506,6 @@ export class CausalComponent implements OnInit {
     }).then((result) => {
       /* Puedes agregar un manejo adicional aquí si lo deseas */
       if (result.dismiss === Swal.DismissReason.timer) {
-        console.log('La alerta se cerró automáticamente por el temporizador');
         this.getLabel();
       }
     });

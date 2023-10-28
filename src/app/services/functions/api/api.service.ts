@@ -139,6 +139,28 @@ export class ApiService {
     });
   }
 
+  getDelete(params: any, data: any) {
+    const query = {
+      table: params['table'],
+      column: params['column'],
+    };
+    const service = this.buildApiUrl(`mysql/delete`, query);
+    const urlApi = `${this.urlEndPoint}${service}`;
+    console.log(urlApi);
+
+    // Configura las cabeceras para indicar que se envía JSON
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      //'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    // Asegúrate de que estés haciendo una solicitud POST aquí
+    return this.http.post(urlApi, data, {
+      headers,
+      withCredentials: false,
+    });
+  }
+
   getInsert(params: any, data: any) {
     const query = {
       table: params['table'],
@@ -161,10 +183,25 @@ export class ApiService {
     });
   }
 
-  getDelete(table: any, column: string, id: number) {
-    const service = `/mysql/info/alias?table=${table}`;
+  getUpdate(params: any, data: any) {
+    const query = {
+      table: params['table'],
+      column: params['column'],
+    };
+    const service = this.buildApiUrl(`mysql/update`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
     console.log(urlApi);
-    return this.http.delete(`${urlApi}`);
+
+    // Configura las cabeceras para indicar que se envía JSON
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      //'Content-Type': 'application/x-www-form-urlencoded',
+    });
+
+    // Asegúrate de que estés haciendo una solicitud POST aquí
+    return this.http.put(urlApi, data, {
+      headers,
+      withCredentials: false,
+    });
   }
 }

@@ -184,6 +184,12 @@ export class PatientComponent implements OnInit {
     return undefined;
   }
 
+  modalClass() {
+    // Buscar el elemento con las clases
+    const modalBackdrop = document.querySelector('.modal-backdrop.fade.show');
+    if (modalBackdrop) { modalBackdrop.remove(); }
+  }
+
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
     if (modalElement) {
