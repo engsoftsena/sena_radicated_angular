@@ -410,7 +410,7 @@ export class CommunicationComponent implements OnInit {
     const params = {
       table: 'communications',
       column: `${whereColumn}`,
-      whereCond: '',
+      whereCond: 'WHERE',
       whereField: whereColumn,
       whereOperator: '=',
       whereEqual: whereData,
@@ -519,7 +519,7 @@ export class CommunicationComponent implements OnInit {
     const params = {
       table: 'causals',
       column: `${dataColumn},${whereColumn}`,
-      whereCond: '',
+      whereCond: 'WHERE',
       whereField: whereColumn,
       whereOperator: '=',
       whereEqual: whereData,
@@ -567,7 +567,7 @@ export class CommunicationComponent implements OnInit {
     const params = {
       table: 'causals',
       column: `${dataColumn},${whereColumn}`,
-      whereCond: '',
+      whereCond: 'WHERE',
       whereField: whereColumn,
       whereOperator: '=',
       whereEqual: whereData,
@@ -614,7 +614,7 @@ export class CommunicationComponent implements OnInit {
     const params = {
       table: 'communications',
       column: `${dataColumn},${whereColumn}`,
-      whereCond: '',
+      whereCond: 'WHERE',
       whereField: whereColumn,
       whereOperator: '=',
       whereEqual: whereData,
