@@ -57,7 +57,7 @@ export class CausalComponent implements OnInit {
           //this.getColumn();
           this.getLabel();
         } else {
-          message = 'URL API no está disponible';
+          message = 'Error en la solicitud de la API';
           this.modalOpen('modalSystem');
           this.modalSystemJson(message, response);
         }
@@ -173,6 +173,7 @@ export class CausalComponent implements OnInit {
     const params = {
       table: 'causals',
       column: '*',
+      whereCond: data['whereCond'],
       whereField: data['whereField'],
       whereOperator: data['whereOperator'],
       whereEqual: data['whereEqual'],
@@ -219,13 +220,21 @@ export class CausalComponent implements OnInit {
   modalClass() {
     // Buscar el elemento con las clases
     const modalBackdrop = document.querySelector('.modal-backdrop.fade.show');
-    if (modalBackdrop) { modalBackdrop.remove(); }
+    if (modalBackdrop) {
+      modalBackdrop.remove();
+      modalBackdrop.classList.remove(
+        'modal-backdrop',
+        'fade',
+        'show'
+      );
+    }
   }
 
   modalClose(modalForm: string) {
     // JavaScript para cerrar la ventana modal
     const miModal = document.getElementById(modalForm);
     if (miModal) { miModal.style.display = 'none'; }
+    this.modalClass();
   }
 
   modalOpen(modalForm: string) {
@@ -278,6 +287,7 @@ export class CausalComponent implements OnInit {
       const params = {
         table: 'causals',
         column: '*',
+        whereCond: ``,
         whereField: `id_causal`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,
@@ -319,43 +329,87 @@ export class CausalComponent implements OnInit {
     }
   }
 
-  // Función para recopilar los datos de un formulario
-  collectFormData(modalForm: any) {
+  valGetElementById(elementId: string): HTMLElement | null {
+    const element = document.getElementById(elementId);
+    let errorMessage = `Elemento HTML con ID '${elementId}' no existe`;
+    if (!element) { console.error(errorMessage); }
+    return element;
+  }
+
+  formCollect(modalForm: any, formField: any) {
     const { formId, formPrefix } = modalForm;
-    const formHtml = <HTMLFormElement>document.getElementById(formId);
     const formData: { [key: string]: string } = {};
-    const formElementsArray = Array.from(formHtml.elements);
-    for (const element of formElementsArray) {
-      if (element instanceof HTMLInputElement) {
-        const fieldName = element.name.replace(formPrefix, '');
-        formData[fieldName] = element.value;
+
+    let valFormId = this.valGetElementById(formId);
+    if (!valFormId) { return formData }
+
+    let valformField = this.valGetElementById(formField);
+    if (!valformField) { return formData }
+  
+    const allElements = Array.from(valformField.querySelectorAll('*'));
+    for (const element of allElements) {
+      if (element instanceof HTMLInputElement || element instanceof HTMLSelectElement) {
+        const fieldName = element.getAttribute('name');
+  
+        if (fieldName) {
+          const lizedField = fieldName.replace(formPrefix, '');
+          formData[lizedField] = element.value;
+        } else {
+          console.error('No existe la propiedad name');
+        }
       }
     }
+  
     return formData;
   }
 
+  formDelete(modalForm: any) {    
+    const whereForm = this.formCollect(modalForm, 'deleteWhere');
+    const whereColumn = Object.keys(whereForm).join(',');
+    const whereData = Object.values(whereForm).join(',');
+
+    return {
+      whereForm,
+      whereColumn,
+      whereData,
+    };
+  }
+  
   actionDelete() {
-    let message = '';
+    // Parametros de HTML
     const modalForm = {
       'modalId': 'modalDelete',
       'formId': 'formDeleteData',
       'formAjax': 'formDeleteAjax',
       'formPrefix': 'delete_',
     };
-    const formData = this.collectFormData(modalForm);
-    const jsonData = JSON.stringify(formData);
-    const dataColumn = Object.keys(formData).join(',');
+    // Retornar Informacion
+    const {
+      whereColumn,
+      whereData,
+    } = this.formDelete(modalForm);
+    // Construir parametros para sql
     const params = {
       table: 'causals',
-      column: dataColumn,
+      column: `${whereColumn}`,
+      whereCond: '',
+      whereField: whereColumn,
+      whereOperator: '=',
+      whereEqual: whereData,
     };
+    this.sendDelete(modalForm, params);
+  }
+
+  sendDelete(modalForm: any, params: any) {
+    let message = '';
     // Llama al servicio para enviar los datos al servidor
-    this.serviceApi.getDelete(params, jsonData).subscribe({
+    this.serviceApi.getDelete(params).subscribe({
       next: (response) => {
         this.responseMessage(modalForm, response);
       },
       error: (error) => {
-        message = 'URL API no está disponible';
+        message = 'Error en la solicitud DELETE de la API';
+        console.error(message, error);
         this.modalOpen('modalSystem');
         this.modalSystemJson(message, error);
       },
@@ -363,28 +417,43 @@ export class CausalComponent implements OnInit {
     });
   }
 
+  formInsert(modalForm: any) {    
+    const formData = this.formCollect(modalForm, 'insertField');
+    const dataColumn = Object.keys(formData).join(',');
+    return { formData, dataColumn, };
+  }
+
   actionInsert() {
-    let message = '';
+    // Parametros de HTML
     const modalForm = {
       'modalId': 'modalInsert',
       'formId': 'formInsertData',
       'formAjax': 'formInsertAjax',
       'formPrefix': 'insert_',
     };
-    const formData = this.collectFormData(modalForm);
-    const jsonData = JSON.stringify(formData);
-    const dataColumn = Object.keys(formData).join(',');
+    // Retornar Informacion
+    const { formData, dataColumn, } = this.formInsert(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...formData };
+    const jsonData = JSON.stringify(combinedData);
+    // Construir parametros para sql
     const params = {
       table: 'causals',
       column: dataColumn,
     };
+    this.sendInsert(modalForm, params, jsonData);
+  }
+
+  sendInsert(modalForm: any, params: any, jsonData: any) {
+    let message = '';
     // Llama al servicio para enviar los datos al servidor
     this.serviceApi.getInsert(params, jsonData).subscribe({
       next: (response) => {
         this.responseMessage(modalForm, response);
       },
       error: (error) => {
-        message = 'URL API no está disponible';
+        message = 'Error en la solicitud INSERT de la API';
+        console.error(message, error);
         this.modalOpen('modalSystem');
         this.modalSystemJson(message, error);
       },
@@ -400,28 +469,63 @@ export class CausalComponent implements OnInit {
 
   }
 
+  formUpdate(modalForm: any) {    
+    const formData = this.formCollect(modalForm, 'updateField');
+    const dataColumn = Object.keys(formData).join(',');
+
+    const whereForm = this.formCollect(modalForm, 'updateWhere');
+    const whereColumn = Object.keys(whereForm).join(',');
+    const whereData = Object.values(whereForm).join(',');
+
+    return {
+      formData,
+      dataColumn,
+      whereForm,
+      whereColumn,
+      whereData,
+    };
+  }
+
   actionUpdate() {
-    let message = '';
+    // Parametros de HTML
     const modalForm = {
       'modalId': 'modalUpdate',
       'formId': 'formUpdateData',
       'formAjax': 'formUpdateAjax',
       'formPrefix': 'update_',
     };
-    const formData = this.collectFormData(modalForm);
-    const jsonData = JSON.stringify(formData);
-    const dataColumn = Object.keys(formData).join(',');
+    // Retornar Informacion
+    const {
+      formData,
+      dataColumn,
+      whereColumn,
+      whereData,
+    } = this.formUpdate(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...formData };
+    const jsonData = JSON.stringify(combinedData);
+    // Construir parametros para sql
     const params = {
       table: 'causals',
-      column: dataColumn,
+      column: `${dataColumn},${whereColumn}`,
+      whereCond: '',
+      whereField: whereColumn,
+      whereOperator: '=',
+      whereEqual: whereData,
     };
+    this.sendUpdate(modalForm, params, jsonData);
+  }
+
+  sendUpdate(modalForm: any, params: any, jsonData: any) {
+    let message = '';
     // Llama al servicio para enviar los datos al servidor
     this.serviceApi.getUpdate(params, jsonData).subscribe({
       next: (response) => {
         this.responseMessage(modalForm, response);
       },
       error: (error) => {
-        message = 'URL API no está disponible';
+        message = 'Error en la solicitud UPDATE de la API';
+        console.error(message, error);
         this.modalOpen('modalSystem');
         this.modalSystemJson(message, error);
       },
@@ -436,6 +540,8 @@ export class CausalComponent implements OnInit {
       if (respSuccess) { this.responseSuccess(modalForm, response); }
       const respWarnign = response.data.some((item: any) => 'warning' in item);
       if (respWarnign) { this.responseWarning(modalForm, response); }
+      const respError = response.data.some((item: any) => 'error' in item);
+      if (respError) { this.getDataError(response); }
     } else {
       message = 'No tiene un formato en array.';
       Swal.fire(

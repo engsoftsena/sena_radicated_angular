@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Environment } from 'src/environments/environment';
 // Importacion de Modulos
 import { InterfaceDataTableColumn } from 'src/app/interfaces/datatables/column.interface';
-
-import { map } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -101,6 +100,7 @@ export class ApiService {
     const query = {
       table: params['table'],
       column: params['column'],
+      whereCond: params['whereCond'],
       whereField: params['whereField'],
       whereOperator: params['whereOperator'],
       whereEqual: params['whereEqual'],
@@ -116,6 +116,7 @@ export class ApiService {
       const query = {
         table: params['table'],
         column: params['column'],
+        whereCond: params['whereCond'],
         whereField: params['whereField'],
         whereOperator: params['whereOperator'],
         whereEqual: params['whereEqual'],
@@ -139,26 +140,34 @@ export class ApiService {
     });
   }
 
-  getDelete(params: any, data: any) {
+  getDelete(params: any) {
     const query = {
       table: params['table'],
       column: params['column'],
+      whereCond: params['whereCond'],
+      whereField: params['whereField'],
+      whereOperator: params['whereOperator'],
+      whereEqual: params['whereEqual'],
     };
     const service = this.buildApiUrl(`mysql/delete`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
-    console.log(urlApi);
-
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
     });
-
-    // Asegúrate de que estés haciendo una solicitud POST aquí
-    return this.http.post(urlApi, data, {
+    // Peticion solicitada al Backend 
+    return this.http.delete(urlApi, {
       headers,
       withCredentials: false,
-    });
+    }).pipe(
+      catchError((error) => {
+        // Manejar el error aquí
+        console.error('Error en la solicitud PUT:', error);
+        // Retornar error original
+        return throwError(() => error);
+      })
+    );
   }
 
   getInsert(params: any, data: any) {
@@ -168,40 +177,52 @@ export class ApiService {
     };
     const service = this.buildApiUrl(`mysql/insert`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
-    console.log(urlApi);
-
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
     });
-
-    // Asegúrate de que estés haciendo una solicitud POST aquí
+    // Peticion solicitada al Backend 
     return this.http.post(urlApi, data, {
       headers,
       withCredentials: false,
-    });
+    }).pipe(
+      catchError((error) => {
+        // Manejar el error aquí
+        console.error('Error en la solicitud POST:', error);
+        // Retornar error original
+        return throwError(() => error);
+      })
+    );
   }
 
   getUpdate(params: any, data: any) {
     const query = {
       table: params['table'],
       column: params['column'],
+      whereCond: params['whereCond'],
+      whereField: params['whereField'],
+      whereOperator: params['whereOperator'],
+      whereEqual: params['whereEqual'],
     };
     const service = this.buildApiUrl(`mysql/update`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
-    console.log(urlApi);
-
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
     });
-
-    // Asegúrate de que estés haciendo una solicitud POST aquí
+    // Peticion solicitada al Backend 
     return this.http.put(urlApi, data, {
       headers,
       withCredentials: false,
-    });
+    }).pipe(
+      catchError((error) => {
+        // Manejar el error aquí
+        console.error('Error en la solicitud PUT:', error);
+        // Retornar error original
+        return throwError(() => error);
+      })
+    );
   }
 }

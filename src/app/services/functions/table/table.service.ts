@@ -40,7 +40,7 @@ export class TableService {
       // Estructura de las columnas para el DOOM
       dom:
         `
-          <'row mb-1'
+          <'row mb-1 d-none'
             <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center'
               <'panel rounded-0 mb-1'
                 <'panel-container show'

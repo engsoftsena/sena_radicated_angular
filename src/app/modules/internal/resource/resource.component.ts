@@ -187,7 +187,14 @@ export class ResourceComponent implements OnInit {
   modalClass() {
     // Buscar el elemento con las clases
     const modalBackdrop = document.querySelector('.modal-backdrop.fade.show');
-    if (modalBackdrop) { modalBackdrop.remove(); }
+    if (modalBackdrop) {
+      modalBackdrop.remove();
+      modalBackdrop.classList.remove(
+        'modal-backdrop',
+        'fade',
+        'show'
+      );
+    }
   }
 
   modalOpen(modalForm: string) {

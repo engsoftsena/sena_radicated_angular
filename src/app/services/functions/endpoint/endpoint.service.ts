@@ -26,7 +26,6 @@ export class EndpointService {
       { observe: 'response' }
     ).pipe(
       catchError((error) => {
-        //console.error('Error: Imposible acceder a la URL:', error);
         return of(error);
       })
     );
