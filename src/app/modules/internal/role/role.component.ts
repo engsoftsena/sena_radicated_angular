@@ -295,7 +295,7 @@ export class RoleComponent implements OnInit {
       const params = {
         table: 'roles',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_role`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

@@ -295,7 +295,7 @@ export class StateComponent implements OnInit {
       const params = {
         table: 'states',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_state`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

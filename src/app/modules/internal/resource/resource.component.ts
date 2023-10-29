@@ -295,7 +295,7 @@ export class ResourceComponent implements OnInit {
       const params = {
         table: 'resources',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_resource`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

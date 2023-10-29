@@ -295,7 +295,7 @@ export class DocumentComponent implements OnInit {
       const params = {
         table: 'documents',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_document`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

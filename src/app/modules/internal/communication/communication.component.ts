@@ -295,7 +295,7 @@ export class CommunicationComponent implements OnInit {
       const params = {
         table: 'communications',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_communication`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

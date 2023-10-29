@@ -295,7 +295,7 @@ export class CausalComponent implements OnInit {
       const params = {
         table: 'causals',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_causal`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

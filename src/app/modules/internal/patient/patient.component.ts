@@ -295,7 +295,7 @@ export class PatientComponent implements OnInit {
       const params = {
         table: 'patients',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_patient`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

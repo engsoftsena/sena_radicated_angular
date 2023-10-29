@@ -295,7 +295,7 @@ export class TraceabilityComponent implements OnInit {
       const params = {
         table: 'traceabilities',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_traceability`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

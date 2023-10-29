@@ -295,7 +295,7 @@ export class RequestComponent implements OnInit {
       const params = {
         table: 'requests',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_request`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

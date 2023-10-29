@@ -295,7 +295,7 @@ export class SettledComponent implements OnInit {
       const params = {
         table: 'settleds',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_settled`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,

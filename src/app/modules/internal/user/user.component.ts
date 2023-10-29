@@ -295,7 +295,7 @@ export class UserComponent implements OnInit {
       const params = {
         table: 'users',
         column: '*',
-        whereCond: ``,
+        whereCond: `WHERE`,
         whereField: `id_user`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,
