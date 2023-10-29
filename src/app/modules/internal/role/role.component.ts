@@ -470,12 +470,100 @@ export class RoleComponent implements OnInit {
     });
   }
 
-  actionRemove() {
+  formRemove(modalForm: any) {    
+    const formData = this.formCollect(modalForm, 'removeField');
+    const dataColumn = Object.keys(formData).join(',');
 
+    const whereForm = this.formCollect(modalForm, 'removeWhere');
+    const whereColumn = Object.keys(whereForm).join(',');
+    const whereData = Object.values(whereForm).join(',');
+
+    return {
+      formData,
+      dataColumn,
+      whereForm,
+      whereColumn,
+      whereData,
+    };
+  }
+
+  actionRemove() {
+    this.htmlInputChange('remove_deleted', 'Si');
+    // Parametros de HTML
+    const modalForm = {
+      'modalId': 'modalRemove',
+      'formId': 'formRemoveData',
+      'formAjax': 'formRemoveAjax',
+      'formPrefix': 'remove_',
+    };
+    // Retornar Informacion
+    const {
+      formData,
+      dataColumn,
+      whereColumn,
+      whereData,
+    } = this.formRemove(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...formData };
+    const jsonData = JSON.stringify(combinedData);
+    // Construir parametros para sql
+    const params = {
+      table: 'causals',
+      column: `${dataColumn},${whereColumn}`,
+      whereCond: '',
+      whereField: whereColumn,
+      whereOperator: '=',
+      whereEqual: whereData,
+    };
+    this.sendUpdate(modalForm, params, jsonData);
+  }
+
+  formRestore(modalForm: any) {    
+    const formData = this.formCollect(modalForm, 'restoreField');
+    const dataColumn = Object.keys(formData).join(',');
+
+    const whereForm = this.formCollect(modalForm, 'restoreWhere');
+    const whereColumn = Object.keys(whereForm).join(',');
+    const whereData = Object.values(whereForm).join(',');
+
+    return {
+      formData,
+      dataColumn,
+      whereForm,
+      whereColumn,
+      whereData,
+    };
   }
 
   actionRestore() {
-
+    this.htmlInputChange('restore_deleted', 'No');
+    // Parametros de HTML
+    const modalForm = {
+      'modalId': 'modalRestore',
+      'formId': 'formRestoreData',
+      'formAjax': 'formRestoreAjax',
+      'formPrefix': 'restore_',
+    };
+    // Retornar Informacion
+    const {
+      formData,
+      dataColumn,
+      whereColumn,
+      whereData,
+    } = this.formRestore(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...formData };
+    const jsonData = JSON.stringify(combinedData);
+    // Construir parametros para sql
+    const params = {
+      table: 'causals',
+      column: `${dataColumn},${whereColumn}`,
+      whereCond: '',
+      whereField: whereColumn,
+      whereOperator: '=',
+      whereEqual: whereData,
+    };
+    this.sendUpdate(modalForm, params, jsonData);
   }
 
   formUpdate(modalForm: any) {    
@@ -640,5 +728,10 @@ export class RoleComponent implements OnInit {
       icon: swalIcon,
       title: `<h2>${swalTitle}!</h2>`,
     });
+  }
+
+  htmlInputChange(inputId: string, value: string) {
+    const inputElement = document.getElementById(inputId) as HTMLInputElement;
+    if (inputElement) { inputElement.value = value; }
   }
 }

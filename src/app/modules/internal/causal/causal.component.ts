@@ -488,6 +488,7 @@ export class CausalComponent implements OnInit {
   }
 
   actionRemove() {
+    this.htmlInputChange('remove_deleted', 'Si');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRemove',
@@ -535,6 +536,7 @@ export class CausalComponent implements OnInit {
   }
 
   actionRestore() {
+    this.htmlInputChange('restore_deleted', 'No');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRestore',
@@ -726,5 +728,10 @@ export class CausalComponent implements OnInit {
       icon: swalIcon,
       title: `<h2>${swalTitle}!</h2>`,
     });
+  }
+
+  htmlInputChange(inputId: string, value: string) {
+    const inputElement = document.getElementById(inputId) as HTMLInputElement;
+    if (inputElement) { inputElement.value = value; }
   }
 }
