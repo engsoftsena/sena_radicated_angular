@@ -148,7 +148,7 @@ export class CausalComponent implements OnInit {
         console.log(response);
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
-        // Mapea los datos del servicio al formato esperado
+          // Mapea los datos del servicio al formato esperado
           this.causalData = response.data;
           console.log(this.causalData);
           // Construir tabla con datos y botones
@@ -301,7 +301,7 @@ export class CausalComponent implements OnInit {
             .filter((item: any) => 'error' in item)
             .map((item: { error: any; }) => item.error)
             .join(', ');
-          alert(`Se encontraron errores: ${errorMessages}`);
+          console.error(`Se encontraron errores: ${errorMessages}`);
         } else {
           // Continuar con el proceso porque no hay errores
           this.modalOpen(modalForm);
@@ -309,11 +309,11 @@ export class CausalComponent implements OnInit {
         }
       } else {
         message = 'No tiene un formato en array.';
-        alert(message);
+        console.error(message);
       }
     } else {
       message = 'No has seleccionado ningún registro.';
-      alert(message);
+      console.error(message);
     }
   }
 

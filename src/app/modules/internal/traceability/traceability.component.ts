@@ -10,8 +10,9 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 import { TraceabilityService } from 'src/app/services/modules/traceability/traceability.service';
 
 import * as $ from 'jquery';
-import 'bootstrap';
+import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-traceability',
@@ -55,13 +56,13 @@ export class TraceabilityComponent implements OnInit {
           //this.getColumn();
           this.getLabel();
         } else {
-          message = 'Error: URL API no está disponible.';
+          message = 'Error en la solicitud de la API';
           this.modalOpen('modalSystem');
           this.modalSystemJson(message, response);
         }
       },
       error: (error) => {
-        message = 'Error: Imposible acceder a la URL';
+        message = 'Imposible acceder a la URL';
         this.modalSystemJson(message, error);
       }
     });
@@ -167,6 +168,37 @@ export class TraceabilityComponent implements OnInit {
     });
   }
 
+  getRegister(data: any) {
+    const params = {
+      table: 'traceabilities',
+      column: '*',
+      whereCond: data['whereCond'],
+      whereField: data['whereField'],
+      whereOperator: data['whereOperator'],
+      whereEqual: data['whereEqual'],
+    };
+    this.serviceApi.getRegister(params).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.traceabilityData = response.data;
+        console.log(this.traceabilityData);
+        // Construir tabla con datos y botones
+        this.serviceTable.getTable(
+          'tbInfo',
+          this.traceabilityData,
+          this.columnSet,
+          []
+        );
+      },
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
+      complete: () => (false),
+    });
+  }
+
   getDataError(response: any): true | undefined {
     console.log(response);
     let message;
@@ -197,12 +229,22 @@ export class TraceabilityComponent implements OnInit {
     }
   }
 
+  modalClose(modalForm: string) {
+    // JavaScript para cerrar la ventana modal
+    const miModal = document.getElementById(modalForm);
+    if (miModal) { miModal.style.display = 'none'; }
+    this.modalClass();
+  }
+
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
-    }
+    if (modalElement) { new Modal(modalElement).show(); }
+  }
+
+  modalReset(modalForm: string) {
+    const formulario = document.getElementById(modalForm) as HTMLFormElement;
+    // Verificar si el formulario existe y es un elemento de formulario antes de resetearlo
+    if (formulario && formulario instanceof HTMLFormElement) { formulario.reset(); }
   }
 
   modalSystemData(message: any, response: any) {
@@ -244,6 +286,7 @@ export class TraceabilityComponent implements OnInit {
       const params = {
         table: 'traceabilities',
         column: '*',
+        whereCond: ``,
         whereField: `id_traceability`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,
@@ -257,20 +300,19 @@ export class TraceabilityComponent implements OnInit {
             .filter((item: any) => 'error' in item)
             .map((item: { error: any; }) => item.error)
             .join(', ');
-          alert(`Se encontraron errores: ${errorMessages}`);
+          console.error(`Se encontraron errores: ${errorMessages}`);
         } else {
           // Continuar con el proceso porque no hay errores
-          const modalElement = document.getElementById(modalForm);
-          if (modalElement) {
-            const modal = new Modal(modalElement);
-            modal.show();
-            this.modalMapData(modalOption, serviceRecord);
-          }
+          this.modalOpen(modalForm);
+          this.modalMapData(modalOption, serviceRecord);
         }
       } else {
-        message = 'No has seleccionado ningún registro.';
-        alert(message);
+        message = 'No tiene un formato en array.';
+        console.error(message);
       }
+    } else {
+      message = 'No has seleccionado ningún registro.';
+      console.error(message);
     }
   }
   
@@ -286,12 +328,136 @@ export class TraceabilityComponent implements OnInit {
     }
   }
 
-  actionDelete() {
+  valGetElementById(elementId: string): HTMLElement | null {
+    const element = document.getElementById(elementId);
+    let errorMessage = `Elemento HTML con ID '${elementId}' no existe`;
+    if (!element) { console.error(errorMessage); }
+    return element;
+  }
 
+  formCollect(modalForm: any, formField: any) {
+    const { formId, formPrefix } = modalForm;
+    const formData: { [key: string]: string } = {};
+
+    let valFormId = this.valGetElementById(formId);
+    if (!valFormId) { return formData }
+
+    let valformField = this.valGetElementById(formField);
+    if (!valformField) { return formData }
+  
+    const allElements = Array.from(valformField.querySelectorAll('*'));
+    for (const element of allElements) {
+      if (element instanceof HTMLInputElement || element instanceof HTMLSelectElement) {
+        const fieldName = element.getAttribute('name');
+  
+        if (fieldName) {
+          const lizedField = fieldName.replace(formPrefix, '');
+          formData[lizedField] = element.value;
+        } else {
+          console.error('No existe la propiedad name');
+        }
+      }
+    }
+  
+    return formData;
+  }
+
+  formDelete(modalForm: any) {    
+    const whereForm = this.formCollect(modalForm, 'deleteWhere');
+    const whereColumn = Object.keys(whereForm).join(',');
+    const whereData = Object.values(whereForm).join(',');
+
+    return {
+      whereForm,
+      whereColumn,
+      whereData,
+    };
+  }
+  
+  actionDelete() {
+    // Parametros de HTML
+    const modalForm = {
+      'modalId': 'modalDelete',
+      'formId': 'formDeleteData',
+      'formAjax': 'formDeleteAjax',
+      'formPrefix': 'delete_',
+    };
+    // Retornar Informacion
+    const {
+      whereColumn,
+      whereData,
+    } = this.formDelete(modalForm);
+    // Construir parametros para sql
+    const params = {
+      table: 'traceabilities',
+      column: `${whereColumn}`,
+      whereCond: '',
+      whereField: whereColumn,
+      whereOperator: '=',
+      whereEqual: whereData,
+    };
+    this.sendDelete(modalForm, params);
+  }
+
+  sendDelete(modalForm: any, params: any) {
+    let message = '';
+    // Llama al servicio para enviar los datos al servidor
+    this.serviceApi.getDelete(params).subscribe({
+      next: (response) => {
+        this.responseMessage(modalForm, response);
+      },
+      error: (error) => {
+        message = 'Error en la solicitud DELETE de la API';
+        console.error(message, error);
+        this.modalOpen('modalSystem');
+        this.modalSystemJson(message, error);
+      },
+      complete: () => (false),
+    });
+  }
+
+  formInsert(modalForm: any) {    
+    const formData = this.formCollect(modalForm, 'insertField');
+    const dataColumn = Object.keys(formData).join(',');
+    return { formData, dataColumn, };
   }
 
   actionInsert() {
+    // Parametros de HTML
+    const modalForm = {
+      'modalId': 'modalInsert',
+      'formId': 'formInsertData',
+      'formAjax': 'formInsertAjax',
+      'formPrefix': 'insert_',
+    };
+    // Retornar Informacion
+    const { formData, dataColumn, } = this.formInsert(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...formData };
+    const jsonData = JSON.stringify(combinedData);
+    // Construir parametros para sql
+    const params = {
+      table: 'traceabilities',
+      column: dataColumn,
+    };
+    this.sendInsert(modalForm, params, jsonData);
+  }
 
+  sendInsert(modalForm: any, params: any, jsonData: any) {
+    let message = '';
+    // Llama al servicio para enviar los datos al servidor
+    this.serviceApi.getInsert(params, jsonData).subscribe({
+      next: (response) => {
+        this.responseMessage(modalForm, response);
+      },
+      error: (error) => {
+        message = 'Error en la solicitud INSERT de la API';
+        console.error(message, error);
+        this.modalOpen('modalSystem');
+        this.modalSystemJson(message, error);
+      },
+      complete: () => (false),
+    });
   }
 
   actionRemove() {
@@ -302,7 +468,151 @@ export class TraceabilityComponent implements OnInit {
 
   }
 
-  actionUpdate() {
+  formUpdate(modalForm: any) {    
+    const formData = this.formCollect(modalForm, 'updateField');
+    const dataColumn = Object.keys(formData).join(',');
 
+    const whereForm = this.formCollect(modalForm, 'updateWhere');
+    const whereColumn = Object.keys(whereForm).join(',');
+    const whereData = Object.values(whereForm).join(',');
+
+    return {
+      formData,
+      dataColumn,
+      whereForm,
+      whereColumn,
+      whereData,
+    };
+  }
+
+  actionUpdate() {
+    // Parametros de HTML
+    const modalForm = {
+      'modalId': 'modalUpdate',
+      'formId': 'formUpdateData',
+      'formAjax': 'formUpdateAjax',
+      'formPrefix': 'update_',
+    };
+    // Retornar Informacion
+    const {
+      formData,
+      dataColumn,
+      whereColumn,
+      whereData,
+    } = this.formUpdate(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...formData };
+    const jsonData = JSON.stringify(combinedData);
+    // Construir parametros para sql
+    const params = {
+      table: 'traceabilities',
+      column: `${dataColumn},${whereColumn}`,
+      whereCond: '',
+      whereField: whereColumn,
+      whereOperator: '=',
+      whereEqual: whereData,
+    };
+    this.sendUpdate(modalForm, params, jsonData);
+  }
+
+  sendUpdate(modalForm: any, params: any, jsonData: any) {
+    let message = '';
+    // Llama al servicio para enviar los datos al servidor
+    this.serviceApi.getUpdate(params, jsonData).subscribe({
+      next: (response) => {
+        this.responseMessage(modalForm, response);
+      },
+      error: (error) => {
+        message = 'Error en la solicitud UPDATE de la API';
+        console.error(message, error);
+        this.modalOpen('modalSystem');
+        this.modalSystemJson(message, error);
+      },
+      complete: () => (false),
+    });
+  }
+
+  responseMessage(modalForm: any, response: any) {
+    let message;
+    if (response.data && Array.isArray(response.data)) {
+      const respSuccess = response.data.some((item: any) => 'success' in item);
+      if (respSuccess) { this.responseSuccess(modalForm, response); }
+      const respWarnign = response.data.some((item: any) => 'warning' in item);
+      if (respWarnign) { this.responseWarning(modalForm, response); }
+      const respError = response.data.some((item: any) => 'error' in item);
+      if (respError) { this.getDataError(response); }
+    } else {
+      message = 'No tiene un formato en array.';
+      Swal.fire(
+        'Error!',
+        `${message}`,
+        'error',
+      );
+    }
+  }
+
+  responseSuccess(modalForm: any, response: any) {
+    const { modalId, formId } = modalForm;
+    this.modalClose(modalId);
+    this.modalReset(formId);
+    const answer = response.data
+      .filter((item: any) => 'success' in item)
+      .map((item: { success: any; }) => item.success)
+      .join(', ');
+    Swal.fire(
+      'Completado!',
+      `${answer}`,
+      'success',
+    ).then(() => {
+      this.dataProccess();
+    });
+  }
+
+  responseWarning(modalForm: any, response: any) {
+    const { modalId, formId } = modalForm;
+    const answer = response.data
+      .filter((item: any) => 'warning' in item)
+      .map((item: { warning: any; }) => item.warning)
+      .join(', ');
+    console.log(answer);
+  }
+
+  dataProccess() {
+    let timerInterval: any;
+    Swal.fire({
+      title: 'Procesando',
+      html: 'Espere un momento...',
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer()?.querySelector('b');
+
+        if (b) {
+          const timerLeft = Swal.getTimerLeft();
+          if (timerLeft !== undefined) {
+            b.textContent = timerLeft.toString();
+          }
+        }
+
+        const alertBox = Swal.getPopup();
+        if (alertBox) { alertBox.style.textAlign = 'center'; }
+
+        timerInterval = setInterval(() => {
+          const timerLeft = Swal.getTimerLeft();
+          if (timerLeft !== undefined && b) {
+            b.textContent = timerLeft.toString();
+          }
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+      /* Puedes agregar un manejo adicional aquí si lo deseas */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        this.getLabel();
+      }
+    });
   }
 }
