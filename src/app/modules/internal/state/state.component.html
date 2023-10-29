@@ -104,6 +104,16 @@
                     <div class="panel-container show">
                       <div class="panel-content p-0">
                         <div class="panel-tag p-1 bg-white">
+                          <div class="btn-group mb-1" role="group">
+                            <div class="mr-1 input-group input-group-sm">
+                              <select class="rounded-0 custom-select form-control border-success"
+                              name="tableData" id="tableData" title="Seleccionar Datos"
+                              autocomplete="off" (change)="tableDataFilter();">
+                                <option value="registers">Registros</option>
+                                <option value="removeds">Removidos</option>
+                              </select>
+                            </div>
+                          </div>
                           <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-success"
                           id="modalInsertBtn" type="button" (click)="modalOpen('modalInsert');">
                             <em class="far fa-plus mr-1"></em>

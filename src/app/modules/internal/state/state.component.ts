@@ -54,7 +54,7 @@ export class StateComponent implements OnInit {
           message = 'URL API Disponible.';
           console.log(message);
           //this.getColumn();
-          this.getLabel();
+          this.getLabel('registers');
         } else {
           message = 'Error en la solicitud de la API';
           this.modalOpen('modalSystem');
@@ -118,7 +118,7 @@ export class StateComponent implements OnInit {
     });
   }
 
-  getLabel() {
+  getLabel(fieldDeleted: string) {
     const params = {
       table: 'states',
       column: '*',
@@ -127,7 +127,7 @@ export class StateComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
-        this.getAlias();
+        this.getAlias(fieldDeleted);
       },
       error: (err: any) => {
         let message = 'Ocurrió un error en la solicitud';
@@ -137,10 +137,14 @@ export class StateComponent implements OnInit {
     });
   }
 
-  getAlias() {
+  getAlias(fieldDeleted: string) {
     const params = {
       table: 'states',
       column: '*',
+      whereCond: 'WHERE',
+      whereField: 'deleted',
+      whereOperator: '=',
+      whereEqual: fieldDeleted,
     };
     this.serviceApi.getAlias(params).subscribe({
       next: (response: any) => {
@@ -214,6 +218,11 @@ export class StateComponent implements OnInit {
       this.modalSystemData(message, response);
     }
     return undefined;
+  }
+
+  tableDataFilter() {
+    const tableData = document.getElementById('tableData') as HTMLFormElement;
+    if (tableData) { this.getLabel(tableData['value']); }
   }
 
   modalClass() {
@@ -325,7 +334,7 @@ export class StateComponent implements OnInit {
       this.swalFireMssg(swalOptions);
     }
   }
-  
+
   modalMapData(modal: any, service: any) {
     const data = service.data[0];
     if (data) {
@@ -354,12 +363,12 @@ export class StateComponent implements OnInit {
 
     let valformField = this.valGetElementById(formField);
     if (!valformField) { return formData }
-  
+
     const allElements = Array.from(valformField.querySelectorAll('*'));
     for (const element of allElements) {
       if (element instanceof HTMLInputElement || element instanceof HTMLSelectElement) {
         const fieldName = element.getAttribute('name');
-  
+
         if (fieldName) {
           const lizedField = fieldName.replace(formPrefix, '');
           formData[lizedField] = element.value;
@@ -368,11 +377,11 @@ export class StateComponent implements OnInit {
         }
       }
     }
-  
+
     return formData;
   }
 
-  formDelete(modalForm: any) {    
+  formDelete(modalForm: any) {
     const whereForm = this.formCollect(modalForm, 'deleteWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
@@ -383,7 +392,7 @@ export class StateComponent implements OnInit {
       whereData,
     };
   }
-  
+
   actionDelete() {
     // Parametros de HTML
     const modalForm = {
@@ -426,7 +435,7 @@ export class StateComponent implements OnInit {
     });
   }
 
-  formInsert(modalForm: any) {    
+  formInsert(modalForm: any) {
     const formData = this.formCollect(modalForm, 'insertField');
     const dataColumn = Object.keys(formData).join(',');
     return { formData, dataColumn, };
@@ -470,7 +479,7 @@ export class StateComponent implements OnInit {
     });
   }
 
-  formRemove(modalForm: any) {    
+  formRemove(modalForm: any) {
     const formData = this.formCollect(modalForm, 'removeField');
     const dataColumn = Object.keys(formData).join(',');
 
@@ -488,7 +497,7 @@ export class StateComponent implements OnInit {
   }
 
   actionRemove() {
-    this.htmlInputChange('remove_deleted', 'Si');
+    this.htmlInputChange('remove_deleted', 'removeds');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRemove',
@@ -518,7 +527,7 @@ export class StateComponent implements OnInit {
     this.sendUpdate(modalForm, params, jsonData);
   }
 
-  formRestore(modalForm: any) {    
+  formRestore(modalForm: any) {
     const formData = this.formCollect(modalForm, 'restoreField');
     const dataColumn = Object.keys(formData).join(',');
 
@@ -536,7 +545,7 @@ export class StateComponent implements OnInit {
   }
 
   actionRestore() {
-    this.htmlInputChange('restore_deleted', 'No');
+    this.htmlInputChange('restore_deleted', 'registers');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRestore',
@@ -566,7 +575,7 @@ export class StateComponent implements OnInit {
     this.sendUpdate(modalForm, params, jsonData);
   }
 
-  formUpdate(modalForm: any) {    
+  formUpdate(modalForm: any) {
     const formData = this.formCollect(modalForm, 'updateField');
     const dataColumn = Object.keys(formData).join(',');
 
@@ -713,7 +722,7 @@ export class StateComponent implements OnInit {
     }).then((result) => {
       /* Puedes agregar un manejo adicional aquí si lo deseas */
       if (result.dismiss === Swal.DismissReason.timer) {
-        this.getLabel();
+        this.getLabel('registers');
       }
     });
   }

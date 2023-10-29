@@ -24,6 +24,10 @@ export class ApiService {
     const query = {
       table: params['table'],
       column: params['column'],
+      whereCond: params['whereCond'],
+      whereField: params['whereField'],
+      whereOperator: params['whereOperator'],
+      whereEqual: params['whereEqual'],
     };
     const service = this.buildApiUrl(`mysql/info/column`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
@@ -51,6 +55,10 @@ export class ApiService {
     const query = {
       table: params['table'],
       column: params['column'],
+      whereCond: params['whereCond'],
+      whereField: params['whereField'],
+      whereOperator: params['whereOperator'],
+      whereEqual: params['whereEqual'],
     };
     const service = this.buildApiUrl(`mysql/info/select`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
@@ -62,6 +70,10 @@ export class ApiService {
     const query = {
       table: params['table'],
       column: params['column'],
+      whereCond: params['whereCond'],
+      whereField: params['whereField'],
+      whereOperator: params['whereOperator'],
+      whereEqual: params['whereEqual'],
     };
     const service = this.buildApiUrl(`mysql/info/label`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
@@ -89,6 +101,10 @@ export class ApiService {
     const query = {
       table: params['table'],
       column: params['column'],
+      whereCond: params['whereCond'],
+      whereField: params['whereField'],
+      whereOperator: params['whereOperator'],
+      whereEqual: params['whereEqual'],
     };
     const service = this.buildApiUrl(`mysql/info/alias`, query);
     const urlApi = `${this.urlEndPoint}${service}`;
@@ -156,7 +172,7 @@ export class ApiService {
       'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
     });
-    // Peticion solicitada al Backend 
+    // Peticion solicitada al Backend
     return this.http.delete(urlApi, {
       headers,
       withCredentials: false,
@@ -182,7 +198,7 @@ export class ApiService {
       'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
     });
-    // Peticion solicitada al Backend 
+    // Peticion solicitada al Backend
     return this.http.post(urlApi, data, {
       headers,
       withCredentials: false,
@@ -212,7 +228,7 @@ export class ApiService {
       'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
     });
-    // Peticion solicitada al Backend 
+    // Peticion solicitada al Backend
     return this.http.put(urlApi, data, {
       headers,
       withCredentials: false,
