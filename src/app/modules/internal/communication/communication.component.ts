@@ -308,11 +308,21 @@ export class CommunicationComponent implements OnInit {
         }
       } else {
         message = 'No tiene un formato en array.';
-        console.error(message);
+        const swalOptions = {
+          'swalMessage': message,
+          'swalIcon': 'error',
+          'swalTitle': 'Error',
+        };
+        this.swalFireMssg(swalOptions);
       }
     } else {
       message = 'No has seleccionado ningún registro.';
-      console.error(message);
+      const swalOptions = {
+        'swalMessage': message,
+        'swalIcon': 'warning',
+        'swalTitle': 'Advertencia',
+      };
+      this.swalFireMssg(swalOptions);
     }
   }
 
@@ -543,11 +553,12 @@ export class CommunicationComponent implements OnInit {
       if (respError) { this.getDataError(response); }
     } else {
       message = 'No tiene un formato en array.';
-      Swal.fire(
-        'Error!',
-        `${message}`,
-        'error',
-      );
+      const swalOptions = {
+        'swalMessage': message,
+        'swalIcon': 'error',
+        'swalTitle': 'Error',
+      };
+      this.swalFireMssg(swalOptions);
     }
   }
 
@@ -559,11 +570,14 @@ export class CommunicationComponent implements OnInit {
       .filter((item: any) => 'success' in item)
       .map((item: { success: any; }) => item.success)
       .join(', ');
-    Swal.fire(
-      'Completado!',
-      `${answer}`,
-      'success',
-    ).then(() => {
+    Swal.fire({
+      allowOutsideClick: false,
+      confirmButtonText: 'Entendido',
+      customClass: { confirmButton: 'rounded-0', },
+      html: `<span class="text-dark">${answer}</span>`,
+      icon: 'success',
+      title: `<h2>Completado!</h2>`,
+    }).then(() => {
       this.dataProccess();
     });
   }
@@ -613,6 +627,18 @@ export class CommunicationComponent implements OnInit {
       if (result.dismiss === Swal.DismissReason.timer) {
         this.getLabel();
       }
+    });
+  }
+
+  swalFireMssg(swalOptions: any) {
+    const { swalMessage, swalIcon, swalTitle } = swalOptions;
+    Swal.fire({
+      allowOutsideClick: false,
+      confirmButtonText: 'Entendido',
+      customClass: { confirmButton: 'rounded-0', },
+      html: `<span class="text-dark">${swalMessage}</span>`,
+      icon: swalIcon,
+      title: `<h2>${swalTitle}!</h2>`,
     });
   }
 }

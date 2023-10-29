@@ -14,7 +14,6 @@ import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-causal',
   templateUrl: './causal.component.html',
@@ -309,11 +308,21 @@ export class CausalComponent implements OnInit {
         }
       } else {
         message = 'No tiene un formato en array.';
-        console.error(message);
+        const swalOptions = {
+          'swalMessage': message,
+          'swalIcon': 'error',
+          'swalTitle': 'Error',
+        };
+        this.swalFireMssg(swalOptions);
       }
     } else {
       message = 'No has seleccionado ningún registro.';
-      console.error(message);
+      const swalOptions = {
+        'swalMessage': message,
+        'swalIcon': 'warning',
+        'swalTitle': 'Advertencia',
+      };
+      this.swalFireMssg(swalOptions);
     }
   }
 
@@ -461,12 +470,98 @@ export class CausalComponent implements OnInit {
     });
   }
 
-  actionRemove() {
+  formRemove(modalForm: any) {    
+    const formData = this.formCollect(modalForm, 'removeField');
+    const dataColumn = Object.keys(formData).join(',');
 
+    const whereForm = this.formCollect(modalForm, 'removeWhere');
+    const whereColumn = Object.keys(whereForm).join(',');
+    const whereData = Object.values(whereForm).join(',');
+
+    return {
+      formData,
+      dataColumn,
+      whereForm,
+      whereColumn,
+      whereData,
+    };
+  }
+
+  actionRemove() {
+    // Parametros de HTML
+    const modalForm = {
+      'modalId': 'modalRemove',
+      'formId': 'formRemoveData',
+      'formAjax': 'formRemoveAjax',
+      'formPrefix': 'remove_',
+    };
+    // Retornar Informacion
+    const {
+      formData,
+      dataColumn,
+      whereColumn,
+      whereData,
+    } = this.formRemove(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...formData };
+    const jsonData = JSON.stringify(combinedData);
+    // Construir parametros para sql
+    const params = {
+      table: 'causals',
+      column: `${dataColumn},${whereColumn}`,
+      whereCond: '',
+      whereField: whereColumn,
+      whereOperator: '=',
+      whereEqual: whereData,
+    };
+    this.sendUpdate(modalForm, params, jsonData);
+  }
+
+  formRestore(modalForm: any) {    
+    const formData = this.formCollect(modalForm, 'restoreField');
+    const dataColumn = Object.keys(formData).join(',');
+
+    const whereForm = this.formCollect(modalForm, 'restoreWhere');
+    const whereColumn = Object.keys(whereForm).join(',');
+    const whereData = Object.values(whereForm).join(',');
+
+    return {
+      formData,
+      dataColumn,
+      whereForm,
+      whereColumn,
+      whereData,
+    };
   }
 
   actionRestore() {
-
+    // Parametros de HTML
+    const modalForm = {
+      'modalId': 'modalRestore',
+      'formId': 'formRestoreData',
+      'formAjax': 'formRestoreAjax',
+      'formPrefix': 'restore_',
+    };
+    // Retornar Informacion
+    const {
+      formData,
+      dataColumn,
+      whereColumn,
+      whereData,
+    } = this.formRestore(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...formData };
+    const jsonData = JSON.stringify(combinedData);
+    // Construir parametros para sql
+    const params = {
+      table: 'causals',
+      column: `${dataColumn},${whereColumn}`,
+      whereCond: '',
+      whereField: whereColumn,
+      whereOperator: '=',
+      whereEqual: whereData,
+    };
+    this.sendUpdate(modalForm, params, jsonData);
   }
 
   formUpdate(modalForm: any) {    
@@ -544,11 +639,12 @@ export class CausalComponent implements OnInit {
       if (respError) { this.getDataError(response); }
     } else {
       message = 'No tiene un formato en array.';
-      Swal.fire(
-        'Error!',
-        `${message}`,
-        'error',
-      );
+      const swalOptions = {
+        'swalMessage': message,
+        'swalIcon': 'error',
+        'swalTitle': 'Error',
+      };
+      this.swalFireMssg(swalOptions);
     }
   }
 
@@ -560,11 +656,14 @@ export class CausalComponent implements OnInit {
       .filter((item: any) => 'success' in item)
       .map((item: { success: any; }) => item.success)
       .join(', ');
-    Swal.fire(
-      'Completado!',
-      `${answer}`,
-      'success',
-    ).then(() => {
+    Swal.fire({
+      allowOutsideClick: false,
+      confirmButtonText: 'Entendido',
+      customClass: { confirmButton: 'rounded-0', },
+      html: `<span class="text-dark">${answer}</span>`,
+      icon: 'success',
+      title: `<h2>Completado!</h2>`,
+    }).then(() => {
       this.dataProccess();
     });
   }
@@ -614,6 +713,18 @@ export class CausalComponent implements OnInit {
       if (result.dismiss === Swal.DismissReason.timer) {
         this.getLabel();
       }
+    });
+  }
+
+  swalFireMssg(swalOptions: any) {
+    const { swalMessage, swalIcon, swalTitle } = swalOptions;
+    Swal.fire({
+      allowOutsideClick: false,
+      confirmButtonText: 'Entendido',
+      customClass: { confirmButton: 'rounded-0', },
+      html: `<span class="text-dark">${swalMessage}</span>`,
+      icon: swalIcon,
+      title: `<h2>${swalTitle}!</h2>`,
     });
   }
 }
