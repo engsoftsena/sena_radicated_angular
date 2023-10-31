@@ -304,12 +304,8 @@ export class CommunicationComponent implements OnInit {
       if (serviceRecord.data && Array.isArray(serviceRecord.data)) {
         const hasErrors = serviceRecord.data.some((item: any) => 'error' in item);
         if (hasErrors) {
-          // Mostrar alerta con los errores
-          const errorMessages = serviceRecord.data
-            .filter((item: any) => 'error' in item)
-            .map((item: { error: any; }) => item.error)
-            .join(', ');
-          console.error(`Se encontraron errores: ${errorMessages}`);
+          let message = 'Ocurrió un error en la solicitud';
+          this.modalSystemData(message, serviceRecord);
         } else {
           // Continuar con el proceso porque no hay errores
           this.modalOpen(modalForm);
