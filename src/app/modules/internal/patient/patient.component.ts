@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
 import { PatientModule } from 'src/app/interfaces/modules/patient.interface';
 // Importacion de Servicios
@@ -20,6 +20,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./patient.component.scss']
 })
 export class PatientComponent implements OnInit {
+  @ViewChild('tableData') tableData: ElementRef | undefined;
+
   constructor (
     private serviceApi: ApiService,
     private serviceButton: ButtonService,
@@ -29,6 +31,7 @@ export class PatientComponent implements OnInit {
     private servicePatient: PatientService,
   ) {}
 
+  deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
   patientData: PatientModule[] = [];
@@ -36,6 +39,10 @@ export class PatientComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.checkEndpoint();
+  }
+
+  ngAfterViewInit() {
+    this.tableDataValue();
   }
 
   checkEndpoint() {
@@ -220,9 +227,40 @@ export class PatientComponent implements OnInit {
     return undefined;
   }
 
-  tableDataFilter() {
-    const tableData = document.getElementById('tableData') as HTMLFormElement;
-    if (tableData) { this.getLabel(tableData['value']); }
+  tableDataValue(load: boolean = false) {
+    if (this.tableData && this.tableData.nativeElement instanceof HTMLSelectElement) {
+      const selectedValue = this.tableData.nativeElement.value;
+      this.deletedData = selectedValue;
+    }
+    this.tableDataFilter(load);
+  }
+
+  tableDataFilter(load: boolean = false) {
+    if (load) { this.getLabel(this.deletedData); }
+    if (this.deletedData == 'registers') { this.tableDataRegister(); }
+    if (this.deletedData == 'removeds') { this.tableDataRemove(); }
+  }
+
+  tableDataRegister() {
+    this.tableDataBtn('remove', 'modalInsertBtn');
+    this.tableDataBtn('remove', 'modalUpdateBtn');
+    this.tableDataBtn('remove', 'modalRemoveBtn');
+    this.tableDataBtn('append', 'modalRestoreBtn');
+    this.tableDataBtn('append', 'modalDeleteBtn');
+  }
+
+  tableDataRemove() {
+    this.tableDataBtn('append', 'modalInsertBtn');
+    this.tableDataBtn('append', 'modalUpdateBtn');
+    this.tableDataBtn('append', 'modalRemoveBtn');
+    this.tableDataBtn('remove', 'modalRestoreBtn');
+    this.tableDataBtn('remove', 'modalDeleteBtn');
+  }
+
+  tableDataBtn(classList: any, reference: any) {
+    let btnData = document.getElementById(reference) as HTMLFormElement;
+    if (classList == 'append') { btnData.classList.add('d-none'); }
+    if (classList == 'remove') { btnData.classList.remove('d-none'); }
   }
 
   modalClass() {

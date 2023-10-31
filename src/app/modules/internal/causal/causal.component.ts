@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
 import { CausalModule } from 'src/app/interfaces/modules/causal.interface';
 // Importacion de Servicios
@@ -20,6 +20,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./causal.component.scss']
 })
 export class CausalComponent implements OnInit {
+  @ViewChild('tableData') tableData: ElementRef | undefined;
+
+  deletedData: any;
+  isLoading: boolean = false;
+  columnSet: [] | undefined;
+  causalData: CausalModule[] = [];
+
   constructor (
     private serviceApi: ApiService,
     private serviceButton: ButtonService,
@@ -29,13 +36,13 @@ export class CausalComponent implements OnInit {
     private serviceCausal: CausalService,
   ) {}
 
-  isLoading: boolean = false;
-  columnSet: [] | undefined;
-  causalData: CausalModule[] = [];
-
   ngOnInit(): void {
     this.isLoading = true;
     this.checkEndpoint();
+  }
+
+  ngAfterViewInit() {
+    this.tableDataValue();
   }
 
   checkEndpoint() {
@@ -54,7 +61,7 @@ export class CausalComponent implements OnInit {
           message = 'URL API Disponible.';
           console.log(message);
           //this.getColumn();
-          this.getLabel('registers');
+          this.getLabel(this.deletedData);
         } else {
           message = 'Error en la solicitud de la API';
           this.modalOpen('modalSystem');
@@ -72,6 +79,10 @@ export class CausalComponent implements OnInit {
     const params = {
       table: 'causals',
       column: '*',
+      whereCond: '',
+      whereField: '',
+      whereOperator: '',
+      whereEqual: '',
     };
     this.serviceApi.getColumn(params).subscribe({
       next: (response: any) => {
@@ -122,6 +133,10 @@ export class CausalComponent implements OnInit {
     const params = {
       table: 'causals',
       column: '*',
+      whereCond: '',
+      whereField: '',
+      whereOperator: '',
+      whereEqual: '',
     };
     this.serviceApi.getLabel(params).subscribe({
       next: (response: any) => {
@@ -220,9 +235,40 @@ export class CausalComponent implements OnInit {
     return undefined;
   }
 
-  tableDataFilter() {
-    const tableData = document.getElementById('tableData') as HTMLFormElement;
-    if (tableData) { this.getLabel(tableData['value']); }
+  tableDataValue(load: boolean = false) {
+    if (this.tableData && this.tableData.nativeElement instanceof HTMLSelectElement) {
+      const selectedValue = this.tableData.nativeElement.value;
+      this.deletedData = selectedValue;
+    }
+    this.tableDataFilter(load);
+  }
+
+  tableDataFilter(load: boolean = false) {
+    if (load) { this.getLabel(this.deletedData); }
+    if (this.deletedData == 'registers') { this.tableDataRegister(); }
+    if (this.deletedData == 'removeds') { this.tableDataRemove(); }
+  }
+
+  tableDataRegister() {
+    this.tableDataBtn('remove', 'modalInsertBtn');
+    this.tableDataBtn('remove', 'modalUpdateBtn');
+    this.tableDataBtn('remove', 'modalRemoveBtn');
+    this.tableDataBtn('append', 'modalRestoreBtn');
+    this.tableDataBtn('append', 'modalDeleteBtn');
+  }
+
+  tableDataRemove() {
+    this.tableDataBtn('append', 'modalInsertBtn');
+    this.tableDataBtn('append', 'modalUpdateBtn');
+    this.tableDataBtn('append', 'modalRemoveBtn');
+    this.tableDataBtn('remove', 'modalRestoreBtn');
+    this.tableDataBtn('remove', 'modalDeleteBtn');
+  }
+
+  tableDataBtn(classList: any, reference: any) {
+    let btnData = document.getElementById(reference) as HTMLFormElement;
+    if (classList == 'append') { btnData.classList.add('d-none'); }
+    if (classList == 'remove') { btnData.classList.remove('d-none'); }
   }
 
   modalClass() {
@@ -718,7 +764,7 @@ export class CausalComponent implements OnInit {
     }).then((result) => {
       /* Puedes agregar un manejo adicional aquí si lo deseas */
       if (result.dismiss === Swal.DismissReason.timer) {
-        this.getLabel('registers');
+        this.getLabel(this.deletedData);
       }
     });
   }
