@@ -141,7 +141,7 @@ export class CausalComponent implements OnInit {
       whereOperator: data['whereOperator'],
       whereEqual: data['whereEqual'],
     };
-    this.serviceApi.getRegister(params).subscribe({
+    this.serviceApi.proccessRegister(params).subscribe({
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
@@ -291,7 +291,7 @@ export class CausalComponent implements OnInit {
         whereOperator: `=`,
         whereEqual: `${idtbl}`,
       };
-      const serviceRecord = await this.serviceApi.getRecord(params);
+      const serviceRecord = await this.serviceApi.proccessRecord(params);
       if (serviceRecord.data && Array.isArray(serviceRecord.data)) {
         const hasErrors = serviceRecord.data.some((item: any) => 'error' in item);
         if (hasErrors) {
@@ -408,7 +408,7 @@ export class CausalComponent implements OnInit {
   sendDelete(modalForm: any, params: any) {
     let message = '';
     // Llama al servicio para enviar los datos al servidor
-    this.serviceApi.getDelete(params).subscribe({
+    this.serviceApi.proccessDelete(params).subscribe({
       next: (response) => {
         this.responseMessage(modalForm, response);
       },
@@ -452,7 +452,7 @@ export class CausalComponent implements OnInit {
   sendInsert(modalForm: any, params: any, jsonData: any) {
     let message = '';
     // Llama al servicio para enviar los datos al servidor
-    this.serviceApi.getInsert(params, jsonData).subscribe({
+    this.serviceApi.proccessInsert(params, jsonData).subscribe({
       next: (response) => {
         this.responseMessage(modalForm, response);
       },
@@ -612,7 +612,7 @@ export class CausalComponent implements OnInit {
   sendUpdate(modalForm: any, params: any, jsonData: any) {
     let message = '';
     // Llama al servicio para enviar los datos al servidor
-    this.serviceApi.getUpdate(params, jsonData).subscribe({
+    this.serviceApi.proccessUpdate(params, jsonData).subscribe({
       next: (response) => {
         this.responseMessage(modalForm, response);
       },

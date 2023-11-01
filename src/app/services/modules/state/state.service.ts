@@ -23,7 +23,7 @@ export class StateService {
         whereOperator: data['whereOperator'],
         whereEqual: data['whereEqual'],
       };
-      this.serviceApi.getRegister(params).subscribe({
+      this.serviceApi.proccessRegister(params).subscribe({
         next: (response: any) => {
           console.log(response);
           // Resuelve la promesa con los datos obtenidos

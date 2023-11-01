@@ -67,17 +67,17 @@ export class ApiService {
     return this.http.get(urlApi);
   }
 
-  getRegister(params: any) {
+  proccessRegister(params: any) {
     const query = this.processParams(params);
     const urlApi = this.buildApiUrl(`mysql/info/register`, query);
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
-  async getRecord(params: any): Promise<any> {
+  async proccessRecord(params: any): Promise<any> {
     const query = this.processParams(params);
     return new Promise((resolve, reject) => {
-      this.getRegister(query).subscribe({
+      this.proccessRegister(query).subscribe({
         next: (response: any) => {
           console.log(response);
           // Resuelve la promesa con los datos obtenidos
@@ -96,7 +96,7 @@ export class ApiService {
     });
   }
 
-  getDelete(params: any) {
+  proccessDelete(params: any) {
     const query = this.processParams(params);
     const urlApi = this.buildApiUrl(`mysql/delete`, query);
     // Configura las cabeceras para indicar que se envía JSON
@@ -118,7 +118,7 @@ export class ApiService {
     );
   }
 
-  getInsert(params: any, data: any) {
+  proccessInsert(params: any, data: any) {
     const query = this.processParams(params);
     const urlApi = this.buildApiUrl(`mysql/insert`, query);
     // Configura las cabeceras para indicar que se envía JSON
@@ -140,7 +140,7 @@ export class ApiService {
     );
   }
 
-  getUpdate(params: any, data: any) {
+  proccessUpdate(params: any, data: any) {
     const query = this.processParams(params);
     const urlApi = this.buildApiUrl(`mysql/update`, query);
     // Configura las cabeceras para indicar que se envía JSON
