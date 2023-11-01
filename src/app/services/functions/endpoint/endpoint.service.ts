@@ -19,6 +19,12 @@ export class EndpointService {
     return urlPattern.test(this.urlEndPoint);
   }
 
+  private buildApiUrl(endpoint: string, params: Record<string, any>): string {
+    const queryParams = new URLSearchParams(params).toString();
+    const formatParams = `${queryParams ? '?' + queryParams : ''}`;
+    return `${this.urlEndPoint}${endpoint}${formatParams}`;
+  }
+
   getAvailability(): Observable<any> {
     // Realiza una solicitud HTTP GET a la URL
     return this.http.get(

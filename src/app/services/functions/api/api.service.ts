@@ -17,10 +17,11 @@ export class ApiService {
 
   private buildApiUrl(endpoint: string, params: Record<string, any>): string {
     const queryParams = new URLSearchParams(params).toString();
-    return `${endpoint}${queryParams ? '?' + queryParams : ''}`;
+    const formatParams = `${queryParams ? '?' + queryParams : ''}`;
+    return `${this.urlEndPoint}${endpoint}${formatParams}`;
   }
 
-  getColumn(params: any) {
+  processParams(params: any) {
     const query = {
       table: params['table'],
       column: params['column'],
@@ -29,20 +30,28 @@ export class ApiService {
       whereOperator: params['whereOperator'],
       whereEqual: params['whereEqual'],
     };
-    const service = this.buildApiUrl(`mysql/info/column`, query);
-    const urlApi = `${this.urlEndPoint}${service}`;
+    return query;
+  }
+
+  proccessColumn(params: any) {
+    const query = this.processParams(params);
+    const urlApi = this.buildApiUrl(`mysql/info/label`, query);
     console.log(urlApi);
     return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
       map((response: any) => {
         if (Array.isArray(response.data)) {
-          const columnSet = response.data.map((data: InterfaceDataTableColumn) => ({
-            title: data.Comment,
-            id: data.Field,
-            data: data.Field,
-            type: 'text',
-            className: 'text-dark',
-            visible: true,
-          }));
+          const columnSet = response.data.map((data: InterfaceDataTableColumn) => {
+            const title = data.Comment;
+            const result = data.Label || data.Field;
+            return {
+              title: title,
+              id: result,
+              data: result,
+              type: 'text',
+              className: 'text-dark',
+              visible: true,
+            };
+          });
           return columnSet;
         } else {
           return [];
@@ -51,92 +60,23 @@ export class ApiService {
     );
   }
 
-  getSelect(params: any) {
-    const query = {
-      table: params['table'],
-      column: params['column'],
-      whereCond: params['whereCond'],
-      whereField: params['whereField'],
-      whereOperator: params['whereOperator'],
-      whereEqual: params['whereEqual'],
-    };
-    const service = this.buildApiUrl(`mysql/info/select`, query);
-    const urlApi = `${this.urlEndPoint}${service}`;
-    console.log(urlApi);
-    return this.http.get(urlApi);
-  }
-
-  getLabel(params: any) {
-    const query = {
-      table: params['table'],
-      column: params['column'],
-      whereCond: params['whereCond'],
-      whereField: params['whereField'],
-      whereOperator: params['whereOperator'],
-      whereEqual: params['whereEqual'],
-    };
-    const service = this.buildApiUrl(`mysql/info/label`, query);
-    const urlApi = `${this.urlEndPoint}${service}`;
-    console.log(urlApi);
-    return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
-      map((response: any) => {
-        if (Array.isArray(response.data)) {
-          const columnSet = response.data.map((data: InterfaceDataTableColumn) => ({
-            title: data.Comment,
-            id: data.Label,
-            data: data.Label,
-            type: 'text',
-            className: 'text-dark',
-            visible: true,
-          }));
-          return columnSet;
-        } else {
-          return [];
-        }
-      })
-    );
-  }
-
-  getAlias(params: any) {
-    const query = {
-      table: params['table'],
-      column: params['column'],
-      whereCond: params['whereCond'],
-      whereField: params['whereField'],
-      whereOperator: params['whereOperator'],
-      whereEqual: params['whereEqual'],
-    };
-    const service = this.buildApiUrl(`mysql/info/alias`, query);
-    const urlApi = `${this.urlEndPoint}${service}`;
+  proccessData(params: any) {
+    const query = this.processParams(params);
+    const urlApi = this.buildApiUrl(`mysql/info/alias`, query);
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
   getRegister(params: any) {
-    const query = {
-      table: params['table'],
-      column: params['column'],
-      whereCond: params['whereCond'],
-      whereField: params['whereField'],
-      whereOperator: params['whereOperator'],
-      whereEqual: params['whereEqual'],
-    };
-    const service = this.buildApiUrl(`mysql/info/register`, query);
-    const urlApi = `${this.urlEndPoint}${service}`;
+    const query = this.processParams(params);
+    const urlApi = this.buildApiUrl(`mysql/info/register`, query);
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
   async getRecord(params: any): Promise<any> {
+    const query = this.processParams(params);
     return new Promise((resolve, reject) => {
-      const query = {
-        table: params['table'],
-        column: params['column'],
-        whereCond: params['whereCond'],
-        whereField: params['whereField'],
-        whereOperator: params['whereOperator'],
-        whereEqual: params['whereEqual'],
-      };
       this.getRegister(query).subscribe({
         next: (response: any) => {
           console.log(response);
@@ -157,16 +97,8 @@ export class ApiService {
   }
 
   getDelete(params: any) {
-    const query = {
-      table: params['table'],
-      column: params['column'],
-      whereCond: params['whereCond'],
-      whereField: params['whereField'],
-      whereOperator: params['whereOperator'],
-      whereEqual: params['whereEqual'],
-    };
-    const service = this.buildApiUrl(`mysql/delete`, query);
-    const urlApi = `${this.urlEndPoint}${service}`;
+    const query = this.processParams(params);
+    const urlApi = this.buildApiUrl(`mysql/delete`, query);
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -187,12 +119,8 @@ export class ApiService {
   }
 
   getInsert(params: any, data: any) {
-    const query = {
-      table: params['table'],
-      column: params['column'],
-    };
-    const service = this.buildApiUrl(`mysql/insert`, query);
-    const urlApi = `${this.urlEndPoint}${service}`;
+    const query = this.processParams(params);
+    const urlApi = this.buildApiUrl(`mysql/insert`, query);
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -213,16 +141,8 @@ export class ApiService {
   }
 
   getUpdate(params: any, data: any) {
-    const query = {
-      table: params['table'],
-      column: params['column'],
-      whereCond: params['whereCond'],
-      whereField: params['whereField'],
-      whereOperator: params['whereOperator'],
-      whereEqual: params['whereEqual'],
-    };
-    const service = this.buildApiUrl(`mysql/update`, query);
-    const urlApi = `${this.urlEndPoint}${service}`;
+    const query = this.processParams(params);
+    const urlApi = this.buildApiUrl(`mysql/update`, query);
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

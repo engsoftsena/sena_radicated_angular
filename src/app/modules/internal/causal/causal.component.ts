@@ -60,8 +60,7 @@ export class CausalComponent implements OnInit {
         if (response.status === 200) {
           message = 'URL API Disponible.';
           console.log(message);
-          //this.getColumn();
-          this.getLabel(this.deletedData);
+          this.resultColumn(this.deletedData);
         } else {
           message = 'Error en la solicitud de la API';
           this.modalOpen('modalSystem');
@@ -75,7 +74,7 @@ export class CausalComponent implements OnInit {
     });
   }
 
-  getColumn() {
+  resultColumn(fieldDeleted: string) {
     const params = {
       table: 'causals',
       column: '*',
@@ -84,61 +83,7 @@ export class CausalComponent implements OnInit {
       whereOperator: '',
       whereEqual: '',
     };
-    this.serviceApi.getColumn(params).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        this.columnSet = response;
-        this.getSelect();
-      },
-      error: (err: any) => {
-        let message = 'Ocurrió un error en la solicitud';
-        this.modalSystemJson(message, err);
-      },
-      complete: () => (false),
-    });
-  }
-
-  getSelect() {
-    const params = {
-      table: 'causals',
-      column: '*',
-    };
-    this.serviceApi.getSelect(params).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        const checkDataError = this.getDataError(response);
-        if (checkDataError) {
-          // Mapea los datos del servicio al formato esperado
-          this.causalData = response.data;
-          console.log(this.causalData);
-          // Construir tabla con datos y botones
-          this.serviceTable.getTable(
-            'tbInfo',
-            this.causalData,
-            this.columnSet,
-            []
-          );
-          this.isLoading = false;
-        }
-      },
-      error: (err: any) => {
-        let message = 'Ocurrió un error en la solicitud';
-        this.modalSystemJson(message, err);
-      },
-      complete: () => (false),
-    });
-  }
-
-  getLabel(fieldDeleted: string) {
-    const params = {
-      table: 'causals',
-      column: '*',
-      whereCond: '',
-      whereField: '',
-      whereOperator: '',
-      whereEqual: '',
-    };
-    this.serviceApi.getLabel(params).subscribe({
+    this.serviceApi.proccessColumn(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -161,7 +106,7 @@ export class CausalComponent implements OnInit {
       whereOperator: '=',
       whereEqual: fieldDeleted,
     };
-    this.serviceApi.getAlias(params).subscribe({
+    this.serviceApi.proccessData(params).subscribe({
       next: (response: any) => {
         console.log(response);
         const checkDataError = this.getDataError(response);
@@ -244,7 +189,7 @@ export class CausalComponent implements OnInit {
   }
 
   tableDataFilter(load: boolean = false) {
-    if (load) { this.getLabel(this.deletedData); }
+    if (load) { this.resultColumn(this.deletedData); }
     if (this.deletedData == 'registers') { this.tableDataRegister(); }
     if (this.deletedData == 'removeds') { this.tableDataRemove(); }
   }
@@ -764,7 +709,7 @@ export class CausalComponent implements OnInit {
     }).then((result) => {
       /* Puedes agregar un manejo adicional aquí si lo deseas */
       if (result.dismiss === Swal.DismissReason.timer) {
-        this.getLabel(this.deletedData);
+        this.resultColumn(this.deletedData);
       }
     });
   }
