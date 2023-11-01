@@ -87,7 +87,7 @@ export class CausalComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
-        this.getAlias(fieldDeleted);
+        this.resultData(fieldDeleted);
       },
       error: (err: any) => {
         let message = 'Ocurrió un error en la solicitud';
@@ -97,7 +97,7 @@ export class CausalComponent implements OnInit {
     });
   }
 
-  getAlias(fieldDeleted: string) {
+  resultData(fieldDeleted: string) {
     const params = {
       table: 'causals',
       column: '*',
