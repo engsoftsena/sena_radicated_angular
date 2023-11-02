@@ -102,7 +102,7 @@ export class CausalComponent implements OnInit {
       table: 'causals',
       column: '*',
       whereCond: 'WHERE',
-      whereField: 'deleted',
+      whereField: 'tb_eliminate',
       whereOperator: '=',
       whereEqual: fieldDeleted,
     };
@@ -190,8 +190,8 @@ export class CausalComponent implements OnInit {
 
   tableDataFilter(load: boolean = false) {
     if (load) { this.resultColumn(this.deletedData); }
-    if (this.deletedData == 'registers') { this.tableDataRegister(); }
-    if (this.deletedData == 'removeds') { this.tableDataRemove(); }
+    if (this.deletedData == '1') { this.tableDataRegister(); }
+    if (this.deletedData == '2') { this.tableDataRemove(); }
   }
 
   tableDataRegister() {
@@ -484,7 +484,7 @@ export class CausalComponent implements OnInit {
   }
 
   actionRemove() {
-    this.htmlInputChange('remove_tb_eliminate', 'removeds');
+    this.htmlInputChange('remove_tb_eliminate', '2');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRemove',
@@ -532,7 +532,7 @@ export class CausalComponent implements OnInit {
   }
 
   actionRestore() {
-    this.htmlInputChange('restore_tb_eliminate', 'registers');
+    this.htmlInputChange('restore_tb_eliminate', '1');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRestore',
