@@ -420,6 +420,7 @@ export class StateComponent implements OnInit {
 
   formInsert(modalForm: any) {
     const formData = this.formCollect(modalForm, 'insertField');
+    formData['tb_eliminate'] = '1';
     const dataColumn = Object.keys(formData).join(',');
     return { formData, dataColumn, };
   }

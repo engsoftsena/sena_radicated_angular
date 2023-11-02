@@ -23,22 +23,13 @@ export class ApiService {
   }
 
   processParams(params: InterfaceParams) {
-    console.log(params);
-
     // Crea un nuevo objeto y copia todas las propiedades
     const rest = { ...params };
-
-    console.log(rest);
-
-    // `rest` contendrá todas las propiedades, incluidas las que son `undefined`
     const query: InterfaceParams = rest;
-    console.log(query);
-
     return query;
   }
 
   proccessColumn(params: any) {
-    console.log(params);
     const query = this.processParams(params);
     const urlApi = this.buildApiUrl(`mysql/info/label`, query);
     console.log(urlApi);
