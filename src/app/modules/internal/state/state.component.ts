@@ -283,7 +283,7 @@ export class StateComponent implements OnInit {
         table: 'states',
         column: '*',
         whereCond: `WHERE`,
-        whereField: `id_state`,
+        whereField: `id_register`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,
       };
@@ -465,6 +465,7 @@ export class StateComponent implements OnInit {
 
   formRemove(modalForm: any) {
     const formData = this.formCollect(modalForm, 'removeField');
+    formData['tb_eliminate'] = '2';
     const dataColumn = Object.keys(formData).join(',');
 
     const whereForm = this.formCollect(modalForm, 'removeWhere');
@@ -513,6 +514,7 @@ export class StateComponent implements OnInit {
 
   formRestore(modalForm: any) {
     const formData = this.formCollect(modalForm, 'restoreField');
+    formData['tb_eliminate'] = '1';
     const dataColumn = Object.keys(formData).join(',');
 
     const whereForm = this.formCollect(modalForm, 'restoreWhere');

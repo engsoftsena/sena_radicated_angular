@@ -287,7 +287,7 @@ export class CausalComponent implements OnInit {
         table: 'causals',
         column: '*',
         whereCond: `WHERE`,
-        whereField: `id_causal`,
+        whereField: `id_register`,
         whereOperator: `=`,
         whereEqual: `${idtbl}`,
       };
@@ -474,6 +474,7 @@ export class CausalComponent implements OnInit {
 
   formRemove(modalForm: any) {
     const formData = this.formCollect(modalForm, 'removeField');
+    formData['tb_eliminate'] = '2';
     const dataColumn = Object.keys(formData).join(',');
 
     const whereForm = this.formCollect(modalForm, 'removeWhere');
@@ -522,6 +523,7 @@ export class CausalComponent implements OnInit {
 
   formRestore(modalForm: any) {
     const formData = this.formCollect(modalForm, 'restoreField');
+    formData['tb_eliminate'] = '1';
     const dataColumn = Object.keys(formData).join(',');
 
     const whereForm = this.formCollect(modalForm, 'restoreWhere');
