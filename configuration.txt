@@ -38,3 +38,6 @@ npm uninstall @types/bootstrap --save-dev
 
 npm uninstall @angular/material
 npm uninstall @angular/cdk
+
+npx tsc --build --clean
+npm update typescript

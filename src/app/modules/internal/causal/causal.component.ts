@@ -424,6 +424,7 @@ export class CausalComponent implements OnInit {
 
   formInsert(modalForm: any) {
     const formData = this.formCollect(modalForm, 'insertField');
+    formData['tb_eliminate'] = '1';
     const dataColumn = Object.keys(formData).join(',');
     return { formData, dataColumn, };
   }
@@ -441,6 +442,11 @@ export class CausalComponent implements OnInit {
     // Unificar un solo objeto
     const combinedData = { ...formData };
     const jsonData = JSON.stringify(combinedData);
+
+    console.log(formData);
+    console.log(dataColumn);
+    console.log(combinedData);
+    console.log(jsonData);
     // Construir parametros para sql
     const params = {
       table: 'causals',

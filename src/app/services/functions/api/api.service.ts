@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Environment } from 'src/environments/environment';
 // Importacion de Modulos
 import { InterfaceDataTableColumn } from 'src/app/interfaces/datatables/column.interface';
+import { InterfaceParams } from 'src/app/interfaces/general/params.interface';
 import { catchError, map, throwError } from 'rxjs';
 
 @Injectable({
@@ -21,19 +22,23 @@ export class ApiService {
     return `${this.urlEndPoint}${endpoint}${formatParams}`;
   }
 
-  processParams(params: any) {
-    const query = {
-      table: params['table'],
-      column: params['column'],
-      whereCond: params['whereCond'],
-      whereField: params['whereField'],
-      whereOperator: params['whereOperator'],
-      whereEqual: params['whereEqual'],
-    };
+  processParams(params: InterfaceParams) {
+    console.log(params);
+
+    // Crea un nuevo objeto y copia todas las propiedades
+    const rest = { ...params };
+
+    console.log(rest);
+
+    // `rest` contendrá todas las propiedades, incluidas las que son `undefined`
+    const query: InterfaceParams = rest;
+    console.log(query);
+
     return query;
   }
 
   proccessColumn(params: any) {
+    console.log(params);
     const query = this.processParams(params);
     const urlApi = this.buildApiUrl(`mysql/info/label`, query);
     console.log(urlApi);
