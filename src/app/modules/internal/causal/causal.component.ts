@@ -484,7 +484,7 @@ export class CausalComponent implements OnInit {
   }
 
   actionRemove() {
-    this.htmlInputChange('remove_deleted', 'removeds');
+    this.htmlInputChange('remove_tb_eliminate', 'removeds');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRemove',
@@ -532,7 +532,7 @@ export class CausalComponent implements OnInit {
   }
 
   actionRestore() {
-    this.htmlInputChange('restore_deleted', 'registers');
+    this.htmlInputChange('restore_tb_eliminate', 'registers');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRestore',
