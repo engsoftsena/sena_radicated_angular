@@ -49,19 +49,19 @@ import { EmSettingComponent } from './modules/internal/email/em-setting/em-setti
 /* Componentes: Modulos: Internos: Technology */
 import { TgActionComponent } from './modules/internal/technology/tg-action/tg-action.component';
 import { TgAuthorizationComponent } from './modules/internal/technology/tg-authorization/tg-authorization.component';
-import { DocumentComponent } from './modules/internal/technology/document/document.component';
+import { DocumentComponent } from './modules/internal/technology/tg-document/document.component';
 import { TgPermitComponent } from './modules/internal/technology/tg-permit/tg-permit.component';
-import { RoleComponent } from './modules/internal/technology/role/role.component';
-import { UserComponent } from './modules/internal/technology/user/user.component';
+import { RoleComponent } from './modules/internal/technology/tg-role/role.component';
+import { UserComponent } from './modules/internal/technology/tg-user/user.component';
 /* Componentes: Modulos: Internos: Application */
-import { CausalComponent } from './modules/internal/application/causal/causal.component';
-import { CommunicationComponent } from './modules/internal/application/communication/communication.component';
-import { PatientComponent } from './modules/internal/application/patient/patient.component';
-import { RequestComponent } from './modules/internal/application/request/request.component';
-import { ResourceComponent } from './modules/internal/application/resource/resource.component';
-import { SettledComponent } from './modules/internal/application/settled/settled.component';
-import { StateComponent } from './modules/internal/application/state/state.component';
-import { TraceabilityComponent } from './modules/internal/application/traceability/traceability.component';
+import { CausalComponent } from './modules/internal/application/ap-causal/causal.component';
+import { CommunicationComponent } from './modules/internal/application/ap-communication/communication.component';
+import { PatientComponent } from './modules/internal/application/ap-patient/patient.component';
+import { RequestComponent } from './modules/internal/application/ap-request/request.component';
+import { ResourceComponent } from './modules/internal/application/ap-resource/resource.component';
+import { SettledComponent } from './modules/internal/application/ap-settled/settled.component';
+import { StateComponent } from './modules/internal/application/ap-state/state.component';
+import { TraceabilityComponent } from './modules/internal/application/ap-traceability/traceability.component';
 
 @NgModule({
   declarations: [
