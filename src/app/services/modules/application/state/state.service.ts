@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Environment } from 'src/environments/environment';
-import { ApiService } from '../../functions/api/api.service';
+import { ApiService } from '../../../functions/api/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommunicationService {
+export class StateService {
   private urlEndPoint:string = Environment.API_URL;
 
   constructor(
@@ -17,7 +17,7 @@ export class CommunicationService {
   async getRegister(data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       const params = {
-        table: 'communications',
+        table: 'states',
         column: '*',
         whereField: data['whereField'],
         whereOperator: data['whereOperator'],
