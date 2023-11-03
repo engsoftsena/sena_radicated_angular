@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
   templateUrl: './ap-communication.component.html',
   styleUrls: ['./ap-communication.component.scss']
 })
-export class CommunicationComponent implements OnInit {
+export class ApCommunicationComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (

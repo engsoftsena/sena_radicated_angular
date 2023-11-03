@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettledComponent } from './ap-settled.component';
+import { ApSettledComponent } from './ap-settled.component';
 
-describe('SettledComponent', () => {
-  let component: SettledComponent;
-  let fixture: ComponentFixture<SettledComponent>;
+describe('ApSettledComponent', () => {
+  let component: ApSettledComponent;
+  let fixture: ComponentFixture<ApSettledComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettledComponent ]
+      declarations: [ ApSettledComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SettledComponent);
+    fixture = TestBed.createComponent(ApSettledComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

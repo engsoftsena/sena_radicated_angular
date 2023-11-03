@@ -7,17 +7,17 @@ import { InternalComponent } from './modules/internal/internal.component';
 import { LoginComponent } from './modules/external/login/login.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
 
-import { CausalComponent } from './modules/internal/application/ap-causal/ap-causal.component';
-import { DocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
-import { CommunicationComponent } from './modules/internal/application/ap-communication/ap-communication.component';
-import { PatientComponent } from './modules/internal/application/ap-patient/ap-patient.component';
-import { RequestComponent } from './modules/internal/application/ap-request/ap-request.component';
-import { ResourceComponent } from './modules/internal/application/ap-resource/ap-resource.component';
-import { SettledComponent } from './modules/internal/application/ap-settled/ap-settled.component';
-import { StateComponent } from './modules/internal/application/ap-state/ap-state.component';
-import { RoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
-import { TraceabilityComponent } from './modules/internal/application/ap-traceability/ap-traceability.component';
-import { UserComponent } from './modules/internal/technology/tg-user/tg-user.component';
+import { ApCausalComponent } from './modules/internal/application/ap-causal/ap-causal.component';
+import { ApDocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
+import { ApCommunicationComponent } from './modules/internal/application/ap-communication/ap-communication.component';
+import { ApPatientComponent } from './modules/internal/application/ap-patient/ap-patient.component';
+import { ApRequestComponent } from './modules/internal/application/ap-request/ap-request.component';
+import { ApResourceComponent } from './modules/internal/application/ap-resource/ap-resource.component';
+import { ApSettledComponent } from './modules/internal/application/ap-settled/ap-settled.component';
+import { ApStateComponent } from './modules/internal/application/ap-state/ap-state.component';
+import { ApRoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
+import { ApTraceabilityComponent } from './modules/internal/application/ap-traceability/ap-traceability.component';
+import { ApUserComponent } from './modules/internal/technology/tg-user/tg-user.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'external/login' },
@@ -33,17 +33,17 @@ const routes: Routes = [
     component: InternalComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent, },
-      { path: 'causal', component: CausalComponent, },
-      { path: 'document', component: DocumentComponent, },
-      { path: 'communication', component: CommunicationComponent, },
-      { path: 'patient', component: PatientComponent, },
-      { path: 'request', component: RequestComponent, },
-      { path: 'resource', component: ResourceComponent, },
-      { path: 'role', component: RoleComponent, },
-      { path: 'settled', component: SettledComponent, },
-      { path: 'state', component: StateComponent, },
-      { path: 'traceability', component: TraceabilityComponent, },
-      { path: 'user', component: UserComponent, },
+      { path: 'causal', component: ApCausalComponent, },
+      { path: 'document', component: ApDocumentComponent, },
+      { path: 'communication', component: ApCommunicationComponent, },
+      { path: 'patient', component: ApPatientComponent, },
+      { path: 'request', component: ApRequestComponent, },
+      { path: 'resource', component: ApResourceComponent, },
+      { path: 'role', component: ApRoleComponent, },
+      { path: 'settled', component: ApSettledComponent, },
+      { path: 'state', component: ApStateComponent, },
+      { path: 'traceability', component: ApTraceabilityComponent, },
+      { path: 'user', component: ApUserComponent, },
       { path: '', redirectTo: 'internal/dashboard', pathMatch: 'full', },
     ]
   },

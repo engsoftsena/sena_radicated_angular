@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
   templateUrl: './ap-settled.component.html',
   styleUrls: ['./ap-settled.component.scss']
 })
-export class SettledComponent implements OnInit {
+export class ApSettledComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (

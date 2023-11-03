@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
   templateUrl: './ap-traceability.component.html',
   styleUrls: ['./ap-traceability.component.scss']
 })
-export class TraceabilityComponent implements OnInit {
+export class ApTraceabilityComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (

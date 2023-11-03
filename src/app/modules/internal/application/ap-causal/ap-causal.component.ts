@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
   templateUrl: './ap-causal.component.html',
   styleUrls: ['./ap-causal.component.scss']
 })
-export class CausalComponent implements OnInit {
+export class ApCausalComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   deletedData: any;

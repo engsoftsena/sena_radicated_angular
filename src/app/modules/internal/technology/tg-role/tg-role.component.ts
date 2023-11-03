@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
   templateUrl: './tg-role.component.html',
   styleUrls: ['./tg-role.component.scss']
 })
-export class RoleComponent implements OnInit {
+export class ApRoleComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (

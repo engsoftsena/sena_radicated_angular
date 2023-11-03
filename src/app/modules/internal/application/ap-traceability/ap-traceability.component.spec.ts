@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TraceabilityComponent } from './ap-traceability.component';
+import { ApTraceabilityComponent } from './ap-traceability.component';
 
-describe('TraceabilityComponent', () => {
-  let component: TraceabilityComponent;
-  let fixture: ComponentFixture<TraceabilityComponent>;
+describe('ApTraceabilityComponent', () => {
+  let component: ApTraceabilityComponent;
+  let fixture: ComponentFixture<ApTraceabilityComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TraceabilityComponent ]
+      declarations: [ ApTraceabilityComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TraceabilityComponent);
+    fixture = TestBed.createComponent(ApTraceabilityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

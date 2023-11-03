@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResourceComponent } from './ap-resource.component';
+import { ApResourceComponent } from './ap-resource.component';
 
-describe('ResourceComponent', () => {
-  let component: ResourceComponent;
-  let fixture: ComponentFixture<ResourceComponent>;
+describe('ApResourceComponent', () => {
+  let component: ApResourceComponent;
+  let fixture: ComponentFixture<ApResourceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResourceComponent ]
+      declarations: [ ApResourceComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ResourceComponent);
+    fixture = TestBed.createComponent(ApResourceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

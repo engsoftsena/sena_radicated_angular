@@ -49,19 +49,19 @@ import { EmSettingComponent } from './modules/internal/email/em-setting/em-setti
 /* Componentes: Modulos: Internos: Technology */
 import { TgActionComponent } from './modules/internal/technology/tg-action/tg-action.component';
 import { TgAuthorizationComponent } from './modules/internal/technology/tg-authorization/tg-authorization.component';
-import { DocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
+import { ApDocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
 import { TgPermitComponent } from './modules/internal/technology/tg-permit/tg-permit.component';
-import { RoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
-import { UserComponent } from './modules/internal/technology/tg-user/tg-user.component';
+import { ApRoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
+import { ApUserComponent } from './modules/internal/technology/tg-user/tg-user.component';
 /* Componentes: Modulos: Internos: Application */
-import { CausalComponent } from './modules/internal/application/ap-causal/ap-causal.component';
-import { CommunicationComponent } from './modules/internal/application/ap-communication/ap-communication.component';
-import { PatientComponent } from './modules/internal/application/ap-patient/ap-patient.component';
-import { RequestComponent } from './modules/internal/application/ap-request/ap-request.component';
-import { ResourceComponent } from './modules/internal/application/ap-resource/ap-resource.component';
-import { SettledComponent } from './modules/internal/application/ap-settled/ap-settled.component';
-import { StateComponent } from './modules/internal/application/ap-state/ap-state.component';
-import { TraceabilityComponent } from './modules/internal/application/ap-traceability/ap-traceability.component';
+import { ApCausalComponent } from './modules/internal/application/ap-causal/ap-causal.component';
+import { ApCommunicationComponent } from './modules/internal/application/ap-communication/ap-communication.component';
+import { ApPatientComponent } from './modules/internal/application/ap-patient/ap-patient.component';
+import { ApRequestComponent } from './modules/internal/application/ap-request/ap-request.component';
+import { ApResourceComponent } from './modules/internal/application/ap-resource/ap-resource.component';
+import { ApSettledComponent } from './modules/internal/application/ap-settled/ap-settled.component';
+import { ApStateComponent } from './modules/internal/application/ap-state/ap-state.component';
+import { ApTraceabilityComponent } from './modules/internal/application/ap-traceability/ap-traceability.component';
 
 @NgModule({
   declarations: [
@@ -91,17 +91,17 @@ import { TraceabilityComponent } from './modules/internal/application/ap-traceab
     InternalComponent,
     DashboardComponent,
     /* Componentes: Modulos: Internos */
-    CausalComponent,
-    DocumentComponent,
-    CommunicationComponent,
-    PatientComponent,
-    RequestComponent,
-    ResourceComponent,
-    SettledComponent,
-    StateComponent,
-    RoleComponent,
-    TraceabilityComponent,
-    UserComponent,
+    ApCausalComponent,
+    ApDocumentComponent,
+    ApCommunicationComponent,
+    ApPatientComponent,
+    ApRequestComponent,
+    ApResourceComponent,
+    ApSettledComponent,
+    ApStateComponent,
+    ApRoleComponent,
+    ApTraceabilityComponent,
+    ApUserComponent,
     TgActionComponent,
     TgAuthorizationComponent,
     TgPermitComponent,

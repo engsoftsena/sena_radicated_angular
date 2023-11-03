@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestComponent } from './ap-request.component';
+import { ApRequestComponent } from './ap-request.component';
 
-describe('RequestComponent', () => {
-  let component: RequestComponent;
-  let fixture: ComponentFixture<RequestComponent>;
+describe('ApRequestComponent', () => {
+  let component: ApRequestComponent;
+  let fixture: ComponentFixture<ApRequestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RequestComponent ]
+      declarations: [ ApRequestComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RequestComponent);
+    fixture = TestBed.createComponent(ApRequestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
