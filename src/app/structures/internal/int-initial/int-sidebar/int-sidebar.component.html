@@ -46,7 +46,7 @@
     </div>
     <ul id="js-nav-menu" class="nav-menu">
       <li class="mb-2">
-        <a href="#" [routerLink]="['causal']" data-filter-tags="Causales" title="Causales" class="p-2 waves-effect waves-themed">
+        <a href="#" [routerLink]="['application/causal']" data-filter-tags="Causales" title="Causales" class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Causales">
             Causales
@@ -54,7 +54,7 @@
         </a>
       </li>
       <li class="mb-2">
-        <a href="#" [routerLink]="['communication']" data-filter-tags="Medios Comunicaciones" title="Medios Comunicaciones"
+        <a href="#" [routerLink]="['application/communication']" data-filter-tags="Medios Comunicaciones" title="Medios Comunicaciones"
           class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Medios Comunicaciones">
@@ -63,15 +63,7 @@
         </a>
       </li>
       <li class="mb-2">
-        <a href="#" [routerLink]="['document']" data-filter-tags="Documentos" title="Documentos" class="p-2 waves-effect waves-themed">
-          <em class="far fa-table"></em>
-          <span class="nav-link-text" data-i18n="nav.Documentos">
-            Documentos
-          </span>
-        </a>
-      </li>
-      <li class="mb-2">
-        <a href="#" [routerLink]="['patient']" data-filter-tags="Pacientes" title="Pacientes" class="p-2 waves-effect waves-themed">
+        <a href="#" [routerLink]="['application/patient']" data-filter-tags="Pacientes" title="Pacientes" class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Pacientes">
             Pacientes
@@ -79,7 +71,7 @@
         </a>
       </li>
       <li class="mb-2">
-        <a href="#" [routerLink]="['request']" data-filter-tags="Objetos Solicitudes" title="Objetos Solicitudes"
+        <a href="#" [routerLink]="['application/request']" data-filter-tags="Objetos Solicitudes" title="Objetos Solicitudes"
           class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Objetos Solicitudes">
@@ -88,7 +80,7 @@
         </a>
       </li>
       <li class="mb-2">
-        <a href="#" [routerLink]="['resource']" data-filter-tags="Recursos" title="Recursos" class="p-2 waves-effect waves-themed">
+        <a href="#" [routerLink]="['application/resource']" data-filter-tags="Recursos" title="Recursos" class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Recursos">
             Recursos
@@ -96,15 +88,7 @@
         </a>
       </li>
       <li class="mb-2">
-        <a href="#" [routerLink]="['role']" data-filter-tags="Roles" title="Roles" class="p-2 waves-effect waves-themed">
-          <em class="far fa-table"></em>
-          <span class="nav-link-text" data-i18n="nav.Roles">
-            Roles
-          </span>
-        </a>
-      </li>
-      <li class="mb-2">
-        <a href="#" [routerLink]="['settled']" data-filter-tags="Radicaciones" title="Radicaciones" class="p-2 waves-effect waves-themed">
+        <a href="#" [routerLink]="['application/settled']" data-filter-tags="Radicaciones" title="Radicaciones" class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Radicaciones">
             Radicaciones
@@ -112,7 +96,7 @@
         </a>
       </li>
       <li class="mb-2">
-        <a href="#" [routerLink]="['state']" data-filter-tags="Estados" title="Estados" class="p-2 waves-effect waves-themed">
+        <a href="#" [routerLink]="['application/state']" data-filter-tags="Estados" title="Estados" class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Estados">
             Estados
@@ -120,15 +104,34 @@
         </a>
       </li>
       <li class="mb-2">
-        <a href="#" [routerLink]="['traceability']" data-filter-tags="Trazabilidades" title="Trazabilidades" class="p-2 waves-effect waves-themed">
+        <a href="#" [routerLink]="['application/traceability']" data-filter-tags="Trazabilidades" title="Trazabilidades" class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Trazabilidades">
             Trazabilidades
           </span>
         </a>
       </li>
+
+
+      
       <li class="mb-2">
-        <a href="#" [routerLink]="['user']" data-filter-tags="Usuarios" title="Usuarios" class="p-2 waves-effect waves-themed">
+        <a href="#" [routerLink]="['technology/document']" data-filter-tags="Documentos" title="Documentos" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Documentos">
+            Documentos
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" [routerLink]="['technology/role']" data-filter-tags="Roles" title="Roles" class="p-2 waves-effect waves-themed">
+          <em class="far fa-table"></em>
+          <span class="nav-link-text" data-i18n="nav.Roles">
+            Roles
+          </span>
+        </a>
+      </li>
+      <li class="mb-2">
+        <a href="#" [routerLink]="['technology/user']" data-filter-tags="Usuarios" title="Usuarios" class="p-2 waves-effect waves-themed">
           <em class="far fa-table"></em>
           <span class="nav-link-text" data-i18n="nav.Usuarios">
             Usuarios
