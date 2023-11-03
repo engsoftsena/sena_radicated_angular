@@ -49,10 +49,10 @@ import { EmSettingComponent } from './modules/internal/email/em-setting/em-setti
 /* Componentes: Modulos: Internos: Technology */
 import { TgActionComponent } from './modules/internal/technology/tg-action/tg-action.component';
 import { TgAuthorizationComponent } from './modules/internal/technology/tg-authorization/tg-authorization.component';
-import { ApDocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
+import { TgDocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
 import { TgPermitComponent } from './modules/internal/technology/tg-permit/tg-permit.component';
-import { ApRoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
-import { ApUserComponent } from './modules/internal/technology/tg-user/tg-user.component';
+import { TgRoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
+import { TgUserComponent } from './modules/internal/technology/tg-user/tg-user.component';
 /* Componentes: Modulos: Internos: Application */
 import { ApCausalComponent } from './modules/internal/application/ap-causal/ap-causal.component';
 import { ApCommunicationComponent } from './modules/internal/application/ap-communication/ap-communication.component';
@@ -92,16 +92,16 @@ import { ApTraceabilityComponent } from './modules/internal/application/ap-trace
     DashboardComponent,
     /* Componentes: Modulos: Internos */
     ApCausalComponent,
-    ApDocumentComponent,
+    TgDocumentComponent,
     ApCommunicationComponent,
     ApPatientComponent,
     ApRequestComponent,
     ApResourceComponent,
     ApSettledComponent,
     ApStateComponent,
-    ApRoleComponent,
+    TgRoleComponent,
     ApTraceabilityComponent,
-    ApUserComponent,
+    TgUserComponent,
     TgActionComponent,
     TgAuthorizationComponent,
     TgPermitComponent,

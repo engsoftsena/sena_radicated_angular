@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApUserComponent } from './tg-user.component';
+import { TgUserComponent } from './tg-user.component';
 
-describe('ApUserComponent', () => {
-  let component: ApUserComponent;
-  let fixture: ComponentFixture<ApUserComponent>;
+describe('TgUserComponent', () => {
+  let component: TgUserComponent;
+  let fixture: ComponentFixture<TgUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApUserComponent ]
+      declarations: [ TgUserComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ApUserComponent);
+    fixture = TestBed.createComponent(TgUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
   templateUrl: './tg-document.component.html',
   styleUrls: ['./tg-document.component.scss']
 })
-export class ApDocumentComponent implements OnInit {
+export class TgDocumentComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (
