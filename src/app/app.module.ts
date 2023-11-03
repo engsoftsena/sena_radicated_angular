@@ -32,27 +32,6 @@ import { InternalComponent } from './modules/internal/internal.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
 import { GenErrorComponent } from './modules/general/gen-error/gen-error.component';
 
-/* Componentes: Modulos: Internos: System */
-import { SyAttributeComponent } from './modules/internal/system/sy-attribute/sy-attribute.component';
-import { SyEliminateComponent } from './modules/internal/system/sy-eliminate/sy-eliminate.component';
-import { SyModuleComponent } from './modules/internal/system/sy-module/sy-module.component';
-import { SyPrefixComponent } from './modules/internal/system/sy-prefix/sy-prefix.component';
-import { SyRelationComponent } from './modules/internal/system/sy-relation/sy-relation.component';
-import { SySelectComponent } from './modules/internal/system/sy-select/sy-select.component';
-/* Componentes: Modulos: Internos: User */
-import { UsPasswordComponent } from './modules/internal/user/us-password/us-password.component';
-import { UsProccessComponent } from './modules/internal/user/us-proccess/us-proccess.component';
-/* Componentes: Modulos: Internos: Email */
-import { EmHostingComponent } from './modules/internal/email/em-hosting/em-hosting.component';
-import { EmSecurityComponent } from './modules/internal/email/em-security/em-security.component';
-import { EmSettingComponent } from './modules/internal/email/em-setting/em-setting.component';
-/* Componentes: Modulos: Internos: Technology */
-import { TgActionComponent } from './modules/internal/technology/tg-action/tg-action.component';
-import { TgAuthorizationComponent } from './modules/internal/technology/tg-authorization/tg-authorization.component';
-import { TgDocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
-import { TgPermitComponent } from './modules/internal/technology/tg-permit/tg-permit.component';
-import { TgRoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
-import { TgUserComponent } from './modules/internal/technology/tg-user/tg-user.component';
 /* Componentes: Modulos: Internos: Application */
 import { ApCausalComponent } from './modules/internal/application/ap-causal/ap-causal.component';
 import { ApCommunicationComponent } from './modules/internal/application/ap-communication/ap-communication.component';
@@ -62,6 +41,27 @@ import { ApResourceComponent } from './modules/internal/application/ap-resource/
 import { ApSettledComponent } from './modules/internal/application/ap-settled/ap-settled.component';
 import { ApStateComponent } from './modules/internal/application/ap-state/ap-state.component';
 import { ApTraceabilityComponent } from './modules/internal/application/ap-traceability/ap-traceability.component';
+/* Componentes: Modulos: Internos: Email */
+import { EmHostingComponent } from './modules/internal/email/em-hosting/em-hosting.component';
+import { EmSecurityComponent } from './modules/internal/email/em-security/em-security.component';
+import { EmSettingComponent } from './modules/internal/email/em-setting/em-setting.component';
+/* Componentes: Modulos: Internos: System */
+import { SyAttributeComponent } from './modules/internal/system/sy-attribute/sy-attribute.component';
+import { SyEliminateComponent } from './modules/internal/system/sy-eliminate/sy-eliminate.component';
+import { SyModuleComponent } from './modules/internal/system/sy-module/sy-module.component';
+import { SyPrefixComponent } from './modules/internal/system/sy-prefix/sy-prefix.component';
+import { SyRelationComponent } from './modules/internal/system/sy-relation/sy-relation.component';
+import { SySelectComponent } from './modules/internal/system/sy-select/sy-select.component';
+/* Componentes: Modulos: Internos: Technology */
+import { TgActionComponent } from './modules/internal/technology/tg-action/tg-action.component';
+import { TgAuthorizationComponent } from './modules/internal/technology/tg-authorization/tg-authorization.component';
+import { TgDocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
+import { TgPermitComponent } from './modules/internal/technology/tg-permit/tg-permit.component';
+import { TgRoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
+import { TgUserComponent } from './modules/internal/technology/tg-user/tg-user.component';
+/* Componentes: Modulos: Internos: User */
+import { UsPasswordComponent } from './modules/internal/user/us-password/us-password.component';
+import { UsProccessComponent } from './modules/internal/user/us-proccess/us-proccess.component';
 
 @NgModule({
   declarations: [
