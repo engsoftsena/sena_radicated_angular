@@ -31,6 +31,7 @@ export class ApPatientComponent implements OnInit {
     private servicePatient: PatientService,
   ) {}
 
+  tableDb: string = 'ap_patient';
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
@@ -76,8 +77,12 @@ export class ApPatientComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: 'patients',
+      table: this.tableDb,
       column: '*',
+      whereCond: '',
+      whereField: '',
+      whereOperator: '',
+      whereEqual: '',
     };
     this.serviceApi.proccessColumn(params).subscribe({
       next: (response: any) => {
@@ -95,7 +100,7 @@ export class ApPatientComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: 'patients',
+      table: this.tableDb,
       column: '*',
       whereCond: 'WHERE',
       whereField: 'tb_eliminate',
@@ -130,7 +135,7 @@ export class ApPatientComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: 'patients',
+      table: this.tableDb,
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -280,7 +285,7 @@ export class ApPatientComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: 'patients',
+        table: this.tableDb,
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -391,7 +396,7 @@ export class ApPatientComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: 'patients',
+      table: this.tableDb,
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -440,7 +445,7 @@ export class ApPatientComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'patients',
+      table: this.tableDb,
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -502,7 +507,7 @@ export class ApPatientComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -551,7 +556,7 @@ export class ApPatientComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -598,7 +603,7 @@ export class ApPatientComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'patients',
+      table: this.tableDb,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,

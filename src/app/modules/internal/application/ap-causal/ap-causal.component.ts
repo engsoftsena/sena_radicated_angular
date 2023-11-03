@@ -22,11 +22,6 @@ import Swal from 'sweetalert2';
 export class ApCausalComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
-  deletedData: any;
-  isLoading: boolean = false;
-  columnSet: [] | undefined;
-  causalData: CausalModule[] = [];
-
   constructor (
     private serviceApi: ApiService,
     private serviceButton: ButtonService,
@@ -35,6 +30,12 @@ export class ApCausalComponent implements OnInit {
 
     private serviceCausal: CausalService,
   ) {}
+
+  tableDb: string = 'ap_causal';
+  deletedData: any;
+  isLoading: boolean = false;
+  columnSet: [] | undefined;
+  causalData: CausalModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -76,7 +77,7 @@ export class ApCausalComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: '*',
       whereCond: '',
       whereField: '',
@@ -99,7 +100,7 @@ export class ApCausalComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: '*',
       whereCond: 'WHERE',
       whereField: 'tb_eliminate',
@@ -134,7 +135,7 @@ export class ApCausalComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -284,7 +285,7 @@ export class ApCausalComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: 'causals',
+        table: this.tableDb,
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -395,7 +396,7 @@ export class ApCausalComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -449,7 +450,7 @@ export class ApCausalComponent implements OnInit {
     console.log(jsonData);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -511,7 +512,7 @@ export class ApCausalComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -560,7 +561,7 @@ export class ApCausalComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -607,7 +608,7 @@ export class ApCausalComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: this.tableDb,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
