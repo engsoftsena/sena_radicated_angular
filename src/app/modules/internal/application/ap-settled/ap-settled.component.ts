@@ -556,7 +556,7 @@ export class ApSettledComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'ap_settled',
+      table: this.tableDb,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
