@@ -31,7 +31,8 @@ export class TgDocumentComponent implements OnInit {
     private serviceDocument: DocumentService,
   ) {}
 
-  tableDb: string = 'tg_document';
+  tableComponent: string = 'tg_document';
+  tableSysEliminate: string = 'sy_eliminate';
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
@@ -77,7 +78,7 @@ export class TgDocumentComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: this.tableDb,
+      table: this.tableComponent,
       column: '*',
       whereCond: '',
       whereField: '',
@@ -100,10 +101,10 @@ export class TgDocumentComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: this.tableDb,
+      table: this.tableComponent,
       column: '*',
       whereCond: 'WHERE',
-      whereField: 'tb_eliminate',
+      whereField: this.tableSysEliminate,
       whereOperator: '=',
       whereEqual: fieldDeleted,
     };
@@ -135,7 +136,7 @@ export class TgDocumentComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: this.tableDb,
+      table: this.tableComponent,
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -285,7 +286,7 @@ export class TgDocumentComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: this.tableDb,
+        table: this.tableComponent,
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -396,7 +397,7 @@ export class TgDocumentComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: this.tableDb,
+      table: this.tableComponent,
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -425,7 +426,7 @@ export class TgDocumentComponent implements OnInit {
 
   formInsert(modalForm: any) {
     const formData = this.formCollect(modalForm, 'insertField');
-    formData['tb_eliminate'] = '1';
+    formData[this.tableSysEliminate] = '1';
     const dataColumn = Object.keys(formData).join(',');
     return { formData, dataColumn, };
   }
@@ -445,7 +446,7 @@ export class TgDocumentComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: this.tableDb,
+      table: this.tableComponent,
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -470,7 +471,7 @@ export class TgDocumentComponent implements OnInit {
 
   formRemove(modalForm: any) {
     const formData = this.formCollect(modalForm, 'removeField');
-    formData['tb_eliminate'] = '2';
+    formData[this.tableSysEliminate] = '2';
     const dataColumn = Object.keys(formData).join(',');
 
     const whereForm = this.formCollect(modalForm, 'removeWhere');
@@ -507,7 +508,7 @@ export class TgDocumentComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: this.tableDb,
+      table: this.tableComponent,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -519,7 +520,7 @@ export class TgDocumentComponent implements OnInit {
 
   formRestore(modalForm: any) {
     const formData = this.formCollect(modalForm, 'restoreField');
-    formData['tb_eliminate'] = '1';
+    formData[this.tableSysEliminate] = '1';
     const dataColumn = Object.keys(formData).join(',');
 
     const whereForm = this.formCollect(modalForm, 'restoreWhere');
@@ -556,7 +557,7 @@ export class TgDocumentComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: this.tableDb,
+      table: this.tableComponent,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -603,7 +604,7 @@ export class TgDocumentComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: this.tableDb,
+      table: this.tableComponent,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
