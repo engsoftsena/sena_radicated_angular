@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StateComponent } from './state.component';
+import { PatientComponent } from './ap-patient.component';
 
-describe('StateComponent', () => {
-  let component: StateComponent;
-  let fixture: ComponentFixture<StateComponent>;
+describe('PatientComponent', () => {
+  let component: PatientComponent;
+  let fixture: ComponentFixture<PatientComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StateComponent ]
+      declarations: [ PatientComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StateComponent);
+    fixture = TestBed.createComponent(PatientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

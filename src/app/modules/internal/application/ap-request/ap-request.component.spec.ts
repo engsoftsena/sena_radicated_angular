@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommunicationComponent } from './communication.component';
+import { RequestComponent } from './ap-request.component';
 
-describe('CommunicationComponent', () => {
-  let component: CommunicationComponent;
-  let fixture: ComponentFixture<CommunicationComponent>;
+describe('RequestComponent', () => {
+  let component: RequestComponent;
+  let fixture: ComponentFixture<RequestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommunicationComponent ]
+      declarations: [ RequestComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CommunicationComponent);
+    fixture = TestBed.createComponent(RequestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

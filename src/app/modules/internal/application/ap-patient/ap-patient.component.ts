@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { DocumentModule } from 'src/app/interfaces/modules/document.interface';
+import { PatientModule } from 'src/app/interfaces/modules/patient.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { DocumentService } from 'src/app/services/modules/document/document.service';
+import { PatientService } from 'src/app/services/modules/patient/patient.service';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -15,11 +15,11 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-document',
-  templateUrl: './document.component.html',
-  styleUrls: ['./document.component.scss']
+  selector: 'app-ap-patient',
+  templateUrl: './ap-patient.component.html',
+  styleUrls: ['./ap-patient.component.scss']
 })
-export class DocumentComponent implements OnInit {
+export class PatientComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (
@@ -28,13 +28,13 @@ export class DocumentComponent implements OnInit {
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
 
-    private serviceDocument: DocumentService,
+    private servicePatient: PatientService,
   ) {}
 
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  documentData: DocumentModule[] = [];
+  patientData: PatientModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -76,7 +76,7 @@ export class DocumentComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: 'documents',
+      table: 'patients',
       column: '*',
     };
     this.serviceApi.proccessColumn(params).subscribe({
@@ -95,7 +95,7 @@ export class DocumentComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: 'documents',
+      table: 'patients',
       column: '*',
       whereCond: 'WHERE',
       whereField: 'tb_eliminate',
@@ -108,12 +108,12 @@ export class DocumentComponent implements OnInit {
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
           // Mapea los datos del servicio al formato esperado
-          this.documentData = response.data;
-          console.log(this.documentData);
+          this.patientData = response.data;
+          console.log(this.patientData);
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
-            this.documentData,
+            this.patientData,
             this.columnSet,
             []
           );
@@ -130,7 +130,7 @@ export class DocumentComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: 'documents',
+      table: 'patients',
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -141,12 +141,12 @@ export class DocumentComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.documentData = response.data;
-        console.log(this.documentData);
+        this.patientData = response.data;
+        console.log(this.patientData);
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
-          this.documentData,
+          this.patientData,
           this.columnSet,
           []
         );
@@ -280,7 +280,7 @@ export class DocumentComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: 'documents',
+        table: 'patients',
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -391,7 +391,7 @@ export class DocumentComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: 'documents',
+      table: 'patients',
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -440,7 +440,7 @@ export class DocumentComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'documents',
+      table: 'patients',
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -598,7 +598,7 @@ export class DocumentComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'documents',
+      table: 'patients',
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,

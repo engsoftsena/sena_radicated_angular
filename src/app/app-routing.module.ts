@@ -7,17 +7,17 @@ import { InternalComponent } from './modules/internal/internal.component';
 import { LoginComponent } from './modules/external/login/login.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
 
-import { CausalComponent } from './modules/internal/application/ap-causal/causal.component';
-import { DocumentComponent } from './modules/internal/technology/tg-document/document.component';
-import { CommunicationComponent } from './modules/internal/application/ap-communication/communication.component';
-import { PatientComponent } from './modules/internal/application/ap-patient/patient.component';
-import { RequestComponent } from './modules/internal/application/ap-request/request.component';
-import { ResourceComponent } from './modules/internal/application/ap-resource/resource.component';
-import { SettledComponent } from './modules/internal/application/ap-settled/settled.component';
-import { StateComponent } from './modules/internal/application/ap-state/state.component';
-import { RoleComponent } from './modules/internal/technology/tg-role/role.component';
-import { TraceabilityComponent } from './modules/internal/application/ap-traceability/traceability.component';
-import { UserComponent } from './modules/internal/technology/tg-user/user.component';
+import { CausalComponent } from './modules/internal/application/ap-causal/ap-causal.component';
+import { DocumentComponent } from './modules/internal/technology/tg-document/tg-document.component';
+import { CommunicationComponent } from './modules/internal/application/ap-communication/ap-communication.component';
+import { PatientComponent } from './modules/internal/application/ap-patient/ap-patient.component';
+import { RequestComponent } from './modules/internal/application/ap-request/ap-request.component';
+import { ResourceComponent } from './modules/internal/application/ap-resource/ap-resource.component';
+import { SettledComponent } from './modules/internal/application/ap-settled/ap-settled.component';
+import { StateComponent } from './modules/internal/application/ap-state/ap-state.component';
+import { RoleComponent } from './modules/internal/technology/tg-role/tg-role.component';
+import { TraceabilityComponent } from './modules/internal/application/ap-traceability/ap-traceability.component';
+import { UserComponent } from './modules/internal/technology/tg-user/tg-user.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'external/login' },

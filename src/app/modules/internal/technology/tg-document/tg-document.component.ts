@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { CommunicationModule } from 'src/app/interfaces/modules/communication.interface';
+import { DocumentModule } from 'src/app/interfaces/modules/document.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { CommunicationService } from 'src/app/services/modules/communication/communication.service';
+import { DocumentService } from 'src/app/services/modules/document/document.service';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -15,11 +15,11 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-communication',
-  templateUrl: './communication.component.html',
-  styleUrls: ['./communication.component.scss']
+  selector: 'app-tg-document',
+  templateUrl: './tg-document.component.html',
+  styleUrls: ['./tg-document.component.scss']
 })
-export class CommunicationComponent implements OnInit {
+export class DocumentComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (
@@ -28,13 +28,13 @@ export class CommunicationComponent implements OnInit {
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
 
-    private serviceCommunication: CommunicationService,
+    private serviceDocument: DocumentService,
   ) {}
 
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  communicationData: CommunicationModule[] = [];
+  documentData: DocumentModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -76,7 +76,7 @@ export class CommunicationComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: 'communications',
+      table: 'documents',
       column: '*',
     };
     this.serviceApi.proccessColumn(params).subscribe({
@@ -95,7 +95,7 @@ export class CommunicationComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: 'communications',
+      table: 'documents',
       column: '*',
       whereCond: 'WHERE',
       whereField: 'tb_eliminate',
@@ -108,12 +108,12 @@ export class CommunicationComponent implements OnInit {
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
           // Mapea los datos del servicio al formato esperado
-          this.communicationData = response.data;
-          console.log(this.communicationData);
+          this.documentData = response.data;
+          console.log(this.documentData);
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
-            this.communicationData,
+            this.documentData,
             this.columnSet,
             []
           );
@@ -130,7 +130,7 @@ export class CommunicationComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: 'communications',
+      table: 'documents',
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -141,12 +141,12 @@ export class CommunicationComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.communicationData = response.data;
-        console.log(this.communicationData);
+        this.documentData = response.data;
+        console.log(this.documentData);
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
-          this.communicationData,
+          this.documentData,
           this.columnSet,
           []
         );
@@ -280,7 +280,7 @@ export class CommunicationComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: 'communications',
+        table: 'documents',
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -391,7 +391,7 @@ export class CommunicationComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: 'communications',
+      table: 'documents',
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -440,7 +440,7 @@ export class CommunicationComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'communications',
+      table: 'documents',
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -598,7 +598,7 @@ export class CommunicationComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'communications',
+      table: 'documents',
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,

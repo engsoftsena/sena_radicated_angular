@@ -15,9 +15,9 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-role',
-  templateUrl: './role.component.html',
-  styleUrls: ['./role.component.scss']
+  selector: 'app-tg-role',
+  templateUrl: './tg-role.component.html',
+  styleUrls: ['./tg-role.component.scss']
 })
 export class RoleComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;

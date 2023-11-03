@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TraceabilityComponent } from './traceability.component';
+import { RoleComponent } from './tg-role.component';
 
-describe('TraceabilityComponent', () => {
-  let component: TraceabilityComponent;
-  let fixture: ComponentFixture<TraceabilityComponent>;
+describe('RoleComponent', () => {
+  let component: RoleComponent;
+  let fixture: ComponentFixture<RoleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TraceabilityComponent ]
+      declarations: [ RoleComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TraceabilityComponent);
+    fixture = TestBed.createComponent(RoleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

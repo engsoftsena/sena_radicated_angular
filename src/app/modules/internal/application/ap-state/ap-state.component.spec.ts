@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RoleComponent } from './role.component';
+import { StateComponent } from './ap-state.component';
 
-describe('RoleComponent', () => {
-  let component: RoleComponent;
-  let fixture: ComponentFixture<RoleComponent>;
+describe('StateComponent', () => {
+  let component: StateComponent;
+  let fixture: ComponentFixture<StateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RoleComponent ]
+      declarations: [ StateComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RoleComponent);
+    fixture = TestBed.createComponent(StateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { TraceabilityModule } from 'src/app/interfaces/modules/traceability.interface';
+import { ResourceModule } from 'src/app/interfaces/modules/resource.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { TraceabilityService } from 'src/app/services/modules/traceability/traceability.service';
+import { ResourceService } from 'src/app/services/modules/resource/resource.service';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -15,11 +15,11 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-traceability',
-  templateUrl: './traceability.component.html',
-  styleUrls: ['./traceability.component.scss']
+  selector: 'app-ap-resource',
+  templateUrl: './ap-resource.component.html',
+  styleUrls: ['./ap-resource.component.scss']
 })
-export class TraceabilityComponent implements OnInit {
+export class ResourceComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (
@@ -28,13 +28,13 @@ export class TraceabilityComponent implements OnInit {
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
 
-    private serviceTraceability: TraceabilityService,
+    private serviceResource: ResourceService,
   ) {}
 
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  traceabilityData: TraceabilityModule[] = [];
+  resourceData: ResourceModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -76,7 +76,7 @@ export class TraceabilityComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: 'traceabilities',
+      table: 'resources',
       column: '*',
     };
     this.serviceApi.proccessColumn(params).subscribe({
@@ -95,7 +95,7 @@ export class TraceabilityComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: 'traceabilities',
+      table: 'resources',
       column: '*',
       whereCond: 'WHERE',
       whereField: 'tb_eliminate',
@@ -108,12 +108,12 @@ export class TraceabilityComponent implements OnInit {
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
           // Mapea los datos del servicio al formato esperado
-          this.traceabilityData = response.data;
-          console.log(this.traceabilityData);
+          this.resourceData = response.data;
+          console.log(this.resourceData);
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
-            this.traceabilityData,
+            this.resourceData,
             this.columnSet,
             []
           );
@@ -130,7 +130,7 @@ export class TraceabilityComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: 'traceabilities',
+      table: 'resources',
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -141,12 +141,12 @@ export class TraceabilityComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.traceabilityData = response.data;
-        console.log(this.traceabilityData);
+        this.resourceData = response.data;
+        console.log(this.resourceData);
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
-          this.traceabilityData,
+          this.resourceData,
           this.columnSet,
           []
         );
@@ -280,7 +280,7 @@ export class TraceabilityComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: 'traceabilities',
+        table: 'resources',
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -391,7 +391,7 @@ export class TraceabilityComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: 'traceabilities',
+      table: 'resources',
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -440,7 +440,7 @@ export class TraceabilityComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'traceabilities',
+      table: 'resources',
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -598,7 +598,7 @@ export class TraceabilityComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'traceabilities',
+      table: 'resources',
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,

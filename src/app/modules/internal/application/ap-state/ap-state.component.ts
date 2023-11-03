@@ -15,9 +15,9 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-state',
-  templateUrl: './state.component.html',
-  styleUrls: ['./state.component.scss']
+  selector: 'app-ap-state',
+  templateUrl: './ap-state.component.html',
+  styleUrls: ['./ap-state.component.scss']
 })
 export class StateComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;

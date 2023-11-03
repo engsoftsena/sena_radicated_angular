@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { CausalModule } from 'src/app/interfaces/modules/causal.interface';
+import { SettledModule } from 'src/app/interfaces/modules/settled.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { CausalService } from 'src/app/services/modules/causal/causal.service';
+import { SettledService } from 'src/app/services/modules/settled/settled.service';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -15,17 +15,12 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-causal',
-  templateUrl: './causal.component.html',
-  styleUrls: ['./causal.component.scss']
+  selector: 'app-ap-settled',
+  templateUrl: './ap-settled.component.html',
+  styleUrls: ['./ap-settled.component.scss']
 })
-export class CausalComponent implements OnInit {
+export class SettledComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
-
-  deletedData: any;
-  isLoading: boolean = false;
-  columnSet: [] | undefined;
-  causalData: CausalModule[] = [];
 
   constructor (
     private serviceApi: ApiService,
@@ -33,8 +28,13 @@ export class CausalComponent implements OnInit {
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
 
-    private serviceCausal: CausalService,
+    private serviceSettled: SettledService,
   ) {}
+
+  deletedData: any;
+  isLoading: boolean = false;
+  columnSet: [] | undefined;
+  settledData: SettledModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -60,7 +60,7 @@ export class CausalComponent implements OnInit {
         if (response.status === 200) {
           message = 'URL API Disponible.';
           console.log(message);
-          this.resultColumn(this.deletedData);
+          this.resultColumn('1');
         } else {
           message = 'Error en la solicitud de la API';
           this.modalOpen('modalSystem');
@@ -76,12 +76,8 @@ export class CausalComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: 'causals',
+      table: 'settleds',
       column: '*',
-      whereCond: '',
-      whereField: '',
-      whereOperator: '',
-      whereEqual: '',
     };
     this.serviceApi.proccessColumn(params).subscribe({
       next: (response: any) => {
@@ -99,7 +95,7 @@ export class CausalComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: 'causals',
+      table: 'settleds',
       column: '*',
       whereCond: 'WHERE',
       whereField: 'tb_eliminate',
@@ -112,12 +108,12 @@ export class CausalComponent implements OnInit {
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
           // Mapea los datos del servicio al formato esperado
-          this.causalData = response.data;
-          console.log(this.causalData);
+          this.settledData = response.data;
+          console.log(this.settledData);
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
-            this.causalData,
+            this.settledData,
             this.columnSet,
             []
           );
@@ -134,7 +130,7 @@ export class CausalComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: 'causals',
+      table: 'settleds',
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -145,12 +141,12 @@ export class CausalComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.causalData = response.data;
-        console.log(this.causalData);
+        this.settledData = response.data;
+        console.log(this.settledData);
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
-          this.causalData,
+          this.settledData,
           this.columnSet,
           []
         );
@@ -284,7 +280,7 @@ export class CausalComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: 'causals',
+        table: 'settleds',
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -395,7 +391,7 @@ export class CausalComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: 'settleds',
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -442,14 +438,9 @@ export class CausalComponent implements OnInit {
     // Unificar un solo objeto
     const combinedData = { ...formData };
     const jsonData = JSON.stringify(combinedData);
-
-    console.log(formData);
-    console.log(dataColumn);
-    console.log(combinedData);
-    console.log(jsonData);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: 'settleds',
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -607,7 +598,7 @@ export class CausalComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'causals',
+      table: 'settleds',
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -717,7 +708,7 @@ export class CausalComponent implements OnInit {
     }).then((result) => {
       /* Puedes agregar un manejo adicional aquí si lo deseas */
       if (result.dismiss === Swal.DismissReason.timer) {
-        this.resultColumn(this.deletedData);
+        this.resultColumn('1');
       }
     });
   }

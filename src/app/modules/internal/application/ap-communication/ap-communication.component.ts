@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { RequestModule } from 'src/app/interfaces/modules/request.interface';
+import { CommunicationModule } from 'src/app/interfaces/modules/communication.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { RequestService } from 'src/app/services/modules/request/request.service';
+import { CommunicationService } from 'src/app/services/modules/communication/communication.service';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -15,11 +15,11 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-request',
-  templateUrl: './request.component.html',
-  styleUrls: ['./request.component.scss']
+  selector: 'app-ap-communication',
+  templateUrl: './ap-communication.component.html',
+  styleUrls: ['./ap-communication.component.scss']
 })
-export class RequestComponent implements OnInit {
+export class CommunicationComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (
@@ -28,13 +28,13 @@ export class RequestComponent implements OnInit {
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
 
-    private serviceRequest: RequestService,
+    private serviceCommunication: CommunicationService,
   ) {}
 
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  requestData: RequestModule[] = [];
+  communicationData: CommunicationModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -76,7 +76,7 @@ export class RequestComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: 'requests',
+      table: 'communications',
       column: '*',
     };
     this.serviceApi.proccessColumn(params).subscribe({
@@ -95,7 +95,7 @@ export class RequestComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: 'requests',
+      table: 'communications',
       column: '*',
       whereCond: 'WHERE',
       whereField: 'tb_eliminate',
@@ -108,12 +108,12 @@ export class RequestComponent implements OnInit {
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
           // Mapea los datos del servicio al formato esperado
-          this.requestData = response.data;
-          console.log(this.requestData);
+          this.communicationData = response.data;
+          console.log(this.communicationData);
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
-            this.requestData,
+            this.communicationData,
             this.columnSet,
             []
           );
@@ -130,7 +130,7 @@ export class RequestComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: 'requests',
+      table: 'communications',
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -141,12 +141,12 @@ export class RequestComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.requestData = response.data;
-        console.log(this.requestData);
+        this.communicationData = response.data;
+        console.log(this.communicationData);
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
-          this.requestData,
+          this.communicationData,
           this.columnSet,
           []
         );
@@ -280,7 +280,7 @@ export class RequestComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: 'requests',
+        table: 'communications',
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -391,7 +391,7 @@ export class RequestComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: 'requests',
+      table: 'communications',
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -440,7 +440,7 @@ export class RequestComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'requests',
+      table: 'communications',
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -598,7 +598,7 @@ export class RequestComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'requests',
+      table: 'communications',
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -642,7 +642,7 @@ export class RequestComponent implements OnInit {
         'swalTitle': 'Error',
       };
       this.swalFireMssg(swalOptions);
-  }
+    }
   }
 
   responseSuccess(modalForm: any, response: any) {

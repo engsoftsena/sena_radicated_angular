@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { ResourceModule } from 'src/app/interfaces/modules/resource.interface';
+import { RequestModule } from 'src/app/interfaces/modules/request.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { ResourceService } from 'src/app/services/modules/resource/resource.service';
+import { RequestService } from 'src/app/services/modules/request/request.service';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -15,11 +15,11 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-resource',
-  templateUrl: './resource.component.html',
-  styleUrls: ['./resource.component.scss']
+  selector: 'app-ap-request',
+  templateUrl: './ap-request.component.html',
+  styleUrls: ['./ap-request.component.scss']
 })
-export class ResourceComponent implements OnInit {
+export class RequestComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (
@@ -28,13 +28,13 @@ export class ResourceComponent implements OnInit {
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
 
-    private serviceResource: ResourceService,
+    private serviceRequest: RequestService,
   ) {}
 
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  resourceData: ResourceModule[] = [];
+  requestData: RequestModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -76,7 +76,7 @@ export class ResourceComponent implements OnInit {
 
   resultColumn(fieldDeleted: string) {
     const params = {
-      table: 'resources',
+      table: 'requests',
       column: '*',
     };
     this.serviceApi.proccessColumn(params).subscribe({
@@ -95,7 +95,7 @@ export class ResourceComponent implements OnInit {
 
   resultData(fieldDeleted: string) {
     const params = {
-      table: 'resources',
+      table: 'requests',
       column: '*',
       whereCond: 'WHERE',
       whereField: 'tb_eliminate',
@@ -108,12 +108,12 @@ export class ResourceComponent implements OnInit {
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
           // Mapea los datos del servicio al formato esperado
-          this.resourceData = response.data;
-          console.log(this.resourceData);
+          this.requestData = response.data;
+          console.log(this.requestData);
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
-            this.resourceData,
+            this.requestData,
             this.columnSet,
             []
           );
@@ -130,7 +130,7 @@ export class ResourceComponent implements OnInit {
 
   getRegister(data: any) {
     const params = {
-      table: 'resources',
+      table: 'requests',
       column: '*',
       whereCond: data['whereCond'],
       whereField: data['whereField'],
@@ -141,12 +141,12 @@ export class ResourceComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.resourceData = response.data;
-        console.log(this.resourceData);
+        this.requestData = response.data;
+        console.log(this.requestData);
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
-          this.resourceData,
+          this.requestData,
           this.columnSet,
           []
         );
@@ -280,7 +280,7 @@ export class ResourceComponent implements OnInit {
     // Validar si el id es mayor a cero
     if (Number(idtbl) > 0) {
       const params = {
-        table: 'resources',
+        table: 'requests',
         column: '*',
         whereCond: `WHERE`,
         whereField: `id_register`,
@@ -391,7 +391,7 @@ export class ResourceComponent implements OnInit {
     } = this.formDelete(modalForm);
     // Construir parametros para sql
     const params = {
-      table: 'resources',
+      table: 'requests',
       column: `${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -440,7 +440,7 @@ export class ResourceComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'resources',
+      table: 'requests',
       column: dataColumn,
     };
     this.sendInsert(modalForm, params, jsonData);
@@ -598,7 +598,7 @@ export class ResourceComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
-      table: 'resources',
+      table: 'requests',
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
       whereField: whereColumn,
@@ -642,7 +642,7 @@ export class ResourceComponent implements OnInit {
         'swalTitle': 'Error',
       };
       this.swalFireMssg(swalOptions);
-    }
+  }
   }
 
   responseSuccess(modalForm: any, response: any) {
