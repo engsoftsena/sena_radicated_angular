@@ -30,21 +30,38 @@ import { LoginComponent } from './modules/external/login/login.component';
 /* Componentes: Modulos: Internos */
 import { InternalComponent } from './modules/internal/internal.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
+import { GenErrorComponent } from './modules/general/gen-error/gen-error.component';
 
-/* Componentes: Modulos: Internos */
-import { CausalComponent } from './modules/internal/application/causal/causal.component';
+/* Componentes: Modulos: Internos: System */
+import { SyAttributeComponent } from './modules/internal/system/sy-attribute/sy-attribute.component';
+import { SyEliminateComponent } from './modules/internal/system/sy-eliminate/sy-eliminate.component';
+import { SyModuleComponent } from './modules/internal/system/sy-module/sy-module.component';
+import { SyPrefixComponent } from './modules/internal/system/sy-prefix/sy-prefix.component';
+import { SyRelationComponent } from './modules/internal/system/sy-relation/sy-relation.component';
+import { SySelectComponent } from './modules/internal/system/sy-select/sy-select.component';
+/* Componentes: Modulos: Internos: User */
+import { UsPasswordComponent } from './modules/internal/user/us-password/us-password.component';
+import { UsProccessComponent } from './modules/internal/user/us-proccess/us-proccess.component';
+/* Componentes: Modulos: Internos: Email */
+import { EmHostingComponent } from './modules/internal/email/em-hosting/em-hosting.component';
+import { EmSecurityComponent } from './modules/internal/email/em-security/em-security.component';
+import { EmSettingComponent } from './modules/internal/email/em-setting/em-setting.component';
+/* Componentes: Modulos: Internos: Technology */
+import { TgActionComponent } from './modules/internal/technology/tg-action/tg-action.component';
+import { TgAuthorizationComponent } from './modules/internal/technology/tg-authorization/tg-authorization.component';
 import { DocumentComponent } from './modules/internal/technology/document/document.component';
+import { TgPermitComponent } from './modules/internal/technology/tg-permit/tg-permit.component';
+import { RoleComponent } from './modules/internal/technology/role/role.component';
+import { UserComponent } from './modules/internal/technology/user/user.component';
+/* Componentes: Modulos: Internos: Application */
+import { CausalComponent } from './modules/internal/application/causal/causal.component';
 import { CommunicationComponent } from './modules/internal/application/communication/communication.component';
 import { PatientComponent } from './modules/internal/application/patient/patient.component';
 import { RequestComponent } from './modules/internal/application/request/request.component';
 import { ResourceComponent } from './modules/internal/application/resource/resource.component';
 import { SettledComponent } from './modules/internal/application/settled/settled.component';
 import { StateComponent } from './modules/internal/application/state/state.component';
-import { RoleComponent } from './modules/internal/technology/role/role.component';
 import { TraceabilityComponent } from './modules/internal/application/traceability/traceability.component';
-import { UserComponent } from './modules/internal/technology/user/user.component';
-
-import { GenErrorComponent } from './modules/general/gen-error/gen-error.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +102,20 @@ import { GenErrorComponent } from './modules/general/gen-error/gen-error.compone
     RoleComponent,
     TraceabilityComponent,
     UserComponent,
+    TgActionComponent,
+    TgAuthorizationComponent,
+    TgPermitComponent,
+    UsPasswordComponent,
+    UsProccessComponent,
+    SyAttributeComponent,
+    SyEliminateComponent,
+    SyModuleComponent,
+    SyPrefixComponent,
+    SyRelationComponent,
+    SySelectComponent,
+    EmHostingComponent,
+    EmSecurityComponent,
+    EmSettingComponent,
   ],
   imports: [
     BrowserModule,
