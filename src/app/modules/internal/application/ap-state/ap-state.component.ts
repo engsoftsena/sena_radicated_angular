@@ -7,7 +7,7 @@ import { ButtonService } from 'src/app/services/functions/button/button.service'
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { StateService } from 'src/app/services/modules/application/state/state.service';
+import { StateService } from 'src/app/services/modules/application/ap-state/ap-state.service';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';

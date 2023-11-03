@@ -7,7 +7,7 @@ import { ButtonService } from 'src/app/services/functions/button/button.service'
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { TraceabilityService } from 'src/app/services/modules/application/traceability/traceability.service';
+import { TraceabilityService } from 'src/app/services/modules/application/ap-traceability/ap-traceability.service';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
