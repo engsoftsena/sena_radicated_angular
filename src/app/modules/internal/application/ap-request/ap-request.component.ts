@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { RequestModule } from 'src/app/interfaces/modules/request.interface';
+import { ApRequestModule } from 'src/app/interfaces/modules/application/request.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class ApRequestComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  requestData: RequestModule[] = [];
+  requestData: ApRequestModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

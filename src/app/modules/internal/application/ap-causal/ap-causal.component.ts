@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { CausalModule } from 'src/app/interfaces/modules/causal.interface';
+import { ApCausalModule } from 'src/app/interfaces/modules/application/causal.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class ApCausalComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  causalData: CausalModule[] = [];
+  causalData: ApCausalModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

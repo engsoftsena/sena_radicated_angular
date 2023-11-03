@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { UserModule } from 'src/app/interfaces/modules/user.interface';
+import { TgUserModule } from 'src/app/interfaces/modules/technology/user.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class TgUserComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  userData: UserModule[] = [];
+  userData: TgUserModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

@@ -1,4 +1,4 @@
-export interface StateModule {
+export interface ApStateModule {
   id: number | null;
   name: string;
 }

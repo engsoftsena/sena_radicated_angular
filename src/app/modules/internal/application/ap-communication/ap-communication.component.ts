@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { CommunicationModule } from 'src/app/interfaces/modules/communication.interface';
+import { ApCommunicationModule } from 'src/app/interfaces/modules/application/communication.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class ApCommunicationComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  communicationData: CommunicationModule[] = [];
+  communicationData: ApCommunicationModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

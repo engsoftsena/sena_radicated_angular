@@ -1,4 +1,4 @@
-export interface UserModule {
+export interface TgUserModule {
   id: number | null;
   dateConnection: string;
   email: string;

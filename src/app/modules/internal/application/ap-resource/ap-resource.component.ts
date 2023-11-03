@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { ResourceModule } from 'src/app/interfaces/modules/resource.interface';
+import { ApResourceModule } from 'src/app/interfaces/modules/application/resource.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class ApResourceComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  resourceData: ResourceModule[] = [];
+  resourceData: ApResourceModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

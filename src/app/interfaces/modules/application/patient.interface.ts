@@ -1,4 +1,4 @@
-export interface PatientModule {
+export interface ApPatientModule {
   id: number | null;
   name: string;
 }

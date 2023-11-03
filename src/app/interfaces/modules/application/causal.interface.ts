@@ -1,4 +1,4 @@
-export interface CausalModule {
+export interface ApCausalModule {
   id: number | null;
   name: string;
 }

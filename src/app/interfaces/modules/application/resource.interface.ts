@@ -1,4 +1,4 @@
-export interface RoleModule {
+export interface ApResourceModule {
   id: number | null;
   name: string;
 }

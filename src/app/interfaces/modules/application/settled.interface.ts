@@ -1,4 +1,4 @@
-export interface ResourceModule {
+export interface ApSettledModule {
   id: number | null;
   name: string;
 }

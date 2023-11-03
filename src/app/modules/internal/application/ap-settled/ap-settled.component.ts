@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { SettledModule } from 'src/app/interfaces/modules/settled.interface';
+import { ApSettledModule } from 'src/app/interfaces/modules/application/settled.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class ApSettledComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  settledData: SettledModule[] = [];
+  settledData: ApSettledModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

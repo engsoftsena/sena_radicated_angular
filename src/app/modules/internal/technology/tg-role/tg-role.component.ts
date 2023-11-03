@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { RoleModule } from 'src/app/interfaces/modules/role.interface';
+import { TgRoleModule } from 'src/app/interfaces/modules/technology/role.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class TgRoleComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  roleData: RoleModule[] = [];
+  roleData: TgRoleModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

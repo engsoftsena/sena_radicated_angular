@@ -1,4 +1,4 @@
-export interface CommunicationModule {
+export interface TgRoleModule {
   id: number | null;
   name: string;
 }

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { TraceabilityModule } from 'src/app/interfaces/modules/traceability.interface';
+import { ApTraceabilityModule } from 'src/app/interfaces/modules/application/traceability.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class ApTraceabilityComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  traceabilityData: TraceabilityModule[] = [];
+  traceabilityData: ApTraceabilityModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

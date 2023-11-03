@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { StateModule } from 'src/app/interfaces/modules/state.interface';
+import { ApStateModule } from 'src/app/interfaces/modules/application/state.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class ApStateComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  stateData: StateModule[] = [];
+  stateData: ApStateModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;

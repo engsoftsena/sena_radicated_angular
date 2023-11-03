@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { PatientModule } from 'src/app/interfaces/modules/patient.interface';
+import { ApPatientModule } from 'src/app/interfaces/modules/application/patient.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
@@ -36,7 +36,7 @@ export class ApPatientComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  patientData: PatientModule[] = [];
+  patientData: ApPatientModule[] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
