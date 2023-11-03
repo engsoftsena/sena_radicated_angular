@@ -32,17 +32,17 @@ import { InternalComponent } from './modules/internal/internal.component';
 import { DashboardComponent } from './modules/internal/dashboard/dashboard.component';
 
 /* Componentes: Modulos: Internos */
-import { CausalComponent } from './modules/internal/causal/causal.component';
-import { DocumentComponent } from './modules/internal/document/document.component';
-import { CommunicationComponent } from './modules/internal/communication/communication.component';
-import { PatientComponent } from './modules/internal/patient/patient.component';
-import { RequestComponent } from './modules/internal/request/request.component';
-import { ResourceComponent } from './modules/internal/resource/resource.component';
-import { SettledComponent } from './modules/internal/settled/settled.component';
-import { StateComponent } from './modules/internal/state/state.component';
-import { RoleComponent } from './modules/internal/role/role.component';
-import { TraceabilityComponent } from './modules/internal/traceability/traceability.component';
-import { UserComponent } from './modules/internal/user/user.component';
+import { CausalComponent } from './modules/internal/application/causal/causal.component';
+import { DocumentComponent } from './modules/internal/technology/document/document.component';
+import { CommunicationComponent } from './modules/internal/application/communication/communication.component';
+import { PatientComponent } from './modules/internal/application/patient/patient.component';
+import { RequestComponent } from './modules/internal/application/request/request.component';
+import { ResourceComponent } from './modules/internal/application/resource/resource.component';
+import { SettledComponent } from './modules/internal/application/settled/settled.component';
+import { StateComponent } from './modules/internal/application/state/state.component';
+import { RoleComponent } from './modules/internal/technology/role/role.component';
+import { TraceabilityComponent } from './modules/internal/application/traceability/traceability.component';
+import { UserComponent } from './modules/internal/technology/user/user.component';
 
 import { GenErrorComponent } from './modules/general/gen-error/gen-error.component';
 
