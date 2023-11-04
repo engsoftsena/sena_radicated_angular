@@ -70,22 +70,22 @@ export class ApiService {
     return this.http.get(urlApi);
   }
 
-  async proccessRecord(params: any): Promise<any> {
+  async resolveRegister(params: any): Promise<any> {
     const query = this.processParams(params);
     return new Promise((resolve, reject) => {
       this.proccessRegister(query).subscribe({
         next: (response: any) => {
           console.log(response);
-          // Resuelve la promesa con los datos obtenidos
+          // Resolver la promesa
           resolve(response);
         },
         error: (err: any) => {
-          // Rechaza la promesa en caso de error
+          // Rechazar la promesa
           console.error(err);
           reject(err);
         },
         complete: () => {
-          // Resuelve la promesa cuando se completa, si es necesario
+          // Resolver la promesa
           resolve(null);
         },
       });
@@ -163,5 +163,27 @@ export class ApiService {
     const urlApi = this.buildApiUrl(`mysql/html/select`, query);
     console.log(urlApi);
     return this.http.get(urlApi);
+  }
+
+  async resolveHtmlSelect(params: any): Promise<any> {
+    const query = this.processParams(params);
+    return new Promise((resolve, reject) => {
+      this.proccessHtmlSelect(query).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          // Resolver la promesa
+          resolve(response);
+        },
+        error: (err: any) => {
+          // Rechazar la promesa
+          console.error(err);
+          reject(err);
+        },
+        complete: () => {
+          // Resolver la promesa
+          resolve(null);
+        },
+      });
+    });
   }
 }

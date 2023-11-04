@@ -293,16 +293,16 @@ export class TgDocumentComponent implements OnInit {
         whereOperator: `=`,
         whereEqual: `${idtbl}`,
       };
-      const serviceRecord = await this.serviceApi.proccessRecord(params);
-      if (serviceRecord.data && Array.isArray(serviceRecord.data)) {
-        const hasErrors = serviceRecord.data.some((item: any) => 'error' in item);
+      const serviceResolve = await this.serviceApi.resolveRegister(params);
+      if (serviceResolve.data && Array.isArray(serviceResolve.data)) {
+        const hasErrors = serviceResolve.data.some((item: any) => 'error' in item);
         if (hasErrors) {
           let message = 'Ocurrió un error en la solicitud';
-          this.modalSystemData(message, serviceRecord);
+          this.modalSystemData(message, serviceResolve);
         } else {
           // Continuar con el proceso porque no hay errores
           this.modalOpen(modalForm);
-          this.modalMapData(modalOption, serviceRecord);
+          this.modalMapData(modalOption, serviceResolve);
         }
       } else {
         message = 'No tiene un formato en array.';

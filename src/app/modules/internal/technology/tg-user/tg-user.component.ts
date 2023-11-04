@@ -63,6 +63,7 @@ export class TgUserComponent implements OnInit {
           message = 'URL API Disponible.';
           console.log(message);
           this.resultColumn('1');
+          this.selectHtmlModal();
         } else {
           message = 'Error en la solicitud de la API';
           this.modalOpen('modalSystem');
@@ -241,9 +242,6 @@ export class TgUserComponent implements OnInit {
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
     if (modalElement) { new Modal(modalElement).show(); }
-    if (modalElement && modalElement.id == 'modalInsert') {
-      this.elementHtmlSelect(modalElement, 'insert_');
-    }
   }
 
   modalReset(modalForm: string) {
@@ -296,16 +294,16 @@ export class TgUserComponent implements OnInit {
         whereOperator: `=`,
         whereEqual: `${idtbl}`,
       };
-      const serviceRecord = await this.serviceApi.proccessRecord(params);
-      if (serviceRecord.data && Array.isArray(serviceRecord.data)) {
-        const hasErrors = serviceRecord.data.some((item: any) => 'error' in item);
+      const serviceResolve = await this.serviceApi.resolveRegister(params);
+      if (serviceResolve.data && Array.isArray(serviceResolve.data)) {
+        const hasErrors = serviceResolve.data.some((item: any) => 'error' in item);
         if (hasErrors) {
           let message = 'Ocurrió un error en la solicitud';
-          this.modalSystemData(message, serviceRecord);
+          this.modalSystemData(message, serviceResolve);
         } else {
           // Continuar con el proceso porque no hay errores
           this.modalOpen(modalForm);
-          this.modalMapData(modalOption, serviceRecord);
+          this.modalMapData(modalOption, serviceResolve);
         }
       } else {
         message = 'No tiene un formato en array.';
@@ -329,55 +327,85 @@ export class TgUserComponent implements OnInit {
 
   modalMapData(modal: any, service: any) {
     const data = service.data[0];
-    if (data) {
-      for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-          const inputField = document.querySelector(`#${modal}_${key}`) as HTMLInputElement;
-          if (inputField) { inputField.value = data[key] || ''; }
+    if (!data) { return; }
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const fieldHtml = document.querySelector(`#${modal}_${key}`);
+        if (fieldHtml instanceof HTMLInputElement) {
+          this.handleInputField(fieldHtml, data[key]);
+        }
+        if (fieldHtml instanceof HTMLSelectElement) {
+          this.handleSelectField(fieldHtml, data[key]);
         }
       }
     }
   }
 
-  elementHtmlSelect(modalForm: any, prefixRpl: any) {
+  handleInputField(inputElement: HTMLInputElement, value: any) {
+    inputElement.value = value || '';
+  }
+
+  handleSelectField(selectElement: HTMLSelectElement, value: any) {
+    const valueToSelect = (value || '').trim().toLowerCase();
+    const options = Array.from(selectElement.options);
+    for (const option of options) {
+      const optionValue = option.value.trim().toLowerCase();
+      if (optionValue === valueToSelect) {
+        option.selected = true;
+        break;
+      }
+    }
+  }
+
+  selectHtmlModal() {
+    let modalIds = ['modalInsert', 'modalUpdate'];
+    let prefixes = ['insert_', 'update_'];
+    let idHtmlSet = new Set<string>();
+    for (let i = 0; i < modalIds.length; i++) {
+      const modalItem = modalIds[i];
+      const modalElement = document.getElementById(modalItem);
+      if (modalElement) {
+        const prefix = prefixes[i];
+        // Obtén los valores de idHtml y agrega los valores únicos al Set
+        this.selectHtmlCharge(modalElement, prefix).forEach((value) => {
+          idHtmlSet.add(value);
+        });
+      }
+    }
+    // Convierte el Set en un array de strings
+    const idHtmlValues = Array.from(idHtmlSet);
+    // Llama a la función con valores reemplazados
+    this.selectHtmlSearch(prefixes, idHtmlValues);
+  }
+
+  selectHtmlCharge(modalForm: any, modalPrefix: any) {
     // Busca todos los elementos <select> dentro del modal
     const selectElements = modalForm.querySelectorAll('select') as HTMLSelectElement[];
-    // Itera sobre los elementos <select> y obtén sus atributos id y name
-    selectElements.forEach((selectElement: HTMLSelectElement) => {
-      const id = this.replacePrefixString(selectElement.id, prefixRpl);
-      const name = this.replacePrefixString(selectElement.name, prefixRpl);
-      // Haz lo que necesites con los valores de id y name
-      console.log(`ID: ${id}, Name: ${name}`);
-    });
     // Itera sobre los elementos <select> y obtén sus atributos id
-    const idOriginal = Array.from(selectElements).map((selectElement) => selectElement.id);
-    console.log(idOriginal);
-    // Itera sobre los elementos <select> y obtén sus atributos id
-    const idHtml = Array.from(selectElements).map((selectElement) =>
-      this.replacePrefixString(selectElement.id, prefixRpl)
+    const idHtml = Array.from(selectElements).map((item) =>
+      this.replacePrefixString(item.id, modalPrefix)
     );
-    // Llama a la función con valores reemplazados
-    this.searchHtmlSelect(prefixRpl, idHtml);
+    return idHtml;
   }
-  
-  searchHtmlSelect(prefixRpl: any, idHtml: string[]) {
+
+  selectHtmlSearch(modalPrefix: any, idHtml: string[]) {
     idHtml.forEach((item) => {
       // Construir parametros para sql
       const params = {
         table: this.tableComponent,
         htmlSelect: item,
       };
-      this.sendHtmlSelect(prefixRpl, params);
+      this.selectHtmlSend(modalPrefix, params);
     });
   }
 
-  sendHtmlSelect(prefixRpl: any, params: any) {
+  selectHtmlSend(modalPrefix: any, params: any) {
     let message = '';
     // Llama al servicio para enviar los datos al servidor
     this.serviceApi.proccessHtmlSelect(params).subscribe({
       next: (response) => {
-        //console.log(response);
-        this.mapSelect(prefixRpl, params, response);
+        console.log(response);
+        this.selectHtmlMap(modalPrefix, params, response);
       },
       error: (error) => {
         message = 'Error en la solicitud GET de la API';
@@ -389,18 +417,24 @@ export class TgUserComponent implements OnInit {
     });
   }
 
-  mapSelect(prefixRpl: any, params: any, response: any) {
-    let previousHtmlSelect = '';
-
+  selectHtmlMap(modalPrefixes: string[], params: any, response: any) {
     // Compara params.htmlSelect con response.query_params.htmlSelect
     if (params.htmlSelect === response.query_params.htmlSelect) {
-      const selectElements = document.querySelectorAll(`select[id^="${prefixRpl + params.htmlSelect}"]`) as unknown as HTMLSelectElement[];
+      const selectElements: HTMLSelectElement[] = [];
+      // Recorre los prefijos y crea las combinaciones
+      for (const prefix of modalPrefixes) {
+        const prefixComb = `${prefix}${params.htmlSelect}`;
+        const elements: HTMLSelectElement[] = Array.from(
+          document.querySelectorAll(`select[id^="${prefixComb}"]`)
+        );
+        selectElements.push(...elements);
+      }
       selectElements.forEach((selectElement) => {
         // Limpia las opciones actuales del select
         selectElement.innerHTML = '';
         // Agregar la opción "Seleccionar Registro"
         const selectPromptOption = document.createElement('option');
-        selectPromptOption.value = '';  // Opcional: Define el valor si es necesario
+        selectPromptOption.value = '';
         selectPromptOption.textContent = 'Seleccionar Registro';
         selectElement.appendChild(selectPromptOption);
         if (Array.isArray(response.data) && response.data.length > 0) {
@@ -419,8 +453,6 @@ export class TgUserComponent implements OnInit {
           selectElement.appendChild(noResultsOption);
         }
       });
-      // Actualiza la variable previousHtmlSelect
-      previousHtmlSelect = params.htmlSelect;
     }
   }
 
@@ -823,7 +855,7 @@ export class TgUserComponent implements OnInit {
     const inputElement = document.getElementById(inputId) as HTMLInputElement;
     if (inputElement) { inputElement.value = value; }
   }
-  
+
   replacePrefixArray(value: string, prefixes: string[]): string {
     for (const prefix of prefixes) {
       if (value.startsWith(prefix)) {
