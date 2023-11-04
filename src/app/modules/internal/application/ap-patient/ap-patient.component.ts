@@ -12,12 +12,10 @@ import { PatientService } from 'src/app/services/modules/application/ap-patient/
 import { fncInputChange } from 'src/app/functions/input-html';
 import { fncFormCollect } from 'src/app/functions/modal-form';
 import { fncRplPrefixString } from 'src/app/functions/replace-prefix';
-
+// Importar librerias de componentes
 import * as $ from 'jquery';
-import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-ap-patient',
   templateUrl: './ap-patient.component.html',

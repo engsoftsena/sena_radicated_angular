@@ -12,12 +12,10 @@ import { DocumentService } from 'src/app/services/modules/technology/tg-document
 import { fncInputChange } from 'src/app/functions/input-html';
 import { fncFormCollect } from 'src/app/functions/modal-form';
 import { fncRplPrefixString } from 'src/app/functions/replace-prefix';
-
+// Importar librerias de componentes
 import * as $ from 'jquery';
-import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-tg-document',
   templateUrl: './tg-document.component.html',
