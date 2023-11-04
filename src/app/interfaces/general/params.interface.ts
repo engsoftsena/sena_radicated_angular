@@ -5,4 +5,5 @@ export interface InterfaceParams {
   whereField?: string;
   whereOperator?: string;
   whereEqual?: string;
+  htmlSelect?: string;
 }

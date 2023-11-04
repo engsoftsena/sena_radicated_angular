@@ -241,6 +241,9 @@ export class TgUserComponent implements OnInit {
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
     if (modalElement) { new Modal(modalElement).show(); }
+    if (modalElement && modalElement.id == 'modalInsert') {
+      this.elementHtmlSelect(modalElement, 'insert_');
+    }
   }
 
   modalReset(modalForm: string) {
@@ -333,6 +336,91 @@ export class TgUserComponent implements OnInit {
           if (inputField) { inputField.value = data[key] || ''; }
         }
       }
+    }
+  }
+
+  elementHtmlSelect(modalForm: any, prefixRpl: any) {
+    // Busca todos los elementos <select> dentro del modal
+    const selectElements = modalForm.querySelectorAll('select') as HTMLSelectElement[];
+    // Itera sobre los elementos <select> y obtén sus atributos id y name
+    selectElements.forEach((selectElement: HTMLSelectElement) => {
+      const id = this.replacePrefixString(selectElement.id, prefixRpl);
+      const name = this.replacePrefixString(selectElement.name, prefixRpl);
+      // Haz lo que necesites con los valores de id y name
+      console.log(`ID: ${id}, Name: ${name}`);
+    });
+    // Itera sobre los elementos <select> y obtén sus atributos id
+    const idOriginal = Array.from(selectElements).map((selectElement) => selectElement.id);
+    console.log(idOriginal);
+    // Itera sobre los elementos <select> y obtén sus atributos id
+    const idHtml = Array.from(selectElements).map((selectElement) =>
+      this.replacePrefixString(selectElement.id, prefixRpl)
+    );
+    // Llama a la función con valores reemplazados
+    this.searchHtmlSelect(prefixRpl, idHtml);
+  }
+  
+  searchHtmlSelect(prefixRpl: any, idHtml: string[]) {
+    idHtml.forEach((item) => {
+      // Construir parametros para sql
+      const params = {
+        table: this.tableComponent,
+        htmlSelect: item,
+      };
+      this.sendHtmlSelect(prefixRpl, params);
+    });
+  }
+
+  sendHtmlSelect(prefixRpl: any, params: any) {
+    let message = '';
+    // Llama al servicio para enviar los datos al servidor
+    this.serviceApi.proccessHtmlSelect(params).subscribe({
+      next: (response) => {
+        //console.log(response);
+        this.mapSelect(prefixRpl, params, response);
+      },
+      error: (error) => {
+        message = 'Error en la solicitud GET de la API';
+        console.error(message, error);
+        this.modalOpen('modalSystem');
+        this.modalSystemJson(message, error);
+      },
+      complete: () => (false),
+    });
+  }
+
+  mapSelect(prefixRpl: any, params: any, response: any) {
+    let previousHtmlSelect = '';
+
+    // Compara params.htmlSelect con response.query_params.htmlSelect
+    if (params.htmlSelect === response.query_params.htmlSelect) {
+      const selectElements = document.querySelectorAll(`select[id^="${prefixRpl + params.htmlSelect}"]`) as unknown as HTMLSelectElement[];
+      selectElements.forEach((selectElement) => {
+        // Limpia las opciones actuales del select
+        selectElement.innerHTML = '';
+        // Agregar la opción "Seleccionar Registro"
+        const selectPromptOption = document.createElement('option');
+        selectPromptOption.value = '';  // Opcional: Define el valor si es necesario
+        selectPromptOption.textContent = 'Seleccionar Registro';
+        selectElement.appendChild(selectPromptOption);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          // Si hay datos, agrega las opciones
+          response.data.forEach((item: any) => {
+            const option = document.createElement('option');
+            option.value = item.id_register;
+            option.textContent = item.os_name;
+            selectElement.appendChild(option);
+          });
+        } else {
+          // Si no hay datos, agrega la opción "Sin Resultados"
+          const noResultsOption = document.createElement('option');
+          noResultsOption.value = '';
+          noResultsOption.textContent = 'Sin Resultados';
+          selectElement.appendChild(noResultsOption);
+        }
+      });
+      // Actualiza la variable previousHtmlSelect
+      previousHtmlSelect = params.htmlSelect;
     }
   }
 
@@ -734,5 +822,21 @@ export class TgUserComponent implements OnInit {
   htmlInputChange(inputId: string, value: string) {
     const inputElement = document.getElementById(inputId) as HTMLInputElement;
     if (inputElement) { inputElement.value = value; }
+  }
+  
+  replacePrefixArray(value: string, prefixes: string[]): string {
+    for (const prefix of prefixes) {
+      if (value.startsWith(prefix)) {
+        return value.replace(prefix, '');
+      }
+    }
+    return value;
+  }
+
+  replacePrefixString(value: string, prefix: string): string {
+    if (value.startsWith(prefix)) {
+      return value.replace(prefix, '');
+    }
+    return value;
   }
 }

@@ -157,4 +157,11 @@ export class ApiService {
       })
     );
   }
+
+  proccessHtmlSelect(params: any) {
+    const query = this.processParams(params);
+    const urlApi = this.buildApiUrl(`mysql/html/select`, query);
+    console.log(urlApi);
+    return this.http.get(urlApi);
+  }
 }
