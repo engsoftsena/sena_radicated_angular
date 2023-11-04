@@ -10,6 +10,7 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 import { PatientService } from 'src/app/services/modules/application/ap-patient/ap-patient.service';
 // Importacion de Funciones Generales
 import { fncInputChange } from 'src/app/functions/input-html';
+import { fncFormCollect } from 'src/app/functions/modal-form';
 import { fncRplPrefixString } from 'src/app/functions/replace-prefix';
 
 import * as $ from 'jquery';
@@ -459,40 +460,8 @@ export class ApPatientComponent implements OnInit {
     }
   }
 
-  valGetElementById(elementId: string): HTMLElement | null {
-    const element = document.getElementById(elementId);
-    let errorMessage = `Elemento HTML con ID '${elementId}' no existe`;
-    if (!element) { console.error(errorMessage); }
-    return element;
-  }
-
-  formCollect(modalForm: any, formField: any) {
-    const { formId, formPrefix } = modalForm;
-    const formData: { [key: string]: string } = {};
-
-    let valFormId = this.valGetElementById(formId);
-    if (!valFormId) { return formData }
-
-    let valformField = this.valGetElementById(formField);
-    if (!valformField) { return formData }
-
-    const allElements = Array.from(valformField.querySelectorAll('*'));
-    for (const element of allElements) {
-      if (element instanceof HTMLInputElement || element instanceof HTMLSelectElement) {
-        const fieldName = element.getAttribute('name');
-        if (fieldName) {
-          const lizedField = fieldName.replace(formPrefix, '');
-          formData[lizedField] = element.value;
-        } else {
-          console.error('No existe la propiedad name');
-        }
-      }
-    }
-    return formData;
-  }
-
   formDelete(modalForm: any) {
-    const whereForm = this.formCollect(modalForm, 'deleteWhere');
+    const whereForm = fncFormCollect(modalForm, 'deleteWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
 
@@ -546,7 +515,7 @@ export class ApPatientComponent implements OnInit {
   }
 
   formInsert(modalForm: any) {
-    const formData = this.formCollect(modalForm, 'insertField');
+    const formData = fncFormCollect(modalForm, 'insertField');
     formData[this.tableSysEliminate] = '1';
     const dataColumn = Object.keys(formData).join(',');
     return { formData, dataColumn, };
@@ -591,11 +560,11 @@ export class ApPatientComponent implements OnInit {
   }
 
   formRemove(modalForm: any) {
-    const formData = this.formCollect(modalForm, 'removeField');
+    const formData = fncFormCollect(modalForm, 'removeField');
     formData[this.tableSysEliminate] = '2';
     const dataColumn = Object.keys(formData).join(',');
 
-    const whereForm = this.formCollect(modalForm, 'removeWhere');
+    const whereForm = fncFormCollect(modalForm, 'removeWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
 
@@ -640,11 +609,11 @@ export class ApPatientComponent implements OnInit {
   }
 
   formRestore(modalForm: any) {
-    const formData = this.formCollect(modalForm, 'restoreField');
+    const formData = fncFormCollect(modalForm, 'restoreField');
     formData[this.tableSysEliminate] = '1';
     const dataColumn = Object.keys(formData).join(',');
 
-    const whereForm = this.formCollect(modalForm, 'restoreWhere');
+    const whereForm = fncFormCollect(modalForm, 'restoreWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
 
@@ -689,10 +658,10 @@ export class ApPatientComponent implements OnInit {
   }
 
   formUpdate(modalForm: any) {
-    const formData = this.formCollect(modalForm, 'updateField');
+    const formData = fncFormCollect(modalForm, 'updateField');
     const dataColumn = Object.keys(formData).join(',');
 
-    const whereForm = this.formCollect(modalForm, 'updateWhere');
+    const whereForm = fncFormCollect(modalForm, 'updateWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
 
