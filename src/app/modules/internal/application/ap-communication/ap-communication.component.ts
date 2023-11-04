@@ -8,6 +8,9 @@ import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.se
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
 import { CommunicationService } from 'src/app/services/modules/application/ap-communication/ap-communication.service';
+// Importacion de Funciones Generales
+import { fncInputChange } from 'src/app/functions/input-html';
+import { fncRplPrefixString } from 'src/app/functions/replace-prefix';
 
 import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
@@ -383,7 +386,7 @@ export class ApCommunicationComponent implements OnInit {
     const selectElements = modalForm.querySelectorAll('select') as HTMLSelectElement[];
     // Itera sobre los elementos <select> y obtén sus atributos id
     const idHtml = Array.from(selectElements).map((item) =>
-      this.replacePrefixString(item.id, modalPrefix)
+      fncRplPrefixString(item.id, modalPrefix)
     );
     return idHtml;
   }
@@ -606,7 +609,7 @@ export class ApCommunicationComponent implements OnInit {
   }
 
   actionRemove() {
-    this.htmlInputChange('remove_tb_eliminate', '2');
+    fncInputChange('remove_tb_eliminate', '2');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRemove',
@@ -655,7 +658,7 @@ export class ApCommunicationComponent implements OnInit {
   }
 
   actionRestore() {
-    this.htmlInputChange('restore_tb_eliminate', '1');
+    fncInputChange('restore_tb_eliminate', '1');
     // Parametros de HTML
     const modalForm = {
       'modalId': 'modalRestore',
@@ -847,26 +850,5 @@ export class ApCommunicationComponent implements OnInit {
       icon: swalIcon,
       title: `<h2>${swalTitle}!</h2>`,
     });
-  }
-
-  htmlInputChange(inputId: string, value: string) {
-    const inputElement = document.getElementById(inputId) as HTMLInputElement;
-    if (inputElement) { inputElement.value = value; }
-  }
-
-  replacePrefixArray(value: string, prefixes: string[]): string {
-    for (const prefix of prefixes) {
-      if (value.startsWith(prefix)) {
-        return value.replace(prefix, '');
-      }
-    }
-    return value;
-  }
-
-  replacePrefixString(value: string, prefix: string): string {
-    if (value.startsWith(prefix)) {
-      return value.replace(prefix, '');
-    }
-    return value;
   }
 }
