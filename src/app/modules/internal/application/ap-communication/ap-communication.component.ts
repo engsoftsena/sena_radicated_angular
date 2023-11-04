@@ -9,6 +9,7 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
 import { CommunicationService } from 'src/app/services/modules/application/ap-communication/ap-communication.service';
 // Importacion de Funciones Generales
+import { expTableRegister, expTableRemove } from 'src/app/functions/data-table';
 import { fncInputChange } from 'src/app/functions/input-html';
 import {
   expFormCollect,
@@ -86,8 +87,6 @@ export class ApCommunicationComponent implements OnInit {
     });
   }
 
-  /* */
-
   resultColumn(fieldDeleted: string) {
     const params = {
       table: this.tableComponent,
@@ -146,8 +145,6 @@ export class ApCommunicationComponent implements OnInit {
     });
   }
 
-  /* */
-
   getRegister(data: any) {
     const params = {
       table: this.tableComponent,
@@ -179,8 +176,6 @@ export class ApCommunicationComponent implements OnInit {
     });
   }
 
-  /* */
-
   getDataError(response: any): true | undefined {
     console.log(response);
     let message;
@@ -198,8 +193,6 @@ export class ApCommunicationComponent implements OnInit {
     return undefined;
   }
 
-  /* */
-
   tableDataValue(load: boolean = false) {
     if (this.tableData && this.tableData.nativeElement instanceof HTMLSelectElement) {
       const selectedValue = this.tableData.nativeElement.value;
@@ -210,40 +203,14 @@ export class ApCommunicationComponent implements OnInit {
 
   tableDataFilter(delValue: any, load: boolean = false) {
     if (load) { this.resultColumn(delValue); }
-    if (delValue == '1') { this.tableDataRegister(); }
-    if (delValue == '2') { this.tableDataRemove(); }
+    if (delValue == '1') { expTableRegister(); }
+    if (delValue == '2') { expTableRemove(); }
   }
-
-  tableDataRegister() {
-    this.tableDataBtn('remove', 'modalInsertBtn');
-    this.tableDataBtn('remove', 'modalUpdateBtn');
-    this.tableDataBtn('remove', 'modalRemoveBtn');
-    this.tableDataBtn('append', 'modalRestoreBtn');
-    this.tableDataBtn('append', 'modalDeleteBtn');
-  }
-
-  tableDataRemove() {
-    this.tableDataBtn('append', 'modalInsertBtn');
-    this.tableDataBtn('append', 'modalUpdateBtn');
-    this.tableDataBtn('append', 'modalRemoveBtn');
-    this.tableDataBtn('remove', 'modalRestoreBtn');
-    this.tableDataBtn('remove', 'modalDeleteBtn');
-  }
-
-  tableDataBtn(classList: any, reference: any) {
-    let btnData = document.getElementById(reference) as HTMLFormElement;
-    if (classList == 'append') { btnData.classList.add('d-none'); }
-    if (classList == 'remove') { btnData.classList.remove('d-none'); }
-  }
-
-  /* */
 
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
     if (modalElement) { new Modal(modalElement).show(); }
   }
-
-  /* */
 
   modalSystemData(message: any, response: any) {
     console.error(message, response);
@@ -274,8 +241,6 @@ export class ApCommunicationComponent implements OnInit {
     this.modalOpen('modalSystem');
     this.isLoading = false;
   }
-
-  /* */
 
   async modalRecord(modalForm: string, modalOption: string) {
     let message;
@@ -321,8 +286,6 @@ export class ApCommunicationComponent implements OnInit {
       this.swalFireMssg(swalOptions);
     }
   }
-
-  /* */
 
   selectHtmlModal() {
     const { prefixes, idHtmlValues } = expSelectHtmlIds();

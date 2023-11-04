@@ -9,6 +9,7 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
 import { RoleService } from 'src/app/services/modules/technology/tg-role/tg-role.service';
 // Importacion de Funciones Generales
+import { expTableRegister, expTableRemove } from 'src/app/functions/data-table';
 import { fncInputChange } from 'src/app/functions/input-html';
 import {
   expFormCollect,
@@ -202,30 +203,8 @@ export class TgRoleComponent implements OnInit {
 
   tableDataFilter(delValue: any, load: boolean = false) {
     if (load) { this.resultColumn(delValue); }
-    if (delValue == '1') { this.tableDataRegister(); }
-    if (delValue == '2') { this.tableDataRemove(); }
-  }
-
-  tableDataRegister() {
-    this.tableDataBtn('remove', 'modalInsertBtn');
-    this.tableDataBtn('remove', 'modalUpdateBtn');
-    this.tableDataBtn('remove', 'modalRemoveBtn');
-    this.tableDataBtn('append', 'modalRestoreBtn');
-    this.tableDataBtn('append', 'modalDeleteBtn');
-  }
-
-  tableDataRemove() {
-    this.tableDataBtn('append', 'modalInsertBtn');
-    this.tableDataBtn('append', 'modalUpdateBtn');
-    this.tableDataBtn('append', 'modalRemoveBtn');
-    this.tableDataBtn('remove', 'modalRestoreBtn');
-    this.tableDataBtn('remove', 'modalDeleteBtn');
-  }
-
-  tableDataBtn(classList: any, reference: any) {
-    let btnData = document.getElementById(reference) as HTMLFormElement;
-    if (classList == 'append') { btnData.classList.add('d-none'); }
-    if (classList == 'remove') { btnData.classList.remove('d-none'); }
+    if (delValue == '1') { expTableRegister(); }
+    if (delValue == '2') { expTableRemove(); }
   }
 
   modalOpen(modalForm: string) {
