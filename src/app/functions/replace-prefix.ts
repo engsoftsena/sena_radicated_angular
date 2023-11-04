@@ -1,4 +1,4 @@
-export function fncRplPrefixArray(value: string, prefixes: string[]): string {
+export function expRplPrefixArray(value: string, prefixes: string[]): string {
   for (const prefix of prefixes) {
     if (value.startsWith(prefix)) {
       return value.replace(prefix, '');
@@ -7,7 +7,7 @@ export function fncRplPrefixArray(value: string, prefixes: string[]): string {
   return value;
 }
 
-export function fncRplPrefixString(value: string, prefix: string): string {
+export function expRplPrefixString(value: string, prefix: string): string {
   if (value.startsWith(prefix)) {
     return value.replace(prefix, '');
   }

@@ -34,7 +34,7 @@ export function expFormCollect(modalForm: any, formField: any) {
 
 /* */
 
-function modalClass() {
+export function expModalClass() {
   // Buscar el elemento con las clases
   const modalBackdrop = document.querySelector('.modal-backdrop.fade.show');
   if (modalBackdrop) {
@@ -51,7 +51,7 @@ export function expModalClose(modalForm: string) {
   // JavaScript para cerrar la ventana modal
   const miModal = document.getElementById(modalForm);
   if (miModal) { miModal.style.display = 'none'; }
-  modalClass();
+  expModalClass();
 }
 
 export function expModalReset(modalForm: string) {

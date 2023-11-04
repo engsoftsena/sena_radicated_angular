@@ -10,9 +10,14 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 import { ResourceService } from 'src/app/services/modules/application/ap-resource/ap-resource.service';
 // Importacion de Funciones Generales
 import { fncInputChange } from 'src/app/functions/input-html';
-import { expFormCollect, expModalClose, expModalMapData, expModalReset } from 'src/app/functions/modal-form';
-import { fncRplPrefixString } from 'src/app/functions/replace-prefix';
-// Importar librerias de componentes
+import {
+  expFormCollect,
+  expModalClass,
+  expModalClose,
+  expModalMapData,
+  expModalReset
+} from 'src/app/functions/modal-form';
+import { expSelectHtmlIds } from 'src/app/functions/select-html';
 import * as $ from 'jquery';
 import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
@@ -48,6 +53,8 @@ export class ApResourceComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDataValue();
   }
+  
+  modalClass() { expModalClass(); }
 
   checkEndpoint() {
     if (this.serviceEndpoint.getCheckUrl()) {
@@ -302,34 +309,9 @@ export class ApResourceComponent implements OnInit {
   }
 
   selectHtmlModal() {
-    let modalIds = ['modalInsert', 'modalUpdate'];
-    let prefixes = ['insert_', 'update_'];
-    let idHtmlSet = new Set<string>();
-    for (let i = 0; i < modalIds.length; i++) {
-      const modalItem = modalIds[i];
-      const modalElement = document.getElementById(modalItem);
-      if (modalElement) {
-        const prefix = prefixes[i];
-        // Obtén los valores de idHtml y agrega los valores únicos al Set
-        this.selectHtmlCharge(modalElement, prefix).forEach((value) => {
-          idHtmlSet.add(value);
-        });
-      }
-    }
-    // Convierte el Set en un array de strings
-    const idHtmlValues = Array.from(idHtmlSet);
+    const { prefixes, idHtmlValues } = expSelectHtmlIds();
     // Llama a la función con valores reemplazados
     this.selectHtmlSearch(prefixes, idHtmlValues);
-  }
-
-  selectHtmlCharge(modalForm: any, modalPrefix: any) {
-    // Busca todos los elementos <select> dentro del modal
-    const selectElements = modalForm.querySelectorAll('select') as HTMLSelectElement[];
-    // Itera sobre los elementos <select> y obtén sus atributos id
-    const idHtml = Array.from(selectElements).map((item) =>
-      fncRplPrefixString(item.id, modalPrefix)
-    );
-    return idHtml;
   }
 
   selectHtmlSearch(modalPrefix: any, idHtml: string[]) {
