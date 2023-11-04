@@ -18,7 +18,7 @@ import {
   expModalMapData,
   expModalReset
 } from 'src/app/functions/modal-form';
-import { expSelectHtmlIds } from 'src/app/functions/select-html';
+import { expSelectHtmlIds, expSelectHtmlMap } from 'src/app/functions/select-html';
 import * as $ from 'jquery';
 import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
@@ -310,7 +310,7 @@ export class TgRoleComponent implements OnInit {
     this.serviceApi.proccessHtmlSelect(params).subscribe({
       next: (response) => {
         console.log(response);
-        this.selectHtmlMap(modalPrefix, params, response);
+        expSelectHtmlMap(modalPrefix, params, response);
       },
       error: (error) => {
         message = 'Error en la solicitud GET de la API';
@@ -320,45 +320,6 @@ export class TgRoleComponent implements OnInit {
       },
       complete: () => (false),
     });
-  }
-
-  selectHtmlMap(modalPrefixes: string[], params: any, response: any) {
-    // Compara params.htmlSelect con response.query_params.htmlSelect
-    if (params.htmlSelect === response.query_params.htmlSelect) {
-      const selectElements: HTMLSelectElement[] = [];
-      // Recorre los prefijos y crea las combinaciones
-      for (const prefix of modalPrefixes) {
-        const prefixComb = `${prefix}${params.htmlSelect}`;
-        const elements: HTMLSelectElement[] = Array.from(
-          document.querySelectorAll(`select[id^="${prefixComb}"]`)
-        );
-        selectElements.push(...elements);
-      }
-      selectElements.forEach((selectElement) => {
-        // Limpia las opciones actuales del select
-        selectElement.innerHTML = '';
-        // Agregar la opción "Seleccionar Registro"
-        const selectPromptOption = document.createElement('option');
-        selectPromptOption.value = '';
-        selectPromptOption.textContent = 'Seleccionar Registro';
-        selectElement.appendChild(selectPromptOption);
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          // Si hay datos, agrega las opciones
-          response.data.forEach((item: any) => {
-            const option = document.createElement('option');
-            option.value = item.id_register;
-            option.textContent = item.os_name;
-            selectElement.appendChild(option);
-          });
-        } else {
-          // Si no hay datos, agrega la opción "Sin Resultados"
-          const noResultsOption = document.createElement('option');
-          noResultsOption.value = '';
-          noResultsOption.textContent = 'Sin Resultados';
-          selectElement.appendChild(noResultsOption);
-        }
-      });
-    }
   }
 
   formDelete(modalForm: any) {
