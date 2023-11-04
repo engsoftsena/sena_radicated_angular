@@ -10,7 +10,7 @@ import { TableService } from 'src/app/services/functions/table/table.service';
 import { DocumentService } from 'src/app/services/modules/technology/tg-document/tg-document.service';
 // Importacion de Funciones Generales
 import { fncInputChange } from 'src/app/functions/input-html';
-import { fncFormCollect } from 'src/app/functions/modal-form';
+import { expFormCollect, expModalClose, expModalMapData, expModalReset } from 'src/app/functions/modal-form';
 import { fncRplPrefixString } from 'src/app/functions/replace-prefix';
 // Importar librerias de componentes
 import * as $ from 'jquery';
@@ -190,13 +190,13 @@ export class TgDocumentComponent implements OnInit {
       const selectedValue = this.tableData.nativeElement.value;
       this.deletedData = selectedValue;
     }
-    this.tableDataFilter(load);
+    this.tableDataFilter(this.deletedData, load);
   }
 
-  tableDataFilter(load: boolean = false) {
-    if (load) { this.resultColumn(this.deletedData); }
-    if (this.deletedData == '1') { this.tableDataRegister(); }
-    if (this.deletedData == '2') { this.tableDataRemove(); }
+  tableDataFilter(delValue: any, load: boolean = false) {
+    if (load) { this.resultColumn(delValue); }
+    if (delValue == '1') { this.tableDataRegister(); }
+    if (delValue == '2') { this.tableDataRemove(); }
   }
 
   tableDataRegister() {
@@ -221,35 +221,9 @@ export class TgDocumentComponent implements OnInit {
     if (classList == 'remove') { btnData.classList.remove('d-none'); }
   }
 
-  modalClass() {
-    // Buscar el elemento con las clases
-    const modalBackdrop = document.querySelector('.modal-backdrop.fade.show');
-    if (modalBackdrop) {
-      modalBackdrop.remove();
-      modalBackdrop.classList.remove(
-        'modal-backdrop',
-        'fade',
-        'show'
-      );
-    }
-  }
-
-  modalClose(modalForm: string) {
-    // JavaScript para cerrar la ventana modal
-    const miModal = document.getElementById(modalForm);
-    if (miModal) { miModal.style.display = 'none'; }
-    this.modalClass();
-  }
-
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
     if (modalElement) { new Modal(modalElement).show(); }
-  }
-
-  modalReset(modalForm: string) {
-    const formulario = document.getElementById(modalForm) as HTMLFormElement;
-    // Verificar si el formulario existe y es un elemento de formulario antes de resetearlo
-    if (formulario && formulario instanceof HTMLFormElement) { formulario.reset(); }
   }
 
   modalSystemData(message: any, response: any) {
@@ -305,7 +279,7 @@ export class TgDocumentComponent implements OnInit {
         } else {
           // Continuar con el proceso porque no hay errores
           this.modalOpen(modalForm);
-          this.modalMapData(modalOption, serviceResolve);
+          expModalMapData(modalOption, serviceResolve);
         }
       } else {
         message = 'No tiene un formato en array.';
@@ -324,38 +298,6 @@ export class TgDocumentComponent implements OnInit {
         'swalTitle': 'Advertencia',
       };
       this.swalFireMssg(swalOptions);
-    }
-  }
-
-  modalMapData(modal: any, service: any) {
-    const data = service.data[0];
-    if (!data) { return; }
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        const fieldHtml = document.querySelector(`#${modal}_${key}`);
-        if (fieldHtml instanceof HTMLInputElement) {
-          this.handleInputField(fieldHtml, data[key]);
-        }
-        if (fieldHtml instanceof HTMLSelectElement) {
-          this.handleSelectField(fieldHtml, data[key]);
-        }
-      }
-    }
-  }
-
-  handleInputField(inputElement: HTMLInputElement, value: any) {
-    inputElement.value = value || '';
-  }
-
-  handleSelectField(selectElement: HTMLSelectElement, value: any) {
-    const valueToSelect = (value || '').trim().toLowerCase();
-    const options = Array.from(selectElement.options);
-    for (const option of options) {
-      const optionValue = option.value.trim().toLowerCase();
-      if (optionValue === valueToSelect) {
-        option.selected = true;
-        break;
-      }
     }
   }
 
@@ -459,7 +401,7 @@ export class TgDocumentComponent implements OnInit {
   }
 
   formDelete(modalForm: any) {
-    const whereForm = fncFormCollect(modalForm, 'deleteWhere');
+    const whereForm = expFormCollect(modalForm, 'deleteWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
 
@@ -513,7 +455,7 @@ export class TgDocumentComponent implements OnInit {
   }
 
   formInsert(modalForm: any) {
-    const formData = fncFormCollect(modalForm, 'insertField');
+    const formData = expFormCollect(modalForm, 'insertField');
     formData[this.tableSysEliminate] = '1';
     const dataColumn = Object.keys(formData).join(',');
     return { formData, dataColumn, };
@@ -558,11 +500,11 @@ export class TgDocumentComponent implements OnInit {
   }
 
   formRemove(modalForm: any) {
-    const formData = fncFormCollect(modalForm, 'removeField');
+    const formData = expFormCollect(modalForm, 'removeField');
     formData[this.tableSysEliminate] = '2';
     const dataColumn = Object.keys(formData).join(',');
 
-    const whereForm = fncFormCollect(modalForm, 'removeWhere');
+    const whereForm = expFormCollect(modalForm, 'removeWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
 
@@ -607,11 +549,11 @@ export class TgDocumentComponent implements OnInit {
   }
 
   formRestore(modalForm: any) {
-    const formData = fncFormCollect(modalForm, 'restoreField');
+    const formData = expFormCollect(modalForm, 'restoreField');
     formData[this.tableSysEliminate] = '1';
     const dataColumn = Object.keys(formData).join(',');
 
-    const whereForm = fncFormCollect(modalForm, 'restoreWhere');
+    const whereForm = expFormCollect(modalForm, 'restoreWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
 
@@ -656,10 +598,10 @@ export class TgDocumentComponent implements OnInit {
   }
 
   formUpdate(modalForm: any) {
-    const formData = fncFormCollect(modalForm, 'updateField');
+    const formData = expFormCollect(modalForm, 'updateField');
     const dataColumn = Object.keys(formData).join(',');
 
-    const whereForm = fncFormCollect(modalForm, 'updateWhere');
+    const whereForm = expFormCollect(modalForm, 'updateWhere');
     const whereColumn = Object.keys(whereForm).join(',');
     const whereData = Object.values(whereForm).join(',');
 
@@ -741,8 +683,8 @@ export class TgDocumentComponent implements OnInit {
 
   responseSuccess(modalForm: any, response: any) {
     const { modalId, formId } = modalForm;
-    this.modalClose(modalId);
-    this.modalReset(formId);
+    expModalClose(modalId);
+    expModalReset(formId);
     const answer = response.data
       .filter((item: any) => 'success' in item)
       .map((item: { success: any; }) => item.success)
