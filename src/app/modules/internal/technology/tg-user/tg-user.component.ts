@@ -62,7 +62,7 @@ export class TgUserComponent implements OnInit {
         if (response.status === 200) {
           message = 'URL API Disponible.';
           console.log(message);
-          this.resultColumn('1');
+          this.resultColumn(this.deletedData);
           this.selectHtmlModal();
         } else {
           message = 'Error en la solicitud de la API';
@@ -477,7 +477,6 @@ export class TgUserComponent implements OnInit {
     for (const element of allElements) {
       if (element instanceof HTMLInputElement || element instanceof HTMLSelectElement) {
         const fieldName = element.getAttribute('name');
-
         if (fieldName) {
           const lizedField = fieldName.replace(formPrefix, '');
           formData[lizedField] = element.value;
@@ -486,7 +485,6 @@ export class TgUserComponent implements OnInit {
         }
       }
     }
-
     return formData;
   }
 
@@ -834,7 +832,7 @@ export class TgUserComponent implements OnInit {
     }).then((result) => {
       /* Puedes agregar un manejo adicional aquí si lo deseas */
       if (result.dismiss === Swal.DismissReason.timer) {
-        this.resultColumn('1');
+        this.resultColumn(this.deletedData);
       }
     });
   }
