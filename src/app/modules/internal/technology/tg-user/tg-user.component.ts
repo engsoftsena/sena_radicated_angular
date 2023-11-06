@@ -45,7 +45,7 @@ export class TgUserComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  userData: TgUserModule[] = [];
+  responseData: [] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -55,7 +55,7 @@ export class TgUserComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDataValue();
   }
-  
+
   modalClass() { expModalClass(); }
 
   checkEndpoint() {
@@ -126,12 +126,12 @@ export class TgUserComponent implements OnInit {
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
           // Mapea los datos del servicio al formato esperado
-          this.userData = response.data;
-          console.log(this.userData);
+          this.responseData = response.data;
+          console.log(this.responseData);
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
-            this.userData,
+            this.responseData,
             this.columnSet,
             []
           );
@@ -159,12 +159,12 @@ export class TgUserComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.userData = response.data;
-        console.log(this.userData);
+        this.responseData = response.data;
+        console.log(this.responseData);
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
-          this.userData,
+          this.responseData,
           this.columnSet,
           []
         );

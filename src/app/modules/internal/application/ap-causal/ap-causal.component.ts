@@ -44,7 +44,7 @@ export class ApCausalComponent implements OnInit {
   deletedData: any;
   isLoading: boolean = false;
   columnSet: [] | undefined;
-  causalData: ApCausalModule[] = [];
+  responseData: [] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -54,7 +54,7 @@ export class ApCausalComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDataValue();
   }
-  
+
   modalClass() { expModalClass(); }
 
   checkEndpoint() {
@@ -125,12 +125,12 @@ export class ApCausalComponent implements OnInit {
         const checkDataError = this.getDataError(response);
         if (checkDataError) {
           // Mapea los datos del servicio al formato esperado
-          this.causalData = response.data;
-          console.log(this.causalData);
+          this.responseData = response.data;
+          console.log(this.responseData);
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
-            this.causalData,
+            this.responseData,
             this.columnSet,
             []
           );
@@ -158,12 +158,12 @@ export class ApCausalComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
         // Mapea los datos del servicio al formato esperado
-        this.causalData = response.data;
-        console.log(this.causalData);
+        this.responseData = response.data;
+        console.log(this.responseData);
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
-          this.causalData,
+          this.responseData,
           this.columnSet,
           []
         );
