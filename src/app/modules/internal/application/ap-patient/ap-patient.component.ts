@@ -70,8 +70,6 @@ export class ApPatientComponent implements OnInit {
     this.serviceEndpoint.getAvailability().subscribe({
       next: (response) => {
         if (response.status === 200) {
-          message = 'URL API Disponible.';
-          console.log(message);
           this.resultColumn(this.deletedData);
           this.selectHtmlModal();
         } else {
