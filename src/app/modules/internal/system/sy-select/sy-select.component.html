@@ -260,7 +260,8 @@ enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" ro
                 <div class="input-group input-group-sm">
                   <select name="insert_sy_module" id="insert_sy_module"
                   class="custom-select form-control"
-                  required="" autocomplete="off"></select>
+                  required="" autocomplete="off"
+                  (change)="multipleHtmlModalGeneral($event);"></select>
                   <div class="invalid-feedback">
                     <span>Selecciona un valor para el campo.</span>
                   </div>
@@ -277,7 +278,8 @@ enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" ro
                 <div class="input-group input-group-sm">
                   <select name="insert_sy_relation" id="insert_sy_relation"
                   class="custom-select form-control"
-                  required="" autocomplete="off"></select>
+                  required="" autocomplete="off"
+                  (change)="multipleHtmlModalGeneral($event);"></select>
                   <div class="invalid-feedback">
                     <span>Selecciona un valor para el campo.</span>
                   </div>

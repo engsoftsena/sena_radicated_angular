@@ -680,4 +680,105 @@ export class SySelectComponent implements OnInit {
       title: `<h2>${swalTitle}!</h2>`,
     });
   }
+
+  async resultRegister(params: any) {
+    let message;
+    const serviceResolve = await this.serviceApi.resolveRegister(params);
+    if (serviceResolve.data && Array.isArray(serviceResolve.data)) {
+      const hasErrors = serviceResolve.data.some((item: any) => 'error' in item);
+      if (hasErrors) {
+        message = 'Ocurrió un error en la solicitud';
+        this.modalSystemData(message, serviceResolve);
+      }
+    } else {
+      message = 'No tiene un formato en array.';
+      const swalOptions = {
+        'swalMessage': message,
+        'swalIcon': 'error',
+        'swalTitle': 'Error',
+      };
+      this.swalFireMssg(swalOptions);
+    }
+    return serviceResolve;
+  }
+
+  async multipleHtmlModalGeneral(event: Event) {
+    // Determinar el prefijo
+    let modalPrefix: string[] = [];
+    let selectValue = '', tblSelect = '', tblMulti = '';
+    // Acceder al elemento select usando el evento
+    const selectElement = event.target as HTMLSelectElement;
+    // Obtener el ID del select
+    const selectId = selectElement.id;
+    // Obtener el valor seleccionado
+    selectValue = selectElement.value;
+    // Agregar prefijos a la variable
+    if (selectId.startsWith('insert_')) { modalPrefix.push('insert_'); }
+    if (selectId.startsWith('update_')) { modalPrefix.push('update_'); }
+    // Quitar el prefijo del ID
+    tblMulti = selectId.replace(modalPrefix[0], '');
+    if (tblMulti === 'sy_module') { tblSelect = 'sy_relation'; }
+    if (tblMulti === 'sy_relation') {
+      const rtnSelectVal = await this.multiDataSyRelation(event);
+      tblSelect = 'sy_attribute';
+      tblMulti = 'sy_module';
+      selectValue = rtnSelectVal;
+    }
+    // Construir parametros para sql
+    const params = {
+      table: this.tableComponent,
+      htmlSelect: tblSelect,
+      htmlMulti: tblMulti,
+      multiValue: selectValue,
+    };
+    // Llama a la función con valores reemplazados
+    this.selectHtmlSend(modalPrefix, params);
+  }
+
+  async multiDataSyRelation(event: Event) {
+    // Acceder al elemento select usando el evento
+    const selectElement = event.target as HTMLSelectElement;
+    // Obtener el texto del option seleccionado
+    const selectText = selectElement.options[selectElement.selectedIndex].text;
+
+    // Separar el texto en prefijo y name
+    const selectSplit = selectText.split('_');
+    const textPrefix = selectSplit[0];
+    const textName = selectSplit.slice(1).join('_');
+    
+    const paramsPrefix = this.multiParamsPrefix(textPrefix);
+    const resultPrefix = await this.resultRegister(paramsPrefix);
+    
+    let syPrefixIdReg = resultPrefix?.data?.[0]?.id_register ?? 0;
+
+    const paramsModule = this.multiParamsModule(textName, syPrefixIdReg);
+    const resultModule = await this.resultRegister(paramsModule);
+    
+    let syModuleIdReg = resultModule?.data?.[0]?.id_register ?? 0;
+    return syModuleIdReg;
+  }
+
+  multiParamsModule(osTable: any, syPrefix: any) {
+    const params = {
+      table: `sy_module`,
+      column: '*',
+      whereCond: `WHERE,AND`,
+      whereField: `os_table,sy_prefix`,
+      whereOperator: `=,=`,
+      whereEqual: `${osTable},${syPrefix}`,
+    };
+    return params;
+  }
+
+  multiParamsPrefix(osPrefix: any) {
+    const params = {
+      table: `sy_prefix`,
+      column: '*',
+      whereCond: `WHERE`,
+      whereField: `os_prefix`,
+      whereOperator: `=`,
+      whereEqual: `${osPrefix}`,
+    };
+    return params;
+  }
 }

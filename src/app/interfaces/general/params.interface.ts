@@ -6,4 +6,6 @@ export interface InterfaceParams {
   whereOperator?: string;
   whereEqual?: string;
   htmlSelect?: string;
+  htmlMulti?: string;
+  multiValue?: string;
 }
