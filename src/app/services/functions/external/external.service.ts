@@ -1,27 +1,31 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 // Importacion de Librerias
-import { catchError, throwError } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 // Importacion de Servicios
-import { ApiService } from 'src/app/services/functions/api/api.service';
-import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
+import { EndpointService } from '../endpoint/endpoint.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoleService {
-  private urlEndPoint:string = Environment.API_URL;
-
+export class ExternalService {  
   constructor(
     private http: HttpClient,
-    private serviceApi: ApiService,
+    private router: Router,
     private serviceEndpoint: EndpointService,
   ) { }
 
-  proccessInsert(params: any, data: any) {
+  proccessAuth() {
+    const tgUser = sessionStorage.getItem('tgUser');
+    if (tgUser != null || tgUser != '') {
+      this.router.navigate(['internal/dashboard']);
+    }
+  }
+
+  proccessLogin(params: any, data: any) {
     const query = this.serviceEndpoint.processParams(params);
-    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/insert/tg/role`, query);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/user/login`, query);
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

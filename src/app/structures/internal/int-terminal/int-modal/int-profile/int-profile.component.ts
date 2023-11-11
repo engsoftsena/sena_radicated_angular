@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { expModalClass } from 'src/app/functions/modal-form';
 
 @Component({
   selector: 'app-int-profile',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class IntProfileComponent {
 
+  modalClass() { expModalClass(); }
 }

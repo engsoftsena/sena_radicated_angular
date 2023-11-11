@@ -407,7 +407,7 @@ export class TgRoleComponent implements OnInit {
   sendInsert(modalForm: any, params: any, jsonData: any) {
     let message = '';
     // Llama al servicio para enviar los datos al servidor
-    this.serviceApi.proccessInsert(params, jsonData).subscribe({
+    this.serviceRole.proccessInsert(params, jsonData).subscribe({
       next: (response) => {
         this.responseMessage(modalForm, response);
       },

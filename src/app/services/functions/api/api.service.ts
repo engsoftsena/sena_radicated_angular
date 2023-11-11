@@ -1,37 +1,24 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Environment } from 'src/environments/environment';
-// Importacion de Modulos
-import { InterfaceDataTableColumn } from 'src/app/interfaces/datatables/column.interface';
-import { InterfaceParams } from 'src/app/interfaces/general/params.interface';
+// Importacion de Librerias
 import { catchError, map, throwError } from 'rxjs';
+// Importacion de Interfaces
+import { InterfaceDataTableColumn } from 'src/app/interfaces/datatables/column.interface';
+// Importacion de Servicios
+import { EndpointService } from '../endpoint/endpoint.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private urlEndPoint:string = Environment.API_URL;
-
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private serviceEndpoint: EndpointService,
   ) { }
 
-  private buildApiUrl(endpoint: string, params: Record<string, any>): string {
-    const queryParams = new URLSearchParams(params).toString();
-    const formatParams = `${queryParams ? '?' + queryParams : ''}`;
-    return `${this.urlEndPoint}${endpoint}${formatParams}`;
-  }
-
-  processParams(params: InterfaceParams) {
-    // Crea un nuevo objeto y copia todas las propiedades
-    const rest = { ...params };
-    const query: InterfaceParams = rest;
-    return query;
-  }
-
   proccessColumn(params: any) {
-    const query = this.processParams(params);
-    const urlApi = this.buildApiUrl(`mysql/info/label`, query);
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/label`, query);
     console.log(urlApi);
     return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
       map((response: any) => {
@@ -57,21 +44,21 @@ export class ApiService {
   }
 
   proccessData(params: any) {
-    const query = this.processParams(params);
-    const urlApi = this.buildApiUrl(`mysql/info/alias`, query);
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/alias`, query);
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
   proccessRegister(params: any) {
-    const query = this.processParams(params);
-    const urlApi = this.buildApiUrl(`mysql/info/register`, query);
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/register`, query);
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
   async resolveRegister(params: any): Promise<any> {
-    const query = this.processParams(params);
+    const query = this.serviceEndpoint.processParams(params);
     return new Promise((resolve, reject) => {
       this.proccessRegister(query).subscribe({
         next: (response: any) => {
@@ -93,8 +80,8 @@ export class ApiService {
   }
 
   proccessDelete(params: any) {
-    const query = this.processParams(params);
-    const urlApi = this.buildApiUrl(`mysql/delete`, query);
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/delete/data`, query);
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -115,8 +102,8 @@ export class ApiService {
   }
 
   proccessInsert(params: any, data: any) {
-    const query = this.processParams(params);
-    const urlApi = this.buildApiUrl(`mysql/insert`, query);
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/insert/data`, query);
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -137,8 +124,8 @@ export class ApiService {
   }
 
   proccessUpdate(params: any, data: any) {
-    const query = this.processParams(params);
-    const urlApi = this.buildApiUrl(`mysql/update`, query);
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/update/data`, query);
     // Configura las cabeceras para indicar que se envía JSON
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -159,14 +146,14 @@ export class ApiService {
   }
 
   proccessHtmlSelect(params: any) {
-    const query = this.processParams(params);
-    const urlApi = this.buildApiUrl(`mysql/html/select`, query);
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/html/select`, query);
     console.log(urlApi);
     return this.http.get(urlApi);
   }
 
   async resolveHtmlSelect(params: any): Promise<any> {
-    const query = this.processParams(params);
+    const query = this.serviceEndpoint.processParams(params);
     return new Promise((resolve, reject) => {
       this.proccessHtmlSelect(query).subscribe({
         next: (response: any) => {

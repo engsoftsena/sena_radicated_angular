@@ -25,13 +25,15 @@
         </div>
       </div>
       <div class="modal-footer text-center">
-        <a href="logout" type="button" class="btn btn-sm waves-effect waves-light btn-outline-danger">
+        <button class="rounded-0 btn btn-sm waves-effect waves-light btn-outline-danger"
+        type="button" (click)="actionLogout();">
           <em class="far fa-portal-exit"></em>
           <span>
             Cerrar Sesion
           </span>
-        </a>
-        <button type="button" class="btn btn-sm waves-effect waves-light btn-outline-success" data-dismiss="modal">
+        </button>
+        <button class="rounded-0 btn btn-sm waves-effect waves-light btn-outline-success"
+        data-dismiss="modal" data-bs-dismiss="modal" type="button" (click)="modalClass();">
           <em class="far fa-times-circle"></em>
           <span>
             Cancelar

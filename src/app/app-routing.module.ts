@@ -37,19 +37,21 @@ import { TgUserComponent } from './modules/internal/technology/tg-user/tg-user.c
 /* Componentes: Modulos: Internos: User */
 import { UsPasswordComponent } from './modules/internal/user/us-password/us-password.component';
 import { UsProccessComponent } from './modules/internal/user/us-proccess/us-proccess.component';
+/* Imporacion de Guardianes */
+import { LoginGuard } from './guards/login/login.guard';
+import { LogoutGuard } from './guards/logout/logout.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'external/login' },
   {
-    path: 'external',
-    component: ExternalComponent,
+    path: 'external', component: ExternalComponent,
     children: [
       { path: 'login', component: LoginComponent }
     ]
   },
   {
-    path: 'internal',
-    component: InternalComponent,
+    path: 'internal', component: InternalComponent,
+    canActivate: [LoginGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent, },
       {

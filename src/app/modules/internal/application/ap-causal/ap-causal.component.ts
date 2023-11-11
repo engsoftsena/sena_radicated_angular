@@ -19,6 +19,7 @@ import {
   expModalReset
 } from 'src/app/functions/modal-form';
 import { expSelectHtmlIds, expSelectHtmlMap } from 'src/app/functions/select-html';
+// Importacion de Librerias
 import * as $ from 'jquery';
 import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
@@ -396,11 +397,6 @@ export class ApCausalComponent implements OnInit {
     // Unificar un solo objeto
     const combinedData = { ...formData };
     const jsonData = JSON.stringify(combinedData);
-
-    console.log(formData);
-    console.log(dataColumn);
-    console.log(combinedData);
-    console.log(jsonData);
     // Construir parametros para sql
     const params = {
       table: this.tableComponent,
