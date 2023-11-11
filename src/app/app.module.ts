@@ -48,10 +48,12 @@ import { EmSettingComponent } from './modules/internal/email/em-setting/em-setti
 /* Componentes: Modulos: Internos: System */
 import { SyAttributeComponent } from './modules/internal/system/sy-attribute/sy-attribute.component';
 import { SyEliminateComponent } from './modules/internal/system/sy-eliminate/sy-eliminate.component';
+import { SyIconComponent } from './modules/internal/system/sy-icon/sy-icon.component';
 import { SyModuleComponent } from './modules/internal/system/sy-module/sy-module.component';
 import { SyPrefixComponent } from './modules/internal/system/sy-prefix/sy-prefix.component';
 import { SyRelationComponent } from './modules/internal/system/sy-relation/sy-relation.component';
 import { SySelectComponent } from './modules/internal/system/sy-select/sy-select.component';
+import { SyUnionComponent } from './modules/internal/system/sy-union/sy-union.component';
 /* Componentes: Modulos: Internos: Technology */
 import { TgActionComponent } from './modules/internal/technology/tg-action/tg-action.component';
 import { TgAuthorizationComponent } from './modules/internal/technology/tg-authorization/tg-authorization.component';
@@ -90,32 +92,38 @@ import { UsProccessComponent } from './modules/internal/user/us-proccess/us-proc
     /* Componentes: Modulos: Internos */
     InternalComponent,
     DashboardComponent,
-    /* Componentes: Modulos: Internos */
+    /* Componentes: Modulos: Internos: Application */
     ApCausalComponent,
-    TgDocumentComponent,
     ApCommunicationComponent,
     ApPatientComponent,
     ApRequestComponent,
     ApResourceComponent,
     ApSettledComponent,
     ApStateComponent,
-    TgRoleComponent,
-    ApTraceabilityComponent,
-    TgUserComponent,
-    TgActionComponent,
-    TgAuthorizationComponent,
-    TgPermitComponent,
-    UsPasswordComponent,
-    UsProccessComponent,
+    /* Componentes: Modulos: Internos: Email */
+    EmHostingComponent,
+    EmSecurityComponent,
+    EmSettingComponent,
+    /* Componentes: Modulos: Internos: System */
     SyAttributeComponent,
     SyEliminateComponent,
+    SyIconComponent,
     SyModuleComponent,
     SyPrefixComponent,
     SyRelationComponent,
     SySelectComponent,
-    EmHostingComponent,
-    EmSecurityComponent,
-    EmSettingComponent,
+    SyUnionComponent,
+    /* Componentes: Modulos: Internos: Technology */
+    TgActionComponent,
+    TgAuthorizationComponent,
+    TgDocumentComponent,
+    TgPermitComponent,
+    TgRoleComponent,
+    ApTraceabilityComponent,
+    TgUserComponent,
+    /* Componentes: Modulos: Internos: User */
+    UsPasswordComponent,
+    UsProccessComponent,
   ],
   imports: [
     BrowserModule,

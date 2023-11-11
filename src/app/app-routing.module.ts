@@ -23,10 +23,12 @@ import { EmSettingComponent } from './modules/internal/email/em-setting/em-setti
 /* Componentes: Modulos: Internos: System */
 import { SyAttributeComponent } from './modules/internal/system/sy-attribute/sy-attribute.component';
 import { SyEliminateComponent } from './modules/internal/system/sy-eliminate/sy-eliminate.component';
+import { SyIconComponent } from './modules/internal/system/sy-icon/sy-icon.component';
 import { SyModuleComponent } from './modules/internal/system/sy-module/sy-module.component';
 import { SyPrefixComponent } from './modules/internal/system/sy-prefix/sy-prefix.component';
 import { SyRelationComponent } from './modules/internal/system/sy-relation/sy-relation.component';
 import { SySelectComponent } from './modules/internal/system/sy-select/sy-select.component';
+import { SyUnionComponent } from './modules/internal/system/sy-union/sy-union.component';
 /* Componentes: Modulos: Internos: Technology */
 import { TgActionComponent } from './modules/internal/technology/tg-action/tg-action.component';
 import { TgAuthorizationComponent } from './modules/internal/technology/tg-authorization/tg-authorization.component';
@@ -82,10 +84,12 @@ const routes: Routes = [
         children: [
           { path: 'attribute', component: SyAttributeComponent, },
           { path: 'eliminate', component: SyEliminateComponent, },
+          { path: 'icon', component: SyIconComponent, },
           { path: 'module', component: SyModuleComponent, },
           { path: 'prefix', component: SyPrefixComponent, },
           { path: 'relation', component: SyRelationComponent, },
           { path: 'select', component: SySelectComponent, },
+          { path: 'union', component: SyUnionComponent, },
         ],
       },
       
