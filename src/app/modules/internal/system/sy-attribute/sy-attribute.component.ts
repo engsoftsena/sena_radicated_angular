@@ -680,4 +680,25 @@ export class SyAttributeComponent implements OnInit {
       title: `<h2>${swalTitle}!</h2>`,
     });
   }
+
+  async resultRegister(params: any) {
+    let message;
+    const serviceResolve = await this.serviceApi.resolveRegister(params);
+    if (serviceResolve.data && Array.isArray(serviceResolve.data)) {
+      const hasErrors = serviceResolve.data.some((item: any) => 'error' in item);
+      if (hasErrors) {
+        message = 'Ocurrió un error en la solicitud';
+        this.modalSystemData(message, serviceResolve);
+      }
+    } else {
+      message = 'No tiene un formato en array.';
+      const swalOptions = {
+        'swalMessage': message,
+        'swalIcon': 'error',
+        'swalTitle': 'Error',
+      };
+      this.swalFireMssg(swalOptions);
+    }
+    return serviceResolve;
+  }
 }

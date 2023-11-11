@@ -62,13 +62,13 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.proccessRegister(query).subscribe({
         next: (response: any) => {
-          console.log(response);
+          //console.log(response);
           // Resolver la promesa
           resolve(response);
         },
         error: (err: any) => {
           // Rechazar la promesa
-          console.error(err);
+          //console.error(err);
           reject(err);
         },
         complete: () => {
@@ -148,7 +148,7 @@ export class ApiService {
   proccessHtmlSelect(params: any) {
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/html/select`, query);
-    console.log(urlApi);
+    //console.log(urlApi);
     return this.http.get(urlApi);
   }
 
@@ -157,13 +157,13 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.proccessHtmlSelect(query).subscribe({
         next: (response: any) => {
-          console.log(response);
+          //console.log(response);
           // Resolver la promesa
           resolve(response);
         },
         error: (err: any) => {
           // Rechazar la promesa
-          console.error(err);
+          //console.error(err);
           reject(err);
         },
         complete: () => {
