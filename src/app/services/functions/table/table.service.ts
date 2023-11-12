@@ -6,9 +6,6 @@ declare let $: any;
   providedIn: 'root'
 })
 export class TableService {
-
-  constructor() { }
-
   getTable(
     reference: any,
     dataApi: any,
@@ -67,14 +64,7 @@ export class TableService {
       // Paginar registros limitadamente
       paging: true,
       // Habilitar botones extras en el paginado
-      //DataTables has six built-in paging button arrangements:
-      //numbers - Page number buttons only (1.10.8)
-      //simple - 'Previous' and 'Next' buttons only
-      //simple_numbers - 'Previous' and 'Next' buttons, plus page numbers
-      //full - 'First', 'Previous', 'Next' and 'Last' buttons
-      //full_numbers - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
-      //first_last_numbers - 'First' and 'Last' buttons, plus page numbers
-      pagingType: 'full',
+      pagingType: this.configPaginType(),
       // Procesando informacion de registros
       processing: true,
       // Control para el tamaño de la tabla de datos
@@ -94,7 +84,7 @@ export class TableService {
       // Control para el desplazamiento de derecha a izquiera
       scrollX: true,
       // Control para el desplazamiento medido de arriba abajo
-      scrollY: 425,
+      scrollY: 380,
       // Guardar el estado de una tabla (su posición de paginación, estado de pedido, etc.)
       stateSave: false,
     });
@@ -112,6 +102,51 @@ export class TableService {
       });
       return item;
     });
+  }
+
+  configDom() {
+    const domButton = this.domButton();
+    const domResult = this.domResult();
+    const domRow = this.domRow();
+    return [domButton, domResult, domRow];
+  }
+
+  configLanguage() {
+    return {
+      aria: {
+        sortAscending: ': activate to sort column ascending',
+        sortDescending: ': activate to sort column descending',
+      },
+      decimal: '',
+      emptyTable: 'Sin Datos',
+      info: 'Registros (Del _START_ Al _END_) Total De _TOTAL_ Registros',
+      infoEmpty: 'Registros (Del 0 Al 0) Total De 0 Registros',
+      infoFiltered: '(Filtrados del Total de _MAX_ Registros)',
+      infoPostFix: '',
+      lengthMenu: 'Mostrar _MENU_ Registros Por Página',
+      loadingRecords: 'Cargando...',
+      paginate: {
+        first: 'Primera',
+        last: 'Última',
+        next: 'Siguiente',
+        previous: 'Anterior',
+      },
+      processing: 'Procesando...',
+      search: 'Filtrar:',
+      thousands: ',',
+      zeroRecords: 'No se encontrados registros segun el filtrado.',
+    };
+  }
+
+  configPaginType() {
+    //DataTables has six built-in paging button arrangements:
+    //numbers - Page number buttons only (1.10.8)
+    //simple - 'Previous' and 'Next' buttons only
+    //simple_numbers - 'Previous' and 'Next' buttons, plus page numbers
+    //full - 'First', 'Previous', 'Next' and 'Last' buttons
+    //full_numbers - 'First', 'Previous', 'Next' and 'Last' buttons, plus page numbers
+    //first_last_numbers - 'First' and 'Last' buttons, plus page numbers
+    return 'full';
   }
 
   domButton() {
@@ -171,39 +206,5 @@ export class TableService {
         >
       >
     `;
-  }
-
-  configDom() {
-    const domButton = this.domButton();
-    const domResult = this.domResult();
-    const domRow = this.domRow();
-    return [domButton, domResult, domRow];
-  }
-
-  configLanguage() {
-    return {
-      aria: {
-        sortAscending: ': activate to sort column ascending',
-        sortDescending: ': activate to sort column descending',
-      },
-      decimal: '',
-      emptyTable: 'Sin Datos',
-      info: 'Registros (Del _START_ Al _END_) Total De _TOTAL_ Registros',
-      infoEmpty: 'Registros (Del 0 Al 0) Total De 0 Registros',
-      infoFiltered: '(Filtrados del Total de _MAX_ Registros)',
-      infoPostFix: '',
-      lengthMenu: 'Mostrar _MENU_ Registros Por Página',
-      loadingRecords: 'Cargando...',
-      paginate: {
-        first: 'Primera',
-        last: 'Última',
-        next: 'Siguiente',
-        previous: 'Anterior',
-      },
-      processing: 'Procesando...',
-      search: 'Filtrar:',
-      thousands: ',',
-      zeroRecords: 'No se encontrados registros segun el filtrado.',
-    };
   }
 }
