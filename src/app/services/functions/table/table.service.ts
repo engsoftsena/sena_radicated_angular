@@ -32,59 +32,13 @@ export class TableService {
       // Cargar columnas del encabezado
       columns: columnSet,
       // Setear la data recibida de la api
-      data: dataApi,
+      data: this.processApiData(dataApi),
       // Creará todos los elementos HTML necesarios por adelantado
       deferRender: true,
       // Reinicialiar los datos de la tabla
       destroy: true,
       // Estructura de las columnas para el DOOM
-      dom:
-        `
-          <'row mb-1 d-none'
-            <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center'
-              <'panel rounded-0 mb-1'
-                <'panel-container show'
-                  <'panel-content p-0'
-                    <'panel-tag p-1 bg-white'
-                      B
-                    >
-                  >
-                >
-              >
-            >
-          >
-          <'row mb-1'
-            <'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 align-items-center text-center'
-              <'panel rounded-0 mb-1'
-                <'panel-container show'
-                  <'panel-content p-0'
-                    <'panel-tag p-1 bg-white'
-                      <'span color-fusion-900'
-                        i
-                      >
-                    >
-                  >
-                >
-              >
-            >
-            <'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-7 align-items-center'
-              <'panel rounded-0 mb-1'
-                <'panel-container show'
-                  <'panel-content p-0'
-                    <'panel-tag p-1 bg-white'
-                      p
-                    >
-                  >
-                >
-              >
-            >
-          >
-          <'row mb-1'
-            <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'
-              tr
-            >
-          >
-        `,
+      dom: this.configDom().join(''),
       // Fijar columnas en la tabla
       fixedColumns: false,
       // Fijar columnas en la parte superior de la tabla
@@ -94,30 +48,7 @@ export class TableService {
       // Focalizar una celda de la tabla
       keys: false,
       // Lenguaje de la tabla
-      language: {
-        aria: {
-          sortAscending: ': activate to sort column ascending',
-          sortDescending: ': activate to sort column descending',
-        },
-        decimal: '',
-        emptyTable: 'Sin Datos',
-        info: 'Registros (Del _START_ Al _END_) Total De _TOTAL_ Registros',
-        infoEmpty: 'Registros (Del 0 Al 0) Total De 0 Registros',
-        infoFiltered: '(Filtrados del Total de _MAX_ Registros)',
-        infoPostFix: '',
-        lengthMenu: 'Mostrar _MENU_ Registros Por Página',
-        loadingRecords: 'Cargando...',
-        paginate: {
-          first: 'Primera',
-          last: 'Última',
-          next: 'Siguiente',
-          previous: 'Anterior',
-        },
-        processing: 'Procesando...',
-        search: 'Filtrar:',
-        thousands: ',',
-        zeroRecords: 'No se encontrados registros segun el filtrado.',
-      },
+      language: this.configLanguage(),
       // Cambiar numero de registros por pagina
       lengthChange: false,
       // Definir cantidad de registros por paginacion
@@ -170,5 +101,109 @@ export class TableService {
   
     // Agregar un oyente de eventos para el evento 'draw.dt'
     tableLoad.on('draw.dt', function() {});
-  };
+  }
+
+  processApiData(dataApi: any) {
+    return dataApi.map((item: any) => {
+      Object.keys(item).forEach(key => {
+        if (!isNaN(item[key])) {
+          item[key] = parseFloat(item[key]);
+        }
+      });
+      return item;
+    });
+  }
+
+  domButton() {
+    return `
+      <'row mb-1 d-none'
+        <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center'
+          <'panel rounded-0 mb-1'
+            <'panel-container show'
+              <'panel-content p-0'
+                <'panel-tag p-1 bg-white'
+                  B
+                >
+              >
+            >
+          >
+        >
+      >
+    `;
+  }
+
+  domResult() {
+    return `
+      <'row mb-1'
+        <'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 align-items-center text-center'
+          <'panel rounded-0 mb-1'
+            <'panel-container show'
+              <'panel-content p-0'
+                <'panel-tag p-1 bg-white'
+                  <'span color-fusion-900'
+                    i
+                  >
+                >
+              >
+            >
+          >
+        >
+        <'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-7 align-items-center'
+          <'panel rounded-0 mb-1'
+            <'panel-container show'
+              <'panel-content p-0'
+                <'panel-tag p-1 bg-white'
+                  p
+                >
+              >
+            >
+          >
+        >
+      >
+    `;
+  }
+
+  domRow() {
+    return `
+      <'row mb-1'
+        <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'
+          tr
+        >
+      >
+    `;
+  }
+
+  configDom() {
+    const domButton = this.domButton();
+    const domResult = this.domResult();
+    const domRow = this.domRow();
+    return [domButton, domResult, domRow];
+  }
+
+  configLanguage() {
+    return {
+      aria: {
+        sortAscending: ': activate to sort column ascending',
+        sortDescending: ': activate to sort column descending',
+      },
+      decimal: '',
+      emptyTable: 'Sin Datos',
+      info: 'Registros (Del _START_ Al _END_) Total De _TOTAL_ Registros',
+      infoEmpty: 'Registros (Del 0 Al 0) Total De 0 Registros',
+      infoFiltered: '(Filtrados del Total de _MAX_ Registros)',
+      infoPostFix: '',
+      lengthMenu: 'Mostrar _MENU_ Registros Por Página',
+      loadingRecords: 'Cargando...',
+      paginate: {
+        first: 'Primera',
+        last: 'Última',
+        next: 'Siguiente',
+        previous: 'Anterior',
+      },
+      processing: 'Procesando...',
+      search: 'Filtrar:',
+      thousands: ',',
+      zeroRecords: 'No se encontrados registros segun el filtrado.',
+    };
+  }
 }

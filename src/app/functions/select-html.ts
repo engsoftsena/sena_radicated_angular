@@ -56,7 +56,14 @@ export function expSelectHtmlMap(modalPrefixes: string[], params: any, response:
         response.data.forEach((item: any) => {
           const option = document.createElement('option');
           option.value = item.id_register;
-          option.textContent = item.os_name;
+          // Filtrar los campos que no sean id_register
+          // Obtener los valores de los campos restantes
+          // Unir los valores con un separador
+          const textContent = Object.keys(item)
+            .filter(key => key !== 'id_register')
+            .map(key => item[key])
+            .join(' - ');
+          option.textContent = textContent;
           selectElement.appendChild(option);
         });
       } else {

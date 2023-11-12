@@ -148,7 +148,7 @@ export class ApiService {
   proccessHtmlSelect(params: any) {
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/html/select`, query);
-    //console.log(urlApi);
+    console.log(urlApi);
     return this.http.get(urlApi);
   }
 
