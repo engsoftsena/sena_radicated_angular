@@ -18,7 +18,7 @@ export class ApiService {
 
   proccessColumn(params: any) {
     const query = this.serviceEndpoint.processParams(params);
-    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/label`, query);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/inner/label`, query);
     console.log(urlApi);
     return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
       map((response: any) => {
@@ -45,7 +45,7 @@ export class ApiService {
 
   proccessData(params: any) {
     const query = this.serviceEndpoint.processParams(params);
-    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/alias`, query);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/inner/alias`, query);
     console.log(urlApi);
     return this.http.get(urlApi);
   }
