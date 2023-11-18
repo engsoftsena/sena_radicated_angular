@@ -9,7 +9,7 @@ import { EndpointService } from '../endpoint/endpoint.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ExternalService {  
+export class ExternalService {
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -17,8 +17,8 @@ export class ExternalService {
   ) { }
 
   proccessAuth() {
-    const tgUser = sessionStorage.getItem('tgUser');
-    if (tgUser != null || tgUser != '') {
+    const tgUserData = sessionStorage.getItem('tgUserData');
+    if (tgUserData != null || tgUserData != '') {
       this.router.navigate(['internal/dashboard']);
     }
   }

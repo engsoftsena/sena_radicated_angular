@@ -92,7 +92,7 @@ export class SySelectComponent implements OnInit {
       whereOperator: '',
       whereEqual: '',
     };
-    this.serviceApi.proccessColumn(params).subscribe({
+    this.serviceApi.innerLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -115,7 +115,7 @@ export class SySelectComponent implements OnInit {
       whereOperator: '=',
       whereEqual: fieldDeleted,
     };
-    this.serviceApi.proccessData(params).subscribe({
+    this.serviceApi.innerAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         const checkDataError = this.getDataError(response);
@@ -743,15 +743,15 @@ export class SySelectComponent implements OnInit {
     const selectSplit = selectText.split('_');
     const textPrefix = selectSplit[0];
     const textName = selectSplit.slice(1).join('_');
-    
+
     const paramsPrefix = this.multiParamsPrefix(textPrefix);
     const resultPrefix = await this.resultRegister(paramsPrefix);
-    
+
     let syPrefixIdReg = resultPrefix?.data?.[0]?.id_register ?? 0;
 
     const paramsModule = this.multiParamsModule(textName, syPrefixIdReg);
     const resultModule = await this.resultRegister(paramsModule);
-    
+
     let syModuleIdReg = resultModule?.data?.[0]?.id_register ?? 0;
     return syModuleIdReg;
   }

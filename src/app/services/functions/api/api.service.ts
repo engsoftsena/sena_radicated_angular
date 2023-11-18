@@ -16,7 +16,75 @@ export class ApiService {
     private serviceEndpoint: EndpointService,
   ) { }
 
-  proccessColumn(params: any) {
+  infoColumn(params: any) {
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/column`, query);
+    console.log(urlApi);
+    return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
+      map((response: any) => {
+        if (Array.isArray(response.data)) {
+          const columnSet = response.data.map((data: InterfaceDataTableColumn) => {
+            const title = data.Comment;
+            const result = data.Label || data.Field;
+            return {
+              title: title,
+              id: result,
+              data: result,
+              type: 'text',
+              className: 'text-dark',
+              visible: true,
+            };
+          });
+          return columnSet;
+        } else {
+          return [];
+        }
+      })
+    );
+  }
+
+  infoSelect(params: any) {
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/select`, query);
+    console.log(urlApi);
+    return this.http.get(urlApi);
+  }
+
+  infoLabel(params: any) {
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/label`, query);
+    console.log(urlApi);
+    return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
+      map((response: any) => {
+        if (Array.isArray(response.data)) {
+          const columnSet = response.data.map((data: InterfaceDataTableColumn) => {
+            const title = data.Comment;
+            const result = data.Label || data.Field;
+            return {
+              title: title,
+              id: result,
+              data: result,
+              type: 'text',
+              className: 'text-dark',
+              visible: true,
+            };
+          });
+          return columnSet;
+        } else {
+          return [];
+        }
+      })
+    );
+  }
+
+  infoAlias(params: any) {
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/alias`, query);
+    console.log(urlApi);
+    return this.http.get(urlApi);
+  }
+
+  innerLabel(params: any) {
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/inner/label`, query);
     console.log(urlApi);
@@ -43,7 +111,7 @@ export class ApiService {
     );
   }
 
-  proccessData(params: any) {
+  innerAlias(params: any) {
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/inner/alias`, query);
     console.log(urlApi);

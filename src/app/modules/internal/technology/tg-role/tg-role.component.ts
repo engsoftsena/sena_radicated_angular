@@ -54,7 +54,7 @@ export class TgRoleComponent implements OnInit {
   ngAfterViewInit() {
     this.tableDataValue();
   }
-  
+
   modalClass() { expModalClass(); }
 
   checkEndpoint() {
@@ -94,7 +94,7 @@ export class TgRoleComponent implements OnInit {
       whereOperator: '',
       whereEqual: '',
     };
-    this.serviceApi.proccessColumn(params).subscribe({
+    this.serviceApi.innerLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
         this.columnSet = response;
@@ -117,7 +117,7 @@ export class TgRoleComponent implements OnInit {
       whereOperator: '=',
       whereEqual: fieldDeleted,
     };
-    this.serviceApi.proccessData(params).subscribe({
+    this.serviceApi.innerAlias(params).subscribe({
       next: (response: any) => {
         console.log(response);
         const checkDataError = this.getDataError(response);

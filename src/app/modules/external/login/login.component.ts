@@ -140,14 +140,35 @@ export class LoginComponent {
       icon: 'success',
       title: `<h2>Exito!</h2>`,
     }).then(() => {
-      localStorage.setItem(
-        'tgUser',
-        JSON.stringify(response.data)
-      );
-      sessionStorage.setItem(
-        'tgUser',
-        JSON.stringify(response.data)
-      );
+      let resDat = response.data;
+      let obj = JSON.stringify(resDat);
+      // Asignar informacion en almacenamiento
+      localStorage.setItem('tgUserData', obj);
+      sessionStorage.setItem('tgUserData', obj);
+      // Verificar que la informacion es un array
+      if (Array.isArray(resDat) && resDat.length > 0) {
+        const dataResp = resDat[0];
+        // Asignar informacion en almacenamiento
+        const idRegister = dataResp.id_register;
+        localStorage.setItem('tgUserIdRegister', idRegister);
+        sessionStorage.setItem('tgUserIdRegister', idRegister);
+        // Asignar informacion en almacenamiento
+        const osLogin = dataResp.os_login;
+        localStorage.setItem('tgUserOsLogin', osLogin);
+        sessionStorage.setItem('tgUserOsLogin', osLogin);
+        // Asignar informacion en almacenamiento
+        const osNames = dataResp.os_names;
+        localStorage.setItem('tgUserOsNames', osNames);
+        sessionStorage.setItem('tgUserOsNames', osNames);
+        // Asignar informacion en almacenamiento
+        const osSurnames = dataResp.os_surnames;
+        localStorage.setItem('tgUserOsSurnames', osSurnames);
+        sessionStorage.setItem('tgUserOsSurnames', osSurnames);
+        // Asignar informacion en almacenamiento
+        const tgRole = dataResp.tg_role;
+        localStorage.setItem('tgUserTgRole', tgRole);
+        sessionStorage.setItem('tgUserTgRole', tgRole);
+      }
       this.router.navigate(['/internal/dashboard']);
     });
   }
