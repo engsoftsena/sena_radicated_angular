@@ -104,7 +104,7 @@
                     <div class="panel-container show">
                       <div class="panel-content p-0">
                         <div class="panel-tag p-1 bg-white">
-                          <div class="btn-group mb-1" role="group">
+                          <div *ngIf="tgActionRead === 'Concedido'" class="btn-group mb-1" role="group">
                             <div class="mr-1 input-group input-group-sm">
                               <select class="rounded-0 custom-select form-control border-success"
                               name="tableData" id="tableData" title="Seleccionar Datos"
@@ -114,32 +114,38 @@
                               </select>
                             </div>
                           </div>
-                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-success"
+                          <button *ngIf="tgActionCreate === 'Concedido'"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-success"
                           id="modalInsertBtn" type="button" (click)="modalOpen('modalInsert');">
                             <em class="far fa-plus mr-1"></em>
                             <span class="hidden-sm-down">Nuevo</span>
                           </button>
-                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-success"
+                          <button *ngIf="tgActionUpdate === 'Concedido'"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-success"
                           id="modalUpdateBtn" type="button" (click)="modalRecord('modalUpdate', 'update');">
                             <em class="far fa-edit mr-1"></em>
                             <span class="hidden-sm-down">Editar</span>
                           </button>
-                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-warning"
+                          <button *ngIf="tgActionRemove === 'Concedido'"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-warning"
                           id="modalRemoveBtn" type="button" (click)="modalRecord('modalRemove', 'remove');">
                             <em class="far fa-trash mr-1"></em>
                             <span class="hidden-sm-down">Remover</span>
                           </button>
-                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-warning"
+                          <button *ngIf="tgActionRestore === 'Concedido'"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-warning"
                           id="modalRestoreBtn" type="button" (click)="modalRecord('modalRestore', 'restore');">
                             <em class="far fa-redo-alt mr-1"></em>
                             <span class="hidden-sm-down">Restaurar</span>
                           </button>
-                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-danger"
+                          <button *ngIf="tgActionDelete === 'Concedido'"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-danger"
                           id="modalDeleteBtn" type="button" (click)="modalRecord('modalDelete', 'delete');">
                             <em class="far fa-trash-alt mr-1"></em>
                             <span class="hidden-sm-down">Eliminar</span>
                           </button>
-                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-primary"
+                          <button *ngIf="tgActionChange === 'Concedido'"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-primary"
                           id="modalChangeBtn" type="button" (click)="modalRecord('modalChange', 'change');">
                             <em class="far fa-exchange-alt mr-1"></em>
                             <span class="hidden-sm-down">Cambios</span>
@@ -154,9 +160,8 @@
                     </div>
                   </div>
 
-                  <div class="table-responsive">
-                    <table id="tbInfo" cellspacing="0" width="100%"
-                      class="text-center table table-bordered table-sm table-hover table-striped w-100 nowrap">
+                  <div *ngIf="tgActionRead === 'Concedido'" class="table-responsive">
+                    <table id="tbInfo" class="text-center table table-bordered table-sm table-hover table-striped w-100 nowrap">
                       <caption class="alert alert-success alert-dismissible fade show p-1 rounded-0 mb-2 text-dark"
                         style="caption-side: top;">
                         <div class="d-flex align-items-center">

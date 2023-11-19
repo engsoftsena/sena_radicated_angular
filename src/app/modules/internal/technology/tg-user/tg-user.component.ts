@@ -49,6 +49,7 @@ export class TgUserComponent implements OnInit {
   tgActionCreate: any;
   tgActionUpdate: any;
   tgActionRemove: any;
+  tgActionRestore: any;
   tgActionDelete: any;
   tgActionChange: any;
 
