@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 // Importacion de Modulos
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
@@ -32,6 +33,7 @@ export class SySelectComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
 
   constructor (
+    private router: Router,
     private serviceApi: ApiService,
     private serviceAuth: AuthService,
     private serviceButton: ButtonService,
@@ -82,8 +84,6 @@ export class SySelectComponent implements OnInit {
       next: (response) => {
         if (response.status === 200) {
           this.tgRoleData();
-          this.resultColumn(this.deletedData);
-          this.selectHtmlModal();
         } else {
           message = 'Error en la solicitud de la API';
           this.modalOpen('modalSystem');
@@ -173,6 +173,8 @@ export class SySelectComponent implements OnInit {
       if (tgAction == 'Eliminar') { this.tgActionDelete = tgAuthorization; }
       if (tgAction == 'Cambios') { this.tgActionChange = tgAuthorization; }
     }
+    this.resultColumn(this.deletedData);
+    this.selectHtmlModal();
   }
 
   resultColumn(fieldDeleted: string) {
@@ -268,11 +270,19 @@ export class SySelectComponent implements OnInit {
     console.log(response);
     let message;
     if (response.data && Array.isArray(response.data)) {
-      const hasErrors = response.data.some((item: any) => 'error' in item);
-      if (!hasErrors) { return true; }
-      if (hasErrors) {
-        message = 'Identificamos los siguientes errores en la consulta';
-        this.modalSystemData(message, response);
+      const tokenErrors = response.data
+      .filter(
+        (item: any) => 'error' in item &&
+        item.error.toLowerCase().includes('token')
+      )
+      .map((item: any) => item.error);
+      console.log(tokenErrors);
+      if (tokenErrors.length > 0) { this.responseToken(response); } else {
+        const hasErrors = response.data.some((item: any) => 'error' in item);
+        if (!hasErrors) { return true; } else {
+          message = 'Identificamos los siguientes errores en la consulta';
+          this.modalSystemData(message, response);
+        }
       }
     } else {
       message = 'Identificamos que la solicitud no tiene un formato correcto';
@@ -790,6 +800,32 @@ export class SySelectComponent implements OnInit {
       this.swalFireMssg(swalOptions);
     }
     return serviceResolve;
+  }
+
+  responseToken(response: any) {
+    console.log(response);
+    this.isLoading = false;
+    const answer = response.data
+    .filter((item: any) => 'error' in item)
+    .map((item: { error: any; }) => item.error)
+    .join(', ');
+    Swal.fire({
+      allowOutsideClick: false,
+      confirmButtonText: 'Entendido',
+      customClass: { confirmButton: 'rounded-0', },
+      html: `<span class="text-dark">${answer}</span>`,
+      icon: 'warning',
+      title: `<h2>Advertencia!</h2>`,
+    }).then(() => {
+      this.actionLogout();
+    });
+  }
+
+  actionLogout() {
+    this.modalClass();
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['external/login']);
   }
 
   async multipleHtmlModalGeneral(event: Event) {

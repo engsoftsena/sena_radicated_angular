@@ -9,7 +9,7 @@ import { expModalClass } from 'src/app/functions/modal-form';
 })
 export class IntLogoutComponent {
   constructor(
-    private router: Router
+    private router: Router,
   ) {}
 
   modalClass() { expModalClass(); }
