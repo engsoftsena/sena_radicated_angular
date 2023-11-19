@@ -1,13 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Importacion de Modulos
-import { TgUserModule } from 'src/app/interfaces/modules/technology/user.interface';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
+import { AuthService } from 'src/app/services/functions/auth/auth.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
 // Importacion de Servicios
-import { UserService } from 'src/app/services/modules/technology/tg-user/tg-user.service';
 // Importacion de Funciones Generales
 import { expTableRegister, expTableRemove } from 'src/app/functions/data-table';
 import { fncInputChange } from 'src/app/functions/input-html';
@@ -19,10 +18,11 @@ import {
   expModalReset
 } from 'src/app/functions/modal-form';
 import { expSelectHtmlIds, expSelectHtmlMap } from 'src/app/functions/select-html';
-// Importar librerias de componentes
+// Importacion de Librerias
 import * as $ from 'jquery';
 import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-tg-user',
   templateUrl: './tg-user.component.html',
@@ -33,12 +33,22 @@ export class TgUserComponent implements OnInit {
 
   constructor (
     private serviceApi: ApiService,
+    private serviceAuth: AuthService,
     private serviceButton: ButtonService,
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
-
-    private serviceUser: UserService,
   ) {}
+
+  syModuleId: number = 0;
+  syPrefixId: number = 4;
+  tgRoleId: number = 0;
+
+  tgActionRead: any;
+  tgActionCreate: any;
+  tgActionUpdate: any;
+  tgActionRemove: any;
+  tgActionDelete: any;
+  tgActionChange: any;
 
   tableComponent: string = 'tg_user';
   tableSysEliminate: string = 'sy_eliminate';
@@ -71,6 +81,7 @@ export class TgUserComponent implements OnInit {
     this.serviceEndpoint.getAvailability().subscribe({
       next: (response) => {
         if (response.status === 200) {
+          this.tgRoleData();
           this.resultColumn(this.deletedData);
           this.selectHtmlModal();
         } else {
@@ -84,6 +95,84 @@ export class TgUserComponent implements OnInit {
         this.modalSystemJson(message, error);
       }
     });
+  }
+
+  tgRoleData() {
+    this.serviceAuth.getAuthJwt().subscribe({
+      next: (response: any) => {
+        const checkDataError = this.getDataError(response);
+        if (checkDataError) { this.syModuleData(response); }
+      },
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
+      complete: () => (false),
+    });
+  }
+
+  syModuleData(response: any) {
+    if (response.data[0].tg_role) {
+      this.tgRoleId = response.data[0].tg_role;
+    }
+    const params = {
+      table: `sy_module`,
+      column: `*`,
+      whereCond: `WHERE,AND`,
+      whereField: `os_table,sy_prefix`,
+      whereOperator: `=,=`,
+      whereEqual: `user,${this.syPrefixId}`,
+    };
+    this.serviceApi.infoSelect(params).subscribe({
+      next: (response: any) => {
+        const checkDataError = this.getDataError(response);
+        if (checkDataError) { this.tgPermitData(response); }
+      },
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
+      complete: () => (false),
+    });
+  }
+
+  tgPermitData(response: any) {
+    if (response.data[0].id_register) {
+      this.syModuleId = response.data[0].id_register;
+    }
+    const params = {
+      table: `tg_permit`,
+      column: `*`,
+      whereCond: `WHERE,AND`,
+      whereField: `sy_module,tg_role`,
+      whereOperator: `=,=`,
+      whereEqual: `${this.syModuleId},${this.tgRoleId}`,
+    };
+    this.serviceApi.innerAlias(params).subscribe({
+      next: (response: any) => {
+        const checkDataError = this.getDataError(response);
+        if (checkDataError) { this.tgPermitMap(response);}
+      },
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
+      complete: () => (false),
+    });
+  }
+
+  tgPermitMap(response: any) {
+    // Mapea los datos del servicio al formato esperado
+    for (let item of response.data) {
+      let tgAction = item.lbl_tg_action_os_name;
+      let tgAuthorization = item.lbl_tg_authorization_os_state;
+      if (tgAction == 'Consultar') { this.tgActionRead = tgAuthorization; }
+      if (tgAction == 'Registrar') { this.tgActionCreate = tgAuthorization; }
+      if (tgAction == 'Actualizar') { this.tgActionUpdate = tgAuthorization; }
+      if (tgAction == 'Remover') { this.tgActionRemove = tgAuthorization; }
+      if (tgAction == 'Eliminar') { this.tgActionDelete = tgAuthorization; }
+      if (tgAction == 'Cambios') { this.tgActionChange = tgAuthorization; }
+    }
   }
 
   resultColumn(fieldDeleted: string) {

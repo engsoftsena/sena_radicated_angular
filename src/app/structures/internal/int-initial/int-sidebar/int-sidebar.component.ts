@@ -79,7 +79,7 @@ export class IntSidebarComponent implements OnInit {
       whereCond: 'WHERE,AND,AND',
       whereField: 'tg_action,tg_authorization,tg_role',
       whereOperator: '=,=,=',
-      whereEqual: `1,1,${this.tgUserTgRole}`,
+      whereEqual: `1,1,1`,
     };
     this.serviceApi.innerAlias(params).subscribe({
       next: (response: any) => {
