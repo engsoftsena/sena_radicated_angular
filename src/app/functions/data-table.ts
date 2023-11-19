@@ -16,6 +16,6 @@ export function expTableRemove() {
 
 function tableDataBtn(classList: any, reference: any) {
   let btnData = document.getElementById(reference) as HTMLFormElement;
-  if (classList == 'append') { btnData.classList.add('d-none'); }
-  if (classList == 'remove') { btnData.classList.remove('d-none'); }
+  if (btnData && classList == 'append') { btnData.classList.add('d-none'); }
+  if (btnData && classList == 'remove') { btnData.classList.remove('d-none'); }
 }
