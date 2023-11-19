@@ -52,6 +52,7 @@ export class TgActionComponent implements OnInit {
   tgActionRestore: any;
   tgActionDelete: any;
   tgActionChange: any;
+  tgActionDetail: any;
 
   tableComponent: string = 'tg_action';
   tableSysEliminate: string = 'sy_eliminate';
@@ -174,6 +175,7 @@ export class TgActionComponent implements OnInit {
       if (tgAction == 'Restaurar') { this.tgActionRestore = tgAuthorization; }
       if (tgAction == 'Eliminar') { this.tgActionDelete = tgAuthorization; }
       if (tgAction == 'Cambios') { this.tgActionChange = tgAuthorization; }
+      if (tgAction == 'Detalles') { this.tgActionDetail = tgAuthorization; }
     }
     this.resultColumn(this.deletedData);
     this.selectHtmlModal();

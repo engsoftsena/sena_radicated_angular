@@ -150,7 +150,8 @@
                             <em class="far fa-exchange-alt mr-1"></em>
                             <span class="hidden-sm-down">Cambios</span>
                           </button>
-                          <button class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-dark"
+                          <button *ngIf="tgActionDetail === 'Concedido'"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-dark"
                           id="modalDetailBtn" type="button" (click)="modalRecord('modalDetail', 'detail');">
                             <em class="far fa-align-center mr-1"></em>
                             <span class="hidden-sm-down">Detalles</span>

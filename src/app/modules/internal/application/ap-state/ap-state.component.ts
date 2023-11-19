@@ -52,6 +52,7 @@ export class ApStateComponent implements OnInit {
   tgActionRestore: any;
   tgActionDelete: any;
   tgActionChange: any;
+  tgActionDetail: any;
 
   tableComponent: string = 'ap_state';
   tableSysEliminate: string = 'sy_eliminate';
@@ -174,6 +175,7 @@ export class ApStateComponent implements OnInit {
       if (tgAction == 'Restaurar') { this.tgActionRestore = tgAuthorization; }
       if (tgAction == 'Eliminar') { this.tgActionDelete = tgAuthorization; }
       if (tgAction == 'Cambios') { this.tgActionChange = tgAuthorization; }
+      if (tgAction == 'Detalles') { this.tgActionDetail = tgAuthorization; }
     }
     this.resultColumn(this.deletedData);
     this.selectHtmlModal();

@@ -52,6 +52,7 @@ export class UsProccessComponent implements OnInit {
   tgActionRestore: any;
   tgActionDelete: any;
   tgActionChange: any;
+  tgActionDetail: any;
 
   tableComponent: string = 'us_proccess';
   tableSysEliminate: string = 'sy_eliminate';
@@ -174,6 +175,7 @@ export class UsProccessComponent implements OnInit {
       if (tgAction == 'Restaurar') { this.tgActionRestore = tgAuthorization; }
       if (tgAction == 'Eliminar') { this.tgActionDelete = tgAuthorization; }
       if (tgAction == 'Cambios') { this.tgActionChange = tgAuthorization; }
+      if (tgAction == 'Detalles') { this.tgActionDetail = tgAuthorization; }
     }
     this.resultColumn(this.deletedData);
     this.selectHtmlModal();
