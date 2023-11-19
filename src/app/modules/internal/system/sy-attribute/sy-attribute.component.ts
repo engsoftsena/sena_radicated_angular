@@ -42,6 +42,8 @@ export class SyAttributeComponent implements OnInit {
   ) {}
 
   syModuleId: number = 0;
+  syModuleName: any;
+  syModuleTable: any;
   syPrefixId: number = 1;
   tgRoleId: number = 0;
 
@@ -114,8 +116,9 @@ export class SyAttributeComponent implements OnInit {
   }
 
   syModuleData(response: any) {
-    if (response.data.length > 0 && response.data[0].tg_role) {
-      this.tgRoleId = response.data[0].tg_role;
+    if (response.data.length > 0) {
+      const data = response.data[0];
+      this.tgRoleId = data?.tg_role || this.tgRoleId;
     }
     const params = {
       table: `sy_module`,
@@ -139,9 +142,11 @@ export class SyAttributeComponent implements OnInit {
   }
 
   tgPermitData(response: any) {
-    console.log(response);
-    if (response.data.length > 0 && response.data[0].id_register) {
-      this.syModuleId = response.data[0].id_register;
+    if (response.data.length > 0) {
+      const data = response.data[0];
+      this.syModuleId = data?.id_register || this.syModuleId;
+      this.syModuleName = data?.os_name || this.syModuleName;
+      this.syModuleTable = data?.os_table || this.syModuleTable;
     }
     const params = {
       table: `tg_permit`,
