@@ -825,6 +825,6 @@ export class SyPrefixComponent implements OnInit {
     this.modalClass();
     localStorage.clear();
     sessionStorage.clear();
-    this.router.navigate(['external/login']);
+    window.location.reload();
   }
 }

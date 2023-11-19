@@ -18,6 +18,6 @@ export class IntLogoutComponent {
     this.modalClass();
     localStorage.clear();
     sessionStorage.clear();
-    this.router.navigate(['external/login']);
+    window.location.reload();
   }
 }
