@@ -1,4 +1,12 @@
 import { AfterViewInit, Component } from '@angular/core';
+// Importacion de Funciones Generales
+import {
+  expFormCollect,
+  expModalClass,
+  expModalClose,
+  expModalMapData,
+  expModalReset
+} from 'src/app/functions/modal-form';
 
 declare var Highcharts: any;
 
@@ -147,5 +155,7 @@ export class DashboardComponent implements AfterViewInit {
       }]
     });*/
   }
+
+  modalClass() { expModalClass(); }
 
 }
