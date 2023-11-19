@@ -49,6 +49,7 @@ export class ApCausalComponent implements OnInit {
   tgActionCreate: any;
   tgActionUpdate: any;
   tgActionRemove: any;
+  tgActionRestore: any;
   tgActionDelete: any;
   tgActionChange: any;
 
@@ -170,6 +171,7 @@ export class ApCausalComponent implements OnInit {
       if (tgAction == 'Registrar') { this.tgActionCreate = tgAuthorization; }
       if (tgAction == 'Actualizar') { this.tgActionUpdate = tgAuthorization; }
       if (tgAction == 'Remover') { this.tgActionRemove = tgAuthorization; }
+      if (tgAction == 'Restaurar') { this.tgActionRestore = tgAuthorization; }
       if (tgAction == 'Eliminar') { this.tgActionDelete = tgAuthorization; }
       if (tgAction == 'Cambios') { this.tgActionChange = tgAuthorization; }
     }
