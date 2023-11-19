@@ -276,7 +276,6 @@ export class SyModuleComponent implements OnInit {
         item.error.toLowerCase().includes('token')
       )
       .map((item: any) => item.error);
-      console.log(tokenErrors);
       if (tokenErrors.length > 0) { this.responseToken(response); } else {
         const hasErrors = response.data.some((item: any) => 'error' in item);
         if (!hasErrors) { return true; } else {
