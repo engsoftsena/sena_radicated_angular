@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 // Importacion de Librerias
-import { catchError, map, throwError } from 'rxjs';
+import { EMPTY, Observable, catchError, map, throwError } from 'rxjs';
 // Importacion de Interfaces
 import { InterfaceDataTableColumn } from 'src/app/interfaces/datatables/column.interface';
 // Importacion de Servicios
+import { AuthService } from '../auth/auth.service';
 import { EndpointService } from '../endpoint/endpoint.service';
 
 @Injectable({
@@ -13,14 +14,38 @@ import { EndpointService } from '../endpoint/endpoint.service';
 export class ApiService {
   constructor(
     private http: HttpClient,
+    private serviceAuth: AuthService,
     private serviceEndpoint: EndpointService,
   ) { }
 
+  serviceToken = this.serviceAuth.getAuthToken();
+
+  authToken() {
+    let headers = null, authToken = this.serviceToken;
+    if (authToken != null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      }).set(
+        'Authorization',
+        `Bearer ${this.serviceToken}`
+      );
+    }
+    return headers;
+  }
+
   infoColumn(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/column`, query);
     console.log(urlApi);
-    return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
+    return this.http.get<InterfaceDataTableColumn[]>(urlApi, { headers }).pipe(
       map((response: any) => {
         if (Array.isArray(response.data)) {
           const columnSet = response.data.map((data: InterfaceDataTableColumn) => {
@@ -44,17 +69,33 @@ export class ApiService {
   }
 
   infoSelect(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/select`, query);
     console.log(urlApi);
-    return this.http.get(urlApi);
+    return this.http.get(urlApi, { headers });
   }
 
   infoLabel(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/label`, query);
     console.log(urlApi);
-    return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
+    return this.http.get<InterfaceDataTableColumn[]>(urlApi, { headers }).pipe(
       map((response: any) => {
         if (Array.isArray(response.data)) {
           const columnSet = response.data.map((data: InterfaceDataTableColumn) => {
@@ -78,17 +119,33 @@ export class ApiService {
   }
 
   infoAlias(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/alias`, query);
     console.log(urlApi);
-    return this.http.get(urlApi);
+    return this.http.get(urlApi, { headers });
   }
 
   innerLabel(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/inner/label`, query);
     console.log(urlApi);
-    return this.http.get<InterfaceDataTableColumn[]>(urlApi).pipe(
+    return this.http.get<InterfaceDataTableColumn[]>(urlApi, { headers }).pipe(
       map((response: any) => {
         if (Array.isArray(response.data)) {
           const columnSet = response.data.map((data: InterfaceDataTableColumn) => {
@@ -112,17 +169,33 @@ export class ApiService {
   }
 
   innerAlias(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/inner/alias`, query);
     console.log(urlApi);
-    return this.http.get(urlApi);
+    return this.http.get(urlApi, { headers });
   }
 
   proccessRegister(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/info/register`, query);
     console.log(urlApi);
-    return this.http.get(urlApi);
+    return this.http.get(urlApi, { headers });
   }
 
   async resolveRegister(params: any): Promise<any> {
@@ -148,13 +221,21 @@ export class ApiService {
   }
 
   proccessDelete(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/delete/data`, query);
     // Configura las cabeceras para indicar que se envía JSON
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+    //const headers = new HttpHeaders({
+      //'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
-    });
+    //});
     // Peticion solicitada al Backend
     return this.http.delete(urlApi, {
       headers,
@@ -170,13 +251,21 @@ export class ApiService {
   }
 
   proccessInsert(params: any, data: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/insert/data`, query);
     // Configura las cabeceras para indicar que se envía JSON
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+    //const headers = new HttpHeaders({
+      //'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
-    });
+    //});
     // Peticion solicitada al Backend
     return this.http.post(urlApi, data, {
       headers,
@@ -192,13 +281,21 @@ export class ApiService {
   }
 
   proccessUpdate(params: any, data: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/update/data`, query);
     // Configura las cabeceras para indicar que se envía JSON
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+    //const headers = new HttpHeaders({
+      //'Content-Type': 'application/json',
       //'Content-Type': 'application/x-www-form-urlencoded',
-    });
+    //});
     // Peticion solicitada al Backend
     return this.http.put(urlApi, data, {
       headers,
@@ -214,10 +311,18 @@ export class ApiService {
   }
 
   proccessHtmlSelect(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
     const query = this.serviceEndpoint.processParams(params);
     const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/html/select`, query);
     console.log(urlApi);
-    return this.http.get(urlApi);
+    return this.http.get(urlApi, { headers });
   }
 
   async resolveHtmlSelect(params: any): Promise<any> {

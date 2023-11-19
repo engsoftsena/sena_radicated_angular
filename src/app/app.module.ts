@@ -6,6 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+/* Implementacion de Servicios */
+import { AuthService } from './services/functions/auth/auth.service';
+
 /* Componentes: Estructuras: Internos: Principales */
 import { IntInitialComponent } from './structures/internal/int-initial/int-initial.component';
 import { IntTerminalComponent } from './structures/internal/int-terminal/int-terminal.component';
@@ -131,7 +134,7 @@ import { UsProccessComponent } from './modules/internal/user/us-proccess/us-proc
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

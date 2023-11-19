@@ -33,7 +33,7 @@ export class IntSidebarComponent implements OnInit {
   tgUserTgRole: any;
 
   ngOnInit(): void {
-    this.sessionStorage();
+    //this.sessionStorage();
     this.checkEndpoint();
   }
 

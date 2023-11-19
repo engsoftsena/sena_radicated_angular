@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 // Importacion de Funciones Generales
 import { expFormCollect, expModalClass, expModalClose, expModalReset } from 'src/app/functions/modal-form';
 // Importacion de Servicios
+import { AuthService } from 'src/app/services/functions/auth/auth.service';
 import { ExternalService } from 'src/app/services/functions/external/external.service';
 // Importacion de Librerias
 import { Modal } from 'bootstrap';
@@ -16,6 +17,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   constructor (
     private router: Router,
+    private serviceAuth: AuthService,
     private serviceExternal: ExternalService,
   ) {}
 
@@ -140,34 +142,14 @@ export class LoginComponent {
       icon: 'success',
       title: `<h2>Exito!</h2>`,
     }).then(() => {
-      let resDat = response.data;
-      let obj = JSON.stringify(resDat);
-      // Asignar informacion en almacenamiento
-      localStorage.setItem('tgUserData', obj);
-      sessionStorage.setItem('tgUserData', obj);
+      let resData = response.data;
       // Verificar que la informacion es un array
-      if (Array.isArray(resDat) && resDat.length > 0) {
-        const dataResp = resDat[0];
+      if (Array.isArray(resData) && resData.length > 0) {
+        const dataResp = resData[0];
         // Asignar informacion en almacenamiento
-        const idRegister = dataResp.id_register;
-        localStorage.setItem('tgUserIdRegister', idRegister);
-        sessionStorage.setItem('tgUserIdRegister', idRegister);
-        // Asignar informacion en almacenamiento
-        const osLogin = dataResp.os_login;
-        localStorage.setItem('tgUserOsLogin', osLogin);
-        sessionStorage.setItem('tgUserOsLogin', osLogin);
-        // Asignar informacion en almacenamiento
-        const osNames = dataResp.os_names;
-        localStorage.setItem('tgUserOsNames', osNames);
-        sessionStorage.setItem('tgUserOsNames', osNames);
-        // Asignar informacion en almacenamiento
-        const osSurnames = dataResp.os_surnames;
-        localStorage.setItem('tgUserOsSurnames', osSurnames);
-        sessionStorage.setItem('tgUserOsSurnames', osSurnames);
-        // Asignar informacion en almacenamiento
-        const tgRole = dataResp.tg_role;
-        localStorage.setItem('tgUserTgRole', tgRole);
-        sessionStorage.setItem('tgUserTgRole', tgRole);
+        const dataToken = dataResp.token;
+        sessionStorage.setItem('tgUserData', dataToken);
+        this.serviceAuth.setAuthToken(dataToken);
       }
       this.router.navigate(['/internal/dashboard']);
     });
