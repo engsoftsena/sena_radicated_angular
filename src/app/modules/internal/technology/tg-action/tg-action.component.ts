@@ -177,8 +177,11 @@ export class TgActionComponent implements OnInit {
       if (tgAction == 'Cambios') { this.tgActionChange = tgAuthorization; }
       if (tgAction == 'Detalles') { this.tgActionDetail = tgAuthorization; }
     }
-    this.resultColumn(this.deletedData);
-    this.selectHtmlModal();
+    if (this.tgActionRead == 'Denegado') { this.moduleAccess(); }
+    if (this.tgActionRead == 'Concedido') {
+      this.resultColumn(this.deletedData);
+      this.selectHtmlModal();
+    }
   }
 
   resultColumn(fieldDeleted: string) {
@@ -821,6 +824,21 @@ export class TgActionComponent implements OnInit {
       title: `<h2>Advertencia!</h2>`,
     }).then(() => {
       this.actionLogout();
+    });
+  }
+
+  moduleAccess() {
+    this.isLoading = false;
+    const answer = `Acceso de Modulo Denegado`;
+    Swal.fire({
+      allowOutsideClick: false,
+      confirmButtonText: 'Entendido',
+      customClass: { confirmButton: 'rounded-0', },
+      html: `<span class="text-dark">${answer}</span>`,
+      icon: 'warning',
+      title: `<h2>Advertencia!</h2>`,
+    }).then(() => {
+      this.router.navigate(['internal/dashboard']);
     });
   }
 
