@@ -42,7 +42,7 @@ export class UsPasswordComponent implements OnInit {
   ) {}
 
   syModuleId: number = 0;
-  syPrefixId: number = 3;
+  syPrefixId: number = 2;
   tgRoleId: number = 0;
 
   tgActionRead: any;
@@ -114,7 +114,7 @@ export class UsPasswordComponent implements OnInit {
   }
 
   syModuleData(response: any) {
-    if (response.data[0].tg_role) {
+    if (response.data.length > 0 && response.data[0].tg_role) {
       this.tgRoleId = response.data[0].tg_role;
     }
     const params = {
@@ -139,7 +139,8 @@ export class UsPasswordComponent implements OnInit {
   }
 
   tgPermitData(response: any) {
-    if (response.data[0].id_register) {
+    console.log(response);
+    if (response.data.length > 0 && response.data[0].id_register) {
       this.syModuleId = response.data[0].id_register;
     }
     const params = {
