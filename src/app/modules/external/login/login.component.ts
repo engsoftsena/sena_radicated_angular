@@ -50,6 +50,7 @@ export class LoginComponent {
     if (formAjax) { formAjax.innerHTML = ''; }
     if (formAjax) { formAjax.innerHTML = `${errorMessages}`; }
     this.modalOpen('modalSystem');
+    this.isLoading = false;
   }
 
   modalSystemJson(message: any, response: any) {
@@ -62,6 +63,7 @@ export class LoginComponent {
     if (formAjax) { formAjax.innerHTML = ''; }
     if (formAjax) { formAjax.innerHTML = `${jStringify}`; }
     this.modalOpen('modalSystem');
+    this.isLoading = false;
   }
 
   formLogin(modalForm: any) {
