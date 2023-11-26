@@ -183,6 +183,36 @@ export class ApiService {
     return this.http.get(urlApi, { headers });
   }
 
+  unionModule(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/union/module`, query);
+    console.log(urlApi);
+    return this.http.get(urlApi, { headers });
+  }
+
+  unionMenu(params: any) {
+    const headers = this.authToken();
+    if (headers == null) {
+      const errorMessage = 'Token Inexistente';
+      return new Observable(observer => {
+        observer.error(errorMessage);
+        observer.complete();
+      });
+    }
+    const query = this.serviceEndpoint.processParams(params);
+    const urlApi = this.serviceEndpoint.buildApiUrl(`mysql/union/menu`, query);
+    console.log(urlApi);
+    return this.http.get(urlApi, { headers });
+  }
+
   proccessRegister(params: any) {
     const headers = this.authToken();
     if (headers == null) {
