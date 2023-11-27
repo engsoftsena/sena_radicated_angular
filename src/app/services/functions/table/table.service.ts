@@ -88,7 +88,7 @@ export class TableService {
       // Guardar el estado de una tabla (su posición de paginación, estado de pedido, etc.)
       stateSave: false,
     });
-  
+
     // Agregar un oyente de eventos para el evento 'draw.dt'
     tableLoad.on('draw.dt', function() {});
   }
@@ -151,7 +151,7 @@ export class TableService {
 
   domButton() {
     return `
-      <'row mb-1 d-none'
+      <'row mb-1'
         <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center'
           <'panel rounded-0 mb-1'
             <'panel-container show'

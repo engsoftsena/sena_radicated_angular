@@ -230,12 +230,13 @@ export class SyModuleComponent implements OnInit {
           // Mapea los datos del servicio al formato esperado
           this.responseData = response.data;
           console.log(this.responseData);
+          const buttonsData = this.serviceButton.buttonDataExport();
           // Construir tabla con datos y botones
           this.serviceTable.getTable(
             'tbInfo',
             this.responseData,
             this.columnSet,
-            []
+            buttonsData
           );
           this.isLoading = false;
         }
