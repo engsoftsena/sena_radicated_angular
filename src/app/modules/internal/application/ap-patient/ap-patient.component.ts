@@ -321,6 +321,63 @@ export class ApPatientComponent implements OnInit {
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
     if (modalElement) { new Modal(modalElement).show(); }
+    if (modalElement) { this.modalHelp(modalElement); }
+  }
+
+  modalHelp(modalForm: any) {
+    // Obtener todos los divs que terminan con "Field"
+    const fieldDivs = modalForm.querySelectorAll('[id$=Field]');
+    // Iterar sobre los divs encontrados
+    fieldDivs.forEach((fieldDiv: { querySelectorAll: (arg0: string) => any; id: string; }) => {
+      // Obtener todos los elementos input y select dentro del div
+      const inputAndSelectElements = fieldDiv.querySelectorAll('input, select');
+      // Construir el ID del select correspondiente
+      const selectId = 'help_' + fieldDiv.id.replace('Field', '');
+      // Obtener el select correspondiente al div actual
+      const helpSelect = modalForm.querySelector(`#${selectId}`);
+      // Verificar si el select existe
+      if (helpSelect) {
+        // Crear un nuevo option para "Seleccionar Valor"
+        const selectOption = document.createElement('option');
+        selectOption.value = '';
+        selectOption.textContent = 'Seleccionar Valor';
+        // Agregar el nuevo option al select
+        helpSelect.appendChild(selectOption);
+        // Iterar sobre todos los elementos input y select
+        inputAndSelectElements.forEach((element: {
+          id: any; closest: (arg0: string) => any;
+        }) => {
+          // Obtener el valor y el texto del label asociado al elemento
+          const label = element.closest('.form-group').querySelector('label');
+          const labelText = label ? label.textContent?.trim() : '';
+          const elementId = element.id;
+          // Crear un nuevo option con el valor y el texto obtenidos
+          const newOption = document.createElement('option');
+          newOption.value = elementId;
+          newOption.textContent = labelText;
+          // Agregar el nuevo option al select
+          helpSelect.appendChild(newOption);
+        });
+      }
+    });
+  }
+
+  helpInsert() {
+    // Obtener el elemento select por ID
+    const selectElement = document.getElementById('help_insert') as HTMLSelectElement;
+    // Obtener el valor seleccionado
+    const selectedValue = selectElement.value;
+    // Hacer algo con el valor seleccionado
+    console.log('Valor seleccionado:', selectedValue);
+  }
+
+  helpUpdate() {
+    // Obtener el elemento select por ID
+    const selectElement = document.getElementById('help_update') as HTMLSelectElement;
+    // Obtener el valor seleccionado
+    const selectedValue = selectElement.value;
+    // Hacer algo con el valor seleccionado
+    console.log('Valor seleccionado:', selectedValue);
   }
 
   modalSystemData(message: any, response: any) {

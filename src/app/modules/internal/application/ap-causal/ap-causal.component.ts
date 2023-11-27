@@ -337,6 +337,12 @@ export class ApCausalComponent implements OnInit {
       const helpSelect = modalForm.querySelector(`#${selectId}`);
       // Verificar si el select existe
       if (helpSelect) {
+        // Crear un nuevo option para "Seleccionar Valor"
+        const selectOption = document.createElement('option');
+        selectOption.value = '';
+        selectOption.textContent = 'Seleccionar Valor';
+        // Agregar el nuevo option al select
+        helpSelect.appendChild(selectOption);
         // Iterar sobre todos los elementos input y select
         inputAndSelectElements.forEach((element: {
           id: any; closest: (arg0: string) => any;
@@ -359,10 +365,8 @@ export class ApCausalComponent implements OnInit {
   helpInsert() {
     // Obtener el elemento select por ID
     const selectElement = document.getElementById('help_insert') as HTMLSelectElement;
-
     // Obtener el valor seleccionado
     const selectedValue = selectElement.value;
-
     // Hacer algo con el valor seleccionado
     console.log('Valor seleccionado:', selectedValue);
   }
@@ -370,10 +374,8 @@ export class ApCausalComponent implements OnInit {
   helpUpdate() {
     // Obtener el elemento select por ID
     const selectElement = document.getElementById('help_update') as HTMLSelectElement;
-
     // Obtener el valor seleccionado
     const selectedValue = selectElement.value;
-
     // Hacer algo con el valor seleccionado
     console.log('Valor seleccionado:', selectedValue);
   }
