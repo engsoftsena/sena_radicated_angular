@@ -15,16 +15,18 @@
     <div class="nav-filter">
       <div class="position-relative">
         <input type="text" id="nav_filter_input" placeholder="Filtrar Menu" class="rounded-0 form-control" tabindex="0">
-        <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off" data-action="toggle"
-          data-class="list-filter-active" data-target=".page-sidebar">
+        <button type="button" onclick="return false;" data-action="toggle"
+        class="rounded-0 btn-primary btn-search-close js-waves-off" title="Funcionalidad"
+        data-class="list-filter-active" data-target=".page-sidebar">
           <em class="fal fa-chevron-up"></em>
-        </a>
+        </button>
       </div>
     </div>
     <div class="info-card">
       <a href="profile">
-        <img src="https://cdn-icons-png.flaticon.com/512/2133/2133152.png" class="profile-image rounded-circle"
-          alt="Desarrollador Programado">
+        <img src="https://cdn-icons-png.flaticon.com/512/2133/2133152.png"
+        class="profile-image rounded-circle"
+        alt="Desarrollador Programador">
       </a>
       <div class="info-card-text">
         <span class="d-inline-block text-truncate text-truncate-sm">
@@ -51,7 +53,7 @@
         [attr.data-filter-tags]="module.tb_sy_module_os_name"
         [attr.title]="module.tb_sy_module_os_name"
         class="p-2 waves-effect waves-themed text-white">
-          <em class="{{module.mo_sy_icon_os_name}}"></em>
+          <em class="text-white {{module.mo_sy_icon_os_name}}"></em>
           <span class="nav-link-text">{{module.tb_sy_module_os_name}}</span>
         </a>
       </li>
@@ -76,8 +78,9 @@
     </ul>
     <div class="filter-message js-filter-message bg-success-600"></div>
   </nav>
-  <div class="nav-footer shadow-top">
-    <a href="#" onclick="return false;" data-action="toggle" data-class="nav-function-minify" class="hidden-md-down">
+  <div class="nav-footer shadow-top d-none">
+    <a href="#" onclick="return false;" data-action="toggle"
+    data-class="nav-function-minify" class="hidden-md-down">
       <em class="ni ni-chevron-right"></em>
       <em class="ni ni-chevron-right"></em>
     </a>
