@@ -516,8 +516,12 @@ export class SySelectComponent implements OnInit {
     // Retornar Informacion
     const {
       whereColumn,
+      whereForm,
       whereData,
     } = this.formDelete(modalForm);
+    // Unificar un solo objeto
+    const combinedData = { ...whereForm };
+    const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
       table: this.tableComponent,
@@ -527,13 +531,13 @@ export class SySelectComponent implements OnInit {
       whereOperator: '=',
       whereEqual: whereData,
     };
-    this.sendDelete(modalForm, params);
+    this.sendDelete(modalForm, params, jsonData);
   }
 
-  sendDelete(modalForm: any, params: any) {
+  sendDelete(modalForm: any, params: any, jsonData: any) {
     let message = '';
     // Llama al servicio para enviar los datos al servidor
-    this.serviceApi.proccessDelete(params).subscribe({
+    this.serviceApi.proccessDelete(params, jsonData).subscribe({
       next: (response) => {
         this.responseMessage(modalForm, response);
       },
@@ -623,11 +627,12 @@ export class SySelectComponent implements OnInit {
     const {
       formData,
       dataColumn,
+      whereForm,
       whereColumn,
       whereData,
     } = this.formRemove(modalForm);
     // Unificar un solo objeto
-    const combinedData = { ...formData };
+    const combinedData = { ...formData, ...whereForm };
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
@@ -672,11 +677,12 @@ export class SySelectComponent implements OnInit {
     const {
       formData,
       dataColumn,
+      whereForm,
       whereColumn,
       whereData,
     } = this.formRestore(modalForm);
     // Unificar un solo objeto
-    const combinedData = { ...formData };
+    const combinedData = { ...formData, ...whereForm };
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
@@ -719,11 +725,12 @@ export class SySelectComponent implements OnInit {
     const {
       formData,
       dataColumn,
+      whereForm,
       whereColumn,
       whereData,
     } = this.formUpdate(modalForm);
     // Unificar un solo objeto
-    const combinedData = { ...formData };
+    const combinedData = { ...formData, ...whereForm };
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {

@@ -250,7 +250,7 @@ export class ApiService {
     });
   }
 
-  proccessDelete(params: any) {
+  proccessDelete(params: any, data: any) {
     const headers = this.authToken();
     if (headers == null) {
       const errorMessage = 'Token Inexistente';
@@ -273,7 +273,7 @@ export class ApiService {
     }).pipe(
       catchError((error) => {
         // Manejar el error aquí
-        console.error('Error en la solicitud PUT:', error);
+        console.error('Error en la solicitud DELETE:', error);
         // Retornar error original
         return throwError(() => error);
       })
