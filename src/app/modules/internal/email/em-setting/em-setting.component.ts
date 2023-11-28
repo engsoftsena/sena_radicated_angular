@@ -322,6 +322,7 @@ export class EmSettingComponent implements OnInit {
     const modalElement = document.getElementById(modalForm);
     if (modalElement) { new Modal(modalElement).show(); }
     if (modalElement) { this.modalHelp(modalElement); }
+    if (modalElement) { this.formAjaxHide(); }
   }
 
   modalHelp(modalForm: any) {
@@ -337,6 +338,8 @@ export class EmSettingComponent implements OnInit {
       const helpSelect = modalForm.querySelector(`#${selectId}`);
       // Verificar si el select existe
       if (helpSelect) {
+        // Vaciar el contenido del select
+        helpSelect.textContent = '';
         // Crear un nuevo option para "Seleccionar Valor"
         const selectOption = document.createElement('option');
         selectOption.value = '';
@@ -791,9 +794,27 @@ export class EmSettingComponent implements OnInit {
     });
   }
 
+  formAjaxHide() {
+    const formIdsAjax = [
+      'formInsertAjax',
+      'formUpdateAjax',
+      'formDeleteAjax',
+      'formRemoveAjax',
+      'formRestoreAjax',
+    ];
+
+    formIdsAjax.forEach(formId => {
+      const formAjax = document.getElementById(formId);
+      if (formAjax) {
+        formAjax.classList.add('d-none');
+        formAjax.innerHTML = `<span></span>`;
+      }
+    });
+  }
+
   responseWarning(modalForm: any, response: any) {
     let formAjaxId = '';
-    const { modalId, formId } = modalForm;
+    const { modalId } = modalForm;
     const answer = response.data
       .filter((item: any) => 'warning' in item)
       .map((item: { warning: any; }) => item.warning)
