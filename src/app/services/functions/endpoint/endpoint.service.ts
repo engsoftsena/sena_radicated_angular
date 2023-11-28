@@ -51,4 +51,10 @@ export class EndpointService {
   getCheckUrl() {
     return this.testUrl();
   }
+
+  getCurrentUrl(): string {
+    const { protocol, host } = window.location;
+    console.log(`${protocol}//${host}`);
+    return `${protocol}//${host}`;
+  }
 }

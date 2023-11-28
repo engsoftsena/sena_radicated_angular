@@ -31,6 +31,8 @@ export class IntSidebarComponent implements OnInit {
     private serviceAuth: AuthService,
     private serviceEndpoint: EndpointService,
   ) {}
+  
+  urlBase: string = '';
 
   syPrefixSy: any;
   syPrefixUs: any;
@@ -47,10 +49,15 @@ export class IntSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     //this.sessionStorage();
+    this.getUrlHref();
     this.checkEndpoint();
   }
 
   modalClass() { expModalClass(); }
+
+  getUrlHref() {
+    this.urlBase = this.serviceEndpoint.getCurrentUrl();
+  }
 
   checkEndpoint() {
     if (this.serviceEndpoint.getCheckUrl()) {

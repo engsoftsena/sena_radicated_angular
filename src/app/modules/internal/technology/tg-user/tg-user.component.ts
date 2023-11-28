@@ -40,6 +40,8 @@ export class TgUserComponent implements OnInit {
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
   ) {}
+  
+  urlBase: string = '';
 
   syModuleId: number = 0;
   syModuleName: any;
@@ -65,6 +67,7 @@ export class TgUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.getUrlHref();
     this.checkEndpoint();
   }
 
@@ -73,6 +76,10 @@ export class TgUserComponent implements OnInit {
   }
 
   modalClass() { expModalClass(); }
+
+  getUrlHref() {
+    this.urlBase = this.serviceEndpoint.getCurrentUrl();
+  }
 
   checkEndpoint() {
     if (this.serviceEndpoint.getCheckUrl()) {
