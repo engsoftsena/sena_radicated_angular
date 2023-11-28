@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { AuthService } from 'src/app/services/functions/auth/auth.service';
+import { BaseurlService } from 'src/app/services/functions/baseurl/baseurl.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 // Importacion de Interfaces
 import { InterfaceModule } from 'src/app/interfaces/general/module.interface';
@@ -29,10 +30,12 @@ export class IntSidebarComponent implements OnInit {
   constructor (
     private serviceApi: ApiService,
     private serviceAuth: AuthService,
+    private serviceBaseurl: BaseurlService,
     private serviceEndpoint: EndpointService,
   ) {}
   
-  urlBase: string = '';
+  baseUrl: string = '';
+  urlCurr: string = '';
 
   syPrefixSy: any;
   syPrefixUs: any;
@@ -56,7 +59,8 @@ export class IntSidebarComponent implements OnInit {
   modalClass() { expModalClass(); }
 
   getUrlHref() {
-    this.urlBase = this.serviceEndpoint.getCurrentUrl();
+    this.baseUrl = this.serviceBaseurl.getBaseUrl();
+    this.urlCurr = this.serviceEndpoint.getCurrentUrl();
   }
 
   checkEndpoint() {

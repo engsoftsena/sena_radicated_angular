@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // Importacion de Servicios
+import { BaseurlService } from 'src/app/services/functions/baseurl/baseurl.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 
 @Component({
@@ -9,16 +10,19 @@ import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.se
 })
 export class IntSettingComponent implements OnInit {
   constructor (
+    private serviceBaseurl: BaseurlService,
     private serviceEndpoint: EndpointService,
   ) {}
 
-  urlBase: string = '';
+  baseUrl: string = '';
+  urlCurr: string = '';
 
   ngOnInit(): void {
     this.getUrlHref();
   }
 
   getUrlHref() {
-    this.urlBase = this.serviceEndpoint.getCurrentUrl();
+    this.baseUrl = this.serviceBaseurl.getBaseUrl();
+    this.urlCurr = this.serviceEndpoint.getCurrentUrl();
   }
 }

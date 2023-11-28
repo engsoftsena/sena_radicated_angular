@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { AuthService } from 'src/app/services/functions/auth/auth.service';
+import { BaseurlService } from 'src/app/services/functions/baseurl/baseurl.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
@@ -36,12 +37,14 @@ export class TgUserComponent implements OnInit {
     private router: Router,
     private serviceApi: ApiService,
     private serviceAuth: AuthService,
+    private serviceBaseurl: BaseurlService,
     private serviceButton: ButtonService,
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
   ) {}
   
-  urlBase: string = '';
+  baseUrl: string = '';
+  urlCurr: string = '';
 
   syModuleId: number = 0;
   syModuleName: any;
@@ -78,7 +81,8 @@ export class TgUserComponent implements OnInit {
   modalClass() { expModalClass(); }
 
   getUrlHref() {
-    this.urlBase = this.serviceEndpoint.getCurrentUrl();
+    this.baseUrl = this.serviceBaseurl.getBaseUrl();
+    this.urlCurr = this.serviceEndpoint.getCurrentUrl();
   }
 
   checkEndpoint() {
