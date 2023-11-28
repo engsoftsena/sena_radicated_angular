@@ -792,12 +792,25 @@ export class ApSettledComponent implements OnInit {
   }
 
   responseWarning(modalForm: any, response: any) {
+    let formAjaxId = '';
     const { modalId, formId } = modalForm;
     const answer = response.data
       .filter((item: any) => 'warning' in item)
       .map((item: { warning: any; }) => item.warning)
       .join(', ');
-    console.log(answer);
+    // Determinar el ID del formulario correspondiente al modal
+    if (modalId === 'modalInsert') { formAjaxId = 'formInsertAjax'; }
+    if (modalId === 'modalUpdate') { formAjaxId = 'formUpdateAjax'; }
+    if (modalId === 'modalDelete') { formAjaxId = 'formDeleteAjax'; }
+    if (modalId === 'modalRemove') { formAjaxId = 'formRemoveAjax'; }
+    if (modalId === 'modalRestore') { formAjaxId = 'formRestoreAjax'; }
+
+    if (formAjaxId) {
+      // Agregar la clase de alerta
+      const formAjax = document.getElementById(formAjaxId);
+      if (formAjax) { formAjax.classList.remove('d-none'); }
+      if (formAjax) { formAjax.innerHTML = `<span>${answer}</span>`; }
+    }
   }
 
   dataProccess() {
