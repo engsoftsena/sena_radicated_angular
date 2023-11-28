@@ -133,13 +133,13 @@
                             <span class="hidden-sm-down">Remover</span>
                           </button>
                           <button *ngIf="tgActionRestore === 'Concedido'"
-                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-warning"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-warning d-none"
                           id="modalRestoreBtn" type="button" (click)="modalRecord('modalRestore', 'restore');">
                             <em class="far fa-redo-alt mr-1"></em>
                             <span class="hidden-sm-down">Restaurar</span>
                           </button>
                           <button *ngIf="tgActionDelete === 'Concedido'"
-                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-danger"
+                          class="mr-1 rounded-0 mb-1 btn btn-sm waves-effect waves-light btn btn-outline-danger d-none"
                           id="modalDeleteBtn" type="button" (click)="modalRecord('modalDelete', 'delete');">
                             <em class="far fa-trash-alt mr-1"></em>
                             <span class="hidden-sm-down">Eliminar</span>

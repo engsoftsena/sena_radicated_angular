@@ -14,8 +14,8 @@ export function expTableRemove() {
   tableDataBtn('remove', 'modalDeleteBtn');
 }
 
-function tableDataBtn(classList: any, reference: any) {
-  let btnData = document.getElementById(reference) as HTMLFormElement;
-  if (btnData && classList == 'append') { btnData.classList.add('d-none'); }
-  if (btnData && classList == 'remove') { btnData.classList.remove('d-none'); }
+function tableDataBtn(listClass: any, reference: any) {
+  let btnData = document.getElementById(reference) as HTMLButtonElement;
+  if (btnData && listClass == 'append') { btnData.classList.add('d-none'); }
+  if (btnData && listClass == 'remove') { btnData.classList.remove('d-none'); }
 }
