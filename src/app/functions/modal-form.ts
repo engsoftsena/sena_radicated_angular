@@ -19,7 +19,10 @@ export function expFormCollect(modalForm: any, formField: any) {
 
   const allElements = Array.from(valformField.querySelectorAll('*'));
   for (const element of allElements) {
-    if (element instanceof HTMLInputElement || element instanceof HTMLSelectElement) {
+    if (element instanceof HTMLInputElement ||
+      element instanceof HTMLSelectElement ||
+      element instanceof HTMLTextAreaElement
+    ) {
       const fieldName = element.getAttribute('name');
       if (fieldName) {
         const lizedField = fieldName.replace(formPrefix, '');
