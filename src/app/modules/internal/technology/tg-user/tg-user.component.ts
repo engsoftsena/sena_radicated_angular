@@ -42,7 +42,7 @@ export class TgUserComponent implements OnInit {
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
   ) {}
-  
+
   baseUrl: string = '';
   urlCurr: string = '';
 
@@ -376,22 +376,249 @@ export class TgUserComponent implements OnInit {
     });
   }
 
-  helpInsert() {
-    // Obtener el elemento select por ID
-    const selectElement = document.getElementById('help_insert') as HTMLSelectElement;
-    // Obtener el valor seleccionado
-    const selectedValue = selectElement.value;
-    // Hacer algo con el valor seleccionado
-    console.log('Valor seleccionado:', selectedValue);
+  helpGuide(helpLock: any, helpGuide: any, helpBool: any) {
+    helpGuide.disabled = helpBool;
+    helpLock.classList.add('d-none');
+    helpGuide.classList.remove('d-none');
   }
 
-  helpUpdate() {
-    // Obtener el elemento select por ID
-    const selectElement = document.getElementById('help_update') as HTMLSelectElement;
-    // Obtener el valor seleccionado
-    const selectedValue = selectElement.value;
-    // Hacer algo con el valor seleccionado
-    console.log('Valor seleccionado:', selectedValue);
+  helpBlock(helpLock: any, helpGuide: any) {
+    if (helpLock && helpGuide) {
+      helpGuide.disabled = true;
+      helpLock.classList.remove('d-none');
+      helpGuide.classList.add('d-none');
+    }
+  }
+
+  helpSelect(typeSel: string) {
+    let helpLock: HTMLButtonElement | null = null;
+    let helpGuide: HTMLButtonElement | null = null;
+    let selectElement: HTMLSelectElement | null;
+    let selectedValue: string | null = null;
+
+    helpLock = document.getElementById(`${typeSel}Lock`) as HTMLButtonElement | null;
+    helpGuide = document.getElementById(`${typeSel}Guide`) as HTMLButtonElement | null;
+    selectElement = document.getElementById(`help_${typeSel}`) as HTMLSelectElement | null;
+    selectedValue = selectElement?.value || null;
+
+    if (helpLock && helpGuide) {
+      if (selectedValue === '' || selectedValue === null) {
+        this.helpGuide(helpLock, helpGuide, true);
+      } else {
+        this.helpGuide(helpLock, helpGuide, false);
+      }
+    }
+  }
+
+  helpCols(dataForm: any, dataHelp: any, valSlct: any) {
+    let colOrig = ['col-sm-12', 'col-md-12', 'col-lg-12', 'col-xl-12', 'd-none'];
+    let colForm = ['col-sm-8', 'col-md-8', 'col-lg-8', 'col-xl-8'];
+    let colHelp = ['col-sm-4', 'col-md-4', 'col-lg-4', 'col-xl-4'];
+
+    if (dataForm) {
+      dataForm.classList.remove(...colOrig, ...colForm);
+      dataForm.classList.add(
+        ...(
+          valSlct === '' ||
+          valSlct === null ?
+          colOrig : colForm
+        )
+      );
+    }
+
+    if (dataHelp) {
+      dataHelp.classList.remove(...colOrig, ...colHelp);
+      dataHelp.classList.add(
+        ...(
+          valSlct === '' ||
+          valSlct === null ?
+          colOrig : colHelp
+        )
+      );
+    }
+  }
+
+  helpOrigin(dataForm: any, dataHelp: any) {
+    let colOrig = ['col-sm-12', 'col-md-12', 'col-lg-12', 'col-xl-12'];
+    let colForm = ['col-sm-8', 'col-md-8', 'col-lg-8', 'col-xl-8'];
+    let colHelp = ['col-sm-4', 'col-md-4', 'col-lg-4', 'col-xl-4'];
+
+    if (dataForm) {
+      dataForm.classList.remove(...colOrig, ...colForm);
+      dataForm.classList.add(...colOrig);
+    }
+
+    if (dataHelp) {
+      dataHelp.classList.remove(...colOrig, ...colHelp);
+      dataHelp.classList.add(...colOrig, 'd-none');
+    }
+  }
+
+  helpUnlock(typeSel: string) {
+    const dataForm = document.getElementById(`${typeSel}Form`);
+    const dataHelp = document.getElementById(`${typeSel}Help`);
+    this.helpOrigin(dataForm, dataHelp);
+
+    const selectElement = document.getElementById(`help_${typeSel}`) as HTMLSelectElement;
+    selectElement.value = '';
+    selectElement.disabled = false;
+
+    let helpLock = document.getElementById(`${typeSel}Lock`) as HTMLButtonElement;
+    let helpGuide = document.getElementById(`${typeSel}Guide`) as HTMLButtonElement;
+    if (helpLock && helpGuide) { this.helpGuide(helpLock, helpGuide, true); }
+  }
+
+  helpAction(action: any) {
+    let dataForm = document.getElementById(`${action}Form`);
+    let dataHelp = document.getElementById(`${action}Help`);
+
+    let selectElement = document.getElementById(`help_${action}`) as HTMLSelectElement;
+    let helpLock = document.getElementById(`${action}Lock`) as HTMLButtonElement;
+    let helpGuide = document.getElementById(`${action}Guide`) as HTMLButtonElement;
+
+    let selectedValue = selectElement.value;
+    selectElement.disabled = true;
+    let cleanedValue = selectedValue.replace(new RegExp(`^${action}_`), '');
+    console.log('cleanedValue', cleanedValue);
+
+    this.helpCols(dataForm, dataHelp, selectedValue);
+    this.helpBlock(helpLock, helpGuide);
+    this.helpMap(dataHelp, cleanedValue);
+  }
+
+  helpMap(dataHelp: any, fieldKey: string) {
+    if (dataHelp) {
+      // Obtener las definiciones de campo
+      const fieldDefinition = this.helpMssg();
+      const dataFilter = fieldKey as keyof typeof fieldDefinition;
+      if (dataFilter in fieldDefinition) {
+        const filteredData = fieldDefinition[dataFilter];
+        // Crear y agregar el contenido
+        const helpContent = this.helpContent(dataHelp, filteredData);
+        dataHelp.appendChild(helpContent);
+      } else {
+        console.error(`La clave del campo "${dataFilter}" no existe.`);
+      }
+    }
+  }
+
+  helpContent(dataHelp: any, definition: any): DocumentFragment {
+    const fragment = document.createDocumentFragment();
+    if (dataHelp) {
+      const titleElement = dataHelp.querySelector('.toast-header strong');
+      if (titleElement) { titleElement.textContent = ''; }
+      if (titleElement) { titleElement.textContent = definition.title; }
+      // Limpiar solo el contenido generado por helpCard
+      const helpCardContainers = dataHelp.querySelectorAll('.card.rounded-0.mb-1');
+      if (helpCardContainers) {
+        helpCardContainers.forEach(
+          (container: {
+            remove: () => void;
+          }) => {
+            container.remove();
+          }
+        );
+      }
+      // Verificar si definition tiene una propiedad 'title'
+      if ('title' in definition) {
+        // Crear y agregar los mensajes
+        for (const key in definition) {
+          if (key !== 'title') {
+            const messageCard = this.helpCard(definition[key]);
+            fragment.appendChild(messageCard);
+          }
+        }
+      }
+    }
+    return fragment;
+  }
+
+  helpCard(message: string): HTMLDivElement {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('card', 'rounded-0', 'mb-1');
+    messageDiv.innerHTML = `
+      <div class="card-body p-1">
+        <div class="alert alert-warning alert-dismissible
+        fade show p-1 rounded-0 mb-0 text-center" role="alert">
+          <div class="d-flex align-items-center">
+            <div class="flex-1">
+              <span>${message}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    return messageDiv;
+  }
+
+  helpMssg() {
+    let fieldHelp = {
+      'id_register': {
+        'title': 'Registro',
+        'required': 'Campo obligatorio',
+        'alphanumeric': 'Permitido caracteres alfanumericos',
+      },
+      'os_connection': {
+        'title': 'Fecha Conexion',
+        'required': 'Campo obligatorio',
+        'datetime': 'Permitido fechas con tiempo',
+      },
+      'os_email': {
+        'title': 'Correo Electronico',
+        'required': 'Campo obligatorio',
+        'email': 'Correo electronico valido',
+      },
+      'os_identification': {
+        'title': 'Identificacion',
+        'required': 'Campo obligatorio',
+        'alphanumeric': 'Permitido caracteres alfanumericos',
+      },
+      'os_login': {
+        'title': 'Usuario',
+        'required': 'Campo obligatorio',
+        'alphabetic': 'Permitido caracteres alfabeticos',
+        'minLength': 'Permitido minimo 5 caracteres',
+        'maxLength': 'Permitido maximo 255 caracteres',
+        'noAccents': 'No se permiten acentos alfabeticos',
+        'noSpaces': 'No se permiten espacios',
+      },
+      'os_names': {
+        'title': 'Nombres',
+        'required': 'Campo obligatorio',
+        'alphabetic': 'Permitido caracteres alfabeticos',
+        'accents': 'Permitido caracteres con acentos',
+        'spaces': 'Permitido con espacios',
+        'minLength': 'Permitido minimo 5 caracteres',
+        'maxLength': 'Permitido maximo 255 caracteres',
+      },
+      'os_password': {
+        'title': 'Contraseña',
+        'required': 'Campo obligatorio',
+        'minLength': 'Permitido minimo 5 caracteres',
+        'maxLength': 'Permitido maximo 255 caracteres',
+        'noSpaces': 'No se permiten espacios',
+      },
+      'os_surnames': {
+        'title': 'Apellidos',
+        'required': 'Campo obligatorio',
+        'alphabetic': 'Permitido caracteres alfabeticos',
+        'accents': 'Permitido caracteres con acentos',
+        'spaces': 'Permitido con espacios',
+        'minLength': 'Permitido minimo 5 caracteres',
+        'maxLength': 'Permitido maximo 255 caracteres',
+      },
+      'tg_document': {
+        'title': 'Documento',
+        'required': 'Campo obligatorio',
+        'allowedValues': 'Permitido valores establecidos',
+      },
+      'tg_role': {
+        'title': 'Rol',
+        'required': 'Campo obligatorio',
+        'allowedValues': 'Permitido valores establecidos',
+      },
+    };
+    return fieldHelp;
   }
 
   modalSystemData(message: any, response: any) {
