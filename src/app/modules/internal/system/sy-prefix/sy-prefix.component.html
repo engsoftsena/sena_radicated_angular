@@ -240,72 +240,87 @@ enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" ro
             </div>
           </div>
 
-          <div class="row" id="insertField">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
-              <div class="card rounded-0">
-                <div class="card-body p-2">
-                  <div class="form-group">
-                    <label for="insert_os_module"
-                      class="form-label">
-                      <span>Modulo</span>
-                    </label>
-                    <span class="text-dark">:</span>
-                    <span class="text-danger">(*)</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="rounded-0 form-control"
-                      name="insert_os_module" id="insert_os_module"
-                      placeholder="Digita el texto ..."
-                      required="" autocomplete="off">
-                      <div class="invalid-feedback">
-                        <span>Digita un valor en el campo.</span>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="insertForm">
+              <div class="row" id="insertField">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+                  <div class="card rounded-0">
+                    <div class="card-body p-2">
+                      <div class="form-group">
+                        <label for="insert_os_module"
+                          class="form-label">
+                          <span>Modulo</span>
+                        </label>
+                        <span class="text-dark">:</span>
+                        <span class="text-danger">(*)</span>
+                        <div class="input-group input-group-sm">
+                          <input type="text" class="rounded-0 form-control"
+                          name="insert_os_module" id="insert_os_module"
+                          placeholder="Digita el texto ..."
+                          required="" autocomplete="off">
+                          <div class="invalid-feedback">
+                            <span>Digita un valor en el campo.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+                  <div class="card rounded-0">
+                    <div class="card-body p-2">
+                      <div class="form-group">
+                        <label for="insert_os_prefix"
+                          class="form-label">
+                          <span>Prefijo</span>
+                        </label>
+                        <span class="text-dark">:</span>
+                        <span class="text-danger">(*)</span>
+                        <div class="input-group input-group-sm">
+                          <input type="text" class="rounded-0 form-control"
+                          name="insert_os_prefix" id="insert_os_prefix"
+                          placeholder="Digita el texto ..."
+                          required="" autocomplete="off">
+                          <div class="invalid-feedback">
+                            <span>Digita un valor en el campo.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+                  <div class="card rounded-0">
+                    <div class="card-body p-2">
+                      <div class="form-group">
+                        <label for="insert_os_template"
+                          class="form-label">
+                          <span>Plantilla</span>
+                        </label>
+                        <span class="text-dark">:</span>
+                        <span class="text-danger">(*)</span>
+                        <div class="input-group input-group-sm">
+                          <input type="text" class="rounded-0 form-control"
+                          name="insert_os_template" id="insert_os_template"
+                          placeholder="Digita el texto ..."
+                          required="" autocomplete="off">
+                          <div class="invalid-feedback">
+                            <span>Digita un valor en el campo.</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
-              <div class="card rounded-0">
-                <div class="card-body p-2">
-                  <div class="form-group">
-                    <label for="insert_os_prefix"
-                      class="form-label">
-                      <span>Prefijo</span>
-                    </label>
-                    <span class="text-dark">:</span>
-                    <span class="text-danger">(*)</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="rounded-0 form-control"
-                      name="insert_os_prefix" id="insert_os_prefix"
-                      placeholder="Digita el texto ..."
-                      required="" autocomplete="off">
-                      <div class="invalid-feedback">
-                        <span>Digita un valor en el campo.</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
-              <div class="card rounded-0">
-                <div class="card-body p-2">
-                  <div class="form-group">
-                    <label for="insert_os_template"
-                      class="form-label">
-                      <span>Plantilla</span>
-                    </label>
-                    <span class="text-dark">:</span>
-                    <span class="text-danger">(*)</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="rounded-0 form-control"
-                      name="insert_os_template" id="insert_os_template"
-                      placeholder="Digita el texto ..."
-                      required="" autocomplete="off">
-                      <div class="invalid-feedback">
-                        <span>Digita un valor en el campo.</span>
-                      </div>
-                    </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-none" id="insertHelp">
+              <div class="card rounded-0 text-center mb-2">
+                <div class="card-body mx-auto p-1">
+                  <div class="toast-header">
+                    <img src="{{ urlCurr }}{{ baseUrl }}assets/integration/smart/dist/img/logo.png"
+                    alt="brand-logo" height="16" class="mr-2">
+                    <strong class="mr-auto">Titulo Inicial</strong>
                   </div>
                 </div>
               </div>
@@ -317,9 +332,15 @@ enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" ro
           <div class="form-group">
             <div class="input-group input-group-sm mr-1">
               <select class="rounded-0 custom-select form-control border-success mr-1"
-              name="help_insert" id="help_insert" title="Seleccionar Datos" autocomplete="off"></select>
+              name="help_insert" id="help_insert" title="Seleccionar Datos"
+              autocomplete="off" (change)="helpSelect('insert');"></select>
+              <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-danger mr-1 d-none"
+              id="insertLock" type="button" (click)="helpUnlock('insert');">
+                <em class="far fa-robot mr-1"></em>
+                <span class="">Desactivar</span>
+              </button>
               <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-success mr-1"
-              id="helpInsertBtn" type="button" (click)="helpInsert();">
+              id="insertGuide" type="button" disabled="true" (click)="helpAction('insert');">
                 <em class="far fa-robot mr-1"></em>
                 <span class="">Guia</span>
               </button>
@@ -388,98 +409,113 @@ enctype="application/x-www-form-urlencoded" id="formUpdateData" novalidate="" ro
             </div>
           </div>
 
-          <div class="row d-none" id="updateWhere">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
-              <div class="card rounded-0">
-                <div class="card-body p-2">
-                  <div class="form-group">
-                    <label for="update_id_register"
-                      class="form-label">
-                      <span>Id</span>
-                    </label>
-                    <span class="text-dark">:</span>
-                    <span class="text-danger">(*)</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="rounded-0 form-control"
-                      name="update_id_register" id="update_id_register"
-                      placeholder="Digita el texto ..." required=""
-                      autocomplete="off" readonly="true">
-                      <div class="invalid-feedback">
-                        <span>Digita un valor en el campo.</span>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="updateForm">
+              <div class="row d-none" id="updateWhere">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+                  <div class="card rounded-0">
+                    <div class="card-body p-2">
+                      <div class="form-group">
+                        <label for="update_id_register"
+                          class="form-label">
+                          <span>Id</span>
+                        </label>
+                        <span class="text-dark">:</span>
+                        <span class="text-danger">(*)</span>
+                        <div class="input-group input-group-sm">
+                          <input type="text" class="rounded-0 form-control"
+                          name="update_id_register" id="update_id_register"
+                          placeholder="Digita el texto ..." required=""
+                          autocomplete="off" readonly="true">
+                          <div class="invalid-feedback">
+                            <span>Digita un valor en el campo.</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div class="row" id="updateField">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
-              <div class="card rounded-0">
-                <div class="card-body p-2">
-                  <div class="form-group">
-                    <label for="update_os_module"
-                      class="form-label">
-                      <span>Modulo</span>
-                    </label>
-                    <span class="text-dark">:</span>
-                    <span class="text-danger">(*)</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="rounded-0 form-control"
-                      name="update_os_module" id="update_os_module"
-                      placeholder="Digita el texto ..."
-                      required="" autocomplete="off">
-                      <div class="invalid-feedback">
-                        <span>Digita un valor en el campo.</span>
+              <div class="row" id="updateField">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+                  <div class="card rounded-0">
+                    <div class="card-body p-2">
+                      <div class="form-group">
+                        <label for="update_os_module"
+                          class="form-label">
+                          <span>Modulo</span>
+                        </label>
+                        <span class="text-dark">:</span>
+                        <span class="text-danger">(*)</span>
+                        <div class="input-group input-group-sm">
+                          <input type="text" class="rounded-0 form-control"
+                          name="update_os_module" id="update_os_module"
+                          placeholder="Digita el texto ..."
+                          required="" autocomplete="off">
+                          <div class="invalid-feedback">
+                            <span>Digita un valor en el campo.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+                  <div class="card rounded-0">
+                    <div class="card-body p-2">
+                      <div class="form-group">
+                        <label for="update_os_prefix"
+                          class="form-label">
+                          <span>Prefijo</span>
+                        </label>
+                        <span class="text-dark">:</span>
+                        <span class="text-danger">(*)</span>
+                        <div class="input-group input-group-sm">
+                          <input type="text" class="rounded-0 form-control"
+                          name="update_os_prefix" id="update_os_prefix"
+                          placeholder="Digita el texto ..."
+                          required="" autocomplete="off">
+                          <div class="invalid-feedback">
+                            <span>Digita un valor en el campo.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
+                  <div class="card rounded-0">
+                    <div class="card-body p-2">
+                      <div class="form-group">
+                        <label for="update_os_template"
+                          class="form-label">
+                          <span>Plantilla</span>
+                        </label>
+                        <span class="text-dark">:</span>
+                        <span class="text-danger">(*)</span>
+                        <div class="input-group input-group-sm">
+                          <input type="text" class="rounded-0 form-control"
+                          name="update_os_template" id="update_os_template"
+                          placeholder="Digita el texto ..."
+                          required="" autocomplete="off">
+                          <div class="invalid-feedback">
+                            <span>Digita un valor en el campo.</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
-              <div class="card rounded-0">
-                <div class="card-body p-2">
-                  <div class="form-group">
-                    <label for="update_os_prefix"
-                      class="form-label">
-                      <span>Prefijo</span>
-                    </label>
-                    <span class="text-dark">:</span>
-                    <span class="text-danger">(*)</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="rounded-0 form-control"
-                      name="update_os_prefix" id="update_os_prefix"
-                      placeholder="Digita el texto ..."
-                      required="" autocomplete="off">
-                      <div class="invalid-feedback">
-                        <span>Digita un valor en el campo.</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-3">
-              <div class="card rounded-0">
-                <div class="card-body p-2">
-                  <div class="form-group">
-                    <label for="update_os_template"
-                      class="form-label">
-                      <span>Plantilla</span>
-                    </label>
-                    <span class="text-dark">:</span>
-                    <span class="text-danger">(*)</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="rounded-0 form-control"
-                      name="update_os_template" id="update_os_template"
-                      placeholder="Digita el texto ..."
-                      required="" autocomplete="off">
-                      <div class="invalid-feedback">
-                        <span>Digita un valor en el campo.</span>
-                      </div>
-                    </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-none" id="updateHelp">
+              <div class="card rounded-0 text-center mb-2">
+                <div class="card-body mx-auto p-1">
+                  <div class="toast-header">
+                    <img src="{{ urlCurr }}{{ baseUrl }}assets/integration/smart/dist/img/logo.png"
+                    alt="brand-logo" height="16" class="mr-2">
+                    <strong class="mr-auto">Titulo Inicial</strong>
                   </div>
                 </div>
               </div>
@@ -491,9 +527,15 @@ enctype="application/x-www-form-urlencoded" id="formUpdateData" novalidate="" ro
           <div class="form-group">
             <div class="input-group input-group-sm mr-1">
               <select class="rounded-0 custom-select form-control border-success mr-1"
-              name="help_update" id="help_update" title="Seleccionar Datos" autocomplete="off"></select>
+              name="help_update" id="help_update" title="Seleccionar Datos"
+              autocomplete="off" (change)="helpSelect('update');"></select>
+              <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-danger mr-1 d-none"
+              id="updateLock" type="button" (click)="helpUnlock('update');">
+                <em class="far fa-robot mr-1"></em>
+                <span class="">Desactivar</span>
+              </button>
               <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-success mr-1"
-              id="helpUpdateBtn" type="button" (click)="helpUpdate();">
+              id="updateGuide" type="button" disabled="true" (click)="helpAction('update');">
                 <em class="far fa-robot mr-1"></em>
                 <span class="">Guia</span>
               </button>

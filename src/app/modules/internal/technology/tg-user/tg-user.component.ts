@@ -342,7 +342,7 @@ export class TgUserComponent implements OnInit {
     // Iterar sobre los divs encontrados
     fieldDivs.forEach((fieldDiv: { querySelectorAll: (arg0: string) => any; id: string; }) => {
       // Obtener todos los elementos input y select dentro del div
-      const inputAndSelectElements = fieldDiv.querySelectorAll('input, select');
+      const elmtsHtml = fieldDiv.querySelectorAll('input, select, textarea');
       // Construir el ID del select correspondiente
       const selectId = 'help_' + fieldDiv.id.replace('Field', '');
       // Obtener el select correspondiente al div actual
@@ -358,7 +358,7 @@ export class TgUserComponent implements OnInit {
         // Agregar el nuevo option al select
         helpSelect.appendChild(selectOption);
         // Iterar sobre todos los elementos input y select
-        inputAndSelectElements.forEach((element: {
+        elmtsHtml.forEach((element: {
           id: any; closest: (arg0: string) => any;
         }) => {
           // Obtener el valor y el texto del label asociado al elemento

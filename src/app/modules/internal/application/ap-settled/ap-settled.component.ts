@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { AuthService } from 'src/app/services/functions/auth/auth.service';
+import { BaseurlService } from 'src/app/services/functions/baseurl/baseurl.service';
 import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { TableService } from 'src/app/services/functions/table/table.service';
@@ -36,10 +37,14 @@ export class ApSettledComponent implements OnInit {
     private router: Router,
     private serviceApi: ApiService,
     private serviceAuth: AuthService,
+    private serviceBaseurl: BaseurlService,
     private serviceButton: ButtonService,
     private serviceEndpoint: EndpointService,
     private serviceTable: TableService,
   ) {}
+
+  baseUrl: string = '';
+  urlCurr: string = '';
 
   syModuleId: number = 0;
   syModuleName: any;
@@ -65,6 +70,7 @@ export class ApSettledComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.getUrlHref();
     this.checkEndpoint();
   }
 
@@ -73,6 +79,11 @@ export class ApSettledComponent implements OnInit {
   }
 
   modalClass() { expModalClass(); }
+
+  getUrlHref() {
+    this.baseUrl = this.serviceBaseurl.getBaseUrl();
+    this.urlCurr = this.serviceEndpoint.getCurrentUrl();
+  }
 
   checkEndpoint() {
     if (this.serviceEndpoint.getCheckUrl()) {
@@ -331,7 +342,7 @@ export class ApSettledComponent implements OnInit {
     // Iterar sobre los divs encontrados
     fieldDivs.forEach((fieldDiv: { querySelectorAll: (arg0: string) => any; id: string; }) => {
       // Obtener todos los elementos input y select dentro del div
-      const inputAndSelectElements = fieldDiv.querySelectorAll('input, select');
+      const elmtsHtml = fieldDiv.querySelectorAll('input, select, textarea');
       // Construir el ID del select correspondiente
       const selectId = 'help_' + fieldDiv.id.replace('Field', '');
       // Obtener el select correspondiente al div actual
@@ -347,7 +358,7 @@ export class ApSettledComponent implements OnInit {
         // Agregar el nuevo option al select
         helpSelect.appendChild(selectOption);
         // Iterar sobre todos los elementos input y select
-        inputAndSelectElements.forEach((element: {
+        elmtsHtml.forEach((element: {
           id: any; closest: (arg0: string) => any;
         }) => {
           // Obtener el valor y el texto del label asociado al elemento
@@ -365,22 +376,233 @@ export class ApSettledComponent implements OnInit {
     });
   }
 
-  helpInsert() {
-    // Obtener el elemento select por ID
-    const selectElement = document.getElementById('help_insert') as HTMLSelectElement;
-    // Obtener el valor seleccionado
-    const selectedValue = selectElement.value;
-    // Hacer algo con el valor seleccionado
-    console.log('Valor seleccionado:', selectedValue);
+  helpGuide(helpLock: any, helpGuide: any, helpBool: any) {
+    helpGuide.disabled = helpBool;
+    helpLock.classList.add('d-none');
+    helpGuide.classList.remove('d-none');
   }
 
-  helpUpdate() {
-    // Obtener el elemento select por ID
-    const selectElement = document.getElementById('help_update') as HTMLSelectElement;
-    // Obtener el valor seleccionado
-    const selectedValue = selectElement.value;
-    // Hacer algo con el valor seleccionado
-    console.log('Valor seleccionado:', selectedValue);
+  helpBlock(helpLock: any, helpGuide: any) {
+    if (helpLock && helpGuide) {
+      helpGuide.disabled = true;
+      helpLock.classList.remove('d-none');
+      helpGuide.classList.add('d-none');
+    }
+  }
+
+  helpSelect(typeSel: string) {
+    let helpLock: HTMLButtonElement | null = null;
+    let helpGuide: HTMLButtonElement | null = null;
+    let selectElement: HTMLSelectElement | null;
+    let selectedValue: string | null = null;
+
+    helpLock = document.getElementById(`${typeSel}Lock`) as HTMLButtonElement | null;
+    helpGuide = document.getElementById(`${typeSel}Guide`) as HTMLButtonElement | null;
+    selectElement = document.getElementById(`help_${typeSel}`) as HTMLSelectElement | null;
+    selectedValue = selectElement?.value || null;
+
+    if (helpLock && helpGuide) {
+      if (selectedValue === '' || selectedValue === null) {
+        this.helpGuide(helpLock, helpGuide, true);
+      } else {
+        this.helpGuide(helpLock, helpGuide, false);
+      }
+    }
+  }
+
+  helpCols(dataForm: any, dataHelp: any, valSlct: any) {
+    let colOrig = ['col-sm-12', 'col-md-12', 'col-lg-12', 'col-xl-12', 'd-none'];
+    let colForm = ['col-sm-8', 'col-md-8', 'col-lg-8', 'col-xl-8'];
+    let colHelp = ['col-sm-4', 'col-md-4', 'col-lg-4', 'col-xl-4'];
+
+    if (dataForm) {
+      dataForm.classList.remove(...colOrig, ...colForm);
+      dataForm.classList.add(
+        ...(
+          valSlct === '' ||
+          valSlct === null ?
+          colOrig : colForm
+        )
+      );
+    }
+
+    if (dataHelp) {
+      dataHelp.classList.remove(...colOrig, ...colHelp);
+      dataHelp.classList.add(
+        ...(
+          valSlct === '' ||
+          valSlct === null ?
+          colOrig : colHelp
+        )
+      );
+    }
+  }
+
+  helpOrigin(dataForm: any, dataHelp: any) {
+    let colOrig = ['col-sm-12', 'col-md-12', 'col-lg-12', 'col-xl-12'];
+    let colForm = ['col-sm-8', 'col-md-8', 'col-lg-8', 'col-xl-8'];
+    let colHelp = ['col-sm-4', 'col-md-4', 'col-lg-4', 'col-xl-4'];
+
+    if (dataForm) {
+      dataForm.classList.remove(...colOrig, ...colForm);
+      dataForm.classList.add(...colOrig);
+    }
+
+    if (dataHelp) {
+      dataHelp.classList.remove(...colOrig, ...colHelp);
+      dataHelp.classList.add(...colOrig, 'd-none');
+    }
+  }
+
+  helpUnlock(typeSel: string) {
+    const dataForm = document.getElementById(`${typeSel}Form`);
+    const dataHelp = document.getElementById(`${typeSel}Help`);
+    this.helpOrigin(dataForm, dataHelp);
+
+    const selectElement = document.getElementById(`help_${typeSel}`) as HTMLSelectElement;
+    selectElement.value = '';
+    selectElement.disabled = false;
+
+    let helpLock = document.getElementById(`${typeSel}Lock`) as HTMLButtonElement;
+    let helpGuide = document.getElementById(`${typeSel}Guide`) as HTMLButtonElement;
+    if (helpLock && helpGuide) { this.helpGuide(helpLock, helpGuide, true); }
+  }
+
+  helpAction(action: any) {
+    let dataForm = document.getElementById(`${action}Form`);
+    let dataHelp = document.getElementById(`${action}Help`);
+
+    let selectElement = document.getElementById(`help_${action}`) as HTMLSelectElement;
+    let helpLock = document.getElementById(`${action}Lock`) as HTMLButtonElement;
+    let helpGuide = document.getElementById(`${action}Guide`) as HTMLButtonElement;
+
+    let selectedValue = selectElement.value;
+    selectElement.disabled = true;
+    let cleanedValue = selectedValue.replace(new RegExp(`^${action}_`), '');
+    console.log('cleanedValue', cleanedValue);
+
+    this.helpCols(dataForm, dataHelp, selectedValue);
+    this.helpBlock(helpLock, helpGuide);
+    this.helpMap(dataHelp, cleanedValue);
+  }
+
+  helpMap(dataHelp: any, fieldKey: string) {
+    if (dataHelp) {
+      // Obtener las definiciones de campo
+      const fieldDefinition = this.helpMssg();
+      const dataFilter = fieldKey as keyof typeof fieldDefinition;
+      if (dataFilter in fieldDefinition) {
+        const filteredData = fieldDefinition[dataFilter];
+        // Crear y agregar el contenido
+        const helpContent = this.helpContent(dataHelp, filteredData);
+        dataHelp.appendChild(helpContent);
+      } else {
+        console.error(`La clave del campo "${dataFilter}" no existe.`);
+      }
+    }
+  }
+
+  helpContent(dataHelp: any, definition: any): DocumentFragment {
+    const fragment = document.createDocumentFragment();
+    if (dataHelp) {
+      const titleElement = dataHelp.querySelector('.toast-header strong');
+      if (titleElement) { titleElement.textContent = ''; }
+      if (titleElement) { titleElement.textContent = definition.title; }
+      // Limpiar solo el contenido generado por helpCard
+      const helpCardContainers = dataHelp.querySelectorAll('.card.rounded-0.mb-1');
+      if (helpCardContainers) {
+        helpCardContainers.forEach(
+          (container: {
+            remove: () => void;
+          }) => {
+            container.remove();
+          }
+        );
+      }
+      // Verificar si definition tiene una propiedad 'title'
+      if ('title' in definition) {
+        // Crear y agregar los mensajes
+        for (const key in definition) {
+          if (key !== 'title') {
+            const messageCard = this.helpCard(definition[key]);
+            fragment.appendChild(messageCard);
+          }
+        }
+      }
+    }
+    return fragment;
+  }
+
+  helpCard(message: string): HTMLDivElement {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('card', 'rounded-0', 'mb-1');
+    messageDiv.innerHTML = `
+      <div class="card-body p-1">
+        <div class="alert alert-warning alert-dismissible
+        fade show p-1 rounded-0 mb-0 text-center" role="alert">
+          <div class="d-flex align-items-center">
+            <div class="flex-1">
+              <span>${message}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    return messageDiv;
+  }
+
+  helpMssg() {
+    let fieldHelp = {
+      'id_register': {
+        'title': 'Registro',
+        'required': 'Campo obligatorio',
+        'alphanumeric': 'Permitido caracteres alfanumericos',
+      },
+      'os_date': {
+        'title': 'Fecha',
+        'required': 'Campo obligatorio',
+        'date': 'Permitido fechas',
+      },
+      'os_exhibit': {
+        'title': 'Anexo',
+        'required': 'Campo obligatorio',
+      },
+      'os_foundation': {
+        'title': 'Fundamento',
+        'required': 'Campo obligatorio',
+      },
+      'os_number': {
+        'title': 'Numero',
+        'required': 'Campo obligatorio',
+        'alphanumeric': 'Permitido caracteres alfanumericos',
+      },
+      'ap_communication': {
+        'title': 'Comunicacion',
+        'required': 'Campo obligatorio',
+        'allowedValues': 'Permitido valores establecidos',
+      },
+      'ap_patient': {
+        'title': 'Paciente',
+        'required': 'Campo obligatorio',
+        'allowedValues': 'Permitido valores establecidos',
+      },
+      'ap_request': {
+        'title': 'Solicitud',
+        'required': 'Campo obligatorio',
+        'allowedValues': 'Permitido valores establecidos',
+      },
+      'ap_resource': {
+        'title': 'Recurso',
+        'required': 'Campo obligatorio',
+        'allowedValues': 'Permitido valores establecidos',
+      },
+      'ap_state': {
+        'title': 'Estado',
+        'required': 'Campo obligatorio',
+        'allowedValues': 'Permitido valores establecidos',
+      },
+    };
+    return fieldHelp;
   }
 
   modalSystemData(message: any, response: any) {
