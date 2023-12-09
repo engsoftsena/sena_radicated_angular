@@ -331,9 +331,13 @@ export class SyPrefixComponent implements OnInit {
 
   modalOpen(modalForm: string) {
     const modalElement = document.getElementById(modalForm);
-    if (modalElement) { new Modal(modalElement).show(); }
-    if (modalElement) { this.modalHelp(modalElement); }
-    if (modalElement) { this.formAjaxHide(); }
+    if (modalElement) {
+      new Modal(modalElement).show();
+      this.modalHelp(modalElement);
+      this.formAjaxHide();
+      this.helpUnlock('insert');
+      this.helpUnlock('update');
+    }
   }
 
   modalHelp(modalForm: any) {
@@ -635,6 +639,8 @@ export class SyPrefixComponent implements OnInit {
   }
 
   async modalRecord(modalForm: string, modalOption: string) {
+    this.helpUnlock('insert');
+    this.helpUnlock('update');
     let message;
     // Obtener el primer valor seleccionado de la tabla
     let idtbl = $('#tbInfo tr.selected td:first').html();
