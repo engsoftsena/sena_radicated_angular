@@ -77,6 +77,9 @@ export function expModalMapData(modal: any, service: any) {
       if (fieldHtml instanceof HTMLSelectElement) {
         handleSelectField(fieldHtml, data[key]);
       }
+      if (fieldHtml instanceof HTMLTextAreaElement) {
+        handleTextAreaField(fieldHtml, data[key]);
+      }
     }
   }
 }
@@ -95,4 +98,8 @@ function handleSelectField(selectElement: HTMLSelectElement, value: any) {
       break;
     }
   }
+}
+
+function handleTextAreaField(textAreaElement: HTMLTextAreaElement, value: any) {
+  textAreaElement.value = value || '';
 }
