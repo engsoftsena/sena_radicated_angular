@@ -558,64 +558,19 @@ export class SyEliminateComponent implements OnInit {
         'required': 'Campo obligatorio',
         'alphanumeric': 'Permitido caracteres alfanumericos',
       },
-      'os_connection': {
-        'title': 'Fecha Conexion',
+      'os_name': {
+        'title': 'Nombre',
         'required': 'Campo obligatorio',
-        'datetime': 'Permitido fechas con tiempo',
-      },
-      'os_email': {
-        'title': 'Correo Electronico',
-        'required': 'Campo obligatorio',
-        'email': 'Correo electronico valido',
-      },
-      'os_identification': {
-        'title': 'Identificacion',
-        'required': 'Campo obligatorio',
-        'alphanumeric': 'Permitido caracteres alfanumericos',
-      },
-      'os_login': {
-        'title': 'Usuario',
-        'required': 'Campo obligatorio',
-        'alphabetic': 'Permitido caracteres alfabeticos',
-        'minLength': 'Permitido minimo 5 caracteres',
-        'maxLength': 'Permitido maximo 255 caracteres',
-        'noAccents': 'No se permiten acentos alfabeticos',
-        'noSpaces': 'No se permiten espacios',
-      },
-      'os_names': {
-        'title': 'Nombres',
-        'required': 'Campo obligatorio',
+
         'alphabetic': 'Permitido caracteres alfabeticos',
         'accents': 'Permitido caracteres con acentos',
-        'spaces': 'Permitido con espacios',
+        'mixedcase': 'Permitido mayúsculas y minúsculas',
+
         'minLength': 'Permitido minimo 5 caracteres',
         'maxLength': 'Permitido maximo 255 caracteres',
-      },
-      'os_password': {
-        'title': 'Contraseña',
-        'required': 'Campo obligatorio',
-        'minLength': 'Permitido minimo 5 caracteres',
-        'maxLength': 'Permitido maximo 255 caracteres',
+
+        'noCharacter': 'No se permiten caracteres especiales',
         'noSpaces': 'No se permiten espacios',
-      },
-      'os_surnames': {
-        'title': 'Apellidos',
-        'required': 'Campo obligatorio',
-        'alphabetic': 'Permitido caracteres alfabeticos',
-        'accents': 'Permitido caracteres con acentos',
-        'spaces': 'Permitido con espacios',
-        'minLength': 'Permitido minimo 5 caracteres',
-        'maxLength': 'Permitido maximo 255 caracteres',
-      },
-      'tg_document': {
-        'title': 'Documento',
-        'required': 'Campo obligatorio',
-        'allowedValues': 'Permitido valores establecidos',
-      },
-      'tg_role': {
-        'title': 'Rol',
-        'required': 'Campo obligatorio',
-        'allowedValues': 'Permitido valores establecidos',
       },
     };
     return fieldHelp;

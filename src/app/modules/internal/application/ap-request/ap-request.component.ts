@@ -561,10 +561,15 @@ export class ApRequestComponent implements OnInit {
       'os_name': {
         'title': 'Nombre',
         'required': 'Campo obligatorio',
+
         'alphabetic': 'Permitido caracteres alfabeticos',
         'accents': 'Permitido caracteres con acentos',
+        'mixedcase': 'Permitido mayúsculas y minúsculas',
+
         'minLength': 'Permitido minimo 5 caracteres',
         'maxLength': 'Permitido maximo 255 caracteres',
+
+        'noCharacter': 'No se permiten caracteres especiales',
         'noSpaces': 'No se permiten espacios',
       },
     };

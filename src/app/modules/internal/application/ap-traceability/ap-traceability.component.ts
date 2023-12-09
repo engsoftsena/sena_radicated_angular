@@ -558,62 +558,25 @@ export class ApTraceabilityComponent implements OnInit {
         'required': 'Campo obligatorio',
         'alphanumeric': 'Permitido caracteres alfanumericos',
       },
-      'os_connection': {
-        'title': 'Fecha Conexion',
+      'os_date': {
+        'title': 'Fecha',
         'required': 'Campo obligatorio',
-        'datetime': 'Permitido fechas con tiempo',
+        'date': 'Permitido fechas',
       },
-      'os_email': {
-        'title': 'Correo Electronico',
+      'os_hour': {
+        'title': 'Hora',
         'required': 'Campo obligatorio',
-        'email': 'Correo electronico valido',
+        'time': 'Permitido tiempo en horas, minutos y segundos',
       },
-      'os_identification': {
-        'title': 'Identificacion',
+      'os_follow': {
+        'title': 'Seguimiento',
         'required': 'Campo obligatorio',
-        'alphanumeric': 'Permitido caracteres alfanumericos',
-      },
-      'os_login': {
-        'title': 'Usuario',
-        'required': 'Campo obligatorio',
-        'alphabetic': 'Permitido caracteres alfabeticos',
+
         'minLength': 'Permitido minimo 5 caracteres',
-        'maxLength': 'Permitido maximo 255 caracteres',
-        'noAccents': 'No se permiten acentos alfabeticos',
-        'noSpaces': 'No se permiten espacios',
+        'maxLength': 'Permitido maximo 1500 caracteres',
       },
-      'os_names': {
-        'title': 'Nombres',
-        'required': 'Campo obligatorio',
-        'alphabetic': 'Permitido caracteres alfabeticos',
-        'accents': 'Permitido caracteres con acentos',
-        'spaces': 'Permitido con espacios',
-        'minLength': 'Permitido minimo 5 caracteres',
-        'maxLength': 'Permitido maximo 255 caracteres',
-      },
-      'os_password': {
-        'title': 'Contraseña',
-        'required': 'Campo obligatorio',
-        'minLength': 'Permitido minimo 5 caracteres',
-        'maxLength': 'Permitido maximo 255 caracteres',
-        'noSpaces': 'No se permiten espacios',
-      },
-      'os_surnames': {
-        'title': 'Apellidos',
-        'required': 'Campo obligatorio',
-        'alphabetic': 'Permitido caracteres alfabeticos',
-        'accents': 'Permitido caracteres con acentos',
-        'spaces': 'Permitido con espacios',
-        'minLength': 'Permitido minimo 5 caracteres',
-        'maxLength': 'Permitido maximo 255 caracteres',
-      },
-      'tg_document': {
-        'title': 'Documento',
-        'required': 'Campo obligatorio',
-        'allowedValues': 'Permitido valores establecidos',
-      },
-      'tg_role': {
-        'title': 'Rol',
+      'ap_settled': {
+        'title': 'Radicado',
         'required': 'Campo obligatorio',
         'allowedValues': 'Permitido valores establecidos',
       },

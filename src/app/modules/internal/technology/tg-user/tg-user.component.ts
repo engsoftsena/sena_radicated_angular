@@ -566,7 +566,7 @@ export class TgUserComponent implements OnInit {
       'os_email': {
         'title': 'Correo Electronico',
         'required': 'Campo obligatorio',
-        'email': 'Correo electronico valido',
+        'email': 'Permitido formato de correo',
       },
       'os_identification': {
         'title': 'Identificacion',
@@ -576,20 +576,30 @@ export class TgUserComponent implements OnInit {
       'os_login': {
         'title': 'Usuario',
         'required': 'Campo obligatorio',
+
         'alphabetic': 'Permitido caracteres alfabeticos',
+        'lowercase': 'Permitido solo minúsculas',
+
         'minLength': 'Permitido minimo 5 caracteres',
         'maxLength': 'Permitido maximo 255 caracteres',
+
         'noAccents': 'No se permiten acentos alfabeticos',
+        'noCharacter': 'No se permiten caracteres especiales',
         'noSpaces': 'No se permiten espacios',
       },
       'os_names': {
         'title': 'Nombres',
         'required': 'Campo obligatorio',
+
         'alphabetic': 'Permitido caracteres alfabeticos',
         'accents': 'Permitido caracteres con acentos',
+        'mixedcase': 'Permitido mayúsculas y minúsculas',
         'spaces': 'Permitido con espacios',
+
         'minLength': 'Permitido minimo 5 caracteres',
         'maxLength': 'Permitido maximo 255 caracteres',
+
+        'noCharacter': 'No se permiten caracteres especiales',
       },
       'os_password': {
         'title': 'Contraseña',
@@ -601,11 +611,16 @@ export class TgUserComponent implements OnInit {
       'os_surnames': {
         'title': 'Apellidos',
         'required': 'Campo obligatorio',
+
         'alphabetic': 'Permitido caracteres alfabeticos',
         'accents': 'Permitido caracteres con acentos',
+        'mixedcase': 'Permitido mayúsculas y minúsculas',
         'spaces': 'Permitido con espacios',
+
         'minLength': 'Permitido minimo 5 caracteres',
         'maxLength': 'Permitido maximo 255 caracteres',
+
+        'noCharacter': 'No se permiten caracteres especiales',
       },
       'tg_document': {
         'title': 'Documento',

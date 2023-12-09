@@ -570,6 +570,15 @@ export class ApSettledComponent implements OnInit {
       'os_foundation': {
         'title': 'Fundamento',
         'required': 'Campo obligatorio',
+
+        'alphabetic': 'Permitido caracteres alfabeticos',
+        'accents': 'Permitido caracteres con acentos',
+        'characters': 'Permitidos caracteres especiales',
+        'mixedcase': 'Permitido mayúsculas y minúsculas',
+        'spaces': 'Permitido con espacios',
+
+        'minLength': 'Permitido minimo 5 caracteres',
+        'maxLength': 'Permitido maximo 1500 caracteres',
       },
       'os_number': {
         'title': 'Numero',
