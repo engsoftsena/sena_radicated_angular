@@ -228,10 +228,10 @@ export class TgPermitComponent implements OnInit {
     const params = {
       table: this.tableComponent,
       column: '*',
-      whereCond: 'WHERE',
-      whereField: this.tableSysEliminate,
-      whereOperator: '=',
-      whereEqual: fieldDeleted,
+      whereCond: 'WHERE,AND,AND',
+      whereField: `${this.tableSysEliminate},tg_role,sy_module`,
+      whereOperator: '=,>,NOT IN',
+      whereEqual: `${fieldDeleted},1,(1,2,3,4,5,6,7,8,9,10,11,26,27)`,
     };
     this.serviceApi.innerAlias(params).subscribe({
       next: (response: any) => {
