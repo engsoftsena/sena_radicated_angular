@@ -228,10 +228,10 @@ export class TgRoleComponent implements OnInit {
     const params = {
       table: this.tableComponent,
       column: '*',
-      whereCond: 'WHERE',
-      whereField: this.tableSysEliminate,
-      whereOperator: '=',
-      whereEqual: fieldDeleted,
+      whereCond: 'WHERE,AND',
+      whereField: `id_register,${this.tableSysEliminate}`,
+      whereOperator: '>,=',
+      whereEqual: `1,${fieldDeleted}`,
     };
     this.serviceApi.innerAlias(params).subscribe({
       next: (response: any) => {
