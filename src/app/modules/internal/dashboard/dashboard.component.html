@@ -111,7 +111,7 @@
                                   <div class='tooltip-inner bg-info'></div>
                                 </div>">
                                   <option value="">Seleccionar Valor</option>
-                                  <option value="daily" selected="true">Diario</option>
+                                  <option value="diary" selected="true">Diario</option>
                                   <option value="monthly">Mensual</option>
                                   <option value="annual">Anual</option>
                                 </select>
@@ -135,7 +135,8 @@
                                 <button data-original-title="Buscar" data-toggle="tooltip"
                                 type="button" data-template="<div class='tooltip' role='tooltip'>
                                   <div class='tooltip-inner bg-info'></div>
-                                </div>" class="rounded-0 btn btn-sm btn-outline-success">
+                                </div>" class="rounded-0 btn btn-sm btn-outline-success"
+                                (click)="searchSettled();">
                                   <em class="far fa-search mr-1"></em>
                                   <span class="hidden-sm-down">Buscar</span>
                                 </button>
@@ -151,7 +152,7 @@
                   <div class="table-responsive">
                     <table class="text-center table table-bordered
                     table-sm table-hover table-striped w-100 nowrap"
-                    id="reportSettled">
+                    id="tableSettled">
                       <caption class="alert alert-success alert-dismissible
                       fade show p-1 rounded-0 mb-2 text-dark"
                         style="caption-side: top;">
@@ -169,11 +170,7 @@
                           </div>
                         </div>
                       </caption>
-                      <thead name="report_settled_thead" id="report_settled_thead" class="table-success">
-                        <tr id="report_settled_tr" class="d-none report_settled_tr">
-                          <th scope="col">Reemplazar</th>
-                        </tr>
-                      </thead>
+                      <thead name="report_settled_thead" id="report_settled_thead" class="table-success"></thead>
                     </table>
                   </div>
 
@@ -217,7 +214,7 @@
                                   <div class='tooltip-inner bg-info'></div>
                                 </div>">
                                   <option value="">Seleccionar Valor</option>
-                                  <option value="daily" selected="true">Diario</option>
+                                  <option value="diary" selected="true">Diario</option>
                                   <option value="monthly">Mensual</option>
                                   <option value="annual">Anual</option>
                                 </select>
@@ -241,7 +238,8 @@
                                 <button data-original-title="Buscar" data-toggle="tooltip"
                                 type="button" data-template="<div class='tooltip' role='tooltip'>
                                   <div class='tooltip-inner bg-info'></div>
-                                </div>" class="rounded-0 btn btn-sm btn-outline-success">
+                                </div>" class="rounded-0 btn btn-sm btn-outline-success"
+                                (click)="searchCausal();">
                                   <em class="far fa-search mr-1"></em>
                                   <span class="hidden-sm-down">Buscar</span>
                                 </button>
@@ -257,7 +255,7 @@
                   <div class="table-responsive">
                     <table class="text-center table table-bordered
                     table-sm table-hover table-striped w-100 nowrap"
-                    id="reportCausal">
+                    id="tableCausal">
                       <caption class="alert alert-success alert-dismissible
                       fade show p-1 rounded-0 mb-2 text-dark"
                         style="caption-side: top;">
@@ -275,11 +273,7 @@
                           </div>
                         </div>
                       </caption>
-                      <thead name="report_causal_thead" id="report_causal_thead" class="table-success">
-                        <tr id="report_causal_tr" class="d-none report_causal_tr">
-                          <th scope="col">Reemplazar</th>
-                        </tr>
-                      </thead>
+                      <thead name="report_causal_thead" id="report_causal_thead" class="table-success"></thead>
                     </table>
                   </div>
 
@@ -323,7 +317,7 @@
                                   <div class='tooltip-inner bg-info'></div>
                                 </div>">
                                   <option value="">Seleccionar Valor</option>
-                                  <option value="daily" selected="true">Diario</option>
+                                  <option value="diary" selected="true">Diario</option>
                                   <option value="monthly">Mensual</option>
                                   <option value="annual">Anual</option>
                                 </select>
@@ -347,7 +341,8 @@
                                 <button data-original-title="Buscar" data-toggle="tooltip"
                                 type="button" data-template="<div class='tooltip' role='tooltip'>
                                   <div class='tooltip-inner bg-info'></div>
-                                </div>" class="rounded-0 btn btn-sm btn-outline-success">
+                                </div>" class="rounded-0 btn btn-sm btn-outline-success"
+                                (click)="searchRequest();">
                                   <em class="far fa-search mr-1"></em>
                                   <span class="hidden-sm-down">Buscar</span>
                                 </button>
@@ -363,7 +358,7 @@
                   <div class="table-responsive">
                     <table class="text-center table table-bordered
                     table-sm table-hover table-striped w-100 nowrap"
-                    id="reportRequest">
+                    id="tableRequest">
                       <caption class="alert alert-success alert-dismissible
                       fade show p-1 rounded-0 mb-2 text-dark"
                         style="caption-side: top;">
@@ -381,11 +376,7 @@
                           </div>
                         </div>
                       </caption>
-                      <thead name="report_request_thead" id="report_request_thead" class="table-success">
-                        <tr id="report_request_tr" class="d-none report_request_tr">
-                          <th scope="col">Reemplazar</th>
-                        </tr>
-                      </thead>
+                      <thead name="report_request_thead" id="report_request_thead" class="table-success"></thead>
                     </table>
                   </div>
 
@@ -429,7 +420,7 @@
                                   <div class='tooltip-inner bg-info'></div>
                                 </div>">
                                   <option value="">Seleccionar Valor</option>
-                                  <option value="daily" selected="true">Diario</option>
+                                  <option value="diary" selected="true">Diario</option>
                                   <option value="monthly">Mensual</option>
                                   <option value="annual">Anual</option>
                                 </select>
@@ -453,7 +444,8 @@
                                 <button data-original-title="Buscar" data-toggle="tooltip"
                                 type="button" data-template="<div class='tooltip' role='tooltip'>
                                   <div class='tooltip-inner bg-info'></div>
-                                </div>" class="rounded-0 btn btn-sm btn-outline-success">
+                                </div>" class="rounded-0 btn btn-sm btn-outline-success"
+                                (click)="searchPqrs();">
                                   <em class="far fa-search mr-1"></em>
                                   <span class="hidden-sm-down">Buscar</span>
                                 </button>
@@ -469,7 +461,7 @@
                   <div class="table-responsive">
                     <table class="text-center table table-bordered
                     table-sm table-hover table-striped w-100 nowrap"
-                    id="reportPqrs">
+                    id="tablePqrs">
                       <caption class="alert alert-success alert-dismissible
                       fade show p-1 rounded-0 mb-2 text-dark"
                         style="caption-side: top;">
@@ -487,11 +479,7 @@
                           </div>
                         </div>
                       </caption>
-                      <thead name="report_pqrs_thead" id="report_pqrs_thead" class="table-success">
-                        <tr id="report_pqrs_tr" class="d-none report_pqrs_tr">
-                          <th scope="col">Reemplazar</th>
-                        </tr>
-                      </thead>
+                      <thead name="report_pqrs_thead" id="report_pqrs_thead" class="table-success"></thead>
                     </table>
                   </div>
 
