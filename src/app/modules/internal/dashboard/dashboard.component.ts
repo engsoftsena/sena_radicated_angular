@@ -320,17 +320,25 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   currentDate() {
+    let ds = 'date_since', du = 'date_until';
+    this.dateMap(`settled_${ds}`, `settled_${du}`);
+    this.dateMap(`causal_${ds}`, `causal_${du}`);
+    this.dateMap(`request_${ds}`, `request_${du}`);
+    this.dateMap(`pqrs_${ds}`, `pqrs_${du}`);
+  }
+
+  dateMap(dateSince: string, dateUntil: string) {
     const today = new Date();
     const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
     const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
+    
     // Establecer las fechas en los elementos HTML correspondientes
-    const dateSinceHtml = document.getElementById('settled_date_since') as HTMLInputElement;
-    const dateUntilHtml = document.getElementById('settled_date_until') as HTMLInputElement;
+    const inputSince = document.getElementById(dateSince) as HTMLInputElement;
+    const inputUntil = document.getElementById(dateUntil) as HTMLInputElement;
 
-    if (dateSinceHtml && dateUntilHtml) {
-      dateSinceHtml.value = this.formatDate(firstDayOfMonth);
-      dateUntilHtml.value = this.formatDate(lastDayOfMonth);
+    if (inputSince && inputUntil) {
+      inputSince.value = this.formatDate(firstDayOfMonth);
+      inputUntil.value = this.formatDate(lastDayOfMonth);
     }
   }
 
