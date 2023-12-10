@@ -84,7 +84,7 @@ export class TableService {
       // Control para el desplazamiento de derecha a izquiera
       scrollX: true,
       // Control para el desplazamiento medido de arriba abajo
-      scrollY: 380,
+      scrollY: 330,
       // Guardar el estado de una tabla (su posición de paginación, estado de pedido, etc.)
       stateSave: false,
     });
@@ -137,7 +137,7 @@ export class TableService {
         previous: 'Anterior',
       },
       processing: 'Procesando...',
-      search: 'Filtrar:',
+      //search: 'Filtrar:',
       thousands: ',',
       zeroRecords: 'No se encontrados registros segun el filtrado.',
     };
@@ -157,12 +157,23 @@ export class TableService {
   domButton() {
     return `
       <'row mb-1'
-        <'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 align-items-center'
+        <'col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 align-items-center'
           <'panel rounded-0 mb-1'
             <'panel-container show'
               <'panel-content p-0'
                 <'panel-tag p-1 bg-white'
                   B
+                >
+              >
+            >
+          >
+        >
+        <'col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 align-items-center'
+          <'panel rounded-0 mb-1'
+            <'panel-container show'
+              <'panel-content p-0'
+                <'panel-tag p-1 bg-white'
+                  f
                 >
               >
             >
