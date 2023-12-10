@@ -13,14 +13,6 @@
                   </span>
                 </a>
               </li>
-              <li class="breadcrumb-item text-danger">
-                <a href="internal/dashboard">
-                  <em class="far fa-tachometer-alt-average text-primary"></em>
-                  <span class="text-dark">
-                    Modulo
-                  </span>
-                </a>
-              </li>
               <li class="position-absolute pos-top pos-right d-none d-sm-block text-dark">
                 <span class="js-get-date"></span>
               </li>
@@ -50,6 +42,470 @@
     </div>
   </div>
 </div>
+
+<div class="row dev-row" id="row_content">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <ul class="nav nav-tabs p-0" role="tablist">
+      <li class="nav-item border border-success p-0 mr-1">
+        <a class="nav-link p-1 active" data-toggle="tab"
+        href="#tab_section_setted" role="tab" aria-selected="true">
+          <em class="far fa-table text-info"></em>
+          <span class="ml-1">Reporte Radicados</span>
+        </a>
+      </li>
+      <li class="nav-item border border-success p-0 mr-1">
+        <a class="nav-link p-1" data-toggle="tab"
+        href="#tab_section_causal" role="tab" aria-selected="false">
+          <em class="far fa-table text-info"></em>
+          <span class="ml-1">Reporte Causales</span>
+        </a>
+      </li>
+      <li class="nav-item border border-success p-0 mr-1">
+        <a class="nav-link p-1" data-toggle="tab"
+        href="#tab_section_request" role="tab" aria-selected="false">
+          <em class="far fa-table text-info"></em>
+          <span class="ml-1">Reporte Solicitudes</span>
+        </a>
+      </li>
+      <li class="nav-item border border-success p-0 mr-1">
+        <a class="nav-link p-1" data-toggle="tab"
+        href="#tab_section_pqrs" role="tab" aria-selected="false">
+          <em class="far fa-table text-info"></em>
+          <span class="ml-1">Reporte PQRS</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content pt-2">
+      <div class="tab-pane fade active show" id="tab_section_setted" role="tabpanel">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div id="panel_settled" class="panel rounded-0">
+              <div class="panel-hdr bg-dark text-white rounded-0 p-0">
+                <h2 class="text-white">
+                  <span class="icon-stack fs-xxl mr-2">
+                    <em class="base base-7 icon-stack-3x opacity-100 color-primary-500"></em>
+                    <em class="base base-7 icon-stack-2x opacity-100 color-primary-300"></em>
+                    <em class="far fa-chart-bar icon-stack-1x opacity-100 fa-spin"></em>
+                  </span>
+                  <span>Reporte Radicados</span>
+                </h2>
+              </div>
+              <div class="panel-container show">
+                <div class="panel-content dev-panel-content p-2">
+
+                  <form class="form-horizontal needs-validation was-validated"
+                  enctype="application/x-www-form-urlencoded" aria-label=""
+                  id="form_settled" novalidate="" role="form">
+                    <div class="panel rounded-0 mb-1">
+                      <div class="panel-container show">
+                        <div class="panel-content p-0">
+                          <div class="panel-tag p-1 bg-white">
+                            
+                            <div class="btn-group mb-0" role="group">
+                              <div class="input-group input-group-sm mr-1">
+                                <select class="rounded-0 custom-select form-control"
+                                id="settled_group_by" name="settled_group_by" title="Agrupacion" required=""
+                                data-original-title="Agrupacion" data-toggle="tooltip"
+                                type="button" data-template="<div class='tooltip' role='tooltip'>
+                                  <div class='tooltip-inner bg-info'></div>
+                                </div>">
+                                  <option value="">Seleccionar Valor</option>
+                                  <option value="daily" selected="true">Diario</option>
+                                  <option value="monthly">Mensual</option>
+                                  <option value="annual">Anual</option>
+                                </select>
+                              </div>
+                              <div class="input-group input-group-sm mr-1">
+                                <input type="date" class="rounded-0 form-control"
+                                id="settled_date_since" name="settled_date_since"
+                                placeholder="Digita el texto ..."
+                                required="" autocomplete="off">
+                              </div>
+                              <div class="input-group input-group-sm mr-1">
+                                <input type="date" class="rounded-0 form-control"
+                                id="settled_date_until" name="settled_date_until"
+                                placeholder="Digita el texto ..."
+                                required="" autocomplete="off">
+                              </div>
+                            </div>
+                          
+                            <div class="btn-group mb-0" role="group">
+                              <div class="input-group-append mr-1">
+                                <button data-original-title="Buscar" data-toggle="tooltip"
+                                type="button" data-template="<div class='tooltip' role='tooltip'>
+                                  <div class='tooltip-inner bg-info'></div>
+                                </div>" class="rounded-0 btn btn-sm btn-outline-success">
+                                  <em class="far fa-search mr-1"></em>
+                                  <span class="hidden-sm-down">Buscar</span>
+                                </button>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  
+                  <div class="table-responsive">
+                    <table class="text-center table table-bordered
+                    table-sm table-hover table-striped w-100 nowrap"
+                    id="reportSettled">
+                      <caption class="alert alert-success alert-dismissible
+                      fade show p-1 rounded-0 mb-2 text-dark"
+                        style="caption-side: top;">
+                        <div class="d-flex align-items-center">
+                          <div class="alert-icon width-1">
+                            <span class="icon-stack" style="font-size: 20px;">
+                              <em class="base-2 icon-stack-3x color-primary-400"></em>
+                              <em class="base-10 text-white icon-stack-1x"></em>
+                              <em class="ni md-profile color-primary-800 icon-stack-2x"></em>
+                            </span>
+                          </div>
+                          <div class="flex-1">
+                            <strong>Acerca De:</strong>
+                            <span>Informacion y datos procesados extraidos de la base de datos.</span>
+                          </div>
+                        </div>
+                      </caption>
+                      <thead name="report_settled_thead" id="report_settled_thead" class="table-success">
+                        <tr id="report_settled_tr" class="d-none report_settled_tr">
+                          <th scope="col">Reemplazar</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="tab_section_causal" role="tabpanel">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div id="panel_causal" class="panel rounded-0">
+              <div class="panel-hdr bg-dark text-white rounded-0 p-0">
+                <h2 class="text-white">
+                  <span class="icon-stack fs-xxl mr-2">
+                    <em class="base base-7 icon-stack-3x opacity-100 color-primary-500"></em>
+                    <em class="base base-7 icon-stack-2x opacity-100 color-primary-300"></em>
+                    <em class="far fa-chart-bar icon-stack-1x opacity-100 fa-spin"></em>
+                  </span>
+                  <span>Reporte Causales</span>
+                </h2>
+              </div>
+              <div class="panel-container show">
+                <div class="panel-content dev-panel-content p-2">
+
+                  <form class="form-horizontal needs-validation was-validated"
+                  enctype="application/x-www-form-urlencoded" aria-label=""
+                  id="form_causal" novalidate="" role="form">
+                    <div class="panel rounded-0 mb-1">
+                      <div class="panel-container show">
+                        <div class="panel-content p-0">
+                          <div class="panel-tag p-1 bg-white">
+                            
+                            <div class="btn-group mb-0" role="group">
+                              <div class="input-group input-group-sm mr-1">
+                                <select class="rounded-0 custom-select form-control"
+                                id="causal_group_by" name="causal_group_by" title="Agrupacion" required=""
+                                data-original-title="Agrupacion" data-toggle="tooltip"
+                                type="button" data-template="<div class='tooltip' role='tooltip'>
+                                  <div class='tooltip-inner bg-info'></div>
+                                </div>">
+                                  <option value="">Seleccionar Valor</option>
+                                  <option value="daily" selected="true">Diario</option>
+                                  <option value="monthly">Mensual</option>
+                                  <option value="annual">Anual</option>
+                                </select>
+                              </div>
+                              <div class="input-group input-group-sm mr-1">
+                                <input type="date" class="rounded-0 form-control"
+                                id="causal_date_since" name="causal_date_since"
+                                placeholder="Digita el texto ..."
+                                required="" autocomplete="off">
+                              </div>
+                              <div class="input-group input-group-sm mr-1">
+                                <input type="date" class="rounded-0 form-control"
+                                id="causal_date_until" name="causal_date_until"
+                                placeholder="Digita el texto ..."
+                                required="" autocomplete="off">
+                              </div>
+                            </div>
+                          
+                            <div class="btn-group mb-0" role="group">
+                              <div class="input-group-append mr-1">
+                                <button data-original-title="Buscar" data-toggle="tooltip"
+                                type="button" data-template="<div class='tooltip' role='tooltip'>
+                                  <div class='tooltip-inner bg-info'></div>
+                                </div>" class="rounded-0 btn btn-sm btn-outline-success">
+                                  <em class="far fa-search mr-1"></em>
+                                  <span class="hidden-sm-down">Buscar</span>
+                                </button>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  
+                  <div class="table-responsive">
+                    <table class="text-center table table-bordered
+                    table-sm table-hover table-striped w-100 nowrap"
+                    id="reportCausal">
+                      <caption class="alert alert-success alert-dismissible
+                      fade show p-1 rounded-0 mb-2 text-dark"
+                        style="caption-side: top;">
+                        <div class="d-flex align-items-center">
+                          <div class="alert-icon width-1">
+                            <span class="icon-stack" style="font-size: 20px;">
+                              <em class="base-2 icon-stack-3x color-primary-400"></em>
+                              <em class="base-10 text-white icon-stack-1x"></em>
+                              <em class="ni md-profile color-primary-800 icon-stack-2x"></em>
+                            </span>
+                          </div>
+                          <div class="flex-1">
+                            <strong>Acerca De:</strong>
+                            <span>Informacion y datos procesados extraidos de la base de datos.</span>
+                          </div>
+                        </div>
+                      </caption>
+                      <thead name="report_causal_thead" id="report_causal_thead" class="table-success">
+                        <tr id="report_causal_tr" class="d-none report_causal_tr">
+                          <th scope="col">Reemplazar</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="tab_section_request" role="tabpanel">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div id="panel_request" class="panel rounded-0">
+              <div class="panel-hdr bg-dark text-white rounded-0 p-0">
+                <h2 class="text-white">
+                  <span class="icon-stack fs-xxl mr-2">
+                    <em class="base base-7 icon-stack-3x opacity-100 color-primary-500"></em>
+                    <em class="base base-7 icon-stack-2x opacity-100 color-primary-300"></em>
+                    <em class="far fa-chart-bar icon-stack-1x opacity-100 fa-spin"></em>
+                  </span>
+                  <span>Reporte Solicitudes</span>
+                </h2>
+              </div>
+              <div class="panel-container show">
+                <div class="panel-content dev-panel-content p-2">
+
+                  <form class="form-horizontal needs-validation was-validated"
+                  enctype="application/x-www-form-urlencoded" aria-label=""
+                  id="form_request" novalidate="" role="form">
+                    <div class="panel rounded-0 mb-1">
+                      <div class="panel-container show">
+                        <div class="panel-content p-0">
+                          <div class="panel-tag p-1 bg-white">
+                            
+                            <div class="btn-group mb-0" role="group">
+                              <div class="input-group input-group-sm mr-1">
+                                <select class="rounded-0 custom-select form-control"
+                                id="request_group_by" name="request_group_by" title="Agrupacion" required=""
+                                data-original-title="Agrupacion" data-toggle="tooltip"
+                                type="button" data-template="<div class='tooltip' role='tooltip'>
+                                  <div class='tooltip-inner bg-info'></div>
+                                </div>">
+                                  <option value="">Seleccionar Valor</option>
+                                  <option value="daily" selected="true">Diario</option>
+                                  <option value="monthly">Mensual</option>
+                                  <option value="annual">Anual</option>
+                                </select>
+                              </div>
+                              <div class="input-group input-group-sm mr-1">
+                                <input type="date" class="rounded-0 form-control"
+                                id="request_date_since" name="request_date_since"
+                                placeholder="Digita el texto ..."
+                                required="" autocomplete="off">
+                              </div>
+                              <div class="input-group input-group-sm mr-1">
+                                <input type="date" class="rounded-0 form-control"
+                                id="request_date_until" name="request_date_until"
+                                placeholder="Digita el texto ..."
+                                required="" autocomplete="off">
+                              </div>
+                            </div>
+                          
+                            <div class="btn-group mb-0" role="group">
+                              <div class="input-group-append mr-1">
+                                <button data-original-title="Buscar" data-toggle="tooltip"
+                                type="button" data-template="<div class='tooltip' role='tooltip'>
+                                  <div class='tooltip-inner bg-info'></div>
+                                </div>" class="rounded-0 btn btn-sm btn-outline-success">
+                                  <em class="far fa-search mr-1"></em>
+                                  <span class="hidden-sm-down">Buscar</span>
+                                </button>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  
+                  <div class="table-responsive">
+                    <table class="text-center table table-bordered
+                    table-sm table-hover table-striped w-100 nowrap"
+                    id="reportRequest">
+                      <caption class="alert alert-success alert-dismissible
+                      fade show p-1 rounded-0 mb-2 text-dark"
+                        style="caption-side: top;">
+                        <div class="d-flex align-items-center">
+                          <div class="alert-icon width-1">
+                            <span class="icon-stack" style="font-size: 20px;">
+                              <em class="base-2 icon-stack-3x color-primary-400"></em>
+                              <em class="base-10 text-white icon-stack-1x"></em>
+                              <em class="ni md-profile color-primary-800 icon-stack-2x"></em>
+                            </span>
+                          </div>
+                          <div class="flex-1">
+                            <strong>Acerca De:</strong>
+                            <span>Informacion y datos procesados extraidos de la base de datos.</span>
+                          </div>
+                        </div>
+                      </caption>
+                      <thead name="report_request_thead" id="report_request_thead" class="table-success">
+                        <tr id="report_request_tr" class="d-none report_request_tr">
+                          <th scope="col">Reemplazar</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="tab_section_pqrs" role="tabpanel">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div id="panel_pqrs" class="panel rounded-0">
+              <div class="panel-hdr bg-dark text-white rounded-0 p-0">
+                <h2 class="text-white">
+                  <span class="icon-stack fs-xxl mr-2">
+                    <em class="base base-7 icon-stack-3x opacity-100 color-primary-500"></em>
+                    <em class="base base-7 icon-stack-2x opacity-100 color-primary-300"></em>
+                    <em class="far fa-chart-bar icon-stack-1x opacity-100 fa-spin"></em>
+                  </span>
+                  <span>Reporte PQRS</span>
+                </h2>
+              </div>
+              <div class="panel-container show">
+                <div class="panel-content dev-panel-content p-2">
+
+                  <form class="form-horizontal needs-validation was-validated"
+                  enctype="application/x-www-form-urlencoded" aria-label=""
+                  id="form_pqrs" novalidate="" role="form">
+                    <div class="panel rounded-0 mb-1">
+                      <div class="panel-container show">
+                        <div class="panel-content p-0">
+                          <div class="panel-tag p-1 bg-white">
+                            
+                            <div class="btn-group mb-0" role="group">
+                              <div class="input-group input-group-sm mr-1">
+                                <select class="rounded-0 custom-select form-control"
+                                id="pqrs_group_by" name="pqrs_group_by" title="Agrupacion" required=""
+                                data-original-title="Agrupacion" data-toggle="tooltip"
+                                type="button" data-template="<div class='tooltip' role='tooltip'>
+                                  <div class='tooltip-inner bg-info'></div>
+                                </div>">
+                                  <option value="">Seleccionar Valor</option>
+                                  <option value="daily" selected="true">Diario</option>
+                                  <option value="monthly">Mensual</option>
+                                  <option value="annual">Anual</option>
+                                </select>
+                              </div>
+                              <div class="input-group input-group-sm mr-1">
+                                <input type="date" class="rounded-0 form-control"
+                                id="pqrs_date_since" name="pqrs_date_since"
+                                placeholder="Digita el texto ..."
+                                required="" autocomplete="off">
+                              </div>
+                              <div class="input-group input-group-sm mr-1">
+                                <input type="date" class="rounded-0 form-control"
+                                id="pqrs_date_until" name="pqrs_date_until"
+                                placeholder="Digita el texto ..."
+                                required="" autocomplete="off">
+                              </div>
+                            </div>
+                          
+                            <div class="btn-group mb-0" role="group">
+                              <div class="input-group-append mr-1">
+                                <button data-original-title="Buscar" data-toggle="tooltip"
+                                type="button" data-template="<div class='tooltip' role='tooltip'>
+                                  <div class='tooltip-inner bg-info'></div>
+                                </div>" class="rounded-0 btn btn-sm btn-outline-success">
+                                  <em class="far fa-search mr-1"></em>
+                                  <span class="hidden-sm-down">Buscar</span>
+                                </button>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  
+                  <div class="table-responsive">
+                    <table class="text-center table table-bordered
+                    table-sm table-hover table-striped w-100 nowrap"
+                    id="reportPqrs">
+                      <caption class="alert alert-success alert-dismissible
+                      fade show p-1 rounded-0 mb-2 text-dark"
+                        style="caption-side: top;">
+                        <div class="d-flex align-items-center">
+                          <div class="alert-icon width-1">
+                            <span class="icon-stack" style="font-size: 20px;">
+                              <em class="base-2 icon-stack-3x color-primary-400"></em>
+                              <em class="base-10 text-white icon-stack-1x"></em>
+                              <em class="ni md-profile color-primary-800 icon-stack-2x"></em>
+                            </span>
+                          </div>
+                          <div class="flex-1">
+                            <strong>Acerca De:</strong>
+                            <span>Informacion y datos procesados extraidos de la base de datos.</span>
+                          </div>
+                        </div>
+                      </caption>
+                      <thead name="report_pqrs_thead" id="report_pqrs_thead" class="table-success">
+                        <tr id="report_pqrs_tr" class="d-none report_pqrs_tr">
+                          <th scope="col">Reemplazar</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <!--<div class="row dev-row" id="row_content">
   <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
