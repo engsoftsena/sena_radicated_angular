@@ -48,28 +48,36 @@
     <ul class="nav nav-tabs p-0" role="tablist">
       <li class="nav-item border border-success p-0 mr-1">
         <a class="nav-link p-1 active" data-toggle="tab"
-        href="#tab_section_setted" role="tab" aria-selected="true">
+        href="#tab_section_setted" role="tab" aria-selected="true"
+        data-bs-toggle="tab" data-bs-target="#tab_section_setted"
+        (click)="adjustColumn('tableSettled')">
           <em class="far fa-table text-info"></em>
           <span class="ml-1">Reporte Radicados</span>
         </a>
       </li>
       <li class="nav-item border border-success p-0 mr-1">
         <a class="nav-link p-1" data-toggle="tab"
-        href="#tab_section_causal" role="tab" aria-selected="false">
+        href="#tab_section_causal" role="tab" aria-selected="false"
+        data-bs-toggle="tab" data-bs-target="#tab_section_causal"
+        (click)="adjustColumn('tableCausal')">
           <em class="far fa-table text-info"></em>
           <span class="ml-1">Reporte Causales</span>
         </a>
       </li>
       <li class="nav-item border border-success p-0 mr-1">
         <a class="nav-link p-1" data-toggle="tab"
-        href="#tab_section_request" role="tab" aria-selected="false">
+        href="#tab_section_request" role="tab" aria-selected="false"
+        data-bs-toggle="tab" data-bs-target="#tab_section_request"
+        (click)="adjustColumn('tableRequest')">
           <em class="far fa-table text-info"></em>
           <span class="ml-1">Reporte Solicitudes</span>
         </a>
       </li>
       <li class="nav-item border border-success p-0 mr-1">
         <a class="nav-link p-1" data-toggle="tab"
-        href="#tab_section_pqrs" role="tab" aria-selected="false">
+        href="#tab_section_pqrs" role="tab" aria-selected="false"
+        data-bs-toggle="tab" data-bs-target="#tab_section_pqrs"
+        (click)="adjustColumn('tablePqrs')">
           <em class="far fa-table text-info"></em>
           <span class="ml-1">Reporte PQRS</span>
         </a>

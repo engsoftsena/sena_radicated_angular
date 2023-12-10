@@ -23,6 +23,7 @@ import { Modal } from 'bootstrap';
 import Swal from 'sweetalert2';
 
 declare var Highcharts: any;
+declare var DataTable: any;
 
 @Component({
   selector: 'app-dashboard',
@@ -669,4 +670,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     return columnSet;
   }
 
+  adjustColumn(tableId: string) {
+    this.serviceTable.adjustColumns('tableSettled');
+    this.serviceTable.adjustColumns('tableCausal');
+    this.serviceTable.adjustColumns('tableRequest');
+    this.serviceTable.adjustColumns('tablePqrs');
+    
+    document.querySelectorAll('a[data-toggle="tab"]').forEach((element) => {
+      element.addEventListener('shown.bs.tab', () => {
+        this.serviceTable.adjustColumns(tableId);
+      });
+    });
+  }
+  
 }

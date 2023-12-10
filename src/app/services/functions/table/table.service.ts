@@ -93,6 +93,11 @@ export class TableService {
     tableLoad.on('draw.dt', function() {});
   }
 
+  adjustColumns(tableId: string) {
+    const table = $(`#${tableId}`).DataTable();
+    table.columns.adjust().draw();
+  }
+
   processApiData(dataApi: any) {
     return dataApi.map((item: any) => {
       Object.keys(item).forEach(key => {
