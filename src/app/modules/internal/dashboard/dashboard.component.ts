@@ -51,6 +51,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   respRequest: [] = [];
   respPqrs: [] = [];
 
+  groupBy: string = '';
+  dateSince: string = '';
+  dateUntil: string = '';
+
   ngOnInit(): void {
     this.isLoading = true;
     this.getUrlHref();
@@ -321,6 +325,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   currentDate() {
+    this.dateChangeFul();
     let ds = 'date_since', du = 'date_until';
     this.dateMap(`settled_${ds}`, `settled_${du}`);
     this.dateMap(`causal_${ds}`, `causal_${du}`);
@@ -343,6 +348,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  dateChangeFul() {
+    const today = new Date();
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    this.groupBy = 'diary';
+    this.dateSince = this.formatDate(firstDayOfMonth);
+    this.dateUntil = this.formatDate(lastDayOfMonth);
+  }
+
   private formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -350,64 +365,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     return `${year}-${month}-${day}`;
   }
 
-  searchSettled() {
-    console.log('searchSettled');
-    let groupByHtml = document.getElementById('settled_group_by') as HTMLSelectElement;
-    let dateSinceHtml = document.getElementById('settled_date_since') as HTMLInputElement;
-    let dateUntilHtml = document.getElementById('settled_date_until') as HTMLInputElement;
-
-    let groupByValue = groupByHtml?.value;
-    let dateSinceValue = dateSinceHtml?.value;
-    let dateUntilValue = dateUntilHtml?.value;
-
-    console.log(groupByValue);
-    console.log(dateSinceValue);
-    console.log(dateUntilValue);
-  }
-
-  searchCausal() {
-    console.log('searchCausal');
-    let groupByHtml = document.getElementById('causal_group_by') as HTMLSelectElement;
-    let dateSinceHtml = document.getElementById('causal_date_since') as HTMLInputElement;
-    let dateUntilHtml = document.getElementById('causal_date_until') as HTMLInputElement;
-
-    let groupByValue = groupByHtml?.value;
-    let dateSinceValue = dateSinceHtml?.value;
-    let dateUntilValue = dateUntilHtml?.value;
-
-    console.log(groupByValue);
-    console.log(dateSinceValue);
-    console.log(dateUntilValue);
-  }
-
-  searchRequest() {
-    console.log('searchRequest');
-    let groupByHtml = document.getElementById('request_group_by') as HTMLSelectElement;
-    let dateSinceHtml = document.getElementById('request_date_since') as HTMLInputElement;
-    let dateUntilHtml = document.getElementById('request_date_until') as HTMLInputElement;
-
-    let groupByValue = groupByHtml?.value;
-    let dateSinceValue = dateSinceHtml?.value;
-    let dateUntilValue = dateUntilHtml?.value;
-
-    console.log(groupByValue);
-    console.log(dateSinceValue);
-    console.log(dateUntilValue);
-  }
-
-  searchPqrs() {
-    console.log('searchPqrs');
-    let groupByHtml = document.getElementById('pqrs_group_by') as HTMLSelectElement;
-    let dateSinceHtml = document.getElementById('pqrs_date_since') as HTMLInputElement;
-    let dateUntilHtml = document.getElementById('pqrs_date_until') as HTMLInputElement;
-
-    let groupByValue = groupByHtml?.value;
-    let dateSinceValue = dateSinceHtml?.value;
-    let dateUntilValue = dateUntilHtml?.value;
-
-    console.log(groupByValue);
-    console.log(dateSinceValue);
-    console.log(dateUntilValue);
+  searchResult(report: string) {
+    let groupByHtml = document.getElementById(`${report}_group_by`) as HTMLSelectElement;
+    let dateSinceHtml = document.getElementById(`${report}_date_since`) as HTMLInputElement;
+    let dateUntilHtml = document.getElementById(`${report}_date_until`) as HTMLInputElement;
+    this.groupBy = groupByHtml?.value;
+    this.dateSince = dateSinceHtml?.value;
+    this.dateUntil = dateUntilHtml?.value;
+    if (report == 'settled') { this.resultSettled(); }
+    if (report == 'causal') { this.resultCausal(); }
+    if (report == 'request') { this.resultRequest(); }
+    if (report == 'pqrs') { this.resultPqrs(); }
   }
 
   reportSettled() {
@@ -428,9 +396,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   resultSettled() {
     const params = {
-      groupBy: `diary`,
-      dateSince: `2023-11-01`,
-      dateUntil: `2023-11-30`,
+      groupBy: this.groupBy,
+      dateSince: this.dateSince,
+      dateUntil: this.dateUntil,
     };
     this.serviceReport.reportSettled(params).subscribe({
       next: (response: any) => {
@@ -461,9 +429,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   resultCausal() {
     const params = {
-      groupBy: `diary`,
-      dateSince: `2023-11-01`,
-      dateUntil: `2023-11-30`,
+      groupBy: this.groupBy,
+      dateSince: this.dateSince,
+      dateUntil: this.dateUntil,
     };
     this.serviceReport.reportCausal(params).subscribe({
       next: (response: any) => {
@@ -494,9 +462,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   resultRequest() {
     const params = {
-      groupBy: `diary`,
-      dateSince: `2023-11-01`,
-      dateUntil: `2023-11-30`,
+      groupBy: this.groupBy,
+      dateSince: this.dateSince,
+      dateUntil: this.dateUntil,
     };
     this.serviceReport.reportRequest(params).subscribe({
       next: (response: any) => {
@@ -527,9 +495,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   resultPqrs() {
     const params = {
-      groupBy: `diary`,
-      dateSince: `2023-11-01`,
-      dateUntil: `2023-11-30`,
+      groupBy: this.groupBy,
+      dateSince: this.dateSince,
+      dateUntil: this.dateUntil,
     };
     this.serviceReport.reportPqrs(params).subscribe({
       next: (response: any) => {
