@@ -67,6 +67,7 @@ export class TgPermitComponent implements OnInit {
   isLoading: boolean = false;
   columnSet: [] | undefined;
   responseData: [] = [];
+  responseChange: [] = [];
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -289,6 +290,66 @@ export class TgPermitComponent implements OnInit {
           this.columnSet,
           []
         );
+      },
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
+      complete: () => (false),
+    });
+  }
+
+  changeColumn(osRegsiter: string) {
+    const params = {
+      table: 'sy_change',
+      column: 'id_register,os_date,os_hour,os_shift',
+      whereCond: '',
+      whereField: '',
+      whereOperator: '',
+      whereEqual: '',
+    };
+    this.serviceApi.innerLabel(params).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.columnSet = response;
+        this.changeResult(osRegsiter);
+      },
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
+      complete: () => (false),
+    });
+  }
+
+  changeResult(osRegister: any) {
+    console.log(osRegister);
+    const params = {
+      table: 'sy_change',
+      column: 'id_register,os_date,os_hour,os_shift',
+      whereCond: 'WHERE,AND',
+      whereField: `os_register,sy_module`,
+      whereOperator: '=,=',
+      whereEqual: `${osRegister},${this.syModuleId}`,
+    };
+    this.serviceApi.innerAlias(params).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        const checkDataError = this.getDataError(response);
+        if (checkDataError) {
+          // Mapea los datos del servicio al formato esperado
+          this.responseChange = response.data;
+          console.log(this.responseChange);
+          const buttonsData = this.serviceButton.buttonDataExport();
+          // Construir tabla con datos y botones
+          this.serviceTable.getTable(
+            'tbChange',
+            this.responseChange,
+            this.columnSet,
+            buttonsData
+          );
+          this.isLoading = false;
+        }
       },
       error: (err: any) => {
         let message = 'Ocurrió un error en la solicitud';
@@ -649,6 +710,7 @@ export class TgPermitComponent implements OnInit {
           // Continuar con el proceso porque no hay errores
           this.modalOpen(modalForm);
           expModalMapData(modalOption, serviceResolve);
+          if (modalForm == 'modalChange') { this.changeColumn(idtbl); }
         }
       } else {
         message = 'No tiene un formato en array.';
