@@ -261,6 +261,37 @@ export class TgUserComponent implements OnInit {
     });
   }
 
+  getRegister(data: any) {
+    const params = {
+      table: this.tableComponent,
+      column: '*',
+      whereCond: data['whereCond'],
+      whereField: data['whereField'],
+      whereOperator: data['whereOperator'],
+      whereEqual: data['whereEqual'],
+    };
+    this.serviceApi.proccessRegister(params).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Mapea los datos del servicio al formato esperado
+        this.responseData = response.data;
+        console.log(this.responseData);
+        // Construir tabla con datos y botones
+        this.serviceTable.getTable(
+          'tbInfo',
+          this.responseData,
+          this.columnSet,
+          []
+        );
+      },
+      error: (err: any) => {
+        let message = 'Ocurrió un error en la solicitud';
+        this.modalSystemJson(message, err);
+      },
+      complete: () => (false),
+    });
+  }
+
   changeColumn(osRegsiter: string) {
     const params = {
       table: 'sy_change',
@@ -312,37 +343,6 @@ export class TgUserComponent implements OnInit {
           );
           this.isLoading = false;
         }
-      },
-      error: (err: any) => {
-        let message = 'Ocurrió un error en la solicitud';
-        this.modalSystemJson(message, err);
-      },
-      complete: () => (false),
-    });
-  }
-
-  getRegister(data: any) {
-    const params = {
-      table: this.tableComponent,
-      column: '*',
-      whereCond: data['whereCond'],
-      whereField: data['whereField'],
-      whereOperator: data['whereOperator'],
-      whereEqual: data['whereEqual'],
-    };
-    this.serviceApi.proccessRegister(params).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        // Mapea los datos del servicio al formato esperado
-        this.responseData = response.data;
-        console.log(this.responseData);
-        // Construir tabla con datos y botones
-        this.serviceTable.getTable(
-          'tbInfo',
-          this.responseData,
-          this.columnSet,
-          []
-        );
       },
       error: (err: any) => {
         let message = 'Ocurrió un error en la solicitud';

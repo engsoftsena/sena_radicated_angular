@@ -770,6 +770,62 @@ enctype="application/x-www-form-urlencoded" id="formRestoreData" novalidate="" r
   </div>
 </form>
 
+<!-- Ventana Modal: Cambio Registro -->
+<form aria-label="" class="form-horizontal needs-validation was-validated"
+enctype="application/x-www-form-urlencoded" id="formChangeData" novalidate="" role="form">
+  <div aria-hidden="true" aria-labelledby="myCenterModalLabel"
+  data-backdrop="static" data-keyboard="false" data-bs-backdrop="static" data-bs-keyboard="false"
+  id="modalChange" role="dialog" tabindex="-1" style="display: none;" class="modal fade modal-change">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="rounded-0 modal-content">
+        <div class="rounded-0 modal-header bg-primary text-white">
+          <h5 class="modal-title text-white">
+            <span>Cambios</span>
+          </h5>
+          <button type="button" class="close text-white d-none" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <em class="far fa-times"></em>
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-2">
+              <table id="tbChange" class="text-center table table-bordered
+              table-sm table-hover table-striped w-100 nowrap">
+                <caption class="alert alert-success alert-dismissible fade show p-1 rounded-0 mb-2 text-dark"
+                  style="caption-side: top;">
+                  <div class="d-flex align-items-center">
+                    <div class="alert-icon width-1">
+                      <span class="icon-stack" style="font-size: 20px;">
+                        <em class="base-2 icon-stack-3x color-primary-400"></em>
+                        <em class="base-10 text-white icon-stack-1x"></em>
+                        <em class="ni md-profile color-primary-800 icon-stack-2x"></em>
+                      </span>
+                    </div>
+                    <div class="flex-1">
+                      <strong>Acerca De:</strong>
+                      <span>Informacion y datos procesados extraidos de la base de datos.</span>
+                    </div>
+                  </div>
+                </caption>
+                <thead name="changeThead" id="field_ft_thead" class="table-success"></thead>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="rounded-0 btn btn-sm waves-effect waves-light btn btn-outline-primary"
+          data-dismiss="modal" data-bs-dismiss="modal" type="button" (click)="modalClass();">
+            <em class="far fa-times-circle mr-1"></em>
+            <span class="">Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
 <!-- Ventana Modal: Sistema Registro -->
 <form aria-label="" class="form-horizontal needs-validation was-validated"
 enctype="application/x-www-form-urlencoded" id="formSystemData" novalidate="" role="form">
