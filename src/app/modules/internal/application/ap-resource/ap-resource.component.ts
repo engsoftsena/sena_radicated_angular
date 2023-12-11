@@ -790,6 +790,7 @@ export class ApResourceComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
+      dataType: 'delete',
       table: this.tableComponent,
       column: `${whereColumn}`,
       whereCond: 'WHERE',
@@ -839,6 +840,7 @@ export class ApResourceComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
+      dataType: 'insert',
       table: this.tableComponent,
       column: dataColumn,
     };
@@ -902,6 +904,7 @@ export class ApResourceComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
+      dataType: 'remove',
       table: this.tableComponent,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
@@ -952,6 +955,7 @@ export class ApResourceComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
+      dataType: 'restore',
       table: this.tableComponent,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
@@ -1000,6 +1004,7 @@ export class ApResourceComponent implements OnInit {
     const jsonData = JSON.stringify(combinedData);
     // Construir parametros para sql
     const params = {
+      dataType: 'update',
       table: this.tableComponent,
       column: `${dataColumn},${whereColumn}`,
       whereCond: 'WHERE',
