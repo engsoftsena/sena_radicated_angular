@@ -157,7 +157,7 @@ export class TableService {
   domButton() {
     return `
       <'row mb-1'
-        <'col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 align-items-center'
+        <'col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7 align-items-center'
           <'panel rounded-0 mb-1'
             <'panel-container show'
               <'panel-content p-0'
@@ -168,7 +168,7 @@ export class TableService {
             >
           >
         >
-        <'col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 align-items-center'
+        <'col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5 text-right'
           <'panel rounded-0 mb-1'
             <'panel-container show'
               <'panel-content p-0'
