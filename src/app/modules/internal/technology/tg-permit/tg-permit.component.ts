@@ -231,7 +231,7 @@ export class TgPermitComponent implements OnInit {
       whereCd = ',AND,AND';
       whereFd = ',tg_role,sy_module';
       whereOp = ',>,NOT IN';
-      whereEq = ',1,(1,2,3,4,5,6,7,8,9,10,11,26,27)';
+      whereEq = ',1,(1,2,3,4,5,6,7,8,9,10,11,26,27,28)';
     }
     const params = {
       table: this.tableComponent,
