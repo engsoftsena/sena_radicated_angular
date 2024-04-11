@@ -25,3 +25,30 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+----------------------------------------------------------------------------------
+
+# Pruebas Unitarias
+
+npm install -g karma-cli
+karma --version
+ng generate config karma
+
+`ng test`:
+  # Este comando inicia la ejecución de las pruebas unitarias en tu proyecto Angular.
+  # Angular CLI se encarga de configurar Karma y Jasmine automáticamente.
+
+`--no-watch`:
+  # Esta opción desactiva el modo de observación (watch mode).
+  # En otras palabras, no estará pendiente de cambios en los archivos y no volverá a ejecutar las pruebas automáticamente cuando detecte modificaciones.
+  # Esto es útil si solo deseas ejecutar las pruebas una vez y no necesitas que se actualicen continuamente.
+
+`--no-progress`:
+  # Esta opción desactiva la visualización del progreso en la consola durante la ejecución de las pruebas.
+  # Sin esta opción, ejecutar una barra de progreso mientras las pruebas se ejecutan.
+
+(`--browsers=ChromeHeadless`, `--browsers=EdgeHeadless`, `--browsers=BraveHeadless`)
+`--browsers=ChromeHeadless`:
+  # Especificar el navegador en el que queremos ejecutar las pruebas.
+  # En este caso, utilizará Google Chrome en modo headless (sin interfaz gráfica).
+  # El modo headless permite ejecutar Chrome sin abrir una ventana del navegador, lo que es útil para pruebas automatizadas en entornos de CI/CD o servidores
