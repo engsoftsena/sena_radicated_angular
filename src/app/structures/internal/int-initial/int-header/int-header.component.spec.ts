@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { IntHeaderComponent } from './int-header.component';
 
@@ -8,7 +9,8 @@ describe('IntHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntHeaderComponent ]
+      declarations: [ IntHeaderComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

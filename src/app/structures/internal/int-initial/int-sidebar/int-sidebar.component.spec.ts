@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { IntSidebarComponent } from './int-sidebar.component';
 
@@ -8,7 +9,8 @@ describe('IntSidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntSidebarComponent ]
+      declarations: [ IntSidebarComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 
