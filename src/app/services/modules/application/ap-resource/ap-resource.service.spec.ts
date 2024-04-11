@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
-import { ResourceService } from './ap-resource.service';
+import { ApResourceService } from './ap-resource.service';
 
-describe('ResourceService', () => {
-  let service: ResourceService;
+describe('ApResourceService', () => {
+  let service: ApResourceService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ResourceService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+    });
+    service = TestBed.inject(ApResourceService);
   });
 
   it('should be created', () => {

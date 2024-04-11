@@ -10,7 +10,7 @@ import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.se
 @Injectable({
   providedIn: 'root'
 })
-export class RoleService {
+export class TgRoleService {
   private urlEndPoint:string = Environment.API_URL;
 
   constructor(

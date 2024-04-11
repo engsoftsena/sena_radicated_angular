@@ -47,7 +47,6 @@ ng generate config karma
   # Esta opción desactiva la visualización del progreso en la consola durante la ejecución de las pruebas.
   # Sin esta opción, ejecutar una barra de progreso mientras las pruebas se ejecutan.
 
-(`--browsers=ChromeHeadless`, `--browsers=EdgeHeadless`, `--browsers=BraveHeadless`)
 `--browsers=ChromeHeadless`:
   # Especificar el navegador en el que queremos ejecutar las pruebas.
   # En este caso, utilizará Google Chrome en modo headless (sin interfaz gráfica).

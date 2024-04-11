@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
-import { RequestService } from './ap-request.service';
+import { ApRequestService } from './ap-request.service';
 
-describe('RequestService', () => {
-  let service: RequestService;
+describe('ApRequestService', () => {
+  let service: ApRequestService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(RequestService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+    });
+    service = TestBed.inject(ApRequestService);
   });
 
   it('should be created', () => {

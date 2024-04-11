@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
-import { DocumentService } from './tg-document.service';
+import { TgDocumentService } from './tg-document.service';
 
-describe('DocumentService', () => {
-  let service: DocumentService;
+describe('TgDocumentService', () => {
+  let service: TgDocumentService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(DocumentService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+    });
+    service = TestBed.inject(TgDocumentService);
   });
 
   it('should be created', () => {

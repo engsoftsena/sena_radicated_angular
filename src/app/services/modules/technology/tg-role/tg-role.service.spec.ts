@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
-import { RoleService } from './tg-role.service';
+import { TgRoleService } from './tg-role.service';
 
-describe('RoleService', () => {
-  let service: RoleService;
+describe('TgRoleService', () => {
+  let service: TgRoleService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(RoleService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+    });
+    service = TestBed.inject(TgRoleService);
   });
 
   it('should be created', () => {

@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
-import { SettledService } from './ap-settled.service';
+import { ApSettledService } from './ap-settled.service';
 
-describe('SettledService', () => {
-  let service: SettledService;
+describe('ApSettledService', () => {
+  let service: ApSettledService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SettledService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+    });
+    service = TestBed.inject(ApSettledService);
   });
 
   it('should be created', () => {

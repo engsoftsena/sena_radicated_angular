@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
-import { CommunicationService } from './ap-communication.service';
+import { ApCommunicationService } from './ap-communication.service';
 
-describe('CommunicationService', () => {
-  let service: CommunicationService;
+describe('ApCommunicationService', () => {
+  let service: ApCommunicationService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(CommunicationService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+    });
+    service = TestBed.inject(ApCommunicationService);
   });
 
   it('should be created', () => {
