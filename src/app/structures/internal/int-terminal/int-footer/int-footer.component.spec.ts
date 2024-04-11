@@ -9,7 +9,8 @@ describe('IntFooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntFooterComponent ]
+      declarations: [ IntFooterComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

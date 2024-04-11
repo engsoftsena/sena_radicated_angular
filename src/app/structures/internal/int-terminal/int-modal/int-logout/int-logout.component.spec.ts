@@ -9,7 +9,8 @@ describe('IntLogoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntLogoutComponent ]
+      declarations: [ IntLogoutComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

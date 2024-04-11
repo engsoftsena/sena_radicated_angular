@@ -9,7 +9,8 @@ describe('GenErrorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GenErrorComponent ]
+      declarations: [ GenErrorComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

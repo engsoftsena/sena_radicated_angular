@@ -9,7 +9,8 @@ describe('IntTerminalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntTerminalComponent ]
+      declarations: [ IntTerminalComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 
