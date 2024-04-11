@@ -3,13 +3,25 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { IntModalComponent } from './int-modal.component';
 
+import { IntLogoutComponent } from './int-logout/int-logout.component';
+import { IntModuleComponent } from './int-module/int-module.component';
+import { IntProfileComponent } from './int-profile/int-profile.component';
+import { IntSettingComponent } from './int-setting/int-setting.component';
+
 describe('IntModalComponent', () => {
   let component: IntModalComponent;
   let fixture: ComponentFixture<IntModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntModalComponent ],
+      declarations: [
+        IntModalComponent,
+
+        IntLogoutComponent,
+        IntModuleComponent,
+        IntProfileComponent,
+        IntSettingComponent,
+      ],
       imports: [ HttpClientModule ],
     })
     .compileComponents();
