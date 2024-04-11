@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { SyUnionComponent } from './sy-union.component';
 
@@ -8,7 +9,8 @@ describe('SyUnionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SyUnionComponent ]
+      declarations: [ SyUnionComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

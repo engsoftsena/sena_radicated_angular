@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ApCausalComponent } from './ap-causal.component';
 
@@ -8,7 +9,8 @@ describe('ApCausalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApCausalComponent ]
+      declarations: [ ApCausalComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

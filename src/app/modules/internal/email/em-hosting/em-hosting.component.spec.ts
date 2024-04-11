@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { EmHostingComponent } from './em-hosting.component';
 
@@ -8,7 +9,8 @@ describe('EmHostingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EmHostingComponent ]
+      declarations: [ EmHostingComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

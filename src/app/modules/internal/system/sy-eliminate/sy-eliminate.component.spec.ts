@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { SyEliminateComponent } from './sy-eliminate.component';
 
@@ -8,7 +9,8 @@ describe('SyEliminateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SyEliminateComponent ]
+      declarations: [ SyEliminateComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

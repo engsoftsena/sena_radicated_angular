@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { EmSecurityComponent } from './em-security.component';
 
@@ -8,7 +9,8 @@ describe('EmSecurityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EmSecurityComponent ]
+      declarations: [ EmSecurityComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ApSettledComponent } from './ap-settled.component';
 
@@ -8,7 +9,8 @@ describe('ApSettledComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApSettledComponent ]
+      declarations: [ ApSettledComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

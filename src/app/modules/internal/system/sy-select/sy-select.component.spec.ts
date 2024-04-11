@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { SySelectComponent } from './sy-select.component';
 
@@ -8,7 +9,8 @@ describe('SySelectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SySelectComponent ]
+      declarations: [ SySelectComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

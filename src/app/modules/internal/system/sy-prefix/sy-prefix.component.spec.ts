@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { SyPrefixComponent } from './sy-prefix.component';
 
@@ -8,7 +9,8 @@ describe('SyPrefixComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SyPrefixComponent ]
+      declarations: [ SyPrefixComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

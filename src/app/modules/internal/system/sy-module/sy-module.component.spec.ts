@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { SyModuleComponent } from './sy-module.component';
 
@@ -8,7 +9,8 @@ describe('SyModuleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SyModuleComponent ]
+      declarations: [ SyModuleComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

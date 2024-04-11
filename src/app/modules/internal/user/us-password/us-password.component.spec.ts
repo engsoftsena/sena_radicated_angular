@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { UsPasswordComponent } from './us-password.component';
 
@@ -8,7 +9,8 @@ describe('UsPasswordComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UsPasswordComponent ]
+      declarations: [ UsPasswordComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { UsProccessComponent } from './us-proccess.component';
 
@@ -8,7 +9,8 @@ describe('UsProccessComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UsProccessComponent ]
+      declarations: [ UsProccessComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

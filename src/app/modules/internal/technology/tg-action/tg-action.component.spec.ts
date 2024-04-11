@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TgActionComponent } from './tg-action.component';
 
@@ -8,7 +9,8 @@ describe('TgActionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TgActionComponent ]
+      declarations: [ TgActionComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

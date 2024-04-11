@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ApStateComponent } from './ap-state.component';
 
@@ -8,7 +9,8 @@ describe('ApStateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApStateComponent ]
+      declarations: [ ApStateComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

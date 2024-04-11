@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TgPermitComponent } from './tg-permit.component';
 
@@ -8,7 +9,8 @@ describe('TgPermitComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TgPermitComponent ]
+      declarations: [ TgPermitComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

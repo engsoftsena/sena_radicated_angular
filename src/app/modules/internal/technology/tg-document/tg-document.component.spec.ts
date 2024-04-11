@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TgDocumentComponent } from './tg-document.component';
 
@@ -8,7 +9,8 @@ describe('TgDocumentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TgDocumentComponent ]
+      declarations: [ TgDocumentComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 

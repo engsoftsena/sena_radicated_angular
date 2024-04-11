@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ApTraceabilityComponent } from './ap-traceability.component';
 
@@ -8,7 +9,8 @@ describe('ApTraceabilityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApTraceabilityComponent ]
+      declarations: [ ApTraceabilityComponent ],
+      imports: [ HttpClientModule ],
     })
     .compileComponents();
 
