@@ -34,6 +34,9 @@ npm install -g karma-cli
 karma --version
 ng generate config karma
 
+`npm run test`
+  # 
+
 `ng test`:
   # Este comando inicia la ejecución de las pruebas unitarias en tu proyecto Angular.
   # Angular CLI se encarga de configurar Karma y Jasmine automáticamente.
@@ -51,3 +54,6 @@ ng generate config karma
   # Especificar el navegador en el que queremos ejecutar las pruebas.
   # En este caso, utilizará Google Chrome en modo headless (sin interfaz gráfica).
   # El modo headless permite ejecutar Chrome sin abrir una ventana del navegador, lo que es útil para pruebas automatizadas en entornos de CI/CD o servidores
+
+`--code-coverage`
+  # 
