@@ -17,13 +17,14 @@ describe('ApiService', () => {
     expect(service).toBeTruthy();
   });
 
+
+
+  // Function authToken
   it('should return headers with Authorization token when serviceToken is not null', () => {
     // Arrange
     service.serviceToken = 'example-token';
-
     // Act
     const headers = service.authToken();
-
     // Assert
     expect(headers).toEqual(jasmine.any(HttpHeaders));
     expect(headers?.get('Content-Type')).toBe('application/json');
@@ -33,11 +34,13 @@ describe('ApiService', () => {
   it('should return null when serviceToken is null', () => {
     // Arrange
     service.serviceToken = null;
-
     // Act
     const headers = service.authToken();
-
     // Assert
     expect(headers).toBeNull();
   });
+
+
+
+  // Function infoColumn
 });
