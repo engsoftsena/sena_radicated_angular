@@ -1,14 +1,25 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ExternalService } from './external.service';
 import { EndpointService } from '../endpoint/endpoint.service';
+import { Router } from '@angular/router';
+
+import { of, throwError } from 'rxjs';
+
+function asyncData<T>(data: T) {
+  return of(data);
+}
 
 describe('ExternalService', () => {
   let service: ExternalService;
-  let httpMock: HttpTestingController;
   let serviceEndpoint: EndpointService;
+
+  let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  //let httpMock: HttpTestingController;
+  let router: Router;
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,15 +27,76 @@ describe('ExternalService', () => {
       providers: [ExternalService, EndpointService]
     });
     service = TestBed.inject(ExternalService);
-    httpMock = TestBed.inject(HttpTestingController);
     serviceEndpoint = TestBed.inject(EndpointService);
+    //httpMock = TestBed.inject(HttpTestingController);
+
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post', 'put', 'delete']);
+    service = new ExternalService(httpClientSpy as any, router, serviceEndpoint);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should handle error in POST request', inject([HttpTestingController], (httpMock: HttpTestingController) => {
+  // test unit: function proccessLogin
+  it('proccessLogin: should return expected data (HttpClient called once)', (done: DoneFn) => {
+    const params = {
+      table: 'tg_user',
+      column: 'os_login,os_password,sy_eliminate'
+    };
+
+    const data = {
+      os_login: 'root',
+      os_password: 'Test$Dev&App',
+      sy_eliminate: '1',
+    };
+
+    httpClientSpy.post.and.returnValue(asyncData(data));
+
+    service.proccessLogin(params, data).subscribe({
+      next: (response) => {
+        expect(response).toEqual(data);
+        done();
+      },
+      error: done.fail,
+    });
+    expect(httpClientSpy.post.calls.count()).toBe(1);
+  });
+
+  // test unit: function proccessLogin
+  it('proccessLogin: should handle error in POST request', (done: DoneFn) => {
+    const params = {
+      table: 'tg_user',
+      column: 'os_login,os_password,sy_eliminate'
+    };
+
+    const data = {
+      os_login: 'root',
+      os_password: 'Test$Dev&App',
+      sy_eliminate: '1',
+    };
+
+    const errorResponse = new Error('Internal Server Error');
+    httpClientSpy.post.and.returnValue(throwError(() => errorResponse));
+
+    service.proccessLogin(params, data).subscribe({
+      next: () => {
+        // La solicitud debería lanzar un error, por lo que este código no debería ejecutarse
+        expect(true).toBe(false);
+      },
+      error: (error) => {
+        // Aquí puedes verificar que el error se maneje correctamente
+        expect(error).toEqual(errorResponse);
+        done();
+      },
+    });
+    expect(httpClientSpy.post.calls.count()).toBe(1);
+  });
+
+  // test unit: function proccessLogin
+  /*it('proccessLogin: should handle error in POST request', inject(
+    [HttpTestingController], (httpMock: HttpTestingController) =>
+  {
     const params = {
       table: 'tg_user',
       column: 'os_login,os_password,sy_eliminate'
@@ -53,6 +125,7 @@ describe('ExternalService', () => {
     req.error(new ErrorEvent('Network error'));
 
     httpMock.verify();
-  }));
+  }));*/
 
 });
+
