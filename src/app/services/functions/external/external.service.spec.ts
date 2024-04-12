@@ -27,11 +27,12 @@ describe('ExternalService', () => {
   it('should handle error in POST request', inject([HttpTestingController], (httpMock: HttpTestingController) => {
     const params = {
       table: 'tg_user',
-      column: 'os_login,os_password'
+      column: 'os_login,os_password,sy_eliminate'
     };
     const data = {
       os_login: 'root',
-      os_password: 'Test$Dev&App'
+      os_password: 'Test$Dev&App',
+      sy_eliminate: '1',
     };
 
     service.proccessLogin(params, data).subscribe(
