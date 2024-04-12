@@ -27,7 +27,7 @@ export class ApiService {
         'Content-Type': 'application/json',
       }).set(
         'Authorization',
-        `Bearer ${this.serviceToken}`
+        `Bearer ${authToken}`
       );
     }
     return headers;
