@@ -10,7 +10,11 @@ import { IntSidebarComponent } from 'src/app/structures/internal/int-initial/int
 
 import { IntFooterComponent } from 'src/app/structures/internal/int-terminal/int-footer/int-footer.component';
 import { IntColorComponent } from 'src/app/structures/internal/int-terminal/int-color/int-color.component';
-import { IntModalComponent } from 'src/app/structures/internal/int-terminal/int-modal/int-modal.component';
+//import { IntModalComponent } from 'src/app/structures/internal/int-terminal/int-modal/int-modal.component';
+import { IntLogoutComponent } from 'src/app/structures/internal/int-terminal/int-modal/int-logout/int-logout.component';
+import { IntModuleComponent } from 'src/app/structures/internal/int-terminal/int-modal/int-module/int-module.component';
+import { IntProfileComponent } from 'src/app/structures/internal/int-terminal/int-modal/int-profile/int-profile.component';
+import { IntSettingComponent } from 'src/app/structures/internal/int-terminal/int-modal/int-setting/int-setting.component';
 
 describe('InternalComponent', () => {
   let component: InternalComponent;
@@ -27,7 +31,11 @@ describe('InternalComponent', () => {
 
         IntColorComponent,
         IntFooterComponent,
-        IntModalComponent,
+        //IntModalComponent,
+        IntLogoutComponent,
+        IntModuleComponent,
+        IntProfileComponent,
+        IntSettingComponent,
       ],
       imports: [ HttpClientModule, RouterTestingModule ],
     })
