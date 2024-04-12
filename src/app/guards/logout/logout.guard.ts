@@ -11,18 +11,22 @@ export class LogoutGuard implements CanActivate {
     private router: Router
   ) {}
 
+  private navigate(url: string): void {
+    this.router.navigate([url]);
+  }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
   {
     const tgUser = sessionStorage.getItem('tgUser');
-    if (tgUser != null || tgUser != '') {
-      this.router.navigate(['internal/dashboard']);
+    if (tgUser != null && tgUser != '') {
+      this.navigate('internal/dashboard');
       return false;
     } else {
-      this.router.navigate(['full']);
+      this.navigate('full');
     }
     return true;
   }
-  
+
 }
