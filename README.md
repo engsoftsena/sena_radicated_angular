@@ -28,7 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ----------------------------------------------------------------------------------
 
-# Pruebas Unitarias
+# Pruebas Unitarias Karma
 
 npm install -g karma-cli
 karma --version

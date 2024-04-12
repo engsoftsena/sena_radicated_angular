@@ -34,8 +34,6 @@ module.exports = function (config) {
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],
-    //browsers: ['Edge'],
-    //browsers: ['Brave'],
     restartOnFileChange: true
   });
 };
