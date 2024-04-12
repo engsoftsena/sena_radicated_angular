@@ -11,13 +11,17 @@ export class LoginGuard implements CanActivate {
     private router: Router
   ) {}
 
+  private navigate(url: string): void {
+    this.router.navigate([url]);
+  }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const tgUserData = sessionStorage.getItem('tgUserData');
     if (tgUserData == null || tgUserData == '') {
-      this.router.navigate(['external/login']);
+      this.navigate('external/login');
       return false;
     }
     return true;
