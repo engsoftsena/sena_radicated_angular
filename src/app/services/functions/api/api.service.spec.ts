@@ -2,9 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 import { ApiService } from './api.service';
+import { EndpointService } from '../endpoint/endpoint.service';
+import { empty, of, throwError } from 'rxjs';
 
 describe('ApiService', () => {
   let service: ApiService;
+  let mockServiceEndpoint: EndpointService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,5 +45,41 @@ describe('ApiService', () => {
 
 
 
-  // Function infoColumn
+  // Function resolveHtmlSelect
+  it('should resolve promise with data when proccessHtmlSelect succeeds', async () => {
+    // Arrange
+    const params = { /* params here */ };
+    spyOn(service, 'proccessHtmlSelect').and.returnValue(of('data'));
+
+    // Act
+    const promise = service.resolveHtmlSelect(params);
+
+    // Assert
+    await expectAsync(promise).toBeResolvedTo('data');
+  });
+
+  it('should reject promise when proccessHtmlSelect fails', async () => {
+    // Arrange
+    const params = { /* params here */ };
+    const error = 'error message';
+    spyOn(service, 'proccessHtmlSelect').and.returnValue(throwError(error));
+
+    // Act
+    const promise = service.resolveHtmlSelect(params);
+
+    // Assert
+    await expectAsync(promise).toBeRejectedWith(error);
+  });
+
+  it('should resolve promise with null when proccessHtmlSelect completes without emitting', async () => {
+    // Arrange
+    const params = { /* params here */ };
+    spyOn(service, 'proccessHtmlSelect').and.returnValue(empty());
+
+    // Act
+    const promise = service.resolveHtmlSelect(params);
+
+    // Assert
+    await expectAsync(promise).toBeResolvedTo(null);
+  });
 });
