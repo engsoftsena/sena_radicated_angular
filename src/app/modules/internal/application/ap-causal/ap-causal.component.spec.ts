@@ -6,13 +6,15 @@ import { ApCausalComponent } from './ap-causal.component';
 
 import { of, throwError } from 'rxjs';
 
-import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { AuthService } from 'src/app/services/functions/auth/auth.service';
+import { ApiService } from 'src/app/services/functions/api/api.service';
+import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 
 describe('ApCausalComponent', () => {
   let component: ApCausalComponent;
   let fixture: ComponentFixture<ApCausalComponent>;
   let serviceAuth: AuthService;
+  let serviceApi: ApiService;
   let serviceEndpoint: EndpointService;
 
   beforeEach(async () => {
@@ -23,8 +25,9 @@ describe('ApCausalComponent', () => {
         HttpClientTestingModule,
       ],
       providers: [
-        EndpointService,
         AuthService,
+        ApiService,
+        EndpointService,
       ]
     })
     .compileComponents();
@@ -33,6 +36,7 @@ describe('ApCausalComponent', () => {
     component = fixture.componentInstance;
     // Inicializar el servicio usando TestBed.inject
     serviceAuth = TestBed.inject(AuthService);
+    serviceApi = TestBed.inject(ApiService);
     // Obtener function usando el nuevo método público
     serviceEndpoint = component.getServiceEndpoint();
     fixture.detectChanges();
@@ -48,6 +52,10 @@ describe('ApCausalComponent', () => {
     expect(component.baseUrl).not.toBe('');
     expect(component.urlCurr).not.toBe('');
   });
+
+
+
+
 
   // function: checkAvailability
   it('should call checkAvailability on checkEndpoint if url is valid', () => {
@@ -93,6 +101,10 @@ describe('ApCausalComponent', () => {
     //expect(component.modalSystemJson).toBe(message);
   });
 
+
+
+
+
   // function: tgRoleData
   it('should call syModuleData if response is valid', () => {
     spyOn(component, 'syModuleData');
@@ -121,6 +133,54 @@ describe('ApCausalComponent', () => {
   });
   
   
+  
+
+
+  // function syModuleData
+  it('should call tgPermitData if infoSelect response is valid', () => {
+    spyOn(component, 'tgPermitData');
+    const mockResponse = { /* datos simulados de respuesta */ };
+    spyOn(serviceApi, 'infoSelect').and.returnValue(of(mockResponse));
+  
+    // Simular que getDataError devuelve true para que se llame a tgPermitData
+    spyOn(component, 'getDataError').and.returnValue(true);
+  
+    // Simular que syModuleData se llama con una respuesta válida
+    component.syModuleData({ data: [{ tg_role: 1 }] });
+  
+    expect(serviceApi.infoSelect).toHaveBeenCalled();
+    expect(component.tgPermitData).toHaveBeenCalledWith(mockResponse);
+  });
+  
+  // function syModuleData
+  it('should handle error and open modalSystem on infoSelect error', () => {
+    spyOn(component, 'modalSystemJson');
+    const mockError = 'Error de prueba';
+    spyOn(serviceApi, 'infoSelect').and.returnValue(throwError(mockError));
+  
+    // Simular que syModuleData se llama con un error en infoSelect
+    component.syModuleData({ data: [{ tg_role: 1 }] });
+  
+    expect(serviceApi.infoSelect).toHaveBeenCalled();
+    expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
+  });
+
+  // function syModuleData
+  it('should set tgRoleId to tg_role if data is not null', () => {
+    const mockResponse = { data: [{ tg_role: 123 }] };
+    component.syModuleData(mockResponse);
+    
+    expect(component.tgRoleId).toBe(123);
+  });
+  
+  // function syModuleData
+  it('should set tgRoleId to this.tgRoleId if data is null', () => {
+    const mockResponse = { data: [] };
+    component.tgRoleId = 456; // Set initial value
+    component.syModuleData(mockResponse);
+    
+    expect(component.tgRoleId).toBe(456);
+  });
   
   
 });
