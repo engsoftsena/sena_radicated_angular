@@ -1219,4 +1219,8 @@ export class ApCausalComponent implements OnInit {
     sessionStorage.clear();
     window.location.reload();
   }
+
+  public getServiceEndpoint(): EndpointService {
+    return this.serviceEndpoint;
+  }
 }
