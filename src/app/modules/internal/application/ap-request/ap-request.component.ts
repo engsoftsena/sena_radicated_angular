@@ -261,14 +261,14 @@ export class ApRequestComponent implements OnInit {
     });
   }
 
-  getRegister(data: any) {
+  getRegister(fieldDeleted: string) {
     const params = {
       table: this.tableComponent,
       column: '*',
-      whereCond: data['whereCond'],
-      whereField: data['whereField'],
-      whereOperator: data['whereOperator'],
-      whereEqual: data['whereEqual'],
+      whereCond: 'WHERE',
+      whereField: this.tableSysEliminate,
+      whereOperator: '=',
+      whereEqual: fieldDeleted,
     };
     this.serviceApi.proccessRegister(params).subscribe({
       next: (response: any) => {
@@ -276,13 +276,15 @@ export class ApRequestComponent implements OnInit {
         // Mapea los datos del servicio al formato esperado
         this.responseData = response.data;
         console.log(this.responseData);
+        const buttonsData = this.serviceButton.buttonDataExport();
         // Construir tabla con datos y botones
         this.serviceTable.getTable(
           'tbInfo',
           this.responseData,
           this.columnSet,
-          []
+          buttonsData
         );
+        this.isLoading = false;
       },
       error: (err: any) => {
         let message = 'Ocurrió un error en la solicitud';

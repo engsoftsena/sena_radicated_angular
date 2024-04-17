@@ -46,7 +46,6 @@ describe('ApCausalComponent', () => {
     serviceButton = TestBed.inject(ButtonService);
     // Obtener function usando el nuevo método público
     serviceEndpoint = TestBed.inject(EndpointService);
-    //serviceEndpoint = component.getServiceEndpoint();
     serviceTable = TestBed.inject(TableService);
     fixture.detectChanges();
   });
@@ -328,12 +327,7 @@ describe('ApCausalComponent', () => {
     expect(component.selectHtmlModal).toHaveBeenCalled();
   });
   
-  
-  
-  
-  
-  
-  
+
 
 
 
@@ -372,27 +366,19 @@ describe('ApCausalComponent', () => {
     const mockResponse = {
       data: [
         {
-          lbl_tg_permit_id_register: '589',
-          lbl_sy_module_os_name: 'Eliminados',
-          lbl_tg_action_os_name: 'Consultar',
-          lbl_tg_authorization_os_state: 'Denegado',
-          lbl_tg_role_os_name: 'Analistas',
+          "lbl_ap_causal_id_register": "1",
+          "lbl_ap_causal_os_name": "Comodidades"
         },
         {
-          lbl_tg_permit_id_register: '590',
-          lbl_sy_module_os_name: 'Eliminados',
-          lbl_tg_action_os_name: 'Registrar',
-          lbl_tg_authorization_os_state: 'Denegado',
-          lbl_tg_role_os_name: 'Analistas',
-        },
+          "lbl_ap_causal_id_register": "2",
+          "lbl_ap_causal_os_name": "Promesas de Servicios"
+        }
       ]
     };
   
     spyOn(serviceApi, 'innerAlias').and.returnValue(of(mockResponse));
     spyOn(serviceButton, 'buttonDataExport').and.returnValue([]);
     spyOn(serviceTable, 'getTable');
-  
-    // Llamar a resultData con un fieldDeleted simulado
     component.resultData('fieldDeleted');
   
     expect(serviceApi.innerAlias).toHaveBeenCalled();
@@ -406,6 +392,54 @@ describe('ApCausalComponent', () => {
       []
     );
     expect(component.isLoading).toBe(false);
+  });
+
+
+
+
+
+  // function: getRegister
+  it('should set responseData and call serviceTable.getTable if proccessRegister response is valid', () => {
+    const mockResponse = {
+      data: [
+        {
+          "lbl_ap_causal_id_register": "1",
+          "lbl_ap_causal_os_name": "Comodidades"
+        },
+        {
+          "lbl_ap_causal_id_register": "2",
+          "lbl_ap_causal_os_name": "Promesas de Servicios"
+        }
+      ]
+    };
+  
+    spyOn(serviceApi, 'proccessRegister').and.returnValue(of(mockResponse));
+    spyOn(serviceButton, 'buttonDataExport').and.returnValue([]);
+    spyOn(serviceTable, 'getTable');
+    component.getRegister('fieldDeleted');
+  
+    expect(serviceApi.proccessRegister).toHaveBeenCalled();
+    expect(component.responseData).toEqual(jasmine.objectContaining(mockResponse.data));
+
+    expect(serviceButton.buttonDataExport).toHaveBeenCalled();
+    expect(serviceTable.getTable).toHaveBeenCalledWith(
+      'tbInfo',
+      mockResponse.data,
+      component.columnSet,
+      []
+    );
+    expect(component.isLoading).toBe(false);
+  });
+
+  // function: getRegister
+  it('should call modalSystemJson with error message if proccessRegister response is an error', () => {
+    const mockError = 'Error en la solicitud';
+    spyOn(serviceApi, 'proccessRegister').and.returnValue(throwError(mockError));
+    spyOn(component, 'modalSystemJson');
+    component.getRegister('fieldDeleted');
+  
+    expect(serviceApi.proccessRegister).toHaveBeenCalled();
+    expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
   });
   
   
