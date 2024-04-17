@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { IntLogoutComponent } from './int-logout.component';
 
@@ -10,7 +11,10 @@ describe('IntLogoutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ IntLogoutComponent ],
-      imports: [ HttpClientModule ],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule,
+      ],
     })
     .compileComponents();
 

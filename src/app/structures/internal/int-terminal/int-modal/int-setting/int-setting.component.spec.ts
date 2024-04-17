@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { IntSettingComponent } from './int-setting.component';
 
@@ -10,7 +11,10 @@ describe('IntSettingComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ IntSettingComponent ],
-      imports: [ HttpClientModule ],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule,
+      ],
     })
     .compileComponents();
 

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { IntTerminalComponent } from './int-terminal.component';
 
@@ -10,7 +11,10 @@ describe('IntTerminalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ IntTerminalComponent ],
-      imports: [ HttpClientModule ],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule,
+      ],
     })
     .compileComponents();
 

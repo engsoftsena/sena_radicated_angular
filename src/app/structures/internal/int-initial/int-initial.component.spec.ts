@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { IntInitialComponent } from './int-initial.component';
 
@@ -10,7 +11,10 @@ describe('IntInitialComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ IntInitialComponent ],
-      imports: [ HttpClientModule ],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule,
+      ],
     })
     .compileComponents();
 

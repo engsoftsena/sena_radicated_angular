@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { SyIconComponent } from './sy-icon.component';
 
@@ -10,7 +11,10 @@ describe('SyIconComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SyIconComponent ],
-      imports: [ HttpClientModule ],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule,
+      ],
     })
     .compileComponents();
 
