@@ -34,17 +34,16 @@ describe('ApCausalComponent', () => {
         ButtonService,
         EndpointService,
         TableService,
-      ]
+      ],
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ApCausalComponent);
     component = fixture.componentInstance;
-    // Inicializar el servicio usando TestBed.inject
+    // Inicializar servicios usando TestBed.inject
     serviceAuth = TestBed.inject(AuthService);
     serviceApi = TestBed.inject(ApiService);
     serviceButton = TestBed.inject(ButtonService);
-    // Obtener function usando el nuevo método público
     serviceEndpoint = TestBed.inject(EndpointService);
     serviceTable = TestBed.inject(TableService);
     fixture.detectChanges();
@@ -53,6 +52,10 @@ describe('ApCausalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+
+  
 
   // function: ngOnInit
   it('should set baseUrl and urlCurr on ngOnInit', () => {
