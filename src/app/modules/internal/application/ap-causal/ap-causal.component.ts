@@ -306,6 +306,7 @@ export class ApCausalComponent implements OnInit {
     this.serviceApi.innerLabel(params).subscribe({
       next: (response: any) => {
         console.log(response);
+        console.log(JSON.stringify(response));
         this.columnSet = response;
         this.changeResult(osRegsiter);
       },

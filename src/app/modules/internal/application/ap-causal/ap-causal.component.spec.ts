@@ -55,7 +55,7 @@ describe('ApCausalComponent', () => {
 
 
 
-  
+
 
   // function: ngOnInit
   it('should set baseUrl and urlCurr on ngOnInit', () => {
@@ -119,7 +119,8 @@ describe('ApCausalComponent', () => {
   // function: tgRoleData
   it('should call syModuleData if response is valid', () => {
     spyOn(component, 'syModuleData');
-    const mockResponse = { /* datos simulados de respuesta */ };
+    // datos simulados de respuesta
+    const mockResponse = {};
     spyOn(serviceAuth, 'getAuthJwt').and.returnValue(of(mockResponse));
   
     // Simular que getDataError devuelve true para que se llame a syModuleData
@@ -150,7 +151,8 @@ describe('ApCausalComponent', () => {
   // function syModuleData
   it('should call tgPermitData if infoSelect response is valid', () => {
     spyOn(component, 'tgPermitData');
-    const mockResponse = { /* datos simulados de respuesta */ };
+    // datos simulados de respuesta
+    const mockResponse = {};
     spyOn(serviceApi, 'infoSelect').and.returnValue(of(mockResponse));
   
     // Simular que getDataError devuelve true para que se llame a tgPermitData
@@ -200,7 +202,8 @@ describe('ApCausalComponent', () => {
   // function: tgPermitData
   it('should call tgPermitMap if innerAlias response is valid', () => {
     spyOn(component, 'tgPermitMap');
-    const mockResponse = { /* datos simulados de respuesta */ };
+    // datos simulados de respuesta
+    const mockResponse = {};
     spyOn(serviceApi, 'innerAlias').and.returnValue(of(mockResponse));
   
     // Simular que getDataError devuelve true para que se llame a tgPermitMap
@@ -446,4 +449,72 @@ describe('ApCausalComponent', () => {
   });
   
   
+
+
+
+  // function: changeColumn
+  it('should set columnSet and call changeResult if innerLabel response is valid', () => {
+    const mockResponse = [
+      {
+        "title": "Registro",
+        "id": "lbl_sy_change_id_register",
+        "data": "lbl_sy_change_id_register",
+        "type": "text",
+        "className": "text-dark",
+        "visible": true
+      },
+      {
+        "title": "Fecha",
+        "id": "lbl_sy_change_os_date",
+        "data": "lbl_sy_change_os_date",
+        "type": "text",
+        "className": "text-dark",
+        "visible": true
+      },
+      {
+        "title": "Hora",
+        "id": "lbl_sy_change_os_hour",
+        "data": "lbl_sy_change_os_hour",
+        "type": "text",
+        "className": "text-dark",
+        "visible": true
+      },
+      {
+        "title": "Cambio",
+        "id": "lbl_sy_change_os_shift",
+        "data": "lbl_sy_change_os_shift",
+        "type": "text",
+        "className": "text-dark",
+        "visible": true
+      },
+      {
+        "title": "Nombre",
+        "id": "lbl_sy_module_os_name",
+        "data": "lbl_sy_module_os_name",
+        "type": "text",
+        "className": "text-dark",
+        "visible": true
+      }
+    ];
+    spyOn(serviceApi, 'innerLabel').and.returnValue(of(mockResponse));
+  
+    component.changeColumn('1');
+  
+    expect(serviceApi.innerLabel).toHaveBeenCalled();
+    expect(component.columnSet).toEqual(jasmine.objectContaining(mockResponse));
+    // Aquí asumo que changeResult es otra función de tu componente que deberías espiar o verificar su comportamiento
+  });
+  
+  // function: changeColumn
+  it('should call modalSystemJson with error message if innerLabel response is an error', () => {
+    const mockError = 'Error en la solicitud';
+    const osRegister = 'someOsRegisterValue';
+    spyOn(serviceApi, 'innerLabel').and.returnValue(throwError(mockError));
+    spyOn(component, 'modalSystemJson');
+
+    component.changeColumn(osRegister);
+
+    expect(serviceApi.innerLabel).toHaveBeenCalled();
+    expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
+  });
 });
