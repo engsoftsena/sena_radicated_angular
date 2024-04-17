@@ -8,14 +8,18 @@ import { of, throwError } from 'rxjs';
 
 import { AuthService } from 'src/app/services/functions/auth/auth.service';
 import { ApiService } from 'src/app/services/functions/api/api.service';
+import { ButtonService } from 'src/app/services/functions/button/button.service';
 import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
+import { TableService } from 'src/app/services/functions/table/table.service';
 
 describe('ApCausalComponent', () => {
   let component: ApCausalComponent;
   let fixture: ComponentFixture<ApCausalComponent>;
   let serviceAuth: AuthService;
   let serviceApi: ApiService;
+  let serviceButton: ButtonService;
   let serviceEndpoint: EndpointService;
+  let serviceTable: TableService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -27,7 +31,9 @@ describe('ApCausalComponent', () => {
       providers: [
         AuthService,
         ApiService,
+        ButtonService,
         EndpointService,
+        TableService,
       ]
     })
     .compileComponents();
@@ -37,8 +43,10 @@ describe('ApCausalComponent', () => {
     // Inicializar el servicio usando TestBed.inject
     serviceAuth = TestBed.inject(AuthService);
     serviceApi = TestBed.inject(ApiService);
+    serviceButton = TestBed.inject(ButtonService);
     // Obtener function usando el nuevo método público
     serviceEndpoint = component.getServiceEndpoint();
+    serviceTable = TestBed.inject(TableService);
     fixture.detectChanges();
   });
 
@@ -277,5 +285,51 @@ describe('ApCausalComponent', () => {
     expect(serviceApi.innerLabel).toHaveBeenCalled();
     expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
   });
+
+
+
+
+
+  // resultData
+  it('should set responseData and call serviceTable.getTable if innerAlias response is valid', () => {
+    const mockResponse = {
+      data: [
+        {
+          lbl_tg_permit_id_register: '589',
+          lbl_sy_module_os_name: 'Eliminados',
+          lbl_tg_action_os_name: 'Consultar',
+          lbl_tg_authorization_os_state: 'Denegado',
+          lbl_tg_role_os_name: 'Analistas',
+        },
+        {
+          lbl_tg_permit_id_register: '590',
+          lbl_sy_module_os_name: 'Eliminados',
+          lbl_tg_action_os_name: 'Registrar',
+          lbl_tg_authorization_os_state: 'Denegado',
+          lbl_tg_role_os_name: 'Analistas',
+        },
+      ]
+    };
+  
+    spyOn(serviceApi, 'innerAlias').and.returnValue(of(mockResponse));
+    spyOn(serviceButton, 'buttonDataExport').and.returnValue([]);
+    spyOn(serviceTable, 'getTable');
+  
+    // Llamar a resultData con un fieldDeleted simulado
+    component.resultData('fieldDeleted');
+  
+    expect(serviceApi.innerAlias).toHaveBeenCalled();
+    expect(component.responseData).toEqual(jasmine.objectContaining(mockResponse.data));
+
+    expect(serviceButton.buttonDataExport).toHaveBeenCalled();
+    expect(serviceTable.getTable).toHaveBeenCalledWith(
+      'tbInfo',
+      mockResponse.data,
+      component.columnSet,
+      []
+    );
+    expect(component.isLoading).toBe(false);
+  });
+  
   
 });
