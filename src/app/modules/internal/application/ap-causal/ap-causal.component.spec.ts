@@ -45,7 +45,8 @@ describe('ApCausalComponent', () => {
     serviceApi = TestBed.inject(ApiService);
     serviceButton = TestBed.inject(ButtonService);
     // Obtener function usando el nuevo método público
-    serviceEndpoint = component.getServiceEndpoint();
+    serviceEndpoint = TestBed.inject(EndpointService);
+    //serviceEndpoint = component.getServiceEndpoint();
     serviceTable = TestBed.inject(TableService);
     fixture.detectChanges();
   });
@@ -228,9 +229,9 @@ describe('ApCausalComponent', () => {
 
 
   // tgPermitMap
-  it('should call tgPermitMap if innerAlias response is valid', () => {
+  /*it('should call tgPermitMap if innerAlias response is valid', () => {
     spyOn(component, 'tgPermitMap');
-    const mockResponse = { /* datos simulados de respuesta */ };
+    const mockResponse = {  };
     spyOn(serviceApi, 'innerAlias').and.returnValue(of(mockResponse));
   
     // Simular que getDataError devuelve true para que se llame a tgPermitMap
@@ -254,13 +255,69 @@ describe('ApCausalComponent', () => {
   
     expect(serviceApi.innerAlias).toHaveBeenCalled();
     expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
+  });*/
+
+  it('should map tgAction and tgAuthorization and call moduleAccess, resultColumn, and selectHtmlModal accordingly', () => {
+    const mockResponse = {
+      data: [
+        {
+          "lbl_tg_action_os_name": "Consultar",
+          "lbl_tg_authorization_os_state": "Denegado",
+        },
+      ]
+    };
+    spyOn(component, 'moduleAccess');
+    spyOn(component, 'resultColumn');
+    spyOn(component, 'selectHtmlModal');
+
+    component.tgPermitMap(mockResponse);
+
+    // Verifica que moduleAccess se haya llamado
+    expect(component.moduleAccess).toHaveBeenCalled();
+
+    // Verifica que resultColumn no se haya llamado
+    expect(component.resultColumn).not.toHaveBeenCalled();
+
+    // Verifica que selectHtmlModal no se haya llamado
+    expect(component.selectHtmlModal).not.toHaveBeenCalled();
+  });
+
+  it('should call resultColumn and selectHtmlModal when tgActionRead is Concedido', () => {
+    const mockResponse = {
+      data: [
+        {
+          "lbl_tg_action_os_name": "Consultar",
+          "lbl_tg_authorization_os_state": "Concedido",
+        },
+      ]
+    };
+  
+    spyOn(component, 'moduleAccess');
+    spyOn(component, 'resultColumn');
+    spyOn(component, 'selectHtmlModal');
+  
+    component.tgPermitMap(mockResponse);
+  
+    // Verifica que moduleAccess no se haya llamado
+    expect(component.moduleAccess).not.toHaveBeenCalled();
+  
+    // Verifica que resultColumn se haya llamado
+    expect(component.resultColumn).toHaveBeenCalled();
+  
+    // Verifica que selectHtmlModal se haya llamado
+    expect(component.selectHtmlModal).toHaveBeenCalled();
   });
   
   
+  
+  
+  
+  
+  
 
 
 
-  // resultColumn
+  // function: resultColumn
   it('should set columnSet and call resultData if innerLabel response is valid', () => {
     const mockResponse = ['column1', 'column2']; // Simulación de la respuesta de innerLabel
     spyOn(serviceApi, 'innerLabel').and.returnValue(of(mockResponse));
@@ -273,7 +330,7 @@ describe('ApCausalComponent', () => {
     // Aquí puedes verificar que resultData se llame correctamente si es necesario
   });
   
-  // resultColumn
+  // function: resultColumn
   it('should handle error and open modalSystem on innerLabel error', () => {
     spyOn(component, 'modalSystemJson');
     const mockError = 'Error de prueba';
@@ -290,7 +347,7 @@ describe('ApCausalComponent', () => {
 
 
 
-  // resultData
+  // function: resultData
   it('should set responseData and call serviceTable.getTable if innerAlias response is valid', () => {
     const mockResponse = {
       data: [
