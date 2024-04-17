@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { SyEliminateService } from './sy-eliminate.service';
 
@@ -8,7 +9,10 @@ describe('SyEliminateService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule,
+      ],
     });
     service = TestBed.inject(SyEliminateService);
   });

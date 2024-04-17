@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ExternalService } from './external.service';
 import { EndpointService } from '../endpoint/endpoint.service';
@@ -17,13 +17,15 @@ describe('ExternalService', () => {
   let serviceEndpoint: EndpointService;
 
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
-  //let httpMock: HttpTestingController;
   let router: Router;
 
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule, HttpClientTestingModule],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule,
+      ],
       providers: [ExternalService, EndpointService]
     });
     service = TestBed.inject(ExternalService);

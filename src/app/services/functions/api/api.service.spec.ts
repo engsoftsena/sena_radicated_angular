@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ApiService } from './api.service';
 import { EndpointService } from '../endpoint/endpoint.service';
@@ -11,7 +12,10 @@ describe('ApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [
+        HttpClientModule,
+        HttpClientTestingModule,
+      ],
     });
     service = TestBed.inject(ApiService);
   });
