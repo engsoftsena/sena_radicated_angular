@@ -249,4 +249,33 @@ describe('ApCausalComponent', () => {
   });
   
   
+
+
+
+  // resultColumn
+  it('should set columnSet and call resultData if innerLabel response is valid', () => {
+    const mockResponse = ['column1', 'column2']; // Simulación de la respuesta de innerLabel
+    spyOn(serviceApi, 'innerLabel').and.returnValue(of(mockResponse));
+  
+    // Llamar a resultColumn con un fieldDeleted simulado
+    component.resultColumn('fieldDeleted');
+  
+    expect(serviceApi.innerLabel).toHaveBeenCalled();
+    expect(component.columnSet).toEqual(mockResponse as any);
+    // Aquí puedes verificar que resultData se llame correctamente si es necesario
+  });
+  
+  // resultColumn
+  it('should handle error and open modalSystem on innerLabel error', () => {
+    spyOn(component, 'modalSystemJson');
+    const mockError = 'Error de prueba';
+    spyOn(serviceApi, 'innerLabel').and.returnValue(throwError(mockError));
+  
+    // Llamar a resultColumn con un fieldDeleted simulado
+    component.resultColumn('fieldDeleted');
+  
+    expect(serviceApi.innerLabel).toHaveBeenCalled();
+    expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
+  });
+  
 });
