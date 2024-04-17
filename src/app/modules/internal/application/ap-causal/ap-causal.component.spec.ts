@@ -228,35 +228,7 @@ describe('ApCausalComponent', () => {
 
 
 
-  // tgPermitMap
-  /*it('should call tgPermitMap if innerAlias response is valid', () => {
-    spyOn(component, 'tgPermitMap');
-    const mockResponse = {  };
-    spyOn(serviceApi, 'innerAlias').and.returnValue(of(mockResponse));
-  
-    // Simular que getDataError devuelve true para que se llame a tgPermitMap
-    spyOn(component, 'getDataError').and.returnValue(true);
-  
-    // Simular que tgPermitData se llama con una respuesta válida
-    component.tgPermitData({ data: [{ id_register: 1, os_name: 'Module Name', os_table: 'Module Table' }] });
-  
-    expect(serviceApi.innerAlias).toHaveBeenCalled();
-    expect(component.tgPermitMap).toHaveBeenCalledWith(mockResponse);
-  });
-  
-  // tgPermitMap
-  it('should handle error and open modalSystem on innerAlias error', () => {
-    spyOn(component, 'modalSystemJson');
-    const mockError = 'Error de prueba';
-    spyOn(serviceApi, 'innerAlias').and.returnValue(throwError(mockError));
-  
-    // Simular que tgPermitData se llama con un error en innerAlias
-    component.tgPermitData({ data: [{ id_register: 1, os_name: 'Module Name', os_table: 'Module Table' }] });
-  
-    expect(serviceApi.innerAlias).toHaveBeenCalled();
-    expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
-  });*/
-
+  // function: tgPermitMap
   it('should map tgAction and tgAuthorization and call moduleAccess, resultColumn, and selectHtmlModal accordingly', () => {
     const mockResponse = {
       data: [
@@ -264,24 +236,49 @@ describe('ApCausalComponent', () => {
           "lbl_tg_action_os_name": "Consultar",
           "lbl_tg_authorization_os_state": "Denegado",
         },
+        {
+          "lbl_tg_action_os_name": "Registrar",
+          "lbl_tg_authorization_os_state": "Denegado",
+        },
+        {
+          "lbl_tg_action_os_name": "Actualizar",
+          "lbl_tg_authorization_os_state": "Denegado",
+        },
+        {
+          "lbl_tg_action_os_name": "Remover",
+          "lbl_tg_authorization_os_state": "Denegado",
+        },
+        {
+          "lbl_tg_action_os_name": "Restaurar",
+          "lbl_tg_authorization_os_state": "Denegado",
+        },
+        {
+          "lbl_tg_action_os_name": "Eliminar",
+          "lbl_tg_authorization_os_state": "Denegado",
+        },
+        {
+          "lbl_tg_action_os_name": "Cambios",
+          "lbl_tg_authorization_os_state": "Denegado",
+        },
+        {
+          "lbl_tg_action_os_name": "Detalles",
+          "lbl_tg_authorization_os_state": "Denegado",
+        },
       ]
     };
     spyOn(component, 'moduleAccess');
     spyOn(component, 'resultColumn');
     spyOn(component, 'selectHtmlModal');
-
     component.tgPermitMap(mockResponse);
-
     // Verifica que moduleAccess se haya llamado
     expect(component.moduleAccess).toHaveBeenCalled();
-
     // Verifica que resultColumn no se haya llamado
     expect(component.resultColumn).not.toHaveBeenCalled();
-
     // Verifica que selectHtmlModal no se haya llamado
     expect(component.selectHtmlModal).not.toHaveBeenCalled();
   });
 
+  // function: tgPermitMap
   it('should call resultColumn and selectHtmlModal when tgActionRead is Concedido', () => {
     const mockResponse = {
       data: [
@@ -289,21 +286,44 @@ describe('ApCausalComponent', () => {
           "lbl_tg_action_os_name": "Consultar",
           "lbl_tg_authorization_os_state": "Concedido",
         },
+        {
+          "lbl_tg_action_os_name": "Registrar",
+          "lbl_tg_authorization_os_state": "Concedido",
+        },
+        {
+          "lbl_tg_action_os_name": "Actualizar",
+          "lbl_tg_authorization_os_state": "Concedido",
+        },
+        {
+          "lbl_tg_action_os_name": "Remover",
+          "lbl_tg_authorization_os_state": "Concedido",
+        },
+        {
+          "lbl_tg_action_os_name": "Restaurar",
+          "lbl_tg_authorization_os_state": "Concedido",
+        },
+        {
+          "lbl_tg_action_os_name": "Eliminar",
+          "lbl_tg_authorization_os_state": "Concedido",
+        },
+        {
+          "lbl_tg_action_os_name": "Cambios",
+          "lbl_tg_authorization_os_state": "Concedido",
+        },
+        {
+          "lbl_tg_action_os_name": "Detalles",
+          "lbl_tg_authorization_os_state": "Concedido",
+        },
       ]
     };
-  
     spyOn(component, 'moduleAccess');
     spyOn(component, 'resultColumn');
-    spyOn(component, 'selectHtmlModal');
-  
+    spyOn(component, 'selectHtmlModal');  
     component.tgPermitMap(mockResponse);
-  
     // Verifica que moduleAccess no se haya llamado
     expect(component.moduleAccess).not.toHaveBeenCalled();
-  
     // Verifica que resultColumn se haya llamado
     expect(component.resultColumn).toHaveBeenCalled();
-  
     // Verifica que selectHtmlModal se haya llamado
     expect(component.selectHtmlModal).toHaveBeenCalled();
   });
