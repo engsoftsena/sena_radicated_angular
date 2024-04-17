@@ -214,5 +214,39 @@ describe('ApCausalComponent', () => {
     expect(serviceApi.innerAlias).toHaveBeenCalled();
     expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
   });
+
+
+
+
+
+  // tgPermitMap
+  it('should call tgPermitMap if innerAlias response is valid', () => {
+    spyOn(component, 'tgPermitMap');
+    const mockResponse = { /* datos simulados de respuesta */ };
+    spyOn(serviceApi, 'innerAlias').and.returnValue(of(mockResponse));
+  
+    // Simular que getDataError devuelve true para que se llame a tgPermitMap
+    spyOn(component, 'getDataError').and.returnValue(true);
+  
+    // Simular que tgPermitData se llama con una respuesta válida
+    component.tgPermitData({ data: [{ id_register: 1, os_name: 'Module Name', os_table: 'Module Table' }] });
+  
+    expect(serviceApi.innerAlias).toHaveBeenCalled();
+    expect(component.tgPermitMap).toHaveBeenCalledWith(mockResponse);
+  });
+  
+  // tgPermitMap
+  it('should handle error and open modalSystem on innerAlias error', () => {
+    spyOn(component, 'modalSystemJson');
+    const mockError = 'Error de prueba';
+    spyOn(serviceApi, 'innerAlias').and.returnValue(throwError(mockError));
+  
+    // Simular que tgPermitData se llama con un error en innerAlias
+    component.tgPermitData({ data: [{ id_register: 1, os_name: 'Module Name', os_table: 'Module Table' }] });
+  
+    expect(serviceApi.innerAlias).toHaveBeenCalled();
+    expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
+  });
+  
   
 });
