@@ -4,12 +4,15 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ApCausalComponent } from './ap-causal.component';
 
-import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
 import { of, throwError } from 'rxjs';
+
+import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.service';
+import { AuthService } from 'src/app/services/functions/auth/auth.service';
 
 describe('ApCausalComponent', () => {
   let component: ApCausalComponent;
   let fixture: ComponentFixture<ApCausalComponent>;
+  let serviceAuth: AuthService;
   let serviceEndpoint: EndpointService;
 
   beforeEach(async () => {
@@ -21,12 +24,15 @@ describe('ApCausalComponent', () => {
       ],
       providers: [
         EndpointService,
+        AuthService,
       ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ApCausalComponent);
     component = fixture.componentInstance;
+    // Inicializar el servicio usando TestBed.inject
+    serviceAuth = TestBed.inject(AuthService);
     // Obtener function usando el nuevo método público
     serviceEndpoint = component.getServiceEndpoint();
     fixture.detectChanges();
@@ -86,4 +92,35 @@ describe('ApCausalComponent', () => {
     expect(component.modalOpen).toHaveBeenCalledWith('modalSystem');
     //expect(component.modalSystemJson).toBe(message);
   });
+
+  // function: tgRoleData
+  it('should call syModuleData if response is valid', () => {
+    spyOn(component, 'syModuleData');
+    const mockResponse = { /* datos simulados de respuesta */ };
+    spyOn(serviceAuth, 'getAuthJwt').and.returnValue(of(mockResponse));
+  
+    // Simular que getDataError devuelve true para que se llame a syModuleData
+    spyOn(component, 'getDataError').and.returnValue(true);
+    
+    component.tgRoleData();
+    
+    expect(serviceAuth.getAuthJwt).toHaveBeenCalled();
+    expect(component.syModuleData).toHaveBeenCalledWith(mockResponse);
+  });
+  
+  // function: tgRoleData
+  it('should handle error and open modalSystem on checkAvailability', () => {
+    spyOn(component, 'modalSystemJson');
+    const mockError = 'Error de prueba';
+    spyOn(serviceAuth, 'getAuthJwt').and.returnValue(throwError(mockError));
+    
+    component.tgRoleData();
+    
+    expect(serviceAuth.getAuthJwt).toHaveBeenCalled();
+    expect(component.modalSystemJson).toHaveBeenCalledWith('Ocurrió un error en la solicitud', mockError);
+  });
+  
+  
+  
+  
 });
