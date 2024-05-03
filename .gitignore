@@ -44,6 +44,6 @@ Thumbs.db
 # Sonar Qube
 .scannerwork
 
-/environments/environment.dev.ts
-/environments/environment.prd.ts
-/environments/environment.ts
+/src/environments/environment.dev.ts
+/src/environments/environment.prd.ts
+/src/environments/environment.ts
