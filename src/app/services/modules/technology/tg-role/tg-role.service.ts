@@ -11,8 +11,6 @@ import { EndpointService } from 'src/app/services/functions/endpoint/endpoint.se
   providedIn: 'root'
 })
 export class TgRoleService {
-  private urlEndPoint:string = Environment.API_URL;
-
   constructor(
     private http: HttpClient,
     private serviceApi: ApiService,

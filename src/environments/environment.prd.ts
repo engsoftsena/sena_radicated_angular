@@ -1,4 +1,7 @@
 export const Environment = {
   production: true,
-  API_URL: 'https://psx.adisonjimenez.work/sena_project_slim/',
+  backend_app: '',
+  backend_net: '',
+  backend_test: 'https://psx.adisonjimenez.work/sena_pqrs_slim/',
+  backend_work: '',
 };

@@ -11,7 +11,7 @@ import { InterfaceParams } from 'src/app/interfaces/general/params.interface';
   providedIn: 'root'
 })
 export class EndpointService {
-  private urlEndPoint:string = Environment.API_URL;
+  private urlEndPoint: string = Environment.backend_test;
 
   constructor(
     private http: HttpClient
