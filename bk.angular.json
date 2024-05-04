@@ -37,7 +37,6 @@
           },
           "configurations": {
             "production": {
-              "outputPath": "dist/sena_project_angular_prod",
               "budgets": [
                 {
                   "type": "initial",
@@ -59,7 +58,6 @@
               ]
             },
             "development": {
-              "outputPath": "dist/sena_project_angular_dev",
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
