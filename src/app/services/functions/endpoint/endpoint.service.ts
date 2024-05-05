@@ -64,13 +64,13 @@ export class EndpointService {
   }
 
   getCurrentExt(): string {
-    const pathSegments = window.location.pathname.split('/');
-    console.log('pathSegments', pathSegments);
-    const lastSegment = pathSegments[pathSegments.length - 1];
-    console.log('lastSegment', lastSegment);
-    const parts = lastSegment.split('.');
+    const { hostname } = window.location;
+    console.log('hostname', hostname);
+    const parts = hostname.split('.');
     console.log('parts', parts);
-    if (parts.length > 1) { return parts[parts.length - 1]; }
+    if (parts.length > 1) {
+      return parts[parts.length - 1];
+    }
     return '';
   }
 }
