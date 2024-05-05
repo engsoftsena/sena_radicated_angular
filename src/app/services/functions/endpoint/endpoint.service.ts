@@ -75,11 +75,11 @@ export class EndpointService {
 
   getCurrentExt(): string {
     const { hostname } = window.location;
-    console.log('hostname', hostname);
     const parts = hostname.split('.');
-    console.log('parts', parts);
     if (parts.length > 1) {
-      return parts[parts.length - 1];
+      return parts[
+        parts.length - 1
+      ];
     }
     return '';
   }
