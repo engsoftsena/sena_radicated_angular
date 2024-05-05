@@ -41,14 +41,12 @@ export class EndpointService {
 
   getEndpoint() {
     const extCurrent = this.getCurrentExt() as 'app' | 'net' | 'work' | '';
-    console.log('extCurrent:', extCurrent);
     const endpointMapping = {
       'app': this.appEndPoint,
       'net': this.netEndPoint,
       'work': this.workEndPoint,
       '': this.testEndPoint
     };
-    console.log('ext', endpointMapping[extCurrent]);
     return endpointMapping[extCurrent] || '';
   }
 
@@ -70,16 +68,12 @@ export class EndpointService {
 
   getCurrentUrl(): string {
     const { protocol, host } = window.location;
-    console.log(`${protocol}//${host}`);
     return `${protocol}//${host}`;
   }
 
   getCurrentExt(): string {
     const { hostname } = window.location;
-    console.log('hostname', hostname);
     const parts = hostname.split('.');
-    console.log('parts', parts);
-    console.log('parts', parts.length);
     if (parts.length > 1) {
       // Verificar si la primera parte es un número (indicativo de una IP)
       if (!isNaN(parseInt(parts[0]))) { return ''; }
