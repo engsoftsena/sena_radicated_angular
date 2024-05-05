@@ -11,7 +11,10 @@ import { InterfaceParams } from 'src/app/interfaces/general/params.interface';
   providedIn: 'root'
 })
 export class EndpointService {
+  private appEndPoint: string = Environment.backend_app;
+  private netEndPoint: string = Environment.backend_net;
   private urlEndPoint: string = Environment.backend_test;
+  private workEndPoint: string = Environment.backend_work;
 
   constructor(
     private http: HttpClient
@@ -62,11 +65,12 @@ export class EndpointService {
 
   getCurrentExt(): string {
     const pathSegments = window.location.pathname.split('/');
+    console.log('pathSegments', pathSegments);
     const lastSegment = pathSegments[pathSegments.length - 1];
+    console.log('lastSegment', lastSegment);
     const parts = lastSegment.split('.');
-    if (parts.length > 1) {
-        return parts[parts.length - 1];
-    }
+    console.log('parts', parts);
+    if (parts.length > 1) { return parts[parts.length - 1]; }
     return '';
   }
 }
