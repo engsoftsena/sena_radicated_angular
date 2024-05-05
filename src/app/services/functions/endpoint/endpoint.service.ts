@@ -24,6 +24,8 @@ export class EndpointService {
   }
 
   public buildApiUrl(endpoint: string, params: Record<string, any>): string {
+    let urlCurrent = this.getCurrentUrl();
+    console.log(`urlCurrent: ${urlCurrent}`);
     const queryParams = new URLSearchParams(params).toString();
     const formatParams = `${queryParams ? '?' + queryParams : ''}`;
     return `${this.urlEndPoint}${endpoint}${formatParams}`;
