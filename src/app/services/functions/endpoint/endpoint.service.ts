@@ -13,7 +13,7 @@ import { InterfaceParams } from 'src/app/interfaces/general/params.interface';
 export class EndpointService {
   private appEndPoint: string = Environment.backend_app;
   private netEndPoint: string = Environment.backend_net;
-  private urlEndPoint: string = Environment.backend_test;
+  private testEndPoint: string = Environment.backend_test;
   private workEndPoint: string = Environment.backend_work;
 
   constructor(
@@ -23,15 +23,13 @@ export class EndpointService {
   private testUrl(): boolean {
     // Expresión regular para validar una URL
     const urlPattern = /^https?:\/\/\w+\.\w+/;
-    return urlPattern.test(this.urlEndPoint);
+    return urlPattern.test(this.getEndpoint());
   }
 
   public buildApiUrl(endpoint: string, params: Record<string, any>): string {
-    let extCurrent = this.getCurrentExt();
-    console.log('extCurrent:', extCurrent);
     const queryParams = new URLSearchParams(params).toString();
     const formatParams = `${queryParams ? '?' + queryParams : ''}`;
-    return `${this.urlEndPoint}${endpoint}${formatParams}`;
+    return `${this.getEndpoint()}${endpoint}${formatParams}`;
   }
 
   public processParams(params: InterfaceParams) {
@@ -41,10 +39,22 @@ export class EndpointService {
     return query;
   }
 
+  getEndpoint() {
+    const extCurrent = this.getCurrentExt() as 'app' | 'net' | 'work' | '';
+    console.log('extCurrent:', extCurrent);
+    const endpointMapping = {
+      'app': this.appEndPoint,
+      'net': this.netEndPoint,
+      'work': this.workEndPoint,
+      '': this.testEndPoint
+    };
+    return endpointMapping[extCurrent] || '';
+  }
+
   getAvailability(): Observable<any> {
     // Realiza una solicitud HTTP GET a la URL
     return this.http.get(
-      this.urlEndPoint,
+      this.getEndpoint(),
       { observe: 'response' }
     ).pipe(
       catchError((error) => {
