@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'sena_project_angular';
+  title = 'sena_pqrs_angular';
   AppCompTitle = 'APP PQRS';
 }
