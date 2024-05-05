@@ -48,6 +48,7 @@ export class EndpointService {
       'work': this.workEndPoint,
       '': this.testEndPoint
     };
+    console.log('ext', endpointMapping[extCurrent]);
     return endpointMapping[extCurrent] || '';
   }
 
