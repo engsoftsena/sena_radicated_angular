@@ -81,9 +81,9 @@ export class EndpointService {
     console.log('parts', parts);
     console.log('parts', parts.length);
     if (parts.length > 1) {
-      return parts[
-        parts.length - 1
-      ];
+      // Verificar si la primera parte es un número (indicativo de una IP)
+      if (!isNaN(parseInt(parts[0]))) { return ''; }
+      return parts[parts.length - 1];
     }
     return '';
   }
