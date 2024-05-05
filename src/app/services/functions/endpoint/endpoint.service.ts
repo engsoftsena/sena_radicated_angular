@@ -24,8 +24,8 @@ export class EndpointService {
   }
 
   public buildApiUrl(endpoint: string, params: Record<string, any>): string {
-    let urlCurrent = this.getCurrentUrl();
-    console.log(`urlCurrent: ${urlCurrent}`);
+    let extCurrent = this.getCurrentExt();
+    console.log(`extCurrent: ${extCurrent}`);
     const queryParams = new URLSearchParams(params).toString();
     const formatParams = `${queryParams ? '?' + queryParams : ''}`;
     return `${this.urlEndPoint}${endpoint}${formatParams}`;
@@ -58,5 +58,15 @@ export class EndpointService {
     const { protocol, host } = window.location;
     console.log(`${protocol}//${host}`);
     return `${protocol}//${host}`;
+  }
+
+  getCurrentExt(): string {
+    const pathSegments = window.location.pathname.split('/');
+    const lastSegment = pathSegments[pathSegments.length - 1];
+    const parts = lastSegment.split('.');
+    if (parts.length > 1) {
+        return parts[parts.length - 1];
+    }
+    return '';
   }
 }
