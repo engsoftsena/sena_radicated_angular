@@ -1,0 +1,27 @@
+# URL del servidor SonarQube
+sonar.host.url=http://127.0.0.1:9000
+
+# Token de autenticación de SonarQube
+sonar.token=
+
+# Información del proyecto
+sonar.projectKey=project
+sonar.projectName=project
+sonar.projectVersion=1.0
+
+# Codificación de archivos fuente
+sonar.sourceEncoding=UTF-8
+
+# Rutas de los archivos fuente y exclusiones
+sonar.sources=src
+sonar.exclusions=**/.scannerwork/**,**/coverage/**,**/node_modules/**,**/*.spec.ts
+
+# Configuración de pruebas
+sonar.tests=src
+sonar.test.inclusions=**/*.spec.ts
+
+# Informe de cobertura
+sonar.typescript.lcov.reportPaths=coverage/project/lcov.info
+
+# Carpeta temporal
+#sonar.working.directory=
