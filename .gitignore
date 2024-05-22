@@ -43,6 +43,7 @@ Thumbs.db
 
 # Sonar Qube
 .scannerwork
+sonar-project.properties
 
 /src/environments/environment.dev.ts
 /src/environments/environment.prd.ts
