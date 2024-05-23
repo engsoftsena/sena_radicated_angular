@@ -4,4 +4,5 @@ export const Environment = {
   backend_net: '',
   backend_test: '',
   backend_work: '',
+  domain_tmpl: '',
 };

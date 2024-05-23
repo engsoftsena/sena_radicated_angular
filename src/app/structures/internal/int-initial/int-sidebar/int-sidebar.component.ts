@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+// Importar Variables de Entorno
+import { Environment } from 'src/environments/environment';
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
 import { AuthService } from 'src/app/services/functions/auth/auth.service';
@@ -25,6 +27,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./int-sidebar.component.scss']
 })
 export class IntSidebarComponent implements OnInit {
+  dmTmpl: string = Environment.domain_tmpl;
   AppCompTitle = 'APP PQRS';
 
   constructor (
@@ -33,7 +36,7 @@ export class IntSidebarComponent implements OnInit {
     private serviceBaseurl: BaseurlService,
     private serviceEndpoint: EndpointService,
   ) {}
-  
+
   baseUrl: string = '';
   urlCurr: string = '';
 

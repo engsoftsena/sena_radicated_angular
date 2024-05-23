@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+// Importar Variables de Entorno
+import { Environment } from 'src/environments/environment';
 // Importacion de Modulos
 // Importacion de Servicios
 import { ApiService } from 'src/app/services/functions/api/api.service';
@@ -32,6 +34,8 @@ import Swal from 'sweetalert2';
 })
 export class ApResourceComponent implements OnInit {
   @ViewChild('tableData') tableData: ElementRef | undefined;
+
+  dmTmpl: string = Environment.domain_tmpl;
 
   constructor (
     private router: Router,
