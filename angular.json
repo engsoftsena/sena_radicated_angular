@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sena_pqrs_angular": {
+    "sena_radicated_angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sena_pqrs_angular",
+            "outputPath": "dist/sena_radicated_angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -37,7 +37,7 @@
           },
           "configurations": {
             "production": {
-              "outputPath": "dist/sena_pqrs_angular_prod",
+              "outputPath": "dist/sena_radicated_angular_prod",
               "budgets": [
                 {
                   "type": "initial",
@@ -59,7 +59,7 @@
               ]
             },
             "development": {
-              "outputPath": "dist/sena_pqrs_angular_dev",
+              "outputPath": "dist/sena_radicated_angular_dev",
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -80,10 +80,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sena_pqrs_angular:build:production"
+              "browserTarget": "sena_radicated_angular:build:production"
             },
             "development": {
-              "browserTarget": "sena_pqrs_angular:build:development"
+              "browserTarget": "sena_radicated_angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -91,7 +91,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sena_pqrs_angular:build"
+            "browserTarget": "sena_radicated_angular:build"
           }
         },
         "test": {

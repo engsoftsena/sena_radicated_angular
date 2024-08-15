@@ -2,7 +2,7 @@
   <div class="page-logo">
     <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal"
       data-target="#modal-shortcut">
-      <img src="{{ urlCurr }}{{ baseUrl }}assets/integration/smart/dist/img/logo.png" alt="{{ AppCompTitle }}" aria-roledescription="logo">
+      <img [attr.src]="dmTmpl + '/img/logo.png'" alt="{{ AppCompTitle }}" aria-roledescription="logo">
       <span class="page-logo-text mr-1">
         {{ AppCompTitle }}
       </span>

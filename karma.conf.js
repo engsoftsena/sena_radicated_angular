@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/sena_pqrs_angular'),
+      dir: require('path').join(__dirname, './coverage/sena_radicated_angular'),
       subdir: '.',
       reporters: [
         { type: 'html' },

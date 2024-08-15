@@ -2,7 +2,7 @@
   <div class="page-logo">
     <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal"
       data-target="#modal-shortcut">
-      <img src="{{ urlCurr }}{{ baseUrl }}assets/integration/smart/dist/img/logo.png" alt="SmartAdmin WebApp"
+      <img [attr.src]="dmTmpl + '/img/logo.png'" alt="SmartAdmin WebApp"
         aria-roledescription="logo">
       <span class="page-logo-text mr-1">
         {{ AppCompTitle }}
@@ -39,7 +39,7 @@
           Rol: Desarrollador
         </span>
       </div>
-      <img src="{{ urlCurr }}{{ baseUrl }}assets/integration/smart/dist/img/card-backgrounds/cover-2-lg.png" class="cover"
+      <img src="{{ dmTmpl }}/img/card-backgrounds/cover-2-lg.png" class="cover"
         alt="cover">
       <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active"
         data-target=".page-sidebar" data-focus="nav_filter_input">

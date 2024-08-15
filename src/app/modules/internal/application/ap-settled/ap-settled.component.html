@@ -466,7 +466,7 @@ enctype="application/x-www-form-urlencoded" id="formInsertData" novalidate="" ro
               <div class="card rounded-0 text-center mb-2">
                 <div class="card-body mx-auto p-1">
                   <div class="toast-header">
-                    <img src="{{ urlCurr }}{{ baseUrl }}assets/integration/smart/dist/img/logo.png"
+                    <img [attr.src]="dmTmpl + '/img/logo.png'"
                     alt="brand-logo" height="16" class="mr-2">
                     <strong class="mr-auto">Titulo Inicial</strong>
                   </div>
@@ -809,7 +809,7 @@ enctype="application/x-www-form-urlencoded" id="formUpdateData" novalidate="" ro
               <div class="card rounded-0 text-center mb-2">
                 <div class="card-body mx-auto p-1">
                   <div class="toast-header">
-                    <img src="{{ urlCurr }}{{ baseUrl }}assets/integration/smart/dist/img/logo.png"
+                    <img [attr.src]="dmTmpl + '/img/logo.png'"
                     alt="brand-logo" height="16" class="mr-2">
                     <strong class="mr-auto">Titulo Inicial</strong>
                   </div>
